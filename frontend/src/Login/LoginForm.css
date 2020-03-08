@@ -116,7 +116,7 @@
     transform: scale(0.95);
   }
   
-  .fadeInText input[type=text] {
+  .fadeInText input[type=text], input[type=password] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;

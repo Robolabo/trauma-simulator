@@ -7,6 +7,7 @@ body, html {
 .container{
     max-width: 100%;
 }
+
 .register{
     background: -webkit-linear-gradient(left, #3931af, #00c6ff);
     padding: 3%;
@@ -100,4 +101,16 @@ body, html {
     margin-top: 8%;
     margin-bottom: -13.7%;
     color: #495057;
+}
+.access{
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    width: 60%;
+    background: #f8f9fa;
+    font-weight: bold;
+    color: #383d41;
+    margin-top: 30%;
+    margin-bottom: 3%;
+    cursor: pointer;
 }
