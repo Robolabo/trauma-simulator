@@ -1,5 +1,12 @@
 .input{
+    display: flex;
     flex:1;
-    flex-direction: 'row';
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.selector{
+    width: 170px;
+    height: 22px;
 }
