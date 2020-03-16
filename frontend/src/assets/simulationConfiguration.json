@@ -1,0 +1,19 @@
+{
+    "data":[
+    {
+        "sex": "male",
+        "age": 40,
+        "weight": 75.0,
+        "partBody": "pelvis",
+        "bloodLoss": 90,
+        "bloodPreasure": 60,
+        "heartRate": 130,
+        "breathingRate": 35,
+        "urineOutput": 10,
+        "saturation": 85,
+        "mentalStatus": "confused",
+        "time": 250
+    }    
+    ]
+    
+}

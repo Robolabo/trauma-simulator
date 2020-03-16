@@ -5,6 +5,7 @@ import Dashboard from './Menu/Dashboard'
 import List from './Users/ListUsers'
 import Edit from './Users/Edit'
 import NewSimulation from './Simulations/NewSimulation'
+import Simulation from './Simulations/Simulation'
 import { BrowserRouter as Router} from "react-router-dom"
 // @ts-ignore
 import {Route} from 'react-router-dom'
@@ -19,6 +20,7 @@ function App() {
       <Route path="/list" component={List}/>
       <Route path="/edit/:trainerId" component={Edit} />
       <Route path="/newSimulation" component={NewSimulation} />
+      <Route path="/simulation/:id" component={Simulation} />
     </Router>
   );
 }

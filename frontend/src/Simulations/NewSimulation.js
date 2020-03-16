@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
-//import { Link } from "react-router-dom"
+import { Button } from 'reactstrap';
+import axios from 'axios';
+import { Link } from "react-router-dom"
 import './NewSimulation.css'
 import Nav from '../Menu/Nav'
 import Slider from 'react-input-slider';
 import Select from 'react-select';
+import configuration from '../assets/simulationConfiguration.json'
+
+const default_config = configuration.data[0];
 
 const optionsMentalStatus = [
     { value: 'anxious', label: 'Anxious' },
@@ -13,11 +18,13 @@ const optionsMentalStatus = [
   ];
 
   const optionsPartBody = [
+    { value: 'pelvis', label: 'Pelvis'},
     { value: 'rightArm', label: 'Right Arm' },
     { value: 'leftArm', label: 'Left Arm' },
     { value: 'rightLeg', label: 'Right Leg' },
     { value: 'leftLeg', label: 'Left Leg'}
   ];
+  let id;
 
 export default class NewSimulation extends Component {
 
@@ -37,7 +44,33 @@ export default class NewSimulation extends Component {
             mentalStatus: "",
             time: 0
         }
-    } 
+    }
+    
+    componentDidMount(){
+
+        if (default_config !== null){
+            
+            this.setState({
+                sex: default_config.sex,
+                age: default_config.age,
+                weight: default_config.weight,
+                partBody: default_config.partBody,
+                bloodLoss: default_config.bloodLoss,
+                bloodPreasure: default_config.bloodPreasure,
+                heartRate: default_config.heartRate,
+                breathingRate: default_config.breathingRate,
+                urineOutput: default_config.urineOutput,
+                saturation: default_config.saturation,
+                mentalStatus: default_config.mentalStatus,
+                time: default_config.time
+            })
+
+        } else {
+
+            alert("No se ha podido cargar el fichero de configuración por defecto")
+        }
+    }
+        
     handleChange = selectedOption => {
         this.setState({ partBody: selectedOption.value });
       };
@@ -172,8 +205,46 @@ export default class NewSimulation extends Component {
                         />
                         <input type="number" value={this.state.time} onChange={(value) => this.setState({time: value.target.value})} />
                     </div>
+
+                    <Link to={"/simulation/"+id}><Button onClick={()=>this.saveParameters()}>Save Configuration</Button></Link>
                 </div>
             </div>
         )
+    }
+
+    saveParameters(){
+
+        const baseUrl = "http://127.0.0.1:3000/simulation/create"
+            
+        const datapost = {
+            sex: this.state.sex,
+            age: this.state.age,
+            weight: this.state.weight,
+            partBody: this.state.partBody,
+            bloodLoss: this.state.bloodLoss,
+            bloodPreasure: this.state.bloodPreasure,
+            heartRate: this.state.heartRate,
+            breathingRate: this.state.breathingRate,
+            urineOutput: this.state.urineOutput,
+            saturation: this.state.saturation,
+            mentalStatus: this.state.mentalStatus,
+            time: this.state.time
+        }
+     
+        axios.post(baseUrl,datapost)
+        .then(response=>{
+            if (response.data.success===true) {
+                alert(response.data.message)
+                id = response.data.data.id
+            }
+            else {
+                alert(response.data.message)
+            }
+        })
+        .catch(error=>{
+            alert("Error 34 "+error)
+        })
+        
+     
     }
 }

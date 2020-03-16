@@ -3,6 +3,7 @@ const app = express();
 
 // importing routes
 const trainerRouters = require('./routes/trainerRoute')
+const simulationRouters = require('./routes/simulationRoute')
 
 //Settings
 app.set('port', process.env.PORT || 3000); //puerto por el que se ejecuta la app
@@ -30,6 +31,7 @@ app.use('/test', (req, res) => {  //(ruta donde se ejecuta, el middleware)
 
 //Route
 app.use('/trainer',trainerRouters)
+app.use('/simulation', simulationRouters)
 
 
 app.listen(app.get('port'),()=>{

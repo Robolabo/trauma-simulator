@@ -23,6 +23,7 @@ class EditComponent extends React.Component {
             selectRole:0
         }
     }
+    
     componentDidMount(){
     let userId = this.props.match.params.trainerId;
     const url = baseUrl+"/trainer/get/"+userId
@@ -48,6 +49,7 @@ class EditComponent extends React.Component {
         alert("Error server "+error)
     })
     }
+
     render(){
     return (
         <div>

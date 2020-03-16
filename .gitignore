@@ -36,3 +36,5 @@ frontend/node_modules/react-transition-group/esm/utils/ChildMapping.js
 frontend/node_modules/react-transition-group/esm/utils/PropTypes.js
 frontend/node_modules/react-transition-group/esm/utils/SimpleSet.js
 frontend/yarn.lock
+frontend/yarn.lock
+frontend/node_modules/.yarn-integrity
