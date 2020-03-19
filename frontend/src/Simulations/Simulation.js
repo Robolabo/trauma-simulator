@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import Nav from '../Menu/Nav'
-
+import Timer from '../Simulations/Components/Timer'
 
 const baseUrl = "http://127.0.0.1:3000"
 
 
-export default class LoginForm extends React.Component {
+
+export default class LoginForm extends Component {
     constructor(props){
       super(props);
       this.state = {
@@ -61,8 +62,8 @@ export default class LoginForm extends React.Component {
         
         <div>
             <Nav></Nav>
+            <Timer time = {this.state.time} />
             <div>
-                {console.log(this.state)}
                 Sex: {this.state.sex}
                 {this.state.id}
                 {this.state.age}
