@@ -25,7 +25,7 @@ export default class RegisterForm extends React.Component {
                     <div className="col-md-3 register-left">
                         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                         <h3>Welcome</h3>
-                        <Link class="access"type="submit" name="" to="/">Login</Link><br/>
+                        <Link className="access"type="submit" name="" to="/">Login</Link><br/>
                     </div>
                     <div className="col-md-9 register-right">
                         <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -62,7 +62,7 @@ export default class RegisterForm extends React.Component {
                                             <input type="text" className="form-control" placeholder="Your Workplace *" value={this.state.campWorkplace} onChange={(value)=> this.setState({campWorkplace:value.target.value})} />
                                         </div>
                                         <div className="form-group">
-                                            <select id="inputState" class="form-control" onChange={(value)=> this.setState({selectRole:value.target.value})}>
+                                            <select id="inputState" className="form-control" onChange={(value)=> this.setState({selectRole:value.target.value})}>
                                                 <option selected>Role</option>
                                                 <option value="1">Admin</option>
                                                 <option value="2">Trainer</option>
@@ -72,7 +72,7 @@ export default class RegisterForm extends React.Component {
                                             </select>
                                         </div>
                                         
-                                        <button type="submit" class="btn btn-primary" onClick={()=>this.sendSave()}>Save</button>
+                                        <button type="submit" className="btn btn-primary" onClick={()=>this.sendSave()}>Save</button>
                                     </div>
                                 </div>
                             </div>
