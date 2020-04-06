@@ -1,5 +1,5 @@
 const controller = {}
-var Trainer = require('../model/Trainer');
+var Trainee = require('../model/Trainee');
 var Role = require('../model/Role');
 var sequelize = require ('../model/database')
 const { QueryTypes } = require('sequelize');
@@ -8,7 +8,7 @@ const { QueryTypes } = require('sequelize');
 controller.testdata = async ( req, res) => {
   
   const response = await sequelize.sync().then(function() {
-     const data =  Trainer.findAll()
+     const data =  Trainee.findAll()
      return data;
   })
   .catch(err => {
@@ -16,10 +16,11 @@ controller.testdata = async ( req, res) => {
   });
   res.json({success: true})
 
-}   
+}  
+
 controller.list = async (req, res) => {
 
-  const data = await Trainer.findAll({
+  const data = await Trainee.findAll({
     include: [ Role ]
   })
   .then(function(data){
@@ -36,7 +37,7 @@ controller.create = async (req,res) => {
   // data
   const { name, surname, password, email, workplace, roleId } = req.body;
   // create
-  const data = await Trainer.create({
+  const data = await Trainee.create({
     name: name,
     surname: surname,
     email: email,
@@ -61,8 +62,8 @@ controller.create = async (req,res) => {
 
 controller.get = async (req,res) => {
   const { id } = req.params;
-  const data = await Trainer.findAll({
-      where: { trainerId: id },
+  const data = await Trainee.findAll({
+      where: { traineeId: id },
       include: [ Role ]
   })
   .then(function(data){
@@ -80,7 +81,7 @@ controller.update = async (req,res) => {
   // parameter POST
   const { name, surname, password, email, workplace, roleId } = req.body;
   // Update data
-  const data = await Trainer.update({
+  const data = await Trainee.update({
     name: name,
     surname: surname,
     email: email,
@@ -89,7 +90,7 @@ controller.update = async (req,res) => {
     roleId: roleId
   },
   {
-    where: { trainerId: id}
+    where: { traineeId: id}
   })
   .then( function(data){
     return data;
@@ -104,8 +105,8 @@ controller.delete = async (req, res) => {
   // parameter post
   const { id } = req.body;
   // delete sequelize
-  const del = await Trainer.destroy({
-    where: { trainerId: id}
+  const del = await Trainee.destroy({
+    where: { traineeId: id}
   })
   res.json({success:true,deleted:del,message:"Deleted successful"});
 }
@@ -113,7 +114,7 @@ controller.delete = async (req, res) => {
 controller.login = async (req,res) => {
   const { email } = req.params;
   const data = await sequelize.query(
-    `select trainerId, password from trainers where email="${email}"`,
+    `select traineeId, password from trainees where email="${email}"`,
     { type: QueryTypes.SELECT }
   )
   .then(function(data){
@@ -124,6 +125,7 @@ controller.login = async (req,res) => {
   })
 
   res.json({ success: true, data: data });
-}  
+}
+  
 
 module.exports = controller;

@@ -2,28 +2,37 @@
 var Sequelize = require('sequelize');
 // importing connection database
 var sequelize = require('./database');
+var Trainer = require('./Trainer')
+var Trainee = require('./Trainee')
 
 var Simulation = sequelize.define('simulation', {
-    id: {
+    simulationId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        unique: true
     },
-    sex: Sequelize.STRING,
+    trainerId: Sequelize.INTEGER,
+    traineeId: Sequelize.INTEGER,
+    sex: Sequelize.INTEGER,
     age: Sequelize.INTEGER,
     weight: Sequelize.DOUBLE,
     partBody: Sequelize.STRING,
+    mentalStatus: Sequelize.STRING,
     bloodLoss: Sequelize.DOUBLE,
-    bloodPreasure: Sequelize.DOUBLE,
-    heartRate: Sequelize.INTEGER,
+    bloodPressure: Sequelize.DOUBLE,
+    heartRate: Sequelize.DOUBLE,
     breathingRate: Sequelize.DOUBLE,
     urineOutput: Sequelize.DOUBLE,
-    saturation: Sequelize.INTEGER,
-    mentalStatus: Sequelize.STRING,
+    saturation: Sequelize.DOUBLE,
     time: Sequelize.INTEGER
+    
 },
 {
 	 timestamps: false,
 });
+
+Simulation.belongsTo(Trainee, {as:'trainee', foreignKey:'traineeId'});
+Simulation.belongsTo(Trainer, {as:'trainer', foreignKey:'trainerId'});
 
 module.exports = Simulation

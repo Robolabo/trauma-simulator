@@ -9,8 +9,14 @@ body, html {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    height: 90vh;  
+    height: 100vh;  
     background-color: rgba(195, 195, 196, 0.753);
+}
+.principal button {
+    margin-bottom: 3pc;
+    width: 400px;
+    height: 100px;
+    font-size: 30px;
 }
 .createSimulation {
     display: flex;

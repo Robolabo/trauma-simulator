@@ -1,41 +1,46 @@
 
 import React, { Component } from 'react'
-import { Button } from 'reactstrap';
 
 export default class Timer extends Component {
     constructor(props){
         super(props);
         this.state = {
           minutes: 0,
-          seconds: 0
+          seconds: 0,
+          start: false,
+          confirm: true
         }
-      }
+    }
 
-    start() {
-        console.log("2")
-        console.log(this.props)
-        this.setState({
-            minutes: this.props.time
-        })
-        this.myInterval = setInterval(() => {
-            const { seconds, minutes } = this.state
-
-            if (seconds > 0) {
-                this.setState(({ seconds }) => ({
-                    seconds: seconds - 1
-                }))
-            }
-            if (seconds === 0) {
-                if (minutes === 0) {
-                    clearInterval(this.myInterval)
-                } else {
-                    this.setState(({ minutes }) => ({
-                        minutes: minutes - 1,
-                        seconds: 59
+    componentWillReceiveProps() {
+        this.setState(() => ({
+            start: this.props.start
+        }))
+        if (this.state.start && this.state.confirm) {
+            this.setState({
+                minutes: this.props.time,
+                confirm: false
+            })
+            this.myTimer = setInterval(() => {
+                const { seconds, minutes } = this.state
+    
+                if (seconds > 0) {
+                    this.setState(({ seconds }) => ({
+                        seconds: seconds - 1
                     }))
                 }
-            } 
-        }, 1000)
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(this.myInterval)
+                    } else {
+                        this.setState(({ minutes }) => ({
+                            minutes: minutes - 1,
+                            seconds: 59
+                        }))
+                    }
+                } 
+            }, 1000)
+        }
     }
 
     stop() {
@@ -59,9 +64,6 @@ export default class Timer extends Component {
                     ? <h1>PRESS START!</h1>
                     : <h1>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
                 }
-                <Button onClick={()=>this.start()}>Start</Button>
-                <Button onClick={() => this.stop()}>Stop</Button>
-                <Button onClick={() => this.restart()}>Restart</Button>
             </div>
         )
     }

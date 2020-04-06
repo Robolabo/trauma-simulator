@@ -4,13 +4,15 @@ body, html {
     margin: 0px;
     padding: 0px;
 }
-.container{
+.container {
     max-width: 100%;
+    margin-left:0px;
 }
 
 .register{
     background: -webkit-linear-gradient(left, #3931af, #00c6ff);
     padding: 3%;
+    max-width: 100%;
 }
 .register-left{
     text-align: center;
@@ -114,3 +116,5 @@ body, html {
     margin-bottom: 3%;
     cursor: pointer;
 }
+
+

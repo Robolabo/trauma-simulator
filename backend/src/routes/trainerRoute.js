@@ -5,8 +5,7 @@ const router = express.Router();
 const trainerController = require('../controllers/trainerController')
 
 router.get('/list',trainerController.list );
-router.get('/testdata', trainerController.testdata)
-router.get('/test',trainerController.testdata);
+router.get('/createData', trainerController.testdata)
 router.post('/create',trainerController.create);
 router.get('/get/:id',trainerController.get);
 router.post('/update/:id', trainerController.update);

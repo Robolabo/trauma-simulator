@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Button } from 'reactstrap';
 import axios from 'axios';
-import { Link } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import './NewSimulation.css'
 import Nav from '../Menu/Nav'
 import Slider from 'react-input-slider';
@@ -24,29 +23,50 @@ const optionsMentalStatus = [
     { value: 'rightLeg', label: 'Right Leg' },
     { value: 'leftLeg', label: 'Left Leg'}
   ];
-  let id;
+  var optionsTrainees= []
 
 export default class NewSimulation extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            sex: "",
+            trainerId: 0,
+            traineeId:0,
+            sex: 0,
             age: 0,
             weight: 0.0,
             partBody: "",
-            bloodLoss: 0,
-            bloodPreasure: 0.0,
-            heartRate: 0,
+            bloodLoss: 0.0,
+            bloodPressure: 0.0,
+            heartRate: 0.0,
             breathingRate: 0.0,
             urineOutput: 0.0,
             saturation: 0,
             mentalStatus: "",
-            time: 0
+            time: 0,
+            redirect: false
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     componentDidMount(){
+
+        const urlTrainee = "http://localhost:3000/trainee/list"
+        axios.get(urlTrainee)
+        .then(res=>{
+            if (res.data.success) {
+                const datas = res.data.data
+                for (let data of datas) {
+                    optionsTrainees.push({ value: data.traineeId, label: data.name + data.surname})
+                }
+            }
+            else {
+            alert("Error web service")
+            }
+        })
+        .catch(error=>{
+            alert("Error server "+error)
+        })
 
         if (default_config !== null){
             
@@ -56,7 +76,7 @@ export default class NewSimulation extends Component {
                 weight: default_config.weight,
                 partBody: default_config.partBody,
                 bloodLoss: default_config.bloodLoss,
-                bloodPreasure: default_config.bloodPreasure,
+                bloodPressure: default_config.bloodPressure,
                 heartRate: default_config.heartRate,
                 breathingRate: default_config.breathingRate,
                 urineOutput: default_config.urineOutput,
@@ -69,6 +89,46 @@ export default class NewSimulation extends Component {
 
             alert("No se ha podido cargar el fichero de configuración por defecto")
         }
+
+        this.setState({ trainerId: this.props.location.state.id });
+    }
+
+    handleSubmit(event){
+
+        const baseUrl = "http://127.0.0.1:3000/simulation/create"
+            
+        const datapost = {
+            trainerId: this.state.trainerId,
+            traineeId: this.state.traineeId,
+            sex: this.state.sex,
+            age: this.state.age,
+            weight: this.state.weight,
+            partBody: this.state.partBody,
+            bloodLoss: this.state.bloodLoss,
+            bloodPressure: this.state.bloodPressure,
+            heartRate: this.state.heartRate,
+            breathingRate: this.state.breathingRate,
+            urineOutput: this.state.urineOutput,
+            saturation: this.state.saturation,
+            mentalStatus: this.state.mentalStatus,
+            time: this.state.time
+        }
+     
+        axios.post(baseUrl,datapost)
+        .then(response=>{
+            if (response.data.success===true) {
+                alert(response.data.message)
+                this.setState({ redirect: true });
+            }
+            else {
+                alert(response.data.message)
+            }
+        })
+        .catch(error=>{
+            alert("Error 34 "+error)
+        })
+        event.preventDefault();
+     
     }
         
     handleChange = selectedOption => {
@@ -79,22 +139,41 @@ export default class NewSimulation extends Component {
     this.setState({ mentalStatus: selectedOption.value });
     };
 
+    handleChange3 = selectedOption => {
+        this.setState({ traineeId: selectedOption.value });
+    };
+
+    handleChange4 = value => {
+       
+        this.setState({ sex: Number(value.target.value) });
+    };
+
     render() {
         return (
             <div>
                 <Nav></Nav>
                 <h1>Add new simulation</h1>
                 <h2>Introduce hemorrhagic shock levels:</h2> 
-                <div className="configuration">
+                <form className="configuration" onSubmit={this.handleSubmit}>
+                    
+                    <div className="input">
+                        <Select
+                            className="selector"
+                            onChange={this.handleChange3}
+                            options={optionsTrainees}
+                        />
+                    </div>
 
                     <div className="input">
                         Sex:
                         <label>
-                            <input type="radio" value="Male" />
+                            <input type="radio" value= {0} checked={this.state.sex === 0} 
+                                                              onChange={this.handleChange4}/>
                             Male
                         </label>
                         <label>
-                            <input type="radio" value="Female" />
+                            <input type="radio" value= {1} checked={this.state.sex === 1}
+                                                               onChange={this.handleChange4}/>
                             Female
                         </label>
                     </div>
@@ -126,15 +205,15 @@ export default class NewSimulation extends Component {
                     </div>
 
                     <div className="input">
-                        Blood Preasure:
+                        Blood Pressure:
                         <Slider
                             axis="x"
                             xmax= {750}
                             xmin= {0}
-                            x={this.state.bloodPreasure}
-                            onChange={({ x }) => this.setState({ bloodPreasure: x })}
+                            x={this.state.bloodPressure}
+                            onChange={({ x }) => this.setState({ bloodPressure: x })}
                         />
-                        <input type="number" value={this.state.bloodPreasure} onChange={(value) => this.setState({bloodPreasure: value.target.value})} />
+                        <input type="number" value={this.state.bloodPressure} onChange={(value) => this.setState({bloodPressure: value.target.value})} />
                     </div>
 
                     <div className="input">
@@ -194,7 +273,7 @@ export default class NewSimulation extends Component {
                         />
                     </div>
 
-                    <div className="input">
+                    <div className="input" onSubmit={this.handleSubmit}>
                         Lifetime Remaining:
                         <Slider
                             axis="x"
@@ -206,45 +285,14 @@ export default class NewSimulation extends Component {
                         <input type="number" value={this.state.time} onChange={(value) => this.setState({time: value.target.value})} />
                     </div>
 
-                    <Link to={"/simulation/"+id}><Button onClick={()=>this.saveParameters()}>Save Configuration</Button></Link>
-                </div>
+                    <input type="submit" value="Save Configuration" />
+                </form>
+                {this.state.redirect ? <Redirect to={{
+                                                        pathname: '/dashboardTrainer',
+                                                        state: { id: this.state.trainerId }
+                                                    }}/>
+                                    : null}
             </div>
         )
-    }
-
-    saveParameters(){
-
-        const baseUrl = "http://127.0.0.1:3000/simulation/create"
-            
-        const datapost = {
-            sex: this.state.sex,
-            age: this.state.age,
-            weight: this.state.weight,
-            partBody: this.state.partBody,
-            bloodLoss: this.state.bloodLoss,
-            bloodPreasure: this.state.bloodPreasure,
-            heartRate: this.state.heartRate,
-            breathingRate: this.state.breathingRate,
-            urineOutput: this.state.urineOutput,
-            saturation: this.state.saturation,
-            mentalStatus: this.state.mentalStatus,
-            time: this.state.time
-        }
-     
-        axios.post(baseUrl,datapost)
-        .then(response=>{
-            if (response.data.success===true) {
-                alert(response.data.message)
-                id = response.data.data.id
-            }
-            else {
-                alert(response.data.message)
-            }
-        })
-        .catch(error=>{
-            alert("Error 34 "+error)
-        })
-        
-     
     }
 }

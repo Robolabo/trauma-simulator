@@ -1,7 +1,8 @@
 const controller = {}
 var Simulation = require('../model/Simulation')
 var sequelize = require ('../model/database')
-
+var Trainer = require('../model/Trainer')
+var Trainee = require('../model/Trainee')
 
 controller.testdata = async ( req, res) => {
   
@@ -17,7 +18,9 @@ controller.testdata = async ( req, res) => {
 }  
 controller.list = async (req, res) => {
 
-  const data = await Simulation.findAll()
+  const data = await Simulation.findAll({
+    include: [ Trainer ]
+  })
   .then(function(data){
     return data;
   })
@@ -30,8 +33,8 @@ controller.list = async (req, res) => {
 }
 controller.create = async (req,res) => {
   // data
-  const { sex, age, weight, partBody, bloodLoss, bloodPreasure, heartRate, breathingRate, urineOutput,
-            saturation, mentalStatus, time } = req.body;
+  const { sex, age, weight, partBody, bloodLoss, bloodPressure, heartRate, breathingRate, urineOutput,
+            saturation, mentalStatus, time, traineeId, trainerId } = req.body;
     
   // create
   const data = await Simulation.create({
@@ -40,13 +43,15 @@ controller.create = async (req,res) => {
     weight: weight,
     partBody: partBody,
     bloodLoss: bloodLoss,
-    bloodPreasure: bloodPreasure,
+    bloodPressure: bloodPressure,
     heartRate: heartRate,
     breathingRate: breathingRate,
     urineOutput: urineOutput,
     saturation: saturation,
     mentalStatus: mentalStatus,
-    time: time
+    time: time,
+    traineeId: traineeId,
+    trainerId: trainerId
   })
   .then(function(data){
     return data;
@@ -66,7 +71,7 @@ controller.create = async (req,res) => {
 controller.get = async (req,res) => {
   const { id } = req.params;
   const data = await Simulation.findAll({
-      where: { id: id }
+      where: { simulationId: id }
   })
   .then(function(data){
     return data;
@@ -81,8 +86,8 @@ controller.update = async (req,res) => {
   // parameter get id
   const { id } = req.params;
   // parameter POST
-  const { sex, age, weight, partBody, bloodLoss, bloodPreasure, heartRate, breathingRate, urineOutput,
-    saturation, mentalStatus, time } = req.body;
+  const { sex, age, weight, partBody, bloodLoss, bloodPressure, heartRate, breathingRate, urineOutput,
+    saturation, mentalStatus, time, traineeId, trainerId } = req.body;
   // Update data
   const data = await Simulation.update({
     sex: sex,
@@ -90,16 +95,18 @@ controller.update = async (req,res) => {
     weight: weight,
     partBody: partBody,
     bloodLoss: bloodLoss,
-    bloodPreasure: bloodPreasure,
+    bloodPressure: bloodPressure,
     heartRate: heartRate,
     breathingRate: breathingRate,
     urineOutput: urineOutput,
     saturation: saturation,
     mentalStatus: mentalStatus,
-    time: time
+    time: time,
+    traineeId: traineeId,
+    trainerId: trainerId
   },
   {
-    where: { id: id}
+    where: { simulationId: id}
   })
   .then( function(data){
     return data;
@@ -115,9 +122,61 @@ controller.delete = async (req, res) => {
   const { id } = req.body;
   // delete sequelize
   const del = await Simulation.destroy({
-    where: { id: id}
+    where: { simulationId: id}
   })
   res.json({success:true,deleted:del,message:"Deleted successful"});
+}
+
+controller.list = async (req, res) => {
+
+  const data = await Simulation.findAll({
+    include: [ { model: Trainer, as: 'trainee' } ]
+  })
+  .then(function(data){
+    return data;
+  })
+  .catch(error => {
+    return error;
+  }); 
+
+  res.json({success : true, data : data});
+
+}
+
+controller.listByTrainerId = async (req, res) => {
+  const { id } = req.params;
+  
+  const data = await Simulation.findAll({
+    include: [ { model: Trainer, as: 'trainer' },
+               { model: Trainee, as: 'trainee' } ],
+    where: { trainerId: id}
+  })
+  .then(function(data){
+    return data;
+  })
+  .catch(error => {
+    return error;
+  }); 
+
+  res.json({success : true, data : data});
+}
+
+controller.listByTraineeId = async (req, res) => {
+  const { id } = req.params;
+  
+  const data = await Simulation.findAll({
+    include: [ { model: Trainer, as: 'trainer' },
+               { model: Trainee, as: 'trainee' } ],
+    where: { traineeId: id}
+  })
+  .then(function(data){
+    return data;
+  })
+  .catch(error => {
+    return error;
+  }); 
+
+  res.json({success : true, data : data});
 }
   
 

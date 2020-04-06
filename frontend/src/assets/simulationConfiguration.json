@@ -1,13 +1,13 @@
 {
     "data":[
     {
-        "sex": "male",
+        "sex": 0,
         "age": 40,
         "weight": 75.0,
         "partBody": "pelvis",
         "bloodLoss": 90,
-        "bloodPreasure": 60,
-        "heartRate": 130,
+        "bloodPressure": 60,
+        "heartRate": 130.0,
         "breathingRate": 35,
         "urineOutput": 10,
         "saturation": 85,
