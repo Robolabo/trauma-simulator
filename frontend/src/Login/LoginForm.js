@@ -32,7 +32,7 @@ export default class LoginForm extends React.Component {
       [name]: value
     });
   }
-
+//  http://trauma-simulator.duckdns.org:3000
   handleSubmit(event) {
     const urlTrainer = "http://localhost:3000/trainer/login/"+this.state.email    // parameter data post
     const urlTrainee = "http://localhost:3000/trainee/login/"+this.state.email

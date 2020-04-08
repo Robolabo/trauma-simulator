@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom"
 import './NewSimulation.css'
 import Nav from '../Menu/Nav'
 import Slider from 'react-input-slider';
+import { Button } from 'reactstrap';
 import Select from 'react-select';
 import configuration from '../assets/simulationConfiguration.json'
 
@@ -57,7 +58,7 @@ export default class NewSimulation extends Component {
             if (res.data.success) {
                 const datas = res.data.data
                 for (let data of datas) {
-                    optionsTrainees.push({ value: data.traineeId, label: data.name + data.surname})
+                    optionsTrainees.push({ value: data.traineeId, label: data.name + " " +data.surname})
                 }
             }
             else {
@@ -113,20 +114,26 @@ export default class NewSimulation extends Component {
             mentalStatus: this.state.mentalStatus,
             time: this.state.time
         }
+
+        if (this.state.traineeId !== 0) {
+            axios.post(baseUrl,datapost)
+            .then(response=>{
+                if (response.data.success===true) {
+                    alert(response.data.message)
+                    this.setState({ redirect: true });
+                }
+                else {
+                    alert(response.data.message)
+                }
+            })
+            .catch(error=>{
+                alert("Error 34 "+error)
+            })
+        } else {
+            alert("Select the name of the trainee")
+        }
      
-        axios.post(baseUrl,datapost)
-        .then(response=>{
-            if (response.data.success===true) {
-                alert(response.data.message)
-                this.setState({ redirect: true });
-            }
-            else {
-                alert(response.data.message)
-            }
-        })
-        .catch(error=>{
-            alert("Error 34 "+error)
-        })
+        
         event.preventDefault();
      
     }
@@ -152,140 +159,194 @@ export default class NewSimulation extends Component {
         return (
             <div>
                 <Nav></Nav>
-                <h1>Add new simulation</h1>
+                <h1> Add new simulation</h1>
                 <h2>Introduce hemorrhagic shock levels:</h2> 
                 <form className="configuration" onSubmit={this.handleSubmit}>
+                    <table className="table-constants">
+                        <tbody>
+                            <tr>
+                                
+                                <td><b>Select the name of the trainee:</b></td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        onChange={this.handleChange3}
+                                        options={optionsTrainees}
+                                    />
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Sex:</td>
+                                <td>
+                                <label className="labelAge">
+                                    <input type="radio" value= {0} checked={this.state.sex === 0} 
+                                                                    onChange={this.handleChange4}/>
+                                     Male
+                                </label>
+                                <label>
+                                    <input type="radio" value= {1} checked={this.state.sex === 1}
+                                                                    onChange={this.handleChange4}/>
+                                     Female
+                                </label>
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>Age:</td>
+                                <td></td>
+                                <td>
+                                    <input type="number" value={this.state.age} onChange={(value) => this.setState({age: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Part of the body affected:</td>
+                                <td></td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        onChange={this.handleChange}
+                                        options={optionsPartBody}
+                                        value={optionsPartBody.filter(option => option.value === this.state.partBody)}
+                                    />
+                                </td>    
+                            </tr>
+
+                            <tr>
+                                <td>Blood Loss:</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {190}
+                                        xmin= {60}
+                                        x={this.state.bloodLoss}
+                                        onChange={({ x }) => this.setState({ bloodLoss: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.bloodLoss} onChange={(value) => this.setState({bloodLoss: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Blood Pressure:</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {85}
+                                        xmin= {35}
+                                        x={this.state.bloodPressure}
+                                        onChange={({ x }) => this.setState({ bloodPressure: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.bloodPressure} onChange={(value) => this.setState({bloodPressure: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Heart Rate:</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {160}
+                                        xmin= {50}
+                                        x={this.state.heartRate}
+                                        onChange={({ x }) => this.setState({ heartRate: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.heartRate} onChange={(value) => this.setState({heartRate: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Breathing Rate:</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {60}
+                                        xmin= {5}
+                                        x={this.state.breathingRate}
+                                        onChange={({ x }) => this.setState({ breathingRate: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.breathingRate} onChange={(value) => this.setState({breathingRate: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Urine Output:</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {15}
+                                        xmin= {5}
+                                        x={this.state.urineOutput}
+                                        onChange={({ x }) => this.setState({ urineOutput: x })}
+                                    />
+                                </td>   
+                                <td>  
+                                    <input type="number" value={this.state.urineOutput} onChange={(value) => this.setState({urineOutput: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Saturation O2:</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {100}
+                                        xmin= {75}
+                                        x={this.state.saturation}
+                                        onChange={({ x }) => this.setState({ saturation: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.saturation} onChange={(value) => this.setState({saturation: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Mental Status:</td>
+                                <td></td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        onChange={this.handleChange1}
+                                        options={optionsMentalStatus}
+                                        value={optionsMentalStatus.filter(option => option.value === this.state.mentalStatus)}
+                                    />
+                                </td>    
+                            </tr>
+
+                            <tr onSubmit={this.handleSubmit}>
+                                <td>Lifetime Remaining:</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {750}
+                                        xmin= {0}
+                                        x={this.state.time}
+                                        onChange={({ x }) => this.setState({ time: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.time} onChange={(value) => this.setState({time: value.target.value})} />
+                                </td>
+                            </tr>
+                        </tbody>
+                            
+
+                    </table>
                     
-                    <div className="input">
-                        <Select
-                            className="selector"
-                            onChange={this.handleChange3}
-                            options={optionsTrainees}
-                        />
-                    </div>
 
-                    <div className="input">
-                        Sex:
-                        <label>
-                            <input type="radio" value= {0} checked={this.state.sex === 0} 
-                                                              onChange={this.handleChange4}/>
-                            Male
-                        </label>
-                        <label>
-                            <input type="radio" value= {1} checked={this.state.sex === 1}
-                                                               onChange={this.handleChange4}/>
-                            Female
-                        </label>
-                    </div>
+                        
 
-                    <div className="input">
-                        Age:
-                        <input type="number" value={this.state.age} onChange={(value) => this.setState({age: value.target.value})} />
-                    </div>
-
-                    <div className="input">
-                        Part of the body affected:
-                        <Select
-                            className="selector"
-                            onChange={this.handleChange}
-                            options={optionsPartBody}
-                        />
-                    </div>
-
-                    <div className="input">
-                        Blood Loss:
-                        <Slider
-                            axis="x"
-                            xmax= {750}
-                            xmin= {0}
-                            x={this.state.bloodLoss}
-                            onChange={({ x }) => this.setState({ bloodLoss: x })}
-                        />
-                        <input type="number" value={this.state.bloodLoss} onChange={(value) => this.setState({bloodLoss: value.target.value})} />
-                    </div>
-
-                    <div className="input">
-                        Blood Pressure:
-                        <Slider
-                            axis="x"
-                            xmax= {750}
-                            xmin= {0}
-                            x={this.state.bloodPressure}
-                            onChange={({ x }) => this.setState({ bloodPressure: x })}
-                        />
-                        <input type="number" value={this.state.bloodPressure} onChange={(value) => this.setState({bloodPressure: value.target.value})} />
-                    </div>
-
-                    <div className="input">
-                        Heart Rate:
-                        <Slider
-                            axis="x"
-                            xmax= {200}
-                            xmin= {0}
-                            x={this.state.heartRate}
-                            onChange={({ x }) => this.setState({ heartRate: x })}
-                        />
-                        <input type="number" value={this.state.heartRate} onChange={(value) => this.setState({heartRate: value.target.value})} />
-                    </div>
-
-                    <div className="input">
-                        Breathing Rate:
-                        <Slider
-                            axis="x"
-                            xmax= {750}
-                            xmin= {0}
-                            x={this.state.breathingRate}
-                            onChange={({ x }) => this.setState({ breathingRate: x })}
-                        />
-                        <input type="number" value={this.state.breathingRate} onChange={(value) => this.setState({breathingRate: value.target.value})} />
-                    </div>
-
-                    <div className="input">
-                        Urine Output:
-                        <Slider
-                            axis="x"
-                            xmax= {750}
-                            xmin= {0}
-                            x={this.state.urineOutput}
-                            onChange={({ x }) => this.setState({ urineOutput: x })}
-                        />
-                        <input type="number" value={this.state.urineOutput} onChange={(value) => this.setState({urineOutput: value.target.value})} />
-                    </div>
-
-                    <div className="input">
-                        Saturation O2:
-                        <Slider
-                            axis="x"
-                            xmax= {750}
-                            xmin= {0}
-                            x={this.state.saturation}
-                            onChange={({ x }) => this.setState({ saturation: x })}
-                        />
-                        <input type="number" value={this.state.saturation} onChange={(value) => this.setState({saturation: value.target.value})} />
-                    </div>
-
-                    <div className="input">
-                        Mental Status:
-                        <Select
-                            className="selector"
-                            onChange={this.handleChange1}
-                            options={optionsMentalStatus}
-                        />
-                    </div>
-
-                    <div className="input" onSubmit={this.handleSubmit}>
-                        Lifetime Remaining:
-                        <Slider
-                            axis="x"
-                            xmax= {750}
-                            xmin= {0}
-                            x={this.state.time}
-                            onChange={({ x }) => this.setState({ time: x })}
-                        />
-                        <input type="number" value={this.state.time} onChange={(value) => this.setState({time: value.target.value})} />
-                    </div>
-
-                    <input type="submit" value="Save Configuration" />
+                    <Button className="saveButton"><input className="save" type="submit" value="Save Configuration" /></Button>
                 </form>
                 {this.state.redirect ? <Redirect to={{
                                                         pathname: '/dashboardTrainer',

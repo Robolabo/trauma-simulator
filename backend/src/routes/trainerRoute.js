@@ -14,3 +14,4 @@ router.get('/login/:email', trainerController.login)
 
 
 module.exports = router;
+
