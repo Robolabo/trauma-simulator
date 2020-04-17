@@ -40,3 +40,8 @@ frontend/yarn.lock
 frontend/node_modules/.yarn-integrity
 frontend/yarn.lock
 frontend/node_modules/.yarn-integrity
+frontend/node_modules/core-js/internals/task.js
+frontend/node_modules/core-js/internals/shared.js
+frontend/node_modules/core-js/postinstall.js
+frontend/node_modules/.yarn-integrity
+frontend/node_modules/core-js/modules/web.url.js

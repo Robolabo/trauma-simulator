@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap';
 import '../simulation.css'
+import avatar from '../../assets/my_character.png'
+//import Avatar from 'react-avatar';
 
 export default class Actions extends Component {
 
     clean() {
         this.props.change("heartRate", -0.5)
+        this.props.change("bloodLoss", 0.5)
         this.props.change("bloodPressure", 0.5)
         this.props.change("breathingRate", -0.5)
         //this.props.change("urineOutput", -0.5)
@@ -22,6 +25,7 @@ export default class Actions extends Component {
 
     intubate() {
         this.props.change("heartRate", -0.5)
+        this.props.change("bloodLoss", -0.5)
         this.props.change("bloodPressure", -0.5)
         this.props.change("breathingRate", -0.5)
         this.props.change("urineOutput", -0.5)
@@ -30,6 +34,7 @@ export default class Actions extends Component {
 
     analgesics() {
         //this.props.change("heartRate", 0)
+        this.props.change("bloodLoss", 0.5)
         this.props.change("bloodPressure", 0.5)
         this.props.change("breathingRate", -0.5)
         //this.props.change("urineOutput", 0)
@@ -38,6 +43,7 @@ export default class Actions extends Component {
 
     fluids() {
         //this.props.change("heartRate", 0)
+        this.props.change("bloodLoss", 0.5)
         this.props.change("bloodPressure", 0.5)
         //this.props.change("breathingRate", 0)
         this.props.change("urineOutput", 0.5)
@@ -46,6 +52,7 @@ export default class Actions extends Component {
 
     pelvic_belt() {
         this.props.change("heartRate", -0.5)
+        this.props.change("bloodLoss", 0.5)
         this.props.change("bloodPressure", 0.5)
         //this.props.change("breathingRate", 0)
         //this.props.change("urineOutput", 0)
@@ -54,6 +61,7 @@ export default class Actions extends Component {
 
     transfusion() {
         this.props.change("heartRate", -0.5)
+        this.props.change("bloodLoss", 0.5)
         this.props.change("bloodPressure", 0.5)
         this.props.change("breathingRate", -0.5)
         this.props.change("urineOutput", 0.5)
@@ -62,6 +70,7 @@ export default class Actions extends Component {
 
     hot_liquids() {
         this.props.change("heartRate", -0.5)
+        this.props.change("bloodLoss", 0.5)
         this.props.change("bloodPressure", 0.5)
         //this.props.change("breathingRate", 0)
         this.props.change("urineOutput", 0.5)
@@ -70,6 +79,7 @@ export default class Actions extends Component {
 
     surgery() {
         this.props.change("heartRate", -0.5)
+        this.props.change("bloodLoss", 0.5)
         this.props.change("bloodPressure", 0.5)
         this.props.change("breathingRate", -0.5)
         //this.props.change("urineOutput", -0.5)
@@ -80,6 +90,8 @@ export default class Actions extends Component {
         return (
             <div className="actions">
                 
+                <img className="avatar" alt="avatar" src={avatar} height="190px" width="485px" />
+
                 <div className="timer">
                     {!this.props.start 
                     ? <Button onClick={()=>this.props.startClick()}>Start</Button>

@@ -75,12 +75,12 @@ export default class RegisterForm extends React.Component {
             workplace: this.state.campWorkplace,
             roleId: this.state.selectRole
             }
-          console.log(datapost)
        
           axios.post(baseUrl,datapost)
           .then(response=>{
               if (response.data.success===true) {
                   alert(response.data.message)
+                  window.location.reload(true);
               }
               else {
                   alert(response.data.message)
@@ -91,19 +91,34 @@ export default class RegisterForm extends React.Component {
           })
           }
         event.preventDefault();
+        
     }
 
     toogleTrainer() {
         this.setState({
             trainer: true,
-            trainee: false
+            trainee: false,
+            campName: "",
+            campSurname:"",
+            campPassword:"",
+            campConfirm:"",
+            campEmail:"",
+            campWorkplace:"",
+            selectRole:0
           });
     }
 
     toogleTrainee() {
         this.setState({
             trainer: false,
-            trainee: true
+            trainee: true,
+            campName: "",
+            campSurname:"",
+            campPassword:"",
+            campConfirm:"",
+            campEmail:"",
+            campWorkplace:"",
+            selectRole:0
           });
     }
 
@@ -119,10 +134,10 @@ export default class RegisterForm extends React.Component {
                     <div className="col-md-9 register-right">
                         <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li className="nav-item">
-                                <Link className="nav-link active" id="home-tab" data-toggle="tab"  role="tab" aria-controls="home" aria-selected="true" onClick={this.toogleTrainer}>Trainer</Link>
+                                <Link className="nav-link active" id="home-tab" data-toggle="tab" to="#" role="tab" aria-controls="home" aria-selected="true" onClick={this.toogleTrainer}>Trainer</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" id="profile-tab" data-toggle="tab"  role="tab" aria-controls="profile" aria-selected="false" onClick={this.toogleTrainee}>Trainee</Link>
+                                <Link className="nav-link" id="profile-tab" data-toggle="tab"  to="#" role="tab" aria-controls="profile" aria-selected="false" onClick={this.toogleTrainee}>Trainee</Link>
                             </li>
                         </ul>
                         <div className="tab-content" id="myTabContent">
@@ -154,15 +169,19 @@ export default class RegisterForm extends React.Component {
                                             <input type="text" className="form-control" name="campWorkplace" placeholder="Your Workplace *" value={this.state.campWorkplace} onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <select id="inputState" className="form-control" onChange={(value)=> this.setState({selectRole:value.target.value})}>
-                                                <option selected>Role</option>
-                                                <option value="1">Admin</option>
-                                                <option value="2">Doctor</option>
-                                                <option value="3">Resident</option>
-                                                <option value="4">Student</option>
+                                            <select id="inputState" className="form-control" onChange={(value)=> this.setState({selectRole:Number(value.target.value)})}>
+                                                <option defaultValue>Role</option>
+                                                <option value={2}>Doctor</option>
+                                                <option value={3}>Resident</option>
+                                                {this.state.trainee
+                                                ? <option value={4}>Student</option>
+                                                : null}
+                                                {console.log(this.state.selectRole)}
+                                                
+                                                
                                             </select>
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                        <input type="submit" className="btnRegister"  value="Register"/>
                                     </div>
                                 </form>
                             </div>

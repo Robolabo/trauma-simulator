@@ -145,7 +145,7 @@ export default class Graphic extends Component {
                 <div className="constants">
                     <div className="constants-items">
                         <img className="legend" src={lengend1} alt="legend"></img>
-                        {this.props.heartRate.toFixed(0)}
+                        {this.props.heartRate.toFixed(0)} lat/min
                         <Button onClick = {() => this.toogle("heartRate")}><img src={heart} alt="heart" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
@@ -155,17 +155,17 @@ export default class Graphic extends Component {
                     </div>
                     <div className="constants-items">
                         <img className="legend" src={lengend4} alt="legend"></img>
-                        {this.props.breathingRate.toFixed(0)} 
+                        {this.props.breathingRate.toFixed(0)} resp/min
                         <Button onClick = {() => this.toogle("breathingRate")}><img src={breath} alt="breath" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
                         <img className="legend" src={lengend3} alt="legend"></img>   
-                        {this.props.bloodPressure.toFixed(0)}
+                        {this.props.bloodLoss.toFixed(0)}/{this.props.bloodPressure.toFixed(0)} mmHg
                         <Button onClick = {() => this.toogle("bloodPressure")}><img src={pressure} alt="pres" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
                         <img className="legend" src={lengend5} alt="legend"></img>
-                        {this.props.urineOutput.toFixed(0)}
+                        {this.props.urineOutput.toFixed(0)} mL/min
                         <Button onClick = {() => this.toogle("urineOutput")}><img src={urine} alt="urine" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="reset">

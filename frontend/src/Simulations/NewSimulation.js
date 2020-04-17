@@ -215,7 +215,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Blood Loss:</td>
+                                <td>Systolic Pressure (mmHg)</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -226,12 +226,12 @@ export default class NewSimulation extends Component {
                                     />
                                 </td>
                                 <td>
-                                    <input type="number" value={this.state.bloodLoss} onChange={(value) => this.setState({bloodLoss: value.target.value})} />
+                                    <input type="number" value={this.state.bloodLoss} onChange={(value) => this.setState({bloodLoss: value.target.value})} /> 
                                 </td>
                             </tr>
 
                             <tr>
-                                <td>Blood Pressure:</td>
+                                <td>Diastolic Pressure (mmHg)</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -247,7 +247,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Heart Rate:</td>
+                                <td>Heart Rate (lat/min)</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -263,7 +263,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Breathing Rate:</td>
+                                <td>Breathing Rate (resp/min)</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -279,7 +279,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Urine Output:</td>
+                                <td>Urine Output (mL/min)</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -295,7 +295,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Saturation O2:</td>
+                                <td>Saturation O2 (%)</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -324,7 +324,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr onSubmit={this.handleSubmit}>
-                                <td>Lifetime Remaining:</td>
+                                <td>Lifetime Remaining (min)</td>
                                 <td>
                                     <Slider
                                         axis="x"

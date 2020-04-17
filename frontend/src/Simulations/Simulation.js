@@ -13,6 +13,7 @@ var bloodPressureValue = -0.5
 var breathingRateValue = 0.5
 var urineOutputValue = -0.5
 var saturationValue = -0.5
+var bloodLossValue = -0.5
 
 
 
@@ -37,6 +38,7 @@ export default class LoginForm extends Component {
         dataBreathingRate: [],
         dataBloodPressure: [],
         dataUrineOutput: [],
+        dataBloodLoss: [],
         i: 1,
         start: false,
         confirm: true
@@ -85,12 +87,13 @@ export default class LoginForm extends Component {
     
             this.myInterval0 = setInterval(() => {
     
-                var { heartRate, bloodPressure, breathingRate, urineOutput, saturation, dataHeartRate,
-                     dataBloodPressure, dataBreathingRate, dataUrineOutput, dataSaturation, i } = this.state
+                var { heartRate, bloodLoss, bloodPressure, breathingRate, urineOutput, saturation, dataHeartRate,
+                     dataBloodLoss, dataBloodPressure, dataBreathingRate, dataUrineOutput, dataSaturation, i } = this.state
     
                 this.setState(({ i, heartRate, bloodPressure, breathingRate, urineOutput, saturation }) => ({
                     i: i + 1,
                     heartRate: heartRate + (heartRateValue/60),
+                    bloodLoss: bloodLoss + (bloodLossValue/60),
                     bloodPressure: bloodPressure + (bloodPressureValue/60),
                     breathingRate: breathingRate + (breathingRateValue/60),
                     urineOutput: urineOutput + (urineOutputValue/60),
@@ -99,6 +102,7 @@ export default class LoginForm extends Component {
                 
                 if (i > 30){
                     dataHeartRate.shift()
+                    dataBloodLoss.shift()
                     dataBloodPressure.shift()
                     dataBreathingRate.shift()
                     dataUrineOutput.shift()
@@ -106,6 +110,7 @@ export default class LoginForm extends Component {
                 }
                 
                 dataHeartRate.push({x: i, y: heartRate})
+                dataBloodLoss.push({x: i, y: bloodLoss})
                 dataBloodPressure.push({x: i, y: bloodPressure})
                 dataBreathingRate.push({x: i, y: breathingRate})
                 dataUrineOutput.push({x: i, y: urineOutput})
@@ -114,12 +119,14 @@ export default class LoginForm extends Component {
                 this.setState(({ heartRate, bloodPressure, breathingRate, urineOutput, saturation, dataHeartRate, 
                     dataBloodPressure, dataBreathingRate, dataUrineOutput, dataSaturation, i }) => ({
                     dataHeartRate: dataHeartRate,
+                    dataBloodLoss: dataBloodLoss,
                     dataBloodPressure:dataBloodPressure,
                     dataBreathingRate:dataBreathingRate,
                     dataUrineOutput:dataUrineOutput,
                     dataSaturation:dataSaturation,
                     i: i,
                     heartRate: heartRate,
+                    bloodLoss: bloodLoss,
                     bloodPressure: bloodPressure,
                     breathingRate: breathingRate,
                     urineOutput: urineOutput,
@@ -136,6 +143,12 @@ export default class LoginForm extends Component {
 
                 heartRateValue += value
                 
+                break;
+
+            case "bloodLoss":
+
+                bloodLossValue += value
+            
                 break;
 
             case "bloodPressure":
@@ -184,10 +197,12 @@ export default class LoginForm extends Component {
                 <Graphic 
                         bloodPressure = {this.state.bloodPressure}
                         heartRate = {this.state.heartRate}
+                        bloodLoss = {this.state.bloodLoss}
                         saturation = {this.state.saturation}
                         urineOutput = {this.state.urineOutput}
                         breathingRate = {this.state.breathingRate}
                         dataHeartRate = {this.state.dataHeartRate}
+                        dataBloodLoss = {this.state.dataBloodLoss}
                         dataBloodPressure = {this.state.dataBloodPressure}
                         dataBreathingRate = {this.state.dataBreathingRate}
                         dataUrineOutput = {this.state.dataUrineOutput}                                         
