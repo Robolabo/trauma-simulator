@@ -14,8 +14,16 @@ var breathingRateValue = 0.5
 var urineOutputValue = -0.5
 var saturationValue = -0.5
 var bloodLossValue = -0.5
-
-
+var breathConstant = [{x: 0, y: 0}, {x: (0.25), y: 500},{x: (0.5), y: 125}]
+var heartConstant = [{x: 0, y: 0}, {x: 1/12, y: 0.07}, {x: 1/6, y: 0},
+                     {x: 4/15, y: 0}, {x: 0.3, y: -0.14}, {x: 11/30, y: 0.96},
+                     {x: 13/30, y: -0.24}, {x: 7/15,y:0}, {x: 37/60, y:0},
+                     {x: 0.75, y:0.15}, {x: 0.85, y:0}]
+var saturationConstant = [{x: 0, y: 0}, {x: 1/6, y: 1}, 
+                            {x: 1/3, y: 30}, {x: 13/30, y: 35}]
+var s = 0
+var l = 0
+var i = 0
 
 export default class LoginForm extends Component {
     constructor(props){
@@ -36,10 +44,11 @@ export default class LoginForm extends Component {
         dataHeartRate: [],
         dataSaturation: [],
         dataBreathingRate: [],
-        dataBloodPressure: [],
-        dataUrineOutput: [],
-        dataBloodLoss: [],
-        i: 1,
+        xDomain1:[0,5],
+        xDomain2:[0,5],
+        xDomain3:[i,i+30],
+        breathT:0,
+        period:0,
         start: false,
         confirm: true
       }
@@ -64,7 +73,9 @@ export default class LoginForm extends Component {
                     urineOutput: data.urineOutput,
                     saturation: data.saturation,
                     mentalStatus: data.mentalStatus,
-                    time: data.time 
+                    time: data.time,
+                    breathT: 60/data.breathingRate,
+                    period: 60/data.heartRate
                 })
             }
             else {
@@ -84,56 +95,95 @@ export default class LoginForm extends Component {
                 start: !start,
                 confirm: false
             }))
-    
+            
+            while(i>3) {
+                this.setState({
+                    xDomain1:[i,i+5],
+                    xDomain2:[i,i+5]
+                })
+            }
+            i++
             this.myInterval0 = setInterval(() => {
     
-                var { heartRate, bloodLoss, bloodPressure, breathingRate, urineOutput, saturation, dataHeartRate,
-                     dataBloodLoss, dataBloodPressure, dataBreathingRate, dataUrineOutput, dataSaturation, i } = this.state
-    
-                this.setState(({ i, heartRate, bloodPressure, breathingRate, urineOutput, saturation }) => ({
-                    i: i + 1,
+                this.setState(({ heartRate,bloodLoss, bloodPressure, breathingRate, urineOutput, saturation,
+                                 dataHeartRate, dataSaturation, dataBreathingRate }) => ({
                     heartRate: heartRate + (heartRateValue/60),
                     bloodLoss: bloodLoss + (bloodLossValue/60),
                     bloodPressure: bloodPressure + (bloodPressureValue/60),
                     breathingRate: breathingRate + (breathingRateValue/60),
                     urineOutput: urineOutput + (urineOutputValue/60),
-                    saturation: saturation + (saturationValue/60)
-                }))
-                
-                if (i > 30){
-                    dataHeartRate.shift()
-                    dataBloodLoss.shift()
-                    dataBloodPressure.shift()
-                    dataBreathingRate.shift()
-                    dataUrineOutput.shift()
-                    dataSaturation.shift()
-                }
-                
-                dataHeartRate.push({x: i, y: heartRate})
-                dataBloodLoss.push({x: i, y: bloodLoss})
-                dataBloodPressure.push({x: i, y: bloodPressure})
-                dataBreathingRate.push({x: i, y: breathingRate})
-                dataUrineOutput.push({x: i, y: urineOutput})
-                dataSaturation.push({x: i, y: saturation})
-                
-                this.setState(({ heartRate, bloodPressure, breathingRate, urineOutput, saturation, dataHeartRate, 
-                    dataBloodPressure, dataBreathingRate, dataUrineOutput, dataSaturation, i }) => ({
+                    saturation: saturation + (saturationValue/60),
+                    breathT: 60/breathingRate,
+                    period: 60/heartRate,
                     dataHeartRate: dataHeartRate,
-                    dataBloodLoss: dataBloodLoss,
-                    dataBloodPressure:dataBloodPressure,
-                    dataBreathingRate:dataBreathingRate,
-                    dataUrineOutput:dataUrineOutput,
                     dataSaturation:dataSaturation,
-                    i: i,
-                    heartRate: heartRate,
-                    bloodLoss: bloodLoss,
-                    bloodPressure: bloodPressure,
-                    breathingRate: breathingRate,
-                    urineOutput: urineOutput,
-                    saturation: saturation
-                }))    
+                    dataBreathingRate:dataBreathingRate
+                })) 
+  
             }, 1000)
+            
+            this.setIntervalHeart()
+            this.setIntervalBreath()
         }
+    }
+
+    setIntervalHeart() {
+        var timerHeart= (this.state.period * 1000)
+
+        this.myIntervalHeart = setInterval(() => {
+
+            var { saturation, dataHeartRate,
+                  dataSaturation, period } = this.state
+            
+            if ( dataHeartRate.length > 88 ) {
+                dataHeartRate.splice(0,11)
+            }
+            if ( dataSaturation.length > 32) {
+                dataSaturation.splice(0,4)
+            }
+            
+            for ( var i = 0; i < 11; i++){
+                dataHeartRate.push({x:((heartConstant[i].x * period) + (s * period)),
+                                        y: heartConstant[i].y})
+                if( i < 4) {
+                    if (i === 1){
+                        dataSaturation.push({x:((saturationConstant[i].x * period) + (s * period)),
+                                             y:saturation})
+                    } else {
+                        dataSaturation.push({x:((saturationConstant[i].x * period) + (s * period)),
+                                             y:saturationConstant[i].y})
+                    }
+                }
+            }
+            
+            s += 1
+            
+            clearInterval(this.myIntervalHeart)
+            this.setIntervalHeart()
+        }, timerHeart)
+    }
+
+    setIntervalBreath(){
+        var timerBreath= (this.state.breathT * 1000)
+
+        this.myIntervalBreath = setInterval(() => {
+
+            var { dataBreathingRate, breathT } = this.state
+
+            if ( dataBreathingRate.length > 24) {
+                dataBreathingRate.splice(0,3)
+            }
+
+            for (var i = 0; i < 3; i++){
+                dataBreathingRate.push({x: ((breathConstant[i].x * breathT) + (l * breathT)),
+                                        y:breathConstant[i].y})
+                
+            }
+            l += 1
+            clearInterval(this.myIntervalBreath)
+            this.setIntervalBreath()    
+        }, timerBreath)
+
     }
 
     change(parameter,value) {
@@ -202,12 +252,11 @@ export default class LoginForm extends Component {
                         urineOutput = {this.state.urineOutput}
                         breathingRate = {this.state.breathingRate}
                         dataHeartRate = {this.state.dataHeartRate}
-                        dataBloodLoss = {this.state.dataBloodLoss}
-                        dataBloodPressure = {this.state.dataBloodPressure}
                         dataBreathingRate = {this.state.dataBreathingRate}
-                        dataUrineOutput = {this.state.dataUrineOutput}                                         
                         dataSaturation = {this.state.dataSaturation}
                         confirm = {this.state.confirm}
+                        xDomain1 = {this.state.xDomain1}
+                        xDomain2 = {this.state.xDomain2}
                 />
             </div>
         </div>

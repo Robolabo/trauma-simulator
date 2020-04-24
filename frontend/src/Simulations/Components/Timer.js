@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react'
+import { withTranslation } from 'react-i18next';
 
-export default class Timer extends Component {
+class Timer extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -58,13 +59,16 @@ export default class Timer extends Component {
 
     render() {
         const { minutes, seconds } = this.state
+        const { t } = this.props
         return (
             <div>
                 { minutes === 0 && seconds === 0
-                    ? <h1>PRESS START!</h1>
-                    : <h1>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
+                    ? <h1>{t('simulation.initial-text')}</h1>
+                    : <h1>{t('simulation.time')} {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
                 }
             </div>
         )
     }
 }
+
+export default withTranslation()(Timer);

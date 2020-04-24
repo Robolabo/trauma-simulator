@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from "react-router-dom"
+import { withTranslation } from 'react-i18next';
 import './NewSimulation.css'
 import Nav from '../Menu/Nav'
 import Slider from 'react-input-slider';
@@ -26,7 +27,7 @@ const optionsMentalStatus = [
   ];
   var optionsTrainees= []
 
-export default class NewSimulation extends Component {
+class NewSimulation extends Component {
 
     constructor(props){
         super(props);
@@ -156,17 +157,18 @@ export default class NewSimulation extends Component {
     };
 
     render() {
+        const { t } = this.props
         return (
             <div>
                 <Nav></Nav>
-                <h1> Add new simulation</h1>
-                <h2>Introduce hemorrhagic shock levels:</h2> 
+                <h1>{t('new-simulation.text-1')}</h1>
+                <h2>{t('new-simulation.text-2')}</h2> 
                 <form className="configuration" onSubmit={this.handleSubmit}>
                     <table className="table-constants">
                         <tbody>
                             <tr>
                                 
-                                <td><b>Select the name of the trainee:</b></td>
+                                <td><b>{t('new-simulation.trainee-text')}</b></td>
                                 <td>
                                     <Select
                                         className="selector"
@@ -177,24 +179,24 @@ export default class NewSimulation extends Component {
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Sex:</td>
+                                <td>{t('new-simulation.sex')}</td>
                                 <td>
                                 <label className="labelAge">
                                     <input type="radio" value= {0} checked={this.state.sex === 0} 
                                                                     onChange={this.handleChange4}/>
-                                     Male
+                                     {t('new-simulation.male')}
                                 </label>
                                 <label>
                                     <input type="radio" value= {1} checked={this.state.sex === 1}
                                                                     onChange={this.handleChange4}/>
-                                     Female
+                                     {t('new-simulation.female')}
                                 </label>
                                 </td>
                                 <td></td>
                             </tr>
 
                             <tr>
-                                <td>Age:</td>
+                                <td>{t('new-simulation.age')}</td>
                                 <td></td>
                                 <td>
                                     <input type="number" value={this.state.age} onChange={(value) => this.setState({age: value.target.value})} />
@@ -202,7 +204,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Part of the body affected:</td>
+                                <td>{t('new-simulation.body')}</td>
                                 <td></td>
                                 <td>
                                     <Select
@@ -215,7 +217,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Systolic Pressure (mmHg)</td>
+                                <td>{t('new-simulation.s-pressure')}</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -231,7 +233,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Diastolic Pressure (mmHg)</td>
+                                <td>{t('new-simulation.d-pressure')}</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -247,7 +249,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Heart Rate (lat/min)</td>
+                                <td>{t('new-simulation.heart')}</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -263,7 +265,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Breathing Rate (resp/min)</td>
+                                <td>{t('new-simulation.breath')}</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -279,7 +281,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Urine Output (mL/min)</td>
+                                <td>{t('new-simulation.urine')}</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -295,7 +297,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Saturation O2 (%)</td>
+                                <td>{t('new-simulation.saturation')}</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -311,7 +313,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr>
-                                <td>Mental Status:</td>
+                                <td>{t('new-simulation.status')}</td>
                                 <td></td>
                                 <td>
                                     <Select
@@ -324,7 +326,7 @@ export default class NewSimulation extends Component {
                             </tr>
 
                             <tr onSubmit={this.handleSubmit}>
-                                <td>Lifetime Remaining (min)</td>
+                                <td>{t('new-simulation.time')}</td>
                                 <td>
                                     <Slider
                                         axis="x"
@@ -339,14 +341,9 @@ export default class NewSimulation extends Component {
                                 </td>
                             </tr>
                         </tbody>
-                            
-
                     </table>
-                    
 
-                        
-
-                    <Button className="saveButton"><input className="save" type="submit" value="Save Configuration" /></Button>
+                    <Button className="saveButton"><input className="save" type="submit" value={t('new-simulation.save')} /></Button>
                 </form>
                 {this.state.redirect ? <Redirect to={{
                                                         pathname: '/dashboardTrainer',
@@ -357,3 +354,5 @@ export default class NewSimulation extends Component {
         )
     }
 }
+
+export default withTranslation()(NewSimulation)

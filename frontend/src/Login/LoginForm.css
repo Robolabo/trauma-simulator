@@ -298,4 +298,8 @@
     margin-top: 2pc;
     margin-bottom: 2pc ;
   }
+
+  .languages{
+    align-self: flex-end;
+  }
   

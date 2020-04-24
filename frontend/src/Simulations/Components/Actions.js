@@ -3,8 +3,9 @@ import { Button } from 'reactstrap';
 import '../simulation.css'
 import avatar from '../../assets/my_character.png'
 //import Avatar from 'react-avatar';
+import { withTranslation } from 'react-i18next';
 
-export default class Actions extends Component {
+class Actions extends Component {
 
     clean() {
         this.props.change("heartRate", -0.5)
@@ -87,6 +88,7 @@ export default class Actions extends Component {
     }
 
     render() {
+        const { t } = this.props
         return (
             <div className="actions">
                 
@@ -94,26 +96,26 @@ export default class Actions extends Component {
 
                 <div className="timer">
                     {!this.props.start 
-                    ? <Button onClick={()=>this.props.startClick()}>Start</Button>
+                    ? <Button onClick={()=>this.props.startClick()}>{t('simulation.start')}</Button>
                     : null}
                 </div>
                  
                 <div className="actions-buttons">
-                    <Button onClick = {() => this.clean()}>Clean airway</Button>
-                    <Button onClick = {() => this.oxygenate()}>Oxygenate</Button>
-                    <Button onClick = {() => this.intubate()}>Intubate</Button>
+                    <Button onClick = {() => this.clean()}>{t('simulation.clean')}</Button>
+                    <Button onClick = {() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
+                    <Button onClick = {() => this.intubate()}>{t('simulation.intubate')}</Button>
                 </div>
 
                 <div className="actions-buttons">
-                    <Button onClick = {() => this.analgesics()}>Analgesics</Button>
-                    <Button onClick = {() => this.fluids()}>Fluids</Button>
-                    <Button onClick = {() => this.pelvic_belt()}>Pelvic Belt</Button>
+                    <Button onClick = {() => this.analgesics()}>{t('simulation.analgesics')}</Button>
+                    <Button onClick = {() => this.fluids()}>{t('simulation.fluids')}</Button>
+                    <Button onClick = {() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
                 </div>
 
                 <div className="actions-buttons">
-                    <Button onClick = {() => this.transfusion()}>Hot Liquids</Button>
-                    <Button onClick = {() => this.hot_liquids()}>Transfusion</Button>
-                    <Button onClick = {() => this.surgery()}>Surgery</Button>
+                    <Button onClick = {() => this.transfusion()}>{t('simulation.liquids')}</Button>
+                    <Button onClick = {() => this.hot_liquids()}>{t('simulation.transfusion')}</Button>
+                    <Button onClick = {() => this.surgery()}>{t('simulation.surgery')}</Button>
                 </div>
                 
                 
@@ -121,3 +123,5 @@ export default class Actions extends Component {
         )
     }
 }
+
+export default withTranslation()(Actions);

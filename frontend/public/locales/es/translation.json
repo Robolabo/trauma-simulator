@@ -1,0 +1,90 @@
+{
+    "loginForm": {
+        "sign-in": "Iniciar Sesión",
+        "forgot": "¿Has olvidado la contraseña?",
+        "sign-up": "Regístrate"
+    },
+
+    "register": {
+        "text-trainer": "Registrar como Entrenador",
+        "text-trainee": "Registrar como Aprendiz",
+        "first-name": "Nombre",
+        "last-name": "Apellidos",
+        "password": "Contraseña",
+        "confirm-p": "Confirmar Contraseña",
+        "email": "Email",
+        "workplace": "Lugar de trabajo",
+        "role": "Rol",
+        "doctor": "Doctor",
+        "resident": "Residente",
+        "student": "Estudiante",
+        "register": "Registrar",
+        "login": "Iniciar Sesión",
+        "welcome": "Bienvenido"
+    },
+
+    "dashboard": {
+        "new-simulation": "Nueva Simulación",
+        "access-simulation": "Mis Simulaciones"
+    },
+
+    "new-simulation": {
+        "text-1": "Crear nueva simulación",
+        "text-2": "INTRODUZCA LOS PARÁMETROS DE LA SIMULACIÓN:",
+        "trainee-text": "Seleccione el nombre del aprendiz",
+        "sex": "Sexo:",
+        "age": "Edad:",
+        "body": "Parte del cuerpo afectada:",
+        "s-pressure": "Presión sistólica (mmHg)",
+        "d-pressure": "Presión diastólica (mmHg)",	
+        "heart": "Frecuencia cardiaca (lat/min)",	
+        "breath": "Frecuencia respiratoria (resp/min)",		
+        "urine": "Diuresis (mL/min)",		
+        "saturation": "Saturación O2 (%)",		
+        "status": "Estado mental:",	
+        "time": "Tiempo límite de la simulación (min)",
+        "save": "Guardar configuracón",
+        "male": "Hombre",
+        "female": "Mujer",
+        "pelvis": "Pelvis",
+        "right-a": "Brazo derecho",
+        "left-a": "Brazo izquierdo",
+        "right-l": "Pierna derecha",
+        "left-l": "Pierna izquierda",
+        "anxious": "Ansiedad",
+        "confused": "Confusión",
+        "lethargic": "Letárgico",
+        "normal": "Normal" 
+    },
+
+    "list-simulation": {
+        "trainee": "Aprendiz",
+        "trainer": "Entrenador",
+        "sex": "Sexo",
+        "age": "Edad",
+        "trauma": "Trauma",
+        "time": "Tiempo",
+        "action": "Acción",
+        "enter": "Entrar",
+        "delete": "Eliminar"
+    },
+
+    "simulation": {
+        "initial-text": "CLICK START!",
+        "time": "Tiempo restante:",
+        "start": "Start",
+        "clean": "Limpiar vía aérea",
+        "oxygenate": "Oxigenar",
+        "intubate": "Intubar",
+        "analgesics": "Analgésicos",
+        "fluids": "Fluidos",
+        "belt": "Cinturón pélvico",
+        "liquids": "Líquidos calientes",
+        "transfusion": "Transfusión",
+        "surgery": "Cirugía",
+        "reset": "Reset",
+        "breath-unit": "resp/min",
+        "heart-unit": "lat/min"
+    }
+
+}

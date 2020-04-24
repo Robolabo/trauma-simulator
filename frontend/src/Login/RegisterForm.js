@@ -3,9 +3,10 @@ import './RegisterForm.css'
 import { Link } from "react-router-dom"
 import axios from 'axios';
 import sha256 from 'js-sha256'
-//import { Button } from 'reactstrap';
+import { withTranslation } from 'react-i18next';
+import formulario from '../assets/formulario.png'
 
-export default class RegisterForm extends React.Component {
+class RegisterForm extends React.Component {
 
     constructor(props){
         super(props);
@@ -106,6 +107,11 @@ export default class RegisterForm extends React.Component {
             campWorkplace:"",
             selectRole:0
           });
+
+          var tab_trainer = document.getElementById("trainer-tab")
+          var tab_trainee = document.getElementById("trainee-tab")
+          tab_trainer.className= "nav-link active"
+          tab_trainee.className="nav-link"
     }
 
     toogleTrainee() {
@@ -120,75 +126,81 @@ export default class RegisterForm extends React.Component {
             campWorkplace:"",
             selectRole:0
           });
+
+          var tab_trainer = document.getElementById("trainer-tab")
+          var tab_trainee = document.getElementById("trainee-tab")
+          tab_trainee.className= "nav-link active"
+          tab_trainer.className="nav-link"
     }
 
     render() {
+        const { t } = this.props;
         return(
             <div className="container register">
                 <div className="row">
                     <div className="col-md-3 register-left">
-                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
-                        <h3>Welcome</h3>
-                        <Link className="access" type="submit"  to="/">Login</Link><br/>
+                        <img src={formulario} alt="hola"/>
+                        <h3>{t('register.welcome')}</h3>
+                        <Link className="access" type="submit"  to="/">{t('register.login')}</Link><br/>
                     </div>
                     <div className="col-md-9 register-right">
                         <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li className="nav-item">
-                                <Link className="nav-link active" id="home-tab" data-toggle="tab" to="#" role="tab" aria-controls="home" aria-selected="true" onClick={this.toogleTrainer}>Trainer</Link>
+                                <Link className="nav-link active" id="trainer-tab" data-toggle="tab" to="#" role="tab" aria-controls="home" aria-selected="false" onClick={this.toogleTrainer}>{t('list-simulation.trainer')}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" id="profile-tab" data-toggle="tab"  to="#" role="tab" aria-controls="profile" aria-selected="false" onClick={this.toogleTrainee}>Trainee</Link>
+                                <Link className="nav-link" id="trainee-tab" data-toggle="tab"  to="#" role="tab" aria-controls="profile" aria-selected="false" onClick={this.toogleTrainee}>{t('list-simulation.trainee')}</Link>
                             </li>
                         </ul>
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 {this.state.trainer 
-                                ? <h3 className="register-heading">Apply as a Trainer</h3>
-                                : <h3 className="register-heading">Apply as a Trainee</h3>}
+                                ? <h3 className="register-heading">{t('register.text-trainer')}</h3>
+                                : <h3 className="register-heading">{t('register.text-trainee')}</h3>}
                                 
                                 <form className="row register-form" onSubmit={this.handleSubmit}>
                                     <div className="col-md-6">
                                         <div className="form-group">
-                                            <input type="text" className="form-control" name="campName" placeholder="First Name *" value={this.state.campName} onChange={this.handleInputChange} />
+                                            <input type="text" className="form-control" name="campName" placeholder={t('register.first-name')} value={this.state.campName} onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="text" className="form-control" name="campSurname" placeholder="Last Name *" value={this.state.campSurname} onChange={this.handleInputChange}  />
+                                            <input type="text" className="form-control" name="campSurname" placeholder={t('register.last-name')} value={this.state.campSurname} onChange={this.handleInputChange}  />
                                         </div>
                                         <div className="form-group">
-                                            <input type="password" className="form-control" name="campPassword" placeholder="Password *" value={this.state.campPassword} onChange={this.handleInputChange} />
+                                            <input type="password" className="form-control" name="campPassword" placeholder={t('register.password')} value={this.state.campPassword} onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="password" className="form-control"  name="campConfirm" placeholder="Confirm Password *" value={this.state.campConfirm} onChange={this.handleInputChange}  />
+                                            <input type="password" className="form-control"  name="campConfirm" placeholder={t('register.confirm-p')} value={this.state.campConfirm} onChange={this.handleInputChange}  />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group">
-                                            <input type="email" className="form-control" name="campEmail" placeholder="Your Email *" value={this.state.campEmail} onChange={this.handleInputChange} />
+                                            <input type="email" className="form-control" name="campEmail" placeholder={t('register.email')} value={this.state.campEmail} onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="text" className="form-control" name="campWorkplace" placeholder="Your Workplace *" value={this.state.campWorkplace} onChange={this.handleInputChange} />
+                                            <input type="text" className="form-control" name="campWorkplace" placeholder={t('register.workplace')} value={this.state.campWorkplace} onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
                                             <select id="inputState" className="form-control" onChange={(value)=> this.setState({selectRole:Number(value.target.value)})}>
-                                                <option defaultValue>Role</option>
-                                                <option value={2}>Doctor</option>
-                                                <option value={3}>Resident</option>
+                                                <option defaultValue>{t('register.role')}</option>
+                                                <option value={2}>{t('register.doctor')}</option>
+                                                <option value={3}>{t('register.resident')}</option>
                                                 {this.state.trainee
-                                                ? <option value={4}>Student</option>
-                                                : null}
-                                                {console.log(this.state.selectRole)}
-                                                
-                                                
+                                                ? <option value={4}>{t('register.student')}</option>
+                                                : null}                                                
                                             </select>
                                         </div>
-                                        <input type="submit" className="btnRegister"  value="Register"/>
+                                        <input type="submit" className="btnRegister"  value={t('register.register')}/>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                {console.log(window.innerWidth + "x" + window.innerHeight)}
             </div>           
         );
     }
 }
+
+export default withTranslation()(RegisterForm);

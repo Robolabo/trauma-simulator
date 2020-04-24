@@ -1,0 +1,90 @@
+{
+    "loginForm": {
+        "sign-in": "SIGN IN",
+        "forgot": "Forgot Password?",
+        "sign-up": "Sign Up"
+    },
+
+    "register": {
+        "text-trainer": "Apply as a Trainer",
+        "text-trainee": "Apply as a Trainee",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "password": "Password",
+        "confirm-p": "Confirm Password",
+        "email": "Email",
+        "workplace": "Workplace",
+        "role": "Role",
+        "doctor": "Doctor",
+        "resident": "Resident",
+        "student": "Student",
+        "register": "Register",
+        "login": "Login",
+        "welcome": "Welcome"
+    },
+
+    "dashboard": {
+        "new-simulation": "New Simulation",
+        "access-simulation": "Access Existing Simulation"
+    },
+
+    "new-simulation": {
+        "text-1": "Add new simulation",
+        "text-2": "INTRODUCE HEMORRHAGIC SHOCK LEVELS:",
+        "trainee-text": "Select the name of the trainee",
+        "sex": "Sex:",
+        "age": "Age:",
+        "body": "Part of the body affected:",
+        "s-pressure": "Systolic Pressure (mmHg)",
+        "d-pressure": "Diastolic Pressure (mmHg)",	
+        "heart": "Heart Rate (lat/min)",	
+        "breath": "Breathing Rate (resp/min)",		
+        "urine": "Urine Output (mL/min)",		
+        "saturation": "Saturation O2 (%)",		
+        "status": "Mental Status:",	
+        "time": "Lifetime Remaining (min)",
+        "save": "Save Configuration",
+        "male": "Male",
+        "female": "Female",
+        "pelvis": "pelvis",
+        "right-a": "Right Arm",
+        "left-a": "Left Arm",
+        "right-l": "Right Leg",
+        "left-l": "Left Leg",
+        "anxious": "Anxious",
+        "confused": "Confused",
+        "lethargic": "Lethargic",
+        "normal": "Normal" 
+    },
+
+    "list-simulation": {
+        "trainee": "Trainee",
+        "trainer": "Trainer",
+        "sex": "Sex",
+        "age": "Age",
+        "trauma": "Trauma",
+        "time": "Time",
+        "action": "Action",
+        "enter": "Enter",
+        "delete": "Delete"
+    },
+
+    "simulation": {
+        "initial-text": "PRESS START!",
+        "time": "Time Remaining:",
+        "start": "Start",
+        "clean": "Clean airway",
+        "oxygenate": "Oxygenate",
+        "intubate": "Intubate",
+        "analgesics": "Analgesics",
+        "fluids": "fluids",
+        "belt": "Pelvic belt",
+        "liquids": "Hot liquids",
+        "transfusion": "Transfusion",
+        "surgery": "Surgery",
+        "reset": "Reset",
+        "breath-unit": "bpm",
+        "heart-unit": "bpm"
+    }
+
+}

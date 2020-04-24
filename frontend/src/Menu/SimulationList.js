@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-
+import { withTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -35,21 +35,21 @@ class SimulationList extends React.Component  {
       })
     }
   }
-  render()
-  {
+  render(){
+    const { t } = this.props
     return (
       <table className="table table-hover table-striped">
         <thead className="thead-dark">
           <tr>
             <th scope="col">#</th>
             {this.state.isTrainer
-            ? <th scope="col">Trainee</th>
-            : <th scope="col">Trainer</th>}
-            <th scope="col">Sex</th>
-            <th scope="col">Age</th>
-            <th scope="col">Trauma</th>
-            <th scope="col">Time</th>
-            <th scope="col">Action</th>
+            ? <th scope="col">{t('list-simulation.trainee')}</th>
+            : <th scope="col">{t('list-simulation.trainer')}</th>}
+            <th scope="col">{t('list-simulation.sex')}</th>
+            <th scope="col">{t('list-simulation.age')}</th>
+            <th scope="col">{t('list-simulation.trauma')}</th>
+            <th scope="col">{t('list-simulation.time')}</th>
+            <th scope="col">{t('list-simulation.action')}</th>
             {this.state.isTrainer 
             ?<th scope="col"></th>
             : null}
@@ -64,6 +64,7 @@ class SimulationList extends React.Component  {
 
 
   loadFillData() {
+    const { t } = this.props
     return this.state.listSimulation.map((data)=>{
       return(
         <tr>
@@ -71,16 +72,16 @@ class SimulationList extends React.Component  {
           {this.state.isTrainer
           ? <td>{data.trainee.name} {data.trainee.surname}</td>
           : <td>{data.trainer.name} {data.trainer.surname}</td>}
-          <th>{(data.sex === 0) ? "Male" : "Female"}</th>
+          <th>{(data.sex === 0) ? t('new-simulation.male') : t('new-simulation.female')}</th>
           <td>{data.age}</td>
           <td>{data.partBody}</td>
           <td>{data.time}</td>
           <td>
-            <Link className="btn btn-outline-info "  to={"/simulation/"+data.simulationId} >Enter</Link>
+            <Link className="btn btn-outline-info "  to={"/simulation/"+data.simulationId} >{t('list-simulation.enter')}</Link>
           </td>
           {this.state.isTrainer 
             ? <td>
-                <Link className="btn btn-outline-danger" to={"/listSimulation/"} onClick={()=>this.sendDelete(data.simulationId)}> Delete </Link>
+                <Link className="btn btn-outline-danger" to={"/listSimulation/"} onClick={()=>this.sendDelete(data.simulationId)}> {t('list-simulation.delete')} </Link>
               </td>
             : null}
         </tr>
@@ -105,4 +106,4 @@ class SimulationList extends React.Component  {
     })
   }
 }
-export default SimulationList;
+export default withTranslation()(SimulationList);
