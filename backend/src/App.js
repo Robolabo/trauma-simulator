@@ -5,9 +5,10 @@ const app = express();
 const trainerRouters = require('./routes/trainerRoute')
 const simulationRouters = require('./routes/simulationRoute')
 const traineeRouters = require('./routes/traineeRoute')
+const actionRouters = require('./routes/actionRoute')
 
 //Settings
-app.set('port', process.env.PORT || 3000); //puerto por el que se ejecuta la app
+app.set('port', process.env.PORT || 8080); //puerto por el que se ejecuta la app
 
 //Middlewares
 //Funciones que atiende una transaccion HTTP
@@ -34,6 +35,7 @@ app.use('/test', (req, res) => {  //(ruta donde se ejecuta, el middleware)
 app.use('/trainer',trainerRouters)
 app.use('/simulation', simulationRouters)
 app.use('/trainee', traineeRouters)
+app.use('/action', actionRouters)
 
 
 app.listen(app.get('port'),()=>{

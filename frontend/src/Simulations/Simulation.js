@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
+import Alert from 'react-bootstrap/Alert'
 import axios from 'axios';
 import Nav from '../Menu/Nav'
 import Timer from '../Simulations/Components/Timer'
 import Graphic from '../Simulations/Components/Graphic'
 import Actions from '../Simulations/Components/Actions'
+import Messages from '../Simulations/Components/Messages'
 import './simulation.css'
 
-const baseUrl = "http://127.0.0.1:3000"
+const baseUrl = "http://127.0.0.1:8080"
 
 var heartRateValue = 0.5
 var bloodPressureValue = -0.5
@@ -50,7 +52,14 @@ export default class LoginForm extends Component {
         breathT:0,
         period:0,
         start: false,
-        confirm: true
+        confirm: true,
+        alert: null,
+        show:true,
+        header:null,
+        content: null,
+        num:0,
+        type:null,
+        id: null
       }
     }
 
@@ -230,18 +239,70 @@ export default class LoginForm extends Component {
         }        
     }
     
+    sendInformation(variant, msg){  
+
+        var alertMsg =  <Alert id="alert" variant={variant} show={this.state.show}> 
+                                {msg}
+                        </Alert>
+    
+        this.setState({
+            alert: alertMsg
+        });
+        
+    }
+
+    sendModal(id, type, header, content){
+        this.setState(({ num }) => ({
+            header: header,
+            content: content,
+            num: num + 1,
+            type: type,
+            id: id
+        }));
+       
+    }
+
+    changeNum(){
+        this.setState(({ num }) => ({
+            num: num - 1
+        }));
+
+    }
+
+    toogle() {
+    
+        setTimeout(() => {
+          this.setState({
+            showingAlert: false,
+            alert: null
+          });
+        }, 4000);
+    }
+    
     render() {
       return(
         
         <div>
-            <Nav></Nav>
+            <Nav header = {this.state.header}
+                 content = {this.state.content}
+                 num= {this.state.num}
+                 changeNum = {() => this.changeNum()}
+                 type = {this.state.type}
+                 id = {this.state.id}
+            >    
+            </Nav>
+            <Messages alert = {this.state.alert}
+                    toogle = {() => this.toogle()}/>
             <div className="timer">
                 <Timer time = {this.state.time}
                     start = {this.state.start} />    
             </div>
             <div className="main">
                 <Actions change = {(first, second) => this.change(first, second)}
+                        send = {(variant,msg) => this.sendInformation(variant, msg)}
+                        sendModal = {(id, type, header,content) => this.sendModal(id, type, header, content)}
                         time = {this.state.time}
+                        mentalStatus = {this.state.mentalStatus}
                         start = {this.state.start}
                         startClick = {() => this.start()} />
                 <Graphic 

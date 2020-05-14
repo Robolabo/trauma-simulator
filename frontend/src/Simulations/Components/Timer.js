@@ -13,35 +13,39 @@ class Timer extends Component {
         }
     }
 
-    componentWillReceiveProps() {
-        this.setState(() => ({
-            start: this.props.start
-        }))
-        if (this.state.start && this.state.confirm) {
-            this.setState({
-                minutes: this.props.time,
-                confirm: false
-            })
-            this.myTimer = setInterval(() => {
-                const { seconds, minutes } = this.state
-    
-                if (seconds > 0) {
-                    this.setState(({ seconds }) => ({
-                        seconds: seconds - 1
-                    }))
-                }
-                if (seconds === 0) {
-                    if (minutes === 0) {
-                        clearInterval(this.myInterval)
-                    } else {
-                        this.setState(({ minutes }) => ({
-                            minutes: minutes - 1,
-                            seconds: 59
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps !== this.props){
+            this.setState(() => ({
+                start: this.props.start
+            }))
+            if (this.state.start && this.state.confirm) {
+                this.setState({
+                    minutes: this.props.time,
+                    confirm: false
+                })
+                this.myTimer = setInterval(() => {
+                    const { seconds, minutes } = this.state
+        
+                    if (seconds > 0) {
+                        this.setState(({ seconds }) => ({
+                            seconds: seconds - 1
                         }))
                     }
-                } 
-            }, 1000)
+                    if (seconds === 0) {
+                        if (minutes === 0) {
+                            clearInterval(this.myInterval)
+                        } else {
+                            this.setState(({ minutes }) => ({
+                                minutes: minutes - 1,
+                                seconds: 59
+                            }))
+                        }
+                    } 
+                }, 1000)
+            }
+
         }
+        
     }
 
     stop() {

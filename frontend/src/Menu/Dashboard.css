@@ -39,3 +39,29 @@ body, html {
 .item {
     border-radius: 20px;
 }
+
+#nav{
+    z-index: 4;
+    position: absolute;
+    width: 100%;
+}
+
+#list-example{
+    width: 18%;
+}
+
+.list-group-item{
+    background-color: #EEEEEE;
+}
+
+.list-group-item:hover{
+    background-color: #BBBBBB;
+}
+
+.notification {
+    vertical-align: top;
+}
+
+
+
+

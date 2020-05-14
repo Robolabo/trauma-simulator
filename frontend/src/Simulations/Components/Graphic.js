@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import '../../../node_modules/react-vis/dist/style.css'
-import {XYPlot, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries, XAxis} from 'react-vis'
+import {XYPlot, YAxis, VerticalGridLines, LineSeries, XAxis} from 'react-vis'
 import { Button } from 'reactstrap';
 import { withTranslation } from 'react-i18next';
 import '../simulation.css'
@@ -25,7 +25,7 @@ class Graphic extends Component {
 
         return (
             <div className="graphic">
-                <div class="signals">
+                <div className="signals">
                 <XYPlot height={175} width= {500} yDomain={[-2,2]} >
                         { this.props.confirm
                         ? <LineSeries data={[{x: null, y: null}]} />

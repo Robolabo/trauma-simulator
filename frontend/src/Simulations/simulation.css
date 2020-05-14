@@ -67,6 +67,12 @@
     margin-top: 2pc;
 }
 
+.actions-buttons img {
+    width: 35px;
+    height: 35px;
+    margin-top: 0pc;
+}
+
 .timer {
     display: flex;
     flex-direction: row;
@@ -89,4 +95,15 @@
     margin-top: 1pc;
     width: 150px;
 }
+
+#alert {
+    position: absolute;
+    z-index: 1;  
+}
+
+#arrowDown {
+    margin-top: 2pc;
+}
+
+
 
