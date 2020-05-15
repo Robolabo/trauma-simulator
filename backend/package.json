@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/App.js"
+    "dev": "nodemon src/App.js",
+    "migrate": "./node_modules/.bin/sequelize db:migrate --url mysql://root:luis110797@mysql:3306/trauma_simulator",
+    "seed": "./node_modules/.bin/sequelize db:seed:all --url mysql://root:luis110797@mysql:3306/trauma_simulator"
   },
   "author": "lcastaneda",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.5"
+    "sequelize": "^5.21.5",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"

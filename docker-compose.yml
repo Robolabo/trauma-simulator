@@ -2,7 +2,6 @@ version: '3.7'
 
 services:
     frontend:
-        tty: true
         build: ./frontend #Lanzar contenedor
         container_name: "frontend"
         ports:
@@ -10,14 +9,13 @@ services:
         depends_on: 
             - backend
     backend:
-        tty: true
         build: ./backend #Lanzar contenedor
         container_name: "backend"
         ports: 
             - 8080:8080
         depends_on: 
             - mysql
-        
+        command: "npm run dev"
     mysql:
         image: mysql:latest
         environment:
