@@ -11,21 +11,32 @@ import './simulation.css'
 const baseUrl = "http://127.0.0.1:8080"
 
 var heartRateValue = 0.5
-var bloodPressureValue = -0.5
+var diastolicPressureValue = -0.5
 var breathingRateValue = 0.5
 var urineOutputValue = -0.5
 var saturationValue = -0.5
-var bloodLossValue = -0.5
-var breathConstant = [{x: 0, y: 0}, {x: (0.25), y: 500},{x: (0.5), y: 125}]
+var sistolicPressureValue = -0.5
+var breathConstant = [{x: (0.25), y: 500},{x: (0.5), y: 125},{x: 0, y: 0}]
 var heartConstant = [{x: 0, y: 0}, {x: 1/12, y: 0.07}, {x: 1/6, y: 0},
                      {x: 4/15, y: 0}, {x: 0.3, y: -0.14}, {x: 11/30, y: 0.96},
                      {x: 13/30, y: -0.24}, {x: 7/15,y:0}, {x: 37/60, y:0},
                      {x: 0.75, y:0.15}, {x: 0.85, y:0}]
 var saturationConstant = [{x: 0, y: 0}, {x: 1/6, y: 1}, 
                             {x: 1/3, y: 30}, {x: 13/30, y: 35}]
-var s = 0
-var l = 0
-var i = 0
+var dHeart = []
+var dSaturation = []
+var dBreath = []
+
+var start1 = 0
+var start2 = 0
+var x = 0
+var y = 0
+var z = 0
+var breath = 0
+var space1 = 0 
+var space2 = 0
+var time = 1
+var lengths = []
 
 export default class LoginForm extends Component {
     constructor(props){
@@ -35,8 +46,10 @@ export default class LoginForm extends Component {
         age: 0,
         weight: 0.0,
         partBody: "",
-        bloodLoss: 0,
-        bloodPressure: 0.0,
+        sistolicPressure: 0,
+        diastolicPressure: 0.0,
+        temperature: 0.0,
+        bloodLoss: 0.0,
         heartRate: 0.0,
         breathingRate: 0.0,
         urineOutput: 0.0,
@@ -46,9 +59,6 @@ export default class LoginForm extends Component {
         dataHeartRate: [],
         dataSaturation: [],
         dataBreathingRate: [],
-        xDomain1:[0,5],
-        xDomain2:[0,5],
-        xDomain3:[i,i+30],
         breathT:0,
         period:0,
         start: false,
@@ -59,7 +69,9 @@ export default class LoginForm extends Component {
         content: null,
         num:0,
         type:null,
-        id: null
+        id: null,
+        crono:false,
+        timeCrono:0
       }
     }
 
@@ -70,19 +82,22 @@ export default class LoginForm extends Component {
         .then(res=>{
             if (res.data.success) {
                 const data = res.data.data[0]
+                //añadir constantes del caso clínico creado
                 this.setState({
                     sex: data.sex,
                     age: data.age,
                     weight: data.weight,
                     partBody: data.partBody,
                     bloodLoss: data.bloodLoss,
-                    bloodPressure: data.bloodPressure,
+                    sistolicPressure: data.sistolicPressure,
+                    diastolicPressure: data.diastolicPressure,
                     heartRate: data.heartRate,
                     breathingRate: data.breathingRate,
                     urineOutput: data.urineOutput,
                     saturation: data.saturation,
                     mentalStatus: data.mentalStatus,
                     time: data.time,
+                    temperature: data.temperature,
                     breathT: 60/data.breathingRate,
                     period: 60/data.heartRate
                 })
@@ -104,41 +119,115 @@ export default class LoginForm extends Component {
                 start: !start,
                 confirm: false
             }))
+
+            this.myInterval0 = setInterval(this.interval0.bind(this) , 1000)
             
-            while(i>3) {
-                this.setState({
-                    xDomain1:[i,i+5],
-                    xDomain2:[i,i+5]
-                })
-            }
-            i++
-            this.myInterval0 = setInterval(() => {
-    
-                this.setState(({ heartRate,bloodLoss, bloodPressure, breathingRate, urineOutput, saturation,
-                                 dataHeartRate, dataSaturation, dataBreathingRate }) => ({
-                    heartRate: heartRate + (heartRateValue/60),
-                    bloodLoss: bloodLoss + (bloodLossValue/60),
-                    bloodPressure: bloodPressure + (bloodPressureValue/60),
-                    breathingRate: breathingRate + (breathingRateValue/60),
-                    urineOutput: urineOutput + (urineOutputValue/60),
-                    saturation: saturation + (saturationValue/60),
-                    breathT: 60/breathingRate,
-                    period: 60/heartRate,
-                    dataHeartRate: dataHeartRate,
-                    dataSaturation:dataSaturation,
-                    dataBreathingRate:dataBreathingRate
-                })) 
-  
-            }, 1000)
             
-            this.setIntervalHeart()
-            this.setIntervalBreath()
         }
     }
 
-    setIntervalHeart() {
-        var timerHeart= (this.state.period * 1000)
+    interval0() {
+        this.setState({
+            crono: false,
+            timeCrono:0
+        })
+          
+        var period = 60/this.state.heartRate
+        var breathT = 60 / this.state.breathingRate
+        
+        while( x < time && z < time) {
+          //heartRate y saturation
+          for (var i = start1; (i < 11 && x < time); i++){
+            if( i < 4 && z < time) {
+              if (i === 1){
+                  z = ((saturationConstant[i].x * period) + (space1 * period))
+                  dSaturation.push({x:z,
+                              y:this.state.saturation})
+              } else {
+                  dSaturation.push({x:((saturationConstant[i].x * period) + (space1 * period)),
+                                       y:saturationConstant[i].y})
+              }
+            }
+            x = ((heartConstant[i].x * period) + (space1 * period))
+            dHeart.push({x:x, y:heartConstant[i].y})
+            start1 = (i == 10 ? 0 : i)
+          }
+          
+          
+          //breathRate
+          for (var j = start2; j < 3 && y < time; j++){
+            dBreath.push({x:y, y:breath})
+            space2 += (breathConstant[j].x === 0) ? 1 : 0
+            y = ((breathConstant[j].x * breathT) + (space2 * breathT))
+            breath = breathConstant[j].y
+            start2 = (j == 2 ? 0 : j)
+          }
+          
+          if (start1 === 0 && x !== time){
+            space1+=1
+          }
+          
+        }
+        time += 1
+        
+        lengths.push({  h: this.state.dataHeartRate.length,
+                        b: this.state.dataBreathingRate.length,
+                        s: this.state.dataSaturation.length})
 
+        /*if (time > 5){
+            dHeart.splice(0,(lengths[1].h - lengths[0].h))
+            dBreath.splice(0,(lengths[1].b - lengths[0].b))
+            dSaturation.splice(0,(lengths[1].s - lengths[0].s))
+            lengths.splice(0,1)
+        }*/
+        this.setState(({ heartRate,sistolicPressure, diastolicPressure, breathingRate, 
+            urineOutput, saturation }) => ({
+
+            heartRate: heartRate + (heartRateValue/60),
+            sistolicPressure: sistolicPressure + (sistolicPressureValue/60),
+            diastolicPressure: diastolicPressure + (diastolicPressureValue/60),
+            breathingRate: breathingRate + (breathingRateValue/60),
+            urineOutput: urineOutput + (urineOutputValue/60),
+            saturation: saturation + (saturationValue/60),
+            breathT: 60/breathingRate,
+            period: 60/heartRate,
+            dataHeartRate: dHeart,
+            dataSaturation: dSaturation,
+            dataBreathingRate: dBreath
+        }))
+         
+
+    }
+
+       
+            
+            //
+        
+    
+
+    toogleCrono(){
+        this.setState({
+            crono: true,
+            timeCrono:5
+        })
+        clearInterval(this.myInterval0)
+        this.setState(({ heartRate,sistolicPressure, diastolicPressure, breathingRate, 
+            urineOutput, saturation }) => ({
+
+            heartRate: heartRate + (heartRateValue * 5),
+            sistolicPressure: sistolicPressure + (sistolicPressureValue * 5),
+            diastolicPressure: diastolicPressure + (diastolicPressureValue * 5),
+            breathingRate: breathingRate + (breathingRateValue * 5),
+            urineOutput: urineOutput + (urineOutputValue * 5),
+            saturation: saturation + (saturationValue * 5),
+        }))
+        this.myInterval0 = setInterval(this.interval0.bind(this) , 1000)
+    }
+
+    /*setIntervalHeart() {
+        var timerHeart= (this.state.period * 1000)
+            this.setIntervalHeart()
+            this.setIntervalBreath()
         this.myIntervalHeart = setInterval(() => {
 
             var { saturation, dataHeartRate,
@@ -179,7 +268,7 @@ export default class LoginForm extends Component {
 
             var { dataBreathingRate, breathT } = this.state
 
-            if ( dataBreathingRate.length > 24) {
+            if ( dataBreathingRate.length > 15) {
                 dataBreathingRate.splice(0,3)
             }
 
@@ -193,7 +282,7 @@ export default class LoginForm extends Component {
             this.setIntervalBreath()    
         }, timerBreath)
 
-    }
+    }*/
 
     change(parameter,value) {
         switch (parameter) {
@@ -204,15 +293,15 @@ export default class LoginForm extends Component {
                 
                 break;
 
-            case "bloodLoss":
+            case "sistolicPressure":
 
-                bloodLossValue += value
+                sistolicPressureValue += value
             
                 break;
 
-            case "bloodPressure":
+            case "diastolicPressure":
 
-                bloodPressureValue += value
+                diastolicPressureValue += value
             
                 break;
 
@@ -295,7 +384,9 @@ export default class LoginForm extends Component {
                     toogle = {() => this.toogle()}/>
             <div className="timer">
                 <Timer time = {this.state.time}
-                    start = {this.state.start} />    
+                    start = {this.state.start}
+                    crono = {this.state.crono}
+                    timeCrono= {this.state.timeCrono} />    
             </div>
             <div className="main">
                 <Actions change = {(first, second) => this.change(first, second)}
@@ -303,12 +394,21 @@ export default class LoginForm extends Component {
                         sendModal = {(id, type, header,content) => this.sendModal(id, type, header, content)}
                         time = {this.state.time}
                         mentalStatus = {this.state.mentalStatus}
+                        diastolicPressure = {this.state.diastolicPressure}
+                        heartRate = {this.state.heartRate}
+                        sistolicPressure = {this.state.sistolicPressure}
+                        saturation = {this.state.saturation}
+                        urineOutput = {this.state.urineOutput}
+                        breathingRate = {this.state.breathingRate}
+                        partBody = {this.state.partBody}
+                        temperature = {this.state.temperature}
+                        bloodLoss = {this.state.bloodLoss}
                         start = {this.state.start}
                         startClick = {() => this.start()} />
                 <Graphic 
-                        bloodPressure = {this.state.bloodPressure}
+                        diastolicPressure = {this.state.diastolicPressure}
                         heartRate = {this.state.heartRate}
-                        bloodLoss = {this.state.bloodLoss}
+                        sistolicPressure = {this.state.sistolicPressure}
                         saturation = {this.state.saturation}
                         urineOutput = {this.state.urineOutput}
                         breathingRate = {this.state.breathingRate}
@@ -318,7 +418,10 @@ export default class LoginForm extends Component {
                         confirm = {this.state.confirm}
                         xDomain1 = {this.state.xDomain1}
                         xDomain2 = {this.state.xDomain2}
+                        toogleCrono = {() => this.toogleCrono()}
+                        start={this.state.start}
                 />
+                
             </div>
         </div>
       )

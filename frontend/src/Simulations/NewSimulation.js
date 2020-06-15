@@ -39,11 +39,13 @@ class NewSimulation extends Component {
             weight: 0.0,
             partBody: "",
             bloodLoss: 0.0,
-            bloodPressure: 0.0,
+            sistolicPressure: 0.0,
+            diastolicPressure: 0.0,
             heartRate: 0.0,
             breathingRate: 0.0,
             urineOutput: 0.0,
-            saturation: 0,
+            saturation: 0.0,
+            temperature: 0.0,
             mentalStatus: "",
             time: 0,
             redirect: false
@@ -78,11 +80,13 @@ class NewSimulation extends Component {
                 weight: default_config.weight,
                 partBody: default_config.partBody,
                 bloodLoss: default_config.bloodLoss,
-                bloodPressure: default_config.bloodPressure,
+                diastolicPressure: default_config.diastolicPressure,
+                sistolicPressure: default_config.sistolicPressure,
                 heartRate: default_config.heartRate,
                 breathingRate: default_config.breathingRate,
                 urineOutput: default_config.urineOutput,
                 saturation: default_config.saturation,
+                temperature: default_config.temperature,
                 mentalStatus: default_config.mentalStatus,
                 time: default_config.time
             })
@@ -107,12 +111,14 @@ class NewSimulation extends Component {
             weight: this.state.weight,
             partBody: this.state.partBody,
             bloodLoss: this.state.bloodLoss,
-            bloodPressure: this.state.bloodPressure,
+            sistolicPressure: this.state.sistolicPressure,
+            diastolicPressure: this.state.diastolicPressure,
             heartRate: this.state.heartRate,
             breathingRate: this.state.breathingRate,
             urineOutput: this.state.urineOutput,
             saturation: this.state.saturation,
             mentalStatus: this.state.mentalStatus,
+            temperature: this.state.temperature,
             time: this.state.time
         }
 
@@ -223,12 +229,12 @@ class NewSimulation extends Component {
                                         axis="x"
                                         xmax= {190}
                                         xmin= {60}
-                                        x={this.state.bloodLoss}
-                                        onChange={({ x }) => this.setState({ bloodLoss: x })}
+                                        x={this.state.sistolicPressure}
+                                        onChange={({ x }) => this.setState({ sistolicPressure: x })}
                                     />
                                 </td>
                                 <td>
-                                    <input type="number" value={this.state.bloodLoss} onChange={(value) => this.setState({bloodLoss: value.target.value})} /> 
+                                    <input type="number" value={this.state.sistolicPressure} onChange={(value) => this.setState({sistolicPressure: value.target.value})} /> 
                                 </td>
                             </tr>
 
@@ -239,12 +245,28 @@ class NewSimulation extends Component {
                                         axis="x"
                                         xmax= {85}
                                         xmin= {35}
-                                        x={this.state.bloodPressure}
-                                        onChange={({ x }) => this.setState({ bloodPressure: x })}
+                                        x={this.state.diastolicPressure}
+                                        onChange={({ x }) => this.setState({ diastolicPressure: x })}
                                     />
                                 </td>
                                 <td>
-                                    <input type="number" value={this.state.bloodPressure} onChange={(value) => this.setState({bloodPressure: value.target.value})} />
+                                    <input type="number" value={this.state.diastolicPressure} onChange={(value) => this.setState({diastolicPressure: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>{t('new-simulation.bloodLoss')}</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {500}
+                                        xmin= {100}
+                                        x={this.state.bloodLoss}
+                                        onChange={({ x }) => this.setState({ bloodLoss: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.bloodLoss} onChange={(value) => this.setState({bloodLoss: value.target.value})} />
                                 </td>
                             </tr>
 
@@ -293,6 +315,22 @@ class NewSimulation extends Component {
                                 </td>   
                                 <td>  
                                     <input type="number" value={this.state.urineOutput} onChange={(value) => this.setState({urineOutput: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr onSubmit={this.handleSubmit}>
+                                <td>{t('new-simulation.temperature')}</td>
+                                <td>
+                                    <Slider
+                                        axis="x"
+                                        xmax= {43}
+                                        xmin= {32}
+                                        x= {this.state.temperature}
+                                        onChange={({ x }) => this.setState({ temperature: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.temperature} onChange={(value) => this.setState({temperature: value.target.value})} />
                                 </td>
                             </tr>
 

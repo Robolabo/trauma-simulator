@@ -22,7 +22,6 @@ import ecoAbd from '../../assets/ecoAbd.png'
 import tacAbdPelv from '../../assets/tacAbdPelv.png'
 import { withTranslation } from 'react-i18next';
 import axios from 'axios';
-const baseUrl = "http://127.0.0.1:8080"
 
 var avatar = naked
 var content;
@@ -67,14 +66,30 @@ class Actions extends Component {
         this.setState({tacModal: next});
     }
 
-    getMsg(variant, action, num){
-        const url = baseUrl+"/action/get/"+action
-        axios.get(url)
-        .then(res=>{
+    getMsg(variant, action){
+
+        const url = "http://127.0.0.1:8080/action/getMsg"
+        axios.get(url, {
+            params: {
+                actionName: action,
+                bloodLoss: this.props.bloodLoss,
+                sistolicPressure: this.props.sistolicPressure,
+                diastolicPressure: this.props.diastolicPressure,
+                heartRate: this.props.heartRate,
+                breathingRate: this.props.breathingRate,
+                urineOutput: this.props.urineOutput,
+                saturation: this.props.saturation,
+                temperature: this.props.temperature,
+                partBody: this.props.partBody,
+                mentalStatus: this.props.mentalStatus
+            }
+          })
+        .then(res => {
             if (res.data.success) {
                 const data = res.data.data
-                //console.log(data)
-                this.props.send(variant,data.messages[num])
+                console.log(data)
+                console.log(data[0].message)
+                this.props.send(variant,data[0].message)
             }
             else {
             alert("Error web service")
@@ -99,15 +114,11 @@ class Actions extends Component {
     }
     
     inspection() {
-        this.getMsg("info","inspection", 1)
+        this.getMsg("info","inspection")
     }
 
     dialog() {
-        let num
-        if(this.props.mentalStatus === "confused"){
-            num = 2
-        } 
-        this.getMsg("info","dialog", num)
+        this.getMsg("info","dialog")
     }
 
     collarin() {
@@ -143,9 +154,9 @@ class Actions extends Component {
         this.props.change("breathingRate", -0.5)
         //this.props.change("urineOutput", -0.5)
         this.props.change("saturation", 0.5)
-        this.getMsg("info","clean", 0)
+        this.getMsg("info","clean")
         setTimeout(() => {
-            this.getMsg("success","clean",1)
+            this.props.send("success","La vía aéra se encuentra limpia.")
         }, 8000)        
     }
 
@@ -156,7 +167,7 @@ class Actions extends Component {
         //this.props.change("urineOutput", 0)
         this.props.change("saturation", 0.5)
         console.log(avatar)
-        this.getMsg("info","oxygenate",0)
+        this.getMsg("info","oxygenate")
         switch(avatar) {
             case naked:
                 avatar = masc
@@ -198,12 +209,12 @@ class Actions extends Component {
         switch(next){
             case "torax":
                 content = rxTorax
-                this.getMsg("info","rx",0)
+                this.getMsg("info","rx")
                 this.props.sendModal(0, rx, "Rx Tórax", content)
                 break;
             case "pelvis":
                 content = rxPelvis
-                this.getMsg("info","rx",0)
+                this.getMsg("info","rx")
                 this.props.sendModal(0, rx, "Rx Pelvis", content)
                 break;
             default:
@@ -217,7 +228,7 @@ class Actions extends Component {
         switch(next){
             case "abd":
                 content = ecoAbd
-                this.getMsg("info","eco",0)
+                this.getMsg("info","eco")
                 this.props.sendModal(1, eco, "Ecografía Abdominal", content)
                 break;
             
@@ -232,7 +243,7 @@ class Actions extends Component {
         switch(next){
             case "abdpelv":
                 content = tacAbdPelv
-                this.getMsg("info","tac",0)
+                this.getMsg("info","tac")
                 this.props.sendModal(3, tac, "TAC Abdominopélvico", content)
                 break;
             
@@ -243,7 +254,7 @@ class Actions extends Component {
     }
 
     manta(){
-        this.getMsg("info","manta",0)
+        this.getMsg("info","manta")
         switch(avatar) {
             case naked:
                 avatar = manta
@@ -275,11 +286,11 @@ class Actions extends Component {
     } 
     
     glasgow(){
-        this.getMsg("info","glasgow",0)
+        this.getMsg("info","glasgow")
     }
 
     analisis(){
-        this.getMsg("info","analisis",0)
+        this.getMsg("info","analisis")
     }
 
     intubate() {
@@ -316,7 +327,7 @@ class Actions extends Component {
         //this.props.change("breathingRate", 0)
         //this.props.change("urineOutput", 0)
         this.props.change("saturation", 0.5)
-        this.getMsg("info","belt",0)
+        this.getMsg("info","belt")
         switch(avatar) {
             case naked:
                 avatar = cint
@@ -366,7 +377,7 @@ class Actions extends Component {
         this.props.change("breathingRate", -0.5)
         this.props.change("urineOutput", 0.5)
         this.props.change("saturation", 0.5)
-        this.getMsg("info","transfusion",0)
+        this.getMsg("info","transfusion")
     }
 
     hot_liquids(){
@@ -376,7 +387,7 @@ class Actions extends Component {
         //this.props.change("breathingRate", 0)
         this.props.change("urineOutput", 0.5)
         //this.props.change("saturation", 0)
-        this.getMsg("info","liquids",0)
+        this.getMsg("info","liquids")
     }
 
     surgery() {
@@ -386,7 +397,7 @@ class Actions extends Component {
         this.props.change("breathingRate", -0.5)
         //this.props.change("urineOutput", -0.5)
         this.props.change("saturation", 0.5)
-        this.getMsg("info","surgery",0)
+        this.getMsg("info","surgery")
     }
 
     cristaloides() {
@@ -396,7 +407,7 @@ class Actions extends Component {
         this.props.change("breathingRate", -0.5)
         this.props.change("urineOutput", 0.5)
         this.props.change("saturation", 0)
-        this.getMsg("info","cristaloides",0)
+        this.getMsg("info","cristaloides")
     }
 
     render() {

@@ -16,7 +16,32 @@ import lengend3 from '../../assets/legend3.png'
 import lengend4 from '../../assets/legend4.png'
 import lengend5 from '../../assets/legend5.png'
 
+var xDomain1 = [-5,0]
+var xDomain2 = [-5,0]
+var xDomain3 = [-10,0]
 class Graphic extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          domain: true
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps !== this.props){
+            if(this.props.start && this.state.domain){
+                this.intervalDomain = setInterval(() => {
+                    xDomain1 = [xDomain1[0]+1,xDomain1[1]+1]
+                    xDomain2 = [xDomain2[0]+1,xDomain2[1]+1]
+                    xDomain3 = [xDomain3[0]+1,xDomain3[1]+1]
+                }, 1000);
+                this.setState({
+                    domain: false
+                })
+            }
+        }
+    }
+
     render() {
         var data1 = this.props.dataHeartRate
         var data3 = this.props.dataBreathingRate
@@ -26,7 +51,7 @@ class Graphic extends Component {
         return (
             <div className="graphic">
                 <div className="signals">
-                <XYPlot height={175} width= {500} yDomain={[-2,2]} >
+                <XYPlot height={175} width= {500} yDomain={[-2,2]} xDomain={xDomain1} >
                         { this.props.confirm
                         ? <LineSeries data={[{x: null, y: null}]} />
                         : null }                    
@@ -37,7 +62,7 @@ class Graphic extends Component {
                         <YAxis />
                         <XAxis/>
                     </XYPlot>
-                    <XYPlot height={175} width= {500} yDomain={[0,100]} >
+                    <XYPlot height={175} width= {500} yDomain={[0,100]} xDomain={xDomain2} >
                         { this.props.confirm
                         ? <LineSeries data={[{x: null, y: null}]} />
                         : null }                    
@@ -48,7 +73,7 @@ class Graphic extends Component {
                         <YAxis />
                         <XAxis/>
                     </XYPlot>
-                    <XYPlot height={175} width= {500} yDomain={[0,500]} >
+                    <XYPlot height={175} width= {500} yDomain={[0,500]} xDomain={xDomain3} >
                         { this.props.confirm
                         ? <LineSeries data={[{x: null, y: null}]} />
                         : null }                    
@@ -64,32 +89,27 @@ class Graphic extends Component {
                 
                 <div className="constants">
                     <div className="constants-items">
-                        <img className="legend" src={lengend1} alt="legend"></img>
                         {this.props.heartRate.toFixed(0)} {t('simulation.heart-unit')}
                         <Button><img src={heart} alt="heart" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
-                        <img className="legend" src={lengend2} alt="legend"></img>
-                        {this.props.saturation.toFixed(0)} %
+                        {this.props.saturation.toFixed(0)} %SatO2
                         <Button><img src={saturation} alt="sat" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
-                        <img className="legend" src={lengend4} alt="legend"></img>
                         {this.props.breathingRate.toFixed(0)} {t('simulation.breath-unit')}
                         <Button><img src={breath} alt="breath" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
-                        <img className="legend" src={lengend3} alt="legend"></img>   
-                        {this.props.bloodLoss.toFixed(0)}/{this.props.bloodPressure.toFixed(0)} mmHg
+                        {this.props.sistolicPressure.toFixed(0)}/{this.props.diastolicPressure.toFixed(0)} mmHg
                         <Button><img src={pressure} alt="pres" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
-                        <img className="legend" src={lengend5} alt="legend"></img>
                         {this.props.urineOutput.toFixed(0)} mL/min
                         <Button><img src={urine} alt="urine" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="reset">
-                        <Button>{t('simulation.reset')}</Button>
+                        <Button onClick={() => this.props.toogleCrono()}>{t('simulation.reset')}</Button>
                     </div>    
                 </div>
             </div>

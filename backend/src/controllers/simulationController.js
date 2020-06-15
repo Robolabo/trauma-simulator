@@ -33,7 +33,7 @@ controller.list = async (req, res) => {
 }
 controller.create = async (req,res) => {
   // data
-  const { sex, age, weight, partBody, bloodLoss, bloodPressure, heartRate, breathingRate, urineOutput,
+  const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
             saturation, mentalStatus, time, traineeId, trainerId } = req.body;
     
   // create
@@ -43,10 +43,12 @@ controller.create = async (req,res) => {
     weight: weight,
     partBody: partBody,
     bloodLoss: bloodLoss,
-    bloodPressure: bloodPressure,
+    sistolicPressure: sistolicPressure,
+    diastolicPressure: diastolicPressure,
     heartRate: heartRate,
     breathingRate: breathingRate,
     urineOutput: urineOutput,
+    temperature: temperature,
     saturation: saturation,
     mentalStatus: mentalStatus,
     time: time,
@@ -86,7 +88,7 @@ controller.update = async (req,res) => {
   // parameter get id
   const { id } = req.params;
   // parameter POST
-  const { sex, age, weight, partBody, bloodLoss, bloodPressure, heartRate, breathingRate, urineOutput,
+  const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
     saturation, mentalStatus, time, traineeId, trainerId } = req.body;
   // Update data
   const data = await Simulation.update({
@@ -95,10 +97,12 @@ controller.update = async (req,res) => {
     weight: weight,
     partBody: partBody,
     bloodLoss: bloodLoss,
-    bloodPressure: bloodPressure,
+    sistolicPressure: sistolicPressure,
+    diastolicPressure: diastolicPressure,
     heartRate: heartRate,
     breathingRate: breathingRate,
     urineOutput: urineOutput,
+    temperature: temperature,
     saturation: saturation,
     mentalStatus: mentalStatus,
     time: time,

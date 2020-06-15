@@ -4,6 +4,6 @@ const router = express.Router();
 //importing controllers
 const actionController = require('../controllers/actionController')
 
-router.get('/get/:action',actionController.get );
+router.get('/getMsg', actionController.getMsg);
 
 module.exports = router;

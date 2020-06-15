@@ -1,168 +1,37 @@
 const controller = {}
+var sequelize = require ('../model/database')
+const { QueryTypes } = require('sequelize');
 
-let actionsJson = {
-    "inspection":{
-      
-      "messages":[
-        "No se han encontrado anomalías durante la inspección de la vía aérea.",
-        "Se han encontrado cuerpos extraños durante la inspección de la vía aérea."
-      ],
-      
-      "attachment": null
-    },
+controller.getMsg = async (req, res) => {
 
-    "clean":{
-      
-      "messages":[
-        "Aspirando los cuerpos extraños encontrados.",
-        "La vía aéra se encuentra limpia."
-      ],
-      
-      "attachment": null
-    },
-    
-    "dialog":{
-      
-      "messages":[
-        "El paciente responde con normalidad al diálogo.",
-        "El paciente no responde, encontrándose en estado de incosciencia.",
-        "El paciente responde al díalogo, mostrándose confuso, escuchándose ruidos en la respiración."
-      ],
-      "attachment": null
-    },
-
-    "oxygenate":{
-      
-      "messages":[
-        "Se coloca una mascarilla con oxígeno."
-      ],
-      "attachment": null
-    },
-
-    "collarin":{
-      
-      "messages":[
-        "Se coloca un collarín cervical."
-      ],
-      "attachment": null
-    },
-
-    "cristaloides":{
-      
-      "messages":[
-        "Se han sumistrado cristaloides por vía sanguínea."
-      ],
-      "attachment": null
-    },
-
-    "manta":{
-      
-      "messages":[
-        "Se coloca una manta térmica para subir la temperatura al paciente."
-      ],
-      "attachment": null
-    },
-
-    "liquids":{
-      
-      "messages":[
-        "Se han suministrado líquidos calientes para subir la temperatura del paciente."
-      ],
-      "attachment": null
-    },
-    
-    "belt":{
-      
-      "messages":[
-        "Se coloca un cinturón pélvico."
-      ],
-      "attachment": null
-    },
-
-    "glasgow":{
-      
-      "messages":[
-        "Tras las pruebas realizadas el paciente, el nivel de conciencia se representa con un 10 en la escala de Glasgow"
-        
-      ],
-      "attachment": null
-    },
-
-    "rx":{
-      
-      "messages":[
-        "Ya se encuentran disponibles los resultados de la radiografía."
-        
-      ],
-      "attachment": null
-    },
-
-    "eco":{
-      
-      "messages":[
-        "Ya se encuentran disponibles los resultados de la ecografía."
-        
-      ],
-      "attachment": null
-    },
-
-    "tac":{
-      
-      "messages":[
-        "Ya se encuentran disponibles los resultados de la tomografía."
-        
-      ],
-      "attachment": null
-    },
-
-    "analisis":{
-      
-      "messages":[
-        "Ya se encuentran disponibles los resultados del análisis sanguíneo."
-        
-      ],
-      "attachment": null
-    },
-
-    "transfusion":{
-      
-      "messages":[
-        "Se realiza una transfusión al paciente para aumentar los niveles sanguíneos."
-        
-      ],
-      "attachment": null
-    },
-
-    "surgery":{
-      
-      "messages":[
-        "Se intervendrá quirurgicamente para fijar definivamente la pelvis."
-        
-      ],
-      "attachment": null
+  const data = await sequelize.query(
+    `Select distinct message, photo from actions where actionName = '${req.query.actionName}' and
+    ((bloodLossMin != -1 and ${req.query.bloodLoss} > bloodLossMin and ${req.query.bloodLoss} < bloodLossMax) or 
+    (sistolicPressureMin != -1 and ${req.query.sistolicPressure} > sistolicPressureMin and ${req.query.sistolicPressure} < sistolicPressureMax) or 
+    (diastolicPressureMin != -1 and ${req.query.diastolicPressure} > diastolicPressureMin and ${req.query.diastolicPressure} < diastolicPressureMax) or 
+    (heartRateMin != -1 and ${req.query.heartRate} > heartRateMin and ${req.query.heartRate} < heartRateMax) or 
+    (breathingRateMin != -1 and ${req.query.breathingRate} > breathingRateMin and ${req.query.breathingRate} < breathingRateMax) or 
+    (urineOutputMin != -1 and ${req.query.urineOutput} > urineOutputMin and ${req.query.urineOutput} < urineOutputMax) or 
+    (saturationMin != -1 and ${req.query.saturation} > saturationMin and ${req.query.saturation} < saturationMax) or 
+    (temperatureMin != -1 and ${req.query.temperature} > temperatureMin and ${req.query.temperature} < temperatureMax) or 
+    (mentalStatus = '${req.query.mentalStatus}' and mentalStatus != '-1') or 
+    (bloodLossMin = -1 and sistolicPressureMin = -1 and saturationMin = -1
+      and diastolicPressureMin = -1 and heartRateMin = -1 and breathingRateMin = -1 and 
+      urineOutputMin = -1 and saturationMin = -1 and temperatureMin = -1 and mentalStatus = '-1'
+      and partBody = '-1')) `,
+    { type: QueryTypes.SELECT }
+  )
+  .then(function(data){
+    if (data[0].photo){
+      //Aqui query para sacar imagen
     }
-    
-}
-
-let actions = JSON.parse(JSON.stringify(actionsJson)) //usar fetch()
-
-
-controller.get = async (req, res) => {
-    
-    const { action } = req.params;
-        
-    let act
-    for( const prop in actions) {
-        if (action === prop){
-            act = prop
-        
-        }
-    }
-    data = actions[act]
-    //const data = actions[act]
-
-    res.json({success : true, data : data});
-  
+    return data;
+  })
+  .catch(error =>{
+    return error;
+  })
+  console.log(data)
+  res.json({ success: true, data: data });
 }
 
 module.exports = controller;
