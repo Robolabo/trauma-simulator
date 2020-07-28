@@ -5,12 +5,12 @@ module.exports = {
     return queryInterface.bulkInsert('trainees',[
       {
         traineeId: 1,
-        name: 'Sandra',
-        surname: 'Perez',
-        email: 'sandra@gmail.com',
+        name: 'Luis',
+        surname: 'Castañeda López',
+        email: 'luis@gmail.com',
         password: '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',
         roleId: 4,
-        workplace: 'Hospital de Fuenlabrada'
+        workplace: 'Hospital de Alcorcón'
       }
     ] );
     /*

@@ -168,7 +168,8 @@ class Actions extends Component {
                     Math.round(this.props.saturation),Math.round(this.props.urineOutput), 
                     Math.round(this.props.bloodLoss),Math.round(this.props.temperature)]})
         }
-        
+
+        this.props.test()
     }
 
     handleChange(num){

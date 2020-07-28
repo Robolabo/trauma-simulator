@@ -15,6 +15,11 @@ import fordward1 from '../../assets/fordward1.png'
 
 class Graphic extends Component {
 
+    toogleCrono(){
+        this.props.toogleCrono(5)
+        this.props.test()
+    }
+
     render() {
         var data1 = this.props.dataHeartRate
         var data3 = this.props.dataBreathingRate
@@ -83,7 +88,7 @@ class Graphic extends Component {
                     </div>
                     {this.props.fordward  ?
                         <div className="clock">
-                            <Button onClick={() => this.props.toogleCrono(5)}>
+                            <Button onClick={() => this.toogleCrono()}>
                                 
                                 <div className ="fordward">
                                     <img src={fordward} alt="fordward" width ="50px" height="50px"/>

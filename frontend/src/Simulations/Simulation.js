@@ -47,6 +47,13 @@ var lengthB = 0
 var timeSim = 1
 var initialData
 
+var testHeartRate = []
+var testBreathRate = []
+var testDistolic = []
+var testSistolic = []
+var testUrine = []
+var testSaturation = []
+
 export default class LoginForm extends Component {
     constructor(props){
       super(props);
@@ -503,6 +510,16 @@ export default class LoginForm extends Component {
             fordward: false
         })
     }
+
+    test(){
+        testHeartRate.push({x: timeSim, y: this.state.heartRate})
+        testBreathRate.push({x: timeSim, y: this.state.breathingRate})
+        testDistolic.push({x: timeSim, y: this.state.diastolicPressure})
+        testSistolic.push({x: timeSim, y: this.state.sistolicPressure})
+        testUrine.push({x: timeSim, y: this.state.urineOutput})
+        testSaturation.push({x: timeSim, y: this.state.saturation})
+        console.log(testHeartRate)
+    }
     
     render() {
       return(
@@ -559,7 +576,8 @@ export default class LoginForm extends Component {
                         timeSim = {timeSim}
                         sendData = {(next) => this.sendData(next)}
                         toogleCrono = {(next) => this.toogleCrono(next)}
-                        data = {initialData}/>
+                        data = {initialData}
+                        test = {() => this.test()}/>
                 <Graphic 
                         diastolicPressure = {this.state.diastolicPressure}
                         heartRate = {this.state.heartRate}
@@ -578,6 +596,7 @@ export default class LoginForm extends Component {
                         finish = {() => this.finish()}
                         fordward = {this.state.fordward}
                         time = {this.state.time}
+                        test = {() => this.test()}
                 />
                 
             </div>
