@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 const sequelize = new Sequelize(
   'trauma_simulator',
   'root',
-  'luis110797',
+  '1234',
   {
     host: 'mysql',
     dialect: 'mysql',
@@ -12,3 +12,4 @@ const sequelize = new Sequelize(
 );
 
 module.exports = sequelize;
+//Arreglar cambios en la vista de nueva simulacion, hay campos nuevos.

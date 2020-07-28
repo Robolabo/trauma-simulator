@@ -5,12 +5,14 @@
         "age": 40,
         "weight": 75.0,
         "partBody": "pelvis",
-        "bloodLoss": 90,
-        "bloodPressure": 60,
+        "bloodLoss": 200,
+        "sistolicPressure": 90,
+        "diastolicPressure": 60,
         "heartRate": 130.0,
         "breathingRate": 35,
         "urineOutput": 10,
         "saturation": 85,
+        "temperature":34.2,
         "mentalStatus": "confused",
         "time": 250
     }    

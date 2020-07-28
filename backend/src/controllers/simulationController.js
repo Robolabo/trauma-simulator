@@ -33,7 +33,7 @@ controller.list = async (req, res) => {
 }
 controller.create = async (req,res) => {
   // data
-  const { sex, age, weight, partBody, bloodLoss, bloodPressure, heartRate, breathingRate, urineOutput,
+  const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
             saturation, mentalStatus, time, traineeId, trainerId } = req.body;
     
   // create
@@ -43,10 +43,12 @@ controller.create = async (req,res) => {
     weight: weight,
     partBody: partBody,
     bloodLoss: bloodLoss,
-    bloodPressure: bloodPressure,
+    sistolicPressure: sistolicPressure,
+    diastolicPressure: diastolicPressure,
     heartRate: heartRate,
     breathingRate: breathingRate,
     urineOutput: urineOutput,
+    temperature: temperature,
     saturation: saturation,
     mentalStatus: mentalStatus,
     time: time,
@@ -71,6 +73,8 @@ controller.create = async (req,res) => {
 controller.get = async (req,res) => {
   const { id } = req.params;
   const data = await Simulation.findAll({
+      include: [ { model: Trainer, as: 'trainer' },
+                 { model: Trainee, as: 'trainee' } ],
       where: { simulationId: id }
   })
   .then(function(data){
@@ -86,24 +90,10 @@ controller.update = async (req,res) => {
   // parameter get id
   const { id } = req.params;
   // parameter POST
-  const { sex, age, weight, partBody, bloodLoss, bloodPressure, heartRate, breathingRate, urineOutput,
-    saturation, mentalStatus, time, traineeId, trainerId } = req.body;
+  const { inform } = req.body;
   // Update data
   const data = await Simulation.update({
-    sex: sex,
-    age: age,
-    weight: weight,
-    partBody: partBody,
-    bloodLoss: bloodLoss,
-    bloodPressure: bloodPressure,
-    heartRate: heartRate,
-    breathingRate: breathingRate,
-    urineOutput: urineOutput,
-    saturation: saturation,
-    mentalStatus: mentalStatus,
-    time: time,
-    traineeId: traineeId,
-    trainerId: trainerId
+    inform: inform
   },
   {
     where: { simulationId: id}
@@ -114,7 +104,7 @@ controller.update = async (req,res) => {
   .catch(error => {
     return error;
   }) 
-  res.json({success:true, data:data, message:"Updated successful"});
+  res.json({success:true, data:data, message:"El informe está disponible"});
 }
 
 controller.delete = async (req, res) => {

@@ -73,16 +73,48 @@
     margin-top: 0pc;
 }
 
+.buttonModal{
+    margin-top: 1pc;
+}
+
 .timer {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
+.clock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.clock button {
+    width: 105px;
+    margin-top: 1pc;
+    background: white;
+    border: none;
+    display: flex;
+}
+
+.clock button:hover{
+    background: none;
+    border: none;
+    display: flex;
+}
+
+.clock button:focus{
+    background: none;
+    border: none;
+    display: flex;
+}
+
 .timer button{
     width: 250px;
     height: 40px;
     margin-top: 2pc;
+    margin-bottom: 1pc;
 }
 
 .reset {
@@ -103,6 +135,28 @@
 
 #arrowDown {
     margin-top: 2pc;
+}
+
+.fordward {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.fordward img{
+    margin-right: 5px;
+}
+
+.clock p{
+    color: #6c757d;
+    font-size: xx-large
+}
+
+.via{
+    font-size: 13.5px;
+    padding: 0px;
+
 }
 
 

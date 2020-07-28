@@ -20,13 +20,15 @@ var Simulation = sequelize.define('simulation', {
     partBody: Sequelize.STRING,
     mentalStatus: Sequelize.STRING,
     bloodLoss: Sequelize.DOUBLE,
-    bloodPressure: Sequelize.DOUBLE,
+    sistolicPressure: Sequelize.DOUBLE,
+    diastolicPressure: Sequelize.DOUBLE,
     heartRate: Sequelize.DOUBLE,
     breathingRate: Sequelize.DOUBLE,
     urineOutput: Sequelize.DOUBLE,
     saturation: Sequelize.DOUBLE,
-    time: Sequelize.INTEGER
-    
+    time: Sequelize.INTEGER,
+    temperature: Sequelize.DOUBLE, 
+    inform: Sequelize.BLOB 
 },
 {
 	 timestamps: false,

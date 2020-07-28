@@ -8,24 +8,10 @@ import Slider from 'react-input-slider';
 import { Button } from 'reactstrap';
 import Select from 'react-select';
 import configuration from '../assets/simulationConfiguration.json'
+import { Alert } from 'reactstrap';
 
 const default_config = configuration.data[0];
-
-const optionsMentalStatus = [
-    { value: 'anxious', label: 'Anxious' },
-    { value: 'confused', label: 'Confused' },
-    { value: 'lethargic', label: 'Lethargic' },
-    { value: 'normal', label: 'Normal'}
-  ];
-
-  const optionsPartBody = [
-    { value: 'pelvis', label: 'Pelvis'},
-    { value: 'rightArm', label: 'Right Arm' },
-    { value: 'leftArm', label: 'Left Arm' },
-    { value: 'rightLeg', label: 'Right Leg' },
-    { value: 'leftLeg', label: 'Left Leg'}
-  ];
-  var optionsTrainees= []
+var optionsTrainees= []
 
 class NewSimulation extends Component {
 
@@ -39,14 +25,17 @@ class NewSimulation extends Component {
             weight: 0.0,
             partBody: "",
             bloodLoss: 0.0,
-            bloodPressure: 0.0,
+            sistolicPressure: 0.0,
+            diastolicPressure: 0.0,
             heartRate: 0.0,
             breathingRate: 0.0,
             urineOutput: 0.0,
-            saturation: 0,
+            saturation: 0.0,
+            temperature: 0.0,
             mentalStatus: "",
             time: 0,
-            redirect: false
+            redirect: false,
+            alert: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -78,11 +67,13 @@ class NewSimulation extends Component {
                 weight: default_config.weight,
                 partBody: default_config.partBody,
                 bloodLoss: default_config.bloodLoss,
-                bloodPressure: default_config.bloodPressure,
+                diastolicPressure: default_config.diastolicPressure,
+                sistolicPressure: default_config.sistolicPressure,
                 heartRate: default_config.heartRate,
                 breathingRate: default_config.breathingRate,
                 urineOutput: default_config.urineOutput,
                 saturation: default_config.saturation,
+                temperature: default_config.temperature,
                 mentalStatus: default_config.mentalStatus,
                 time: default_config.time
             })
@@ -107,12 +98,14 @@ class NewSimulation extends Component {
             weight: this.state.weight,
             partBody: this.state.partBody,
             bloodLoss: this.state.bloodLoss,
-            bloodPressure: this.state.bloodPressure,
+            sistolicPressure: this.state.sistolicPressure,
+            diastolicPressure: this.state.diastolicPressure,
             heartRate: this.state.heartRate,
             breathingRate: this.state.breathingRate,
             urineOutput: this.state.urineOutput,
             saturation: this.state.saturation,
             mentalStatus: this.state.mentalStatus,
+            temperature: this.state.temperature,
             time: this.state.time
         }
 
@@ -120,8 +113,9 @@ class NewSimulation extends Component {
             axios.post(baseUrl,datapost)
             .then(response=>{
                 if (response.data.success===true) {
-                    alert(response.data.message)
-                    this.setState({ redirect: true });
+                    //alert(response.data.message)
+                    
+                    this.setState({ alert: true});
                 }
                 else {
                     alert(response.data.message)
@@ -137,6 +131,14 @@ class NewSimulation extends Component {
         
         event.preventDefault();
      
+    }
+    
+    alert(type, msg) {
+        return(
+            <Alert color={type} isOpen={this.state.alert} toggle={() => this.setState({alert:false, redirect:true})}>
+                {msg}
+            </Alert>
+        );
     }
         
     handleChange = selectedOption => {
@@ -158,11 +160,26 @@ class NewSimulation extends Component {
 
     render() {
         const { t } = this.props
+        const optionsMentalStatus = [
+            { value: 'anxious', label: t('new-simulation.anxious') },
+            { value: 'confused', label: t('new-simulation.confused') },
+            { value: 'lethargic', label: t('new-simulation.lethargic') },
+            { value: 'normal', label: t('new-simulation.normal')}
+          ];
+        
+          const optionsPartBody = [
+            { value: 'pelvis', label: t('new-simulation.pelvis')},
+            { value: 'rightArm', label: t('new-simulation.right-a') },
+            { value: 'leftArm', label: t('new-simulation.left-a') },
+            { value: 'rightLeg', label: t('new-simulation.right-l') },
+            { value: 'leftLeg', label: t('new-simulation.left-l')}
+          ];
         return (
             <div>
                 <Nav></Nav>
-                <h1>{t('new-simulation.text-1')}</h1>
-                <h2>{t('new-simulation.text-2')}</h2> 
+                {this.state.alert ? this.alert("success","El caso clínico ha sido creado correctamente.") : null}
+                <div className="text1"><h1>{t('new-simulation.text-1')}</h1></div>
+                <h2 className="text2">{t('new-simulation.text-2')}</h2> 
                 <form className="configuration" onSubmit={this.handleSubmit}>
                     <table className="table-constants">
                         <tbody>
@@ -172,6 +189,7 @@ class NewSimulation extends Component {
                                 <td>
                                     <Select
                                         className="selector"
+                                        placeholder={t('new-simulation.students')}
                                         onChange={this.handleChange3}
                                         options={optionsTrainees}
                                     />
@@ -192,12 +210,7 @@ class NewSimulation extends Component {
                                      {t('new-simulation.female')}
                                 </label>
                                 </td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
                                 <td>{t('new-simulation.age')}</td>
-                                <td></td>
                                 <td>
                                     <input type="number" value={this.state.age} onChange={(value) => this.setState({age: value.target.value})} />
                                 </td>
@@ -205,7 +218,6 @@ class NewSimulation extends Component {
 
                             <tr>
                                 <td>{t('new-simulation.body')}</td>
-                                <td></td>
                                 <td>
                                     <Select
                                         className="selector"
@@ -214,21 +226,35 @@ class NewSimulation extends Component {
                                         value={optionsPartBody.filter(option => option.value === this.state.partBody)}
                                     />
                                 </td>    
+                                <td>{t('new-simulation.status')}</td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        onChange={this.handleChange1}
+                                        options={optionsMentalStatus}
+                                        value={optionsMentalStatus.filter(option => option.value === this.state.mentalStatus)}
+                                    />
+                                </td>   
                             </tr>
 
                             <tr>
                                 <td>{t('new-simulation.s-pressure')}</td>
                                 <td>
                                     <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
                                         axis="x"
                                         xmax= {190}
                                         xmin= {60}
-                                        x={this.state.bloodLoss}
-                                        onChange={({ x }) => this.setState({ bloodLoss: x })}
+                                        x={this.state.sistolicPressure}
+                                        onChange={({ x }) => this.setState({ sistolicPressure: x })}
                                     />
                                 </td>
-                                <td>
-                                    <input type="number" value={this.state.bloodLoss} onChange={(value) => this.setState({bloodLoss: value.target.value})} /> 
+                                <td colspan="2">
+                                    <input type="number" value={this.state.sistolicPressure} onChange={(value) => this.setState({sistolicPressure: value.target.value})} /> 
                                 </td>
                             </tr>
 
@@ -236,15 +262,41 @@ class NewSimulation extends Component {
                                 <td>{t('new-simulation.d-pressure')}</td>
                                 <td>
                                     <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
                                         axis="x"
                                         xmax= {85}
                                         xmin= {35}
-                                        x={this.state.bloodPressure}
-                                        onChange={({ x }) => this.setState({ bloodPressure: x })}
+                                        x={this.state.diastolicPressure}
+                                        onChange={({ x }) => this.setState({ diastolicPressure: x })}
                                     />
                                 </td>
                                 <td>
-                                    <input type="number" value={this.state.bloodPressure} onChange={(value) => this.setState({bloodPressure: value.target.value})} />
+                                    <input type="number" value={this.state.diastolicPressure} onChange={(value) => this.setState({diastolicPressure: value.target.value})} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>{t('new-simulation.bloodLoss')}</td>
+                                <td>
+                                    <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
+                                        axis="x"
+                                        xmax= {500}
+                                        xmin= {100}
+                                        x={this.state.bloodLoss}
+                                        onChange={({ x }) => this.setState({ bloodLoss: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.bloodLoss} onChange={(value) => this.setState({bloodLoss: value.target.value})} />
                                 </td>
                             </tr>
 
@@ -252,6 +304,11 @@ class NewSimulation extends Component {
                                 <td>{t('new-simulation.heart')}</td>
                                 <td>
                                     <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
                                         axis="x"
                                         xmax= {160}
                                         xmin= {50}
@@ -268,6 +325,11 @@ class NewSimulation extends Component {
                                 <td>{t('new-simulation.breath')}</td>
                                 <td>
                                     <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
                                         axis="x"
                                         xmax= {60}
                                         xmin= {5}
@@ -284,6 +346,11 @@ class NewSimulation extends Component {
                                 <td>{t('new-simulation.urine')}</td>
                                 <td>
                                     <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
                                         axis="x"
                                         xmax= {15}
                                         xmin= {5}
@@ -296,10 +363,36 @@ class NewSimulation extends Component {
                                 </td>
                             </tr>
 
+                            <tr onSubmit={this.handleSubmit}>
+                                <td>{t('new-simulation.temperature')}</td>
+                                <td>
+                                    <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
+                                        axis="x"
+                                        xmax= {43}
+                                        xmin= {32}
+                                        x= {this.state.temperature}
+                                        onChange={({ x }) => this.setState({ temperature: x })}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.temperature} onChange={(value) => this.setState({temperature: value.target.value})} />
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td>{t('new-simulation.saturation')}</td>
                                 <td>
                                     <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
                                         axis="x"
                                         xmax= {100}
                                         xmin= {75}
@@ -312,23 +405,15 @@ class NewSimulation extends Component {
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td>{t('new-simulation.status')}</td>
-                                <td></td>
-                                <td>
-                                    <Select
-                                        className="selector"
-                                        onChange={this.handleChange1}
-                                        options={optionsMentalStatus}
-                                        value={optionsMentalStatus.filter(option => option.value === this.state.mentalStatus)}
-                                    />
-                                </td>    
-                            </tr>
-
                             <tr onSubmit={this.handleSubmit}>
                                 <td>{t('new-simulation.time')}</td>
                                 <td>
                                     <Slider
+                                        styles={{
+                                            active: {
+                                              backgroundColor: '#6c757d'
+                                            }
+                                        }}
                                         axis="x"
                                         xmax= {750}
                                         xmin= {0}
@@ -339,13 +424,15 @@ class NewSimulation extends Component {
                                 <td>
                                     <input type="number" value={this.state.time} onChange={(value) => this.setState({time: value.target.value})} />
                                 </td>
+                                <td><Button className="saveButton"><input className="save" type="submit" value={t('new-simulation.save')} /></Button></td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <Button className="saveButton"><input className="save" type="submit" value={t('new-simulation.save')} /></Button>
+                    
                 </form>
-                {this.state.redirect ? <Redirect to={{
+                
+                {this.state.redirect && !this.state.alert ? <Redirect to={{
                                                         pathname: '/dashboardTrainer',
                                                         state: { id: this.state.trainerId }
                                                     }}/>

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/App.js",
-    "migrate": "./node_modules/.bin/sequelize db:migrate --url mysql://root:luis110797@mysql:3306/trauma_simulator",
-    "seed": "./node_modules/.bin/sequelize db:seed:all --url mysql://root:luis110797@mysql:3306/trauma_simulator"
+    "migrate": "./node_modules/.bin/sequelize db:migrate --url mysql://root:1234@mysql:3306/trauma_simulator",
+    "seed": "./node_modules/.bin/sequelize db:seed:all --url mysql://root:1234@mysql:3306/trauma_simulator"
   },
   "author": "lcastaneda",
   "license": "ISC",

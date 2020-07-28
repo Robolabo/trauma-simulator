@@ -10,13 +10,11 @@ import saturation from '../../assets/saturation.png'
 import pressure from '../../assets/pressure.png'
 import urine from '../../assets/urine.png'
 import breath from '../../assets/breathing.png'
-import lengend1 from '../../assets/legend1.png'
-import lengend2 from '../../assets/legend2.png'
-import lengend3 from '../../assets/legend3.png'
-import lengend4 from '../../assets/legend4.png'
-import lengend5 from '../../assets/legend5.png'
+import fordward from '../../assets/fordward.png'
+import fordward1 from '../../assets/fordward1.png'
 
 class Graphic extends Component {
+
     render() {
         var data1 = this.props.dataHeartRate
         var data3 = this.props.dataBreathingRate
@@ -26,7 +24,7 @@ class Graphic extends Component {
         return (
             <div className="graphic">
                 <div className="signals">
-                <XYPlot height={175} width= {500} yDomain={[-2,2]} >
+                <XYPlot height={175} width= {500} yDomain={[-2,2]}>
                         { this.props.confirm
                         ? <LineSeries data={[{x: null, y: null}]} />
                         : null }                    
@@ -37,7 +35,7 @@ class Graphic extends Component {
                         <YAxis />
                         <XAxis/>
                     </XYPlot>
-                    <XYPlot height={175} width= {500} yDomain={[0,100]} >
+                    <XYPlot height={175} width= {500} yDomain={[0,100]}>
                         { this.props.confirm
                         ? <LineSeries data={[{x: null, y: null}]} />
                         : null }                    
@@ -48,7 +46,7 @@ class Graphic extends Component {
                         <YAxis />
                         <XAxis/>
                     </XYPlot>
-                    <XYPlot height={175} width= {500} yDomain={[0,500]} >
+                    <XYPlot height={175} width= {500} yDomain={[0,500]}>
                         { this.props.confirm
                         ? <LineSeries data={[{x: null, y: null}]} />
                         : null }                    
@@ -64,32 +62,41 @@ class Graphic extends Component {
                 
                 <div className="constants">
                     <div className="constants-items">
-                        <img className="legend" src={lengend1} alt="legend"></img>
                         {this.props.heartRate.toFixed(0)} {t('simulation.heart-unit')}
                         <Button><img src={heart} alt="heart" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
-                        <img className="legend" src={lengend2} alt="legend"></img>
-                        {this.props.saturation.toFixed(0)} %
+                        {this.props.saturation.toFixed(0)} %SatO2
                         <Button><img src={saturation} alt="sat" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
-                        <img className="legend" src={lengend4} alt="legend"></img>
                         {this.props.breathingRate.toFixed(0)} {t('simulation.breath-unit')}
                         <Button><img src={breath} alt="breath" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
-                        <img className="legend" src={lengend3} alt="legend"></img>   
-                        {this.props.bloodLoss.toFixed(0)}/{this.props.bloodPressure.toFixed(0)} mmHg
+                        {this.props.sistolicPressure.toFixed(0)}/{this.props.diastolicPressure.toFixed(0)} mmHg
                         <Button><img src={pressure} alt="pres" width="30px" height="30px"></img></Button>
                     </div>
                     <div className="constants-items">
-                        <img className="legend" src={lengend5} alt="legend"></img>
                         {this.props.urineOutput.toFixed(0)} mL/min
                         <Button><img src={urine} alt="urine" width="30px" height="30px"></img></Button>
                     </div>
+                    {this.props.fordward  ?
+                        <div className="clock">
+                            <Button onClick={() => this.props.toogleCrono(5)}>
+                                
+                                <div className ="fordward">
+                                    <img src={fordward} alt="fordward" width ="50px" height="50px"/>
+                                    <img src={fordward1} alt="fordward" width ="30px" height="30px"/> 
+                                </div>
+                            </Button>
+                            <p>5 Min</p>
+                        </div>
+                    : null
+                    }
+                    
                     <div className="reset">
-                        <Button>{t('simulation.reset')}</Button>
+                        <Button onClick={() => this.props.finish()}>Finalizar</Button>
                     </div>    
                 </div>
             </div>

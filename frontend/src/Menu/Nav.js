@@ -14,7 +14,7 @@ import {
 var rx = [];
 var eco = [];
 var tac = [] ;
-var ecoFast = [];
+var analisis = [];
 var item = rx;
 
 
@@ -25,34 +25,55 @@ export default class Nav extends Component {
         this.state = {
             collapse:false,
             modal: false,
-            num: 0,
+            numRx: 0,
+            numEco: 0,
+            numTac: 0,
+            numAna: 0,
             activeIndex: 0,
             animating: false,
+            num: 0
         }
         this.toogle = this.toogle.bind(this)
     }
     
      
 
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevProps, prevState){            
         if (prevProps.num !== this.props.num && this.props.num !==0) {
-            this.setState({
-              num: this.props.num
-            });            
-
+            
             switch(this.props.id){
                 case 0:
                     rx = this.props.type;
+                    this.setState(({ numRx, num }) => ({
+                        num: num + 1,
+                        numRx: numRx + 1
+                    }))
                     break;
+    
                 case 1:
                     eco = this.props.type;
+                    this.setState(({ numEco, num }) => ({
+                        num: num + 1,
+                        numEco: numEco + 1
+                    }))
                     break;
+    
                 case 2:
-                    ecoFast = this.props.type;
+                    analisis = this.props.type;
+                    this.setState(({ numAna, num }) => ({
+                        num: num + 1,
+                        numAna: numAna + 1
+                    }))
                     break;
+    
                 case 3:
                     tac = this.props.type;
+                    this.setState(({ numTac, num }) => ({
+                        num: num + 1,
+                        numTac: numTac + 1
+                    }))
                     break;
+    
                 default:
                     break;
             }   
@@ -63,8 +84,10 @@ export default class Nav extends Component {
                     caption: this.props.header
                 }
             )
-            
         }
+        
+            
+        
     }
 
     setActiveIndex(next){
@@ -103,6 +126,38 @@ export default class Nav extends Component {
     }
 
     toogle(next) {
+        switch(next){
+            case rx:
+                this.setState(({ num, numRx }) => ({
+                    num: num - numRx,
+                    numRx: 0
+                }))
+                break;
+
+            case eco:
+                this.setState(({ num, numEco }) => ({
+                    num: num - numEco,
+                    numEco: 0
+                }))
+                break;
+
+            case analisis:
+                this.setState(({ num, numAna }) => ({
+                    num: num - numAna,
+                    numAna: 0
+                }))
+                break;
+
+            case tac:
+                this.setState(({ num, numTac }) => ({
+                    num: num - numTac,
+                    numTac: 0
+                }))
+                break;
+
+            default:
+                break;
+        } 
         item = next
         this.setModal(true)
     }
@@ -110,7 +165,6 @@ export default class Nav extends Component {
     
 
     render() {
-        console.log(item)
         var slides = item.map((item) => {
             return (
               <CarouselItem
@@ -160,14 +214,22 @@ export default class Nav extends Component {
                     isOpen={this.state.collapse}
                 >
                     <div id="list-example" className="list-group">
-                        <li className="list-group-item list-group-item-action">Informe</li>
-                        <li className="list-group-item list-group-item-action" onClick={() => this.toogle(rx)}>RX {(this.state.num > 0)?
-                        <Badge className="notification" color="primary">{this.state.num}</Badge>
+                        <li className="list-group-item list-group-item-action" onClick={() => this.toogle(analisis)}>Análisis {(this.state.numAna > 0)?
+                        <Badge className="notification" color="primary">{this.state.numAna}</Badge>
                         : null
                         }</li>
-                        <li className="list-group-item list-group-item-action"  onClick={() => this.toogle(ecoFast)}>ECO-FAST</li>
-                        <li className="list-group-item list-group-item-action"  onClick={() => this.toogle(eco)}>Ecografías</li>
-                        <li className="list-group-item list-group-item-action"  onClick={() => this.toogle(tac)}>TACs</li>
+                        <li className="list-group-item list-group-item-action" onClick={() => this.toogle(rx)}>Radiografías {(this.state.numRx > 0)?
+                        <Badge className="notification" color="primary">{this.state.numRx}</Badge>
+                        : null
+                        }</li>
+                        <li className="list-group-item list-group-item-action"  onClick={() => this.toogle(eco)}>Ecografías {(this.state.numEco > 0)?
+                            <Badge className="notification" color="primary">{this.state.numEco}</Badge>
+                            : null
+                        }</li>
+                        <li className="list-group-item list-group-item-action"  onClick={() => this.toogle(tac)}>TACs {(this.state.numTac > 0)?
+                            <Badge className="notification" color="primary">{this.state.numTac}</Badge>
+                            : null
+                        }</li>
                         <li className="list-group-item list-group-item-action"  >Configuración</li>
                     </div>  
                 </Collapse>

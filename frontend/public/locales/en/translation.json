@@ -35,8 +35,10 @@
         "sex": "Sex:",
         "age": "Age:",
         "body": "Part of the body affected:",
+        "bloodLoss": "Blood Loss:",
         "s-pressure": "Systolic Pressure (mmHg)",
-        "d-pressure": "Diastolic Pressure (mmHg)",	
+        "d-pressure": "Diastolic Pressure (mmHg)",
+        "temperature": "Temperature",	
         "heart": "Heart Rate (lat/min)",	
         "breath": "Breathing Rate (resp/min)",		
         "urine": "Urine Output (mL/min)",		
@@ -54,7 +56,8 @@
         "anxious": "Anxious",
         "confused": "Confused",
         "lethargic": "Lethargic",
-        "normal": "Normal" 
+        "normal": "Normal",
+        "students": "Students..."
     },
 
     "list-simulation": {

@@ -8,6 +8,7 @@ COPY wait-for-it.sh /usr/wait-for-it.sh
 
 RUN apk add --no-cache bash
 RUN chmod 755 /usr/wait-for-it.sh
+RUN apk add --no-cache bash git openssh
 RUN npm install
 
 COPY . .

@@ -4,13 +4,19 @@ import { Link } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Inform from '../Information/Document'
+import { Redirect } from "react-router-dom"
+import { Alert } from 'reactstrap';
 
 class SimulationList extends React.Component  {
   constructor(props){
     super(props);
     this.state = {
       listSimulation:[],
-      isTrainer: this.props.location.state.isTrainer
+      isTrainer: this.props.location.state.isTrainer,
+      alert: false,
+      redirect: false,
+      id: this.props.location.state.id
     }
   }
   componentDidMount(){
@@ -35,30 +41,69 @@ class SimulationList extends React.Component  {
       })
     }
   }
+
+  componentDidUpdate(){
+    if (this.state.isTrainer) {
+      axios.get("http://127.0.0.1:8080/simulation/listTrainer/"+this.state.id)
+      .then(res => {
+        const data = res.data.data;
+        this.setState({ listSimulation:data });
+      })
+      .catch(error => {
+        alert(error)
+      })
+
+    } else {
+      axios.get("http://127.0.0.1:8080/simulation/listTrainee/"+this.state.id)
+      .then(res => {
+        const data = res.data.data;
+        this.setState({ listSimulation:data });
+      })
+      .catch(error => {
+        alert(error)
+      })
+    }
+  }
+
+  alert(type, msg) {
+    return(
+        <Alert color={type} isOpen={this.state.alert} toggle={() => this.setState({alert:false, redirect:true})}>
+            {msg}
+        </Alert>
+    );
+}
+
   render(){
     const { t } = this.props
     return (
-      <table className="table table-hover table-striped">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            {this.state.isTrainer
-            ? <th scope="col">{t('list-simulation.trainee')}</th>
-            : <th scope="col">{t('list-simulation.trainer')}</th>}
-            <th scope="col">{t('list-simulation.sex')}</th>
-            <th scope="col">{t('list-simulation.age')}</th>
-            <th scope="col">{t('list-simulation.trauma')}</th>
-            <th scope="col">{t('list-simulation.time')}</th>
-            <th scope="col">{t('list-simulation.action')}</th>
-            {this.state.isTrainer 
-            ?<th scope="col"></th>
-            : null}
-          </tr>
-        </thead>
-        <tbody>
-          {this.loadFillData()}
-        </tbody>
-      </table>
+      <div>
+        {this.state.alert ? this.alert("success","El caso clínico ha sido eliminado.") : null}
+        <table className="table table-hover table-striped">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col"></th>
+              {this.state.isTrainer
+              ? <th scope="col">{t('list-simulation.trainee')}</th>
+              : <th scope="col">{t('list-simulation.trainer')}</th>}
+              <th scope="col">{t('list-simulation.sex')}</th>
+              <th scope="col">{t('list-simulation.age')}</th>
+              <th scope="col">{t('list-simulation.trauma')}</th>
+              <th scope="col">{t('list-simulation.time')}</th>
+              <th scope="col">{t('list-simulation.action')}</th>
+              <th scope="col">Informe</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.loadFillData()}
+          </tbody>
+        </table>
+        {this.state.redirect && !this.state.alert ? <Redirect to={{
+                                                        pathname: '/listSimulation',
+                                                        state: { id: this.state.id,
+                                                                  isTrainer: this.state.isTrainer }
+                                                    }}/>
+                                    : null}
+      </div>
     );
   }
 
@@ -68,7 +113,7 @@ class SimulationList extends React.Component  {
     return this.state.listSimulation.map((data)=>{
       return(
         <tr>
-          <th>{data.simulationId}</th>
+          <th></th>
           {this.state.isTrainer
           ? <td>{data.trainee.name} {data.trainee.surname}</td>
           : <td>{data.trainer.name} {data.trainer.surname}</td>}
@@ -77,13 +122,22 @@ class SimulationList extends React.Component  {
           <td>{data.partBody}</td>
           <td>{data.time}</td>
           <td>
-            <Link className="btn btn-outline-info "  to={"/simulation/"+data.simulationId} >{t('list-simulation.enter')}</Link>
-          </td>
-          {this.state.isTrainer 
-            ? <td>
+            {data.inform !== null ?
+             <p>Simulación Finalizada</p> :
+             
+          this.state.isTrainer 
+            ? 
                 <Link className="btn btn-outline-danger" to={"/listSimulation/"} onClick={()=>this.sendDelete(data.simulationId)}> {t('list-simulation.delete')} </Link>
-              </td>
-            : null}
+             
+            : <Link className="btn btn-outline-info " 
+            to={{
+                pathname: "/simulation/"+data.simulationId,
+                state: { id: this.props.location.state.id}
+            }} >{t('list-simulation.enter')}
+            </Link>}
+          </td>
+          <td><Inform simulationId = {data.simulationId}
+                      data = {this.props.location.state.data}/> </td>
         </tr>
       )
     });
@@ -98,7 +152,7 @@ class SimulationList extends React.Component  {
     })
     .then(response =>{
       if (response.data.success) {
-        alert(response.data.message)
+        this.setState({ alert: true});
       }
     })
     .catch ( error => {

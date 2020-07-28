@@ -20,9 +20,8 @@ services:
         image: mysql:latest
         environment:
             MYSQL_DATABASE: 'trauma_simulator'
-            
             # Password for root access
-            MYSQL_ROOT_PASSWORD: 'luis110797'
+            MYSQL_ROOT_PASSWORD: '1234'
         ports: 
             - 3307:3306
         expose:
