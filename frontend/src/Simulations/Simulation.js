@@ -53,6 +53,7 @@ var testDistolic = []
 var testSistolic = []
 var testUrine = []
 var testSaturation = []
+var testData = null
 
 export default class LoginForm extends Component {
     constructor(props){
@@ -518,7 +519,14 @@ export default class LoginForm extends Component {
         testSistolic.push({x: timeSim, y: this.state.sistolicPressure})
         testUrine.push({x: timeSim, y: this.state.urineOutput})
         testSaturation.push({x: timeSim, y: this.state.saturation})
-        console.log(testHeartRate)
+        testData = {
+            testHeartRate: testHeartRate,
+            testBreathRate: testBreathRate,
+            testDistolic: testDistolic,
+            testSistolic: testSistolic,
+            testUrine: testUrine,
+            testSaturation: testSaturation
+        }
     }
     
     render() {
@@ -577,7 +585,8 @@ export default class LoginForm extends Component {
                         sendData = {(next) => this.sendData(next)}
                         toogleCrono = {(next) => this.toogleCrono(next)}
                         data = {initialData}
-                        test = {() => this.test()}/>
+                        test = {() => this.test()}
+                        testData = {testData} />
                 <Graphic 
                         diastolicPressure = {this.state.diastolicPressure}
                         heartRate = {this.state.heartRate}

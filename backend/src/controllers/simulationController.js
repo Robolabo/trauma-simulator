@@ -3,6 +3,7 @@ var Simulation = require('../model/Simulation')
 var sequelize = require ('../model/database')
 var Trainer = require('../model/Trainer')
 var Trainee = require('../model/Trainee')
+const { QueryTypes } = require('sequelize');
 
 controller.testdata = async ( req, res) => {
   
@@ -86,14 +87,31 @@ controller.get = async (req,res) => {
   res.json({ success: true, data: data });
 }
 
+controller.getTestData = async (req, res) => {
+  const { id } = req.params
+  const data = await sequelize.query(
+    `Select testData from simulations where simulationId = '${id}'`,
+    { type: QueryTypes.SELECT }
+  )
+  .then(function(data){
+    return data;
+  })
+  .catch(error =>{
+    return error;
+  })
+  console.log(data)
+  res.json({ success: true, data: data });
+}
+
 controller.update = async (req,res) => {
   // parameter get id
   const { id } = req.params;
   // parameter POST
-  const { inform } = req.body;
+  const { inform, testDataJSON } = req.body;
   // Update data
   const data = await Simulation.update({
-    inform: inform
+    inform: inform,
+    testData: testDataJSON
   },
   {
     where: { simulationId: id}

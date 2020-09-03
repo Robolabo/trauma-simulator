@@ -13,9 +13,6 @@ import breath from '../../assets/breathing.png'
 import fordward from '../../assets/fordward.png'
 import fordward1 from '../../assets/fordward1.png'
 
-var xDomain1 = [-5,0]
-var xDomain2 = [-5,0]
-var xDomain3 = [-10,0]
 class Graphic extends Component {
 
     toogleCrono(){

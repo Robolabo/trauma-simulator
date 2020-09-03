@@ -28,7 +28,11 @@ var Simulation = sequelize.define('simulation', {
     saturation: Sequelize.DOUBLE,
     time: Sequelize.INTEGER,
     temperature: Sequelize.DOUBLE, 
-    inform: Sequelize.BLOB 
+    inform: Sequelize.BLOB,
+    testData: {
+        type: Sequelize.JSON,
+        defaultValue: null
+    } 
 },
 {
 	 timestamps: false,

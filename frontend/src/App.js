@@ -14,6 +14,7 @@ const NewSimulation = lazy(() => import('./Simulations/NewSimulation'))
 const Simulation = lazy(() => import('./Simulations/Simulation'))
 const Ejemplo = lazy(() => import('./Ejemplo'))
 const Document = lazy(() => import('./Information/Document'))
+const Test = lazy(() => import('./Information/Test'))
 
 function App() { 
   return (
@@ -45,6 +46,9 @@ function App() {
       </Suspense>
       <Suspense fallback={(<div></div>)}>
         <Route path="/simulation/:id" component={Simulation} />
+      </Suspense>
+      <Suspense fallback={(<div></div>)}>
+        <Route path="/test/:id" component={Test} />
       </Suspense>
       <Suspense fallback={(<div></div>)}>
         <Route path= "/ejemplo" component={Ejemplo}/>

@@ -10,6 +10,7 @@ router.get('/listTrainee/:id',simulationController.listByTraineeId);
 router.get('/createData', simulationController.testdata)
 router.post('/create',simulationController.create);
 router.get('/get/:id',simulationController.get);
+router.get('/getTestData/:id',simulationController.getTestData);
 router.post('/update/:id', simulationController.update);
 router.post('/delete',simulationController.delete);
 

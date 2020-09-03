@@ -63,7 +63,11 @@ module.exports = {
       },
         inform: {
           type: Sequelize.BLOB
-        }
+      },
+        testData: {
+          type: Sequelize.JSON,
+          defaultValue: null
+      }
       },
       {
         sync: { force: true}

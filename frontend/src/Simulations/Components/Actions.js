@@ -125,7 +125,8 @@ class Actions extends Component {
                 const baseUrl = "http://localhost:8080/simulation/update/"+this.props.simulationId
                 // parametros de datos post
                 const datapost = {
-                    inform: file
+                    inform: file,
+                    testDataJSON: JSON.stringify(this.props.testData)
                 }
             
                 axios.post(baseUrl,datapost)
