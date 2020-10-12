@@ -51,7 +51,7 @@ export default class Document extends Component {
         var d = new Date()
         const linkSource = `data:application/pdf;base64,${next}`;
         const downloadLink = document.createElement("a");
-        const fileName = `${d.getDate() < 10 ? "0"+d.getDate(): d.getDate()}_${(d.getMonth()+1) < 10 ? "0"+(d.getMonth()+1): (d.getMonth()+1)}_${this.props.data.trainee.surname}.pdf`;
+        const fileName = `${d.getDate() < 10 ? "0"+d.getDate(): d.getDate()}_${(d.getMonth()+1) < 10 ? "0"+(d.getMonth()+1): (d.getMonth()+1)}_${this.props.surname}.pdf`;
     
         downloadLink.href = linkSource;
         downloadLink.download = fileName;

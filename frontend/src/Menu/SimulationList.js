@@ -137,7 +137,7 @@ class SimulationList extends React.Component  {
             </Link>}
           </td>
           <td><Inform simulationId = {data.simulationId}
-                      data = {this.props.location.state.data}/> </td>
+                      surname = {data.trainee.surname}/> </td>
         </tr>
       )
     });
