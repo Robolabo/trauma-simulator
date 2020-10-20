@@ -5,7 +5,7 @@ import '../Simulations/simulation.css'
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const baseUrl = "http://127.0.0.1:8080"
+const baseUrl = "http://localhost:8080"
 
 
 export default class Test extends Component {
@@ -133,25 +133,25 @@ export default class Test extends Component {
         return (
             <div>
                 <h1>Test Results</h1>
-                <XYPlot height={175} width= {500}>                  
+                <XYPlot height={175} width= {500}>
                         <LineSeries
-                            curve={'curveMonotoneX'} 
+                            curve={'curveMonotoneX'}
                             data={this.state.testHeartRate} />
                         <VerticalGridLines />
                         <YAxis />
                         <XAxis/>
                     </XYPlot>
-                    <XYPlot height={175} width= {500}>                  
+                    <XYPlot height={175} width= {500}>
                         <LineSeries
-                            curve={'curveMonotoneX'} 
+                            curve={'curveMonotoneX'}
                             data={this.state.testBreathRate} />
                         <VerticalGridLines />
                         <YAxis />
                         <XAxis/>
                     </XYPlot>
-                    <XYPlot height={175} width= {500}>               
-                        <LineSeries 
-                            curve={'curveMonotoneX'} 
+                    <XYPlot height={175} width= {500}>
+                        <LineSeries
+                            curve={'curveMonotoneX'}
                             data={this.state.testDistolic} />
                         <VerticalGridLines />
                         <YAxis />

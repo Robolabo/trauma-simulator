@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button,  } from 'react-bootstrap';
 import axios from 'axios';
 
-const baseUrl = "http://127.0.0.1:8080"
+const baseUrl = "http://localhost:8080"
 
 export default class Document extends Component {
 
@@ -12,8 +12,8 @@ export default class Document extends Component {
           file: null
         }
     }
-    
-    
+
+
     componentDidMount() {
         let simulationId = this.props.simulationId
         const url = baseUrl+"/simulation/get/"+simulationId
@@ -30,8 +30,8 @@ export default class Document extends Component {
                         file: file
                     })
                 }
-                
-                
+
+
             }
             else {
             alert("Error web service")
@@ -40,19 +40,19 @@ export default class Document extends Component {
         .catch(error=>{
             alert("Error server "+error)
         })
-        
+
     }
-  
+
     // JSpdf Generator For generating the PDF
-    
+
 
     downloadPDF(next) {
-        
+
         var d = new Date()
         const linkSource = `data:application/pdf;base64,${next}`;
         const downloadLink = document.createElement("a");
         const fileName = `${d.getDate() < 10 ? "0"+d.getDate(): d.getDate()}_${(d.getMonth()+1) < 10 ? "0"+(d.getMonth()+1): (d.getMonth()+1)}_${this.props.surname}.pdf`;
-    
+
         downloadLink.href = linkSource;
         downloadLink.download = fileName;
         downloadLink.click();
@@ -78,24 +78,24 @@ export default class Document extends Component {
             // Convert data to base64
             fileReader.readAsDataURL(fileToLoad);
         }
-    
+
       this.setState({
         fileData: file,
         fileName: fileName
       })
     }*/
-  
+
     render(){
       return(
           <div>
             {this.state.file !== null ?
-                <Button onClick= {() => this.downloadPDF(this.state.file)} variant="info"> Descargar </Button> 
+                <Button onClick= {() => this.downloadPDF(this.state.file)} variant="info"> Descargar </Button>
             : <div>Pendiente</div>
-            } 
+            }
           </div>
-          
+
         )
      }
-  
-  
+
+
 }

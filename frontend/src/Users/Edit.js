@@ -7,7 +7,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from 'axios';
 import sha256 from 'js-sha256'
 
-const baseUrl = "http://127.0.0.1:8080"
+const baseUrl = "http://localhost:8080"
 
 class EditComponent extends React.Component {
     constructor(props){
