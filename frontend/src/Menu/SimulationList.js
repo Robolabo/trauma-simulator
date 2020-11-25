@@ -21,7 +21,7 @@ class SimulationList extends React.Component  {
   }
   componentDidMount(){
     if (this.state.isTrainer) {
-      axios.get("http://127.0.0.1:8080/simulation/listTrainer/"+this.props.location.state.id)
+      axios.get("http://localhost:8080/simulation/listTrainer/"+this.props.location.state.id)
       .then(res => {
         const data = res.data.data;
         this.setState({ listSimulation:data });
@@ -31,7 +31,7 @@ class SimulationList extends React.Component  {
       })
 
     } else {
-      axios.get("http://127.0.0.1:8080/simulation/listTrainee/"+this.props.location.state.id)
+      axios.get("http://localhost:8080/simulation/listTrainee/"+this.props.location.state.id)
       .then(res => {
         const data = res.data.data;
         this.setState({ listSimulation:data });
@@ -44,7 +44,7 @@ class SimulationList extends React.Component  {
 
   componentDidUpdate(){
     if (this.state.isTrainer) {
-      axios.get("http://127.0.0.1:8080/simulation/listTrainer/"+this.state.id)
+      axios.get("http://localhost:8080/simulation/listTrainer/"+this.state.id)
       .then(res => {
         const data = res.data.data;
         this.setState({ listSimulation:data });
@@ -54,7 +54,7 @@ class SimulationList extends React.Component  {
       })
 
     } else {
-      axios.get("http://127.0.0.1:8080/simulation/listTrainee/"+this.state.id)
+      axios.get("http://localhost:8080/simulation/listTrainee/"+this.state.id)
       .then(res => {
         const data = res.data.data;
         this.setState({ listSimulation:data });

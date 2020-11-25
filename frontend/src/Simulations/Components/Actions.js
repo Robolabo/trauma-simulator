@@ -193,7 +193,7 @@ class Actions extends Component {
 
     getMsg(variant, action){
 
-        const url = "http://127.0.0.1:8080/action/getMsg"
+        const url = "http://localhost:8080/action/getMsg"
         axios.get(url, {
             params: {
                 actionName: action,
