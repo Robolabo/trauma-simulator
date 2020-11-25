@@ -14,7 +14,7 @@ class listComponent extends React.Component  {
   }
   componentDidMount(){
 
-    axios.get("http://127.0.0.1:8080/trainer/list")
+    axios.get("http://localhost:8080/trainer/list")
     .then(res => {
       const data = res.data.data;
       this.setState({ listTrainer:data });
