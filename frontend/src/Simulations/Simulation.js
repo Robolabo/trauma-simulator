@@ -11,12 +11,12 @@ import './simulation.css'
 
 const baseUrl = "http://localhost:8080"
 
-var heartRateValue = 0.5
-var diastolicPressureValue = -0.5
+var heartRateValue = 1.9
+var diastolicPressureValue = -1.7
 var breathingRateValue = 0.5
 var urineOutputValue = -0.5
-var saturationValue = -0.5
-var sistolicPressureValue = -0.5
+var saturationValue = -0.4
+var sistolicPressureValue = -1.7
 var breathConstant = [{x: (0.25), y: 500},{x: (0.5), y: 125},{x: 1, y: 0}]
 var heartConstant = [{x: 1/12, y: 0.07}, {x: 1/6, y: 0},
                      {x: 4/15, y: 0}, {x: 0.3, y: -0.14}, {x: 11/30, y: 0.96},
@@ -156,7 +156,7 @@ export default class LoginForm extends Component {
         let DP = (newDP < 85 && newDP > 30 ) ? newDP : this.state.diastolicPressure
         let BR = (newBR < 60 && newBR > 5 ) ? newBR : this.state.breathingRate
         let UO = (newUO < 15 && newUO > 5 ) ? newUO : this.state.urineOutput
-        let SO = (newSO < 92 && newSO > 75 ) ? newSO : this.state.saturation
+        let SO = (newSO < 97 && newSO > 75 ) ? newSO : this.state.saturation
         this.setState({
             heartRate: HR,
             sistolicPressure: SP,
@@ -379,7 +379,7 @@ export default class LoginForm extends Component {
                 BR = (newBR < 5) ? 5 : BR
             let UO = (newUO > 15) ? 15 : newUO
                 UO = (newUO < 5) ? 5 : UO
-            let SO = (newSO > 92 ) ? 92 : newSO
+            let SO = (newSO > 97 ) ? 97 : newSO
                 SO = (newSO < 75) ? 75 : SO
             timeSim += (next * 60)
             this.setState({
