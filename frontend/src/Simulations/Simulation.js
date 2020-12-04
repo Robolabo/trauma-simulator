@@ -11,12 +11,12 @@ import './simulation.css'
 
 const baseUrl = "http://localhost:8080"
 
-var heartRateValue = 1.9
-var diastolicPressureValue = -1.7
+var heartRateValue = 2.0
+var diastolicPressureValue = -1.45
 var breathingRateValue = 0.5
 var urineOutputValue = -0.5
 var saturationValue = -0.4
-var sistolicPressureValue = -1.7
+var sistolicPressureValue = -1.5
 var breathConstant = [{x: (0.25), y: 500},{x: (0.5), y: 125},{x: 1, y: 0}]
 var heartConstant = [{x: 1/12, y: 0.07}, {x: 1/6, y: 0},
                      {x: 4/15, y: 0}, {x: 0.3, y: -0.14}, {x: 11/30, y: 0.96},
@@ -171,8 +171,25 @@ export default class LoginForm extends Component {
         this.setState({
             crono: false,
             timeCrono:0
-        })
-          
+        }) 
+        if (time > 6 && time <=16 ) {
+            heartRateValue = 1.5
+            saturationValue = -0.55
+            sistolicPressureValue = -2.3
+            diastolicPressureValue = -1.6
+         }
+       if (time > 16 && time <= 23) {
+          heartRateValue = -0.7
+          saturationValue = -0.9
+          sistolicPressureValue = -6.2
+          diastolicPressureValue = -2.1
+        }
+       if (time > 23) {
+          heartRateValue = -7.2
+          saturationValue = -0.45
+          sistolicPressureValue = -1.75
+          diastolicPressureValue = -1.25
+        }
         var period = 60/this.state.heartRate
         var breathT = 60/this.state.breathingRate
         lengthH = this.state.dataHeartRate.length
@@ -363,6 +380,7 @@ export default class LoginForm extends Component {
                 timeCrono:next
             })
             clearInterval(this.myInterval0)
+
             let newHR = this.state.heartRate + (heartRateValue * next)
             let newSP = this.state.sistolicPressure + (sistolicPressureValue * next)
             let newDP = this.state.diastolicPressure + (diastolicPressureValue * next)
@@ -407,6 +425,23 @@ export default class LoginForm extends Component {
 
                 })
             }
+            if( HR <= 63 && SP <= 61 && DP <= 42 && SO <= 81){
+                breathConstant = [{x: (0.25), y: 0},{x: (0.5), y: 0},{x: 1, y: 0}]
+                heartConstant = [{x: 1/12, y: 0}, {x: 1/6, y: 0},
+                    {x: 4/15, y: 0}, {x: 0.3, y: 0}, {x: 11/30, y: 0},
+                    {x: 13/30, y: 0}, {x: 7/15,y:0}, {x: 37/60, y:0},
+                    {x: 0.75, y:0}, {x: 0.85, y:0}, {x: 1, y: 0}]
+                saturationConstant = [{x: 1/6, y: 0}, {x: 1/3, y: 0}, {x: 13/30, y: 0}, {x: 1, y: 0}]
+                this.setState({
+                    deadModal:true,
+                    saturation: 0,
+                    sistolicPressure: 0,
+                    breathingRate: 0,
+                    heartRate:0,
+                    diastolicPressure:0
+
+                })
+          }
             this.myInterval0 = setInterval(this.interval0.bind(this) , 1000)
         }
         
