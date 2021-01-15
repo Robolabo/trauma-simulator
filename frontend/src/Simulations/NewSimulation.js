@@ -42,7 +42,7 @@ class NewSimulation extends Component {
     
     componentDidMount(){
 
-        const urlTrainee = "http://localhost:8080/trainee/list"
+        const urlTrainee = "http://138.100.21.252:5000/trainee/list"
         axios.get(urlTrainee)
         .then(res=>{
             if (res.data.success) {
@@ -88,7 +88,7 @@ class NewSimulation extends Component {
 
     handleSubmit(event){
 
-        const baseUrl = "http://localhost:8080/simulation/create"
+        const baseUrl = "http://138.100.21.252:5000/simulation/create"
             
         const datapost = {
             trainerId: this.state.trainerId,

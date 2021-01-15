@@ -8,7 +8,7 @@ const traineeRouters = require('./routes/traineeRoute')
 const actionRouters = require('./routes/actionRoute')
 
 //Settings
-app.set('port', process.env.PORT || 8080); //puerto por el que se ejecuta la app
+app.set('port', process.env.PORT || 5000); //puerto por el que se ejecuta la app
 
 //Middlewares
 //Funciones que atiende una transaccion HTTP
@@ -38,7 +38,7 @@ app.use('/trainee', traineeRouters)
 app.use('/action', actionRouters)
 
 
-app.listen(app.get('port'),()=>{
+app.listen(app.get('port'),"0.0.0.0",()=>{
   console.log("Start server on port "+app.get('port'))
 })
 

@@ -7,7 +7,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from 'axios';
 import sha256 from 'js-sha256'
 
-const baseUrl = "http://localhost:8080"
+const baseUrl = "http://localhost:5000"
 
 class EditComponent extends React.Component {
     constructor(props){
@@ -108,7 +108,7 @@ class EditComponent extends React.Component {
         //  get parameter id
         let userId = this.props.match.params.trainerId;
         // url de backend
-        const baseUrl = "http://localhost:8080/trainer/update/"+userId
+        const baseUrl = "http://localhost:5000/trainer/update/"+userId
         // parametros de datos post
         const datapost = {
           name : this.state.campName,

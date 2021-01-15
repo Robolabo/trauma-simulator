@@ -5,7 +5,7 @@ import '../Simulations/simulation.css'
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const baseUrl = "http://localhost:8080"
+const baseUrl = "http://138.100.21.252:5000"
 
 
 export default class Test extends Component {

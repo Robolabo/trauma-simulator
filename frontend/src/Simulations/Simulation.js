@@ -9,7 +9,7 @@ import Messages from '../Simulations/Components/Messages'
 import { Modal, ModalHeader, Card, CardBody, Button } from 'reactstrap'
 import './simulation.css'
 
-const baseUrl = "http://localhost:8080"
+const baseUrl = "http://138.100.21.252:5000"
 
 var heartRateValue = 0.5
 var diastolicPressureValue = -0.5
@@ -55,7 +55,7 @@ var testUrine = []
 var testSaturation = []
 var testData = null
 
-export default class LoginForm extends Component {
+export default class Simulation extends Component {
     constructor(props){
       super(props);
       this.state = {

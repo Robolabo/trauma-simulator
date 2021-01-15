@@ -122,7 +122,7 @@ class Actions extends Component {
                 
                 // Save the Data
                 var file = btoa(doc.output())                
-                const baseUrl = "http://localhost:8080/simulation/update/"+this.props.simulationId
+                const baseUrl = "http://138.100.21.252:5000/simulation/update/"+this.props.simulationId
                 // parametros de datos post
                 const datapost = {
                     inform: file,
@@ -193,7 +193,7 @@ class Actions extends Component {
 
     getMsg(variant, action){
 
-        const url = "http://localhost:8080/action/getMsg"
+        const url = "http://138.100.21.252:5000/action/getMsg"
         axios.get(url, {
             params: {
                 actionName: action,

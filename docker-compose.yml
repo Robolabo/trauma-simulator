@@ -12,7 +12,7 @@ services:
         build: ./backend #Lanzar contenedor
         container_name: "backend"
         ports: 
-            - 8080:8080
+            - 5000:5000
         depends_on: 
             - mysql
         command: "npm run dev"

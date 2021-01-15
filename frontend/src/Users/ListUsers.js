@@ -14,7 +14,7 @@ class listComponent extends React.Component  {
   }
   componentDidMount(){
 
-    axios.get("http://localhost:8080/trainer/list")
+    axios.get("http://localhost:5000/trainer/list")
     .then(res => {
       const data = res.data.data;
       this.setState({ listTrainer:data });
@@ -72,7 +72,7 @@ class listComponent extends React.Component  {
   sendDelete(userId)
   {
     // url de backend
-    const baseUrl = "http://localhost:8080/trainer/delete"    // parameter data post
+    const baseUrl = "http://localhost:5000/trainer/delete"    // parameter data post
     // network
     axios.post(baseUrl,{
       id:userId

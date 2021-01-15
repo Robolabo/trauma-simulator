@@ -34,10 +34,10 @@ class LoginForm extends React.Component {
       [name]: value
     });
   }
-//  http://trauma-simulator.duckdns.org:8080
+//  http://trauma-simulator.duckdns.org:5000
   handleSubmit(event) {
-    const urlTrainer = "http://localhost:8080/trainer/login/"+this.state.email    // parameter data post
-    const urlTrainee = "http://localhost:8080/trainee/login/"+this.state.email
+    const urlTrainer = "http://138.100.21.252:5000/trainer/login/"+this.state.email    // parameter data post
+    const urlTrainee = "http://138.100.21.252:5000/trainee/login/"+this.state.email
     // network
     axios.get(urlTrainer)
     .then(res=>{

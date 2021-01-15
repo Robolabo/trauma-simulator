@@ -64,9 +64,9 @@ class RegisterForm extends React.Component {
         else {
             var baseUrl = ""
             if (this.state.trainer) {
-                baseUrl = "http://localhost:8080/trainer/create"
+                baseUrl = "http://138.100.21.252:5000/trainer/create"
             } else {
-                baseUrl = "http://localhost:8080/trainee/create"
+                baseUrl = "http://138.100.21.252:5000/trainee/create"
             }
             const datapost = {
             name: this.state.campName,
