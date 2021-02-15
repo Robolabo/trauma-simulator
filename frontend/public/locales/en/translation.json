@@ -87,7 +87,51 @@
         "surgery": "Surgery",
         "reset": "Reset",
         "breath-unit": "bpm",
-        "heart-unit": "bpm"
+        "heart-unit": "bpm",
+        "laparotomy": "laparotomy",
+        "thoracotomy": "thoracotomy",
+        "tourniquet" : "tourniquet",
+        "auscultation" : "auscultation",
+        "pulseoximeter" : "pulseoximeter",
+        "oropharyngealcannula" : "oropharyngealcannula",
+        "nasalglasses" : "nasalglasses",
+        "capnographer" : "capnographer",
+        "ventilation" : "ventilation",
+        "occlusivedressing" : "occlusivedressing",
+        "thoracentesis" : "thoracentesis",
+        "chestdrainage" : "chestdrainage",
+        "ferule" : "ferule",
+        "cervicalcontrol" : "cervicalcontrol",
+        "mattress" : "mattress",
+        "venous" : "venous",
+        "arterial" : "arterial",
+        "crossmatch" : "crossmatch",
+        "pressure" : "pressure",
+        "hemostatic" : "hemostatic",
+        "vvp" : "vvp",
+        "io" : "io",
+        "pani" : "pani",
+        "derivations" : "derivations",
+        "ECGderivations" : "ECGderivations",
+        "pupils" : "pupils",
+        "nerves" : "nerves",
+        "extremities" : "extremities",
+        "bladder" : "bladder",
+        "nasogastric" : "nasogastric",
+        "SIR" : "SIR",
+        "fentanilo" : "fentanilo",
+        "midazolam" : "midazolam",
+        "tranexamico": "tranexamico",
+        "noradrenalina" : "noradrenalina",
+        "SSF" : "SSF",
+        "voluven" : "voluven",
+        "sg" : "sg",
+        "inr" : "inr",
+        "glicemia" : "glicemia"
+
+
+
+    
     }
 
 }

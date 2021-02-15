@@ -67,7 +67,11 @@ module.exports = {
         testData: {
           type: Sequelize.JSON,
           defaultValue: null
-      }
+      },
+      phase: {
+        type: Sequelize.STRING
+      } 
+    
       },
       {
         sync: { force: true}

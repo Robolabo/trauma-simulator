@@ -35,7 +35,7 @@ controller.list = async (req, res) => {
 controller.create = async (req,res) => {
   // data
   const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
-            saturation, mentalStatus, time, traineeId, trainerId } = req.body;
+            saturation, mentalStatus, time, traineeId, trainerId, phase } = req.body;
     
   // create
   const data = await Simulation.create({
@@ -54,7 +54,8 @@ controller.create = async (req,res) => {
     mentalStatus: mentalStatus,
     time: time,
     traineeId: traineeId,
-    trainerId: trainerId
+    trainerId: trainerId,
+    phase: phase
   })
   .then(function(data){
     return data;

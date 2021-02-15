@@ -27,6 +27,7 @@ var Simulation = sequelize.define('simulation', {
     urineOutput: Sequelize.DOUBLE,
     saturation: Sequelize.DOUBLE,
     time: Sequelize.INTEGER,
+    phase: Sequelize.STRING,
     temperature: Sequelize.DOUBLE, 
     inform: Sequelize.BLOB,
     testData: {

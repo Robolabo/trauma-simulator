@@ -33,6 +33,7 @@ class NewSimulation extends Component {
             saturation: 0.0,
             temperature: 0.0,
             mentalStatus: "",
+            phase:"",
             time: 0,
             redirect: false,
             alert: false
@@ -75,6 +76,7 @@ class NewSimulation extends Component {
                 saturation: default_config.saturation,
                 temperature: default_config.temperature,
                 mentalStatus: default_config.mentalStatus,
+                phase: default_config.phase,
                 time: default_config.time
             })
 
@@ -105,6 +107,7 @@ class NewSimulation extends Component {
             urineOutput: this.state.urineOutput,
             saturation: this.state.saturation,
             mentalStatus: this.state.mentalStatus,
+            phase: this.state.phase,
             temperature: this.state.temperature,
             time: this.state.time
         }
@@ -158,6 +161,11 @@ class NewSimulation extends Component {
         this.setState({ sex: Number(value.target.value) });
     };
 
+    handleChange5 = selectedOption => {
+       
+        this.setState({ phase: selectedOption.value });
+    };
+
     render() {
         const { t } = this.props
         const optionsMentalStatus = [
@@ -165,6 +173,12 @@ class NewSimulation extends Component {
             { value: 'confused', label: t('new-simulation.confused') },
             { value: 'lethargic', label: t('new-simulation.lethargic') },
             { value: 'normal', label: t('new-simulation.normal')}
+          ];
+          // Creación de opciones para la fase
+          const optionsPhase = [
+            { value: 'prehospitalaria', label: 'Pre Hospitalaria' },
+            { value: 'hospitalaria', label: 'Hospitalaria' }
+            
           ];
         
           const optionsPartBody = [
@@ -183,6 +197,19 @@ class NewSimulation extends Component {
                 <form className="configuration" onSubmit={this.handleSubmit}>
                     <table className="table-constants">
                         <tbody>
+                        <tr>
+                                
+                                <td><b>Fase</b></td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        
+                                        onChange={this.handleChange5}
+                                        options={optionsPhase}
+                                    />
+                                </td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 
                                 <td><b>{t('new-simulation.trainee-text')}</b></td>

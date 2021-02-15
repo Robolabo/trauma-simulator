@@ -8,6 +8,7 @@ import Actions from '../Simulations/Components/Actions'
 import Messages from '../Simulations/Components/Messages'
 import { Modal, ModalHeader, Card, CardBody, Button } from 'reactstrap'
 import './simulation.css'
+//import { ContinuousColorLegend } from 'react-vis';
 
 const baseUrl = "http://127.0.0.1:8080"
 
@@ -89,7 +90,8 @@ export default class LoginForm extends Component {
         timeCrono:0,
         finish:false,
         fordward: true,
-        deadModal: false
+        deadModal: false,
+        phase: ""
       }
     }
 
@@ -116,6 +118,7 @@ export default class LoginForm extends Component {
                     mentalStatus: data.mentalStatus,
                     time: data.time,
                     temperature: data.temperature,
+                    phase: data.phase,
                     document: []
                 })
                 initialData = data
@@ -530,6 +533,8 @@ export default class LoginForm extends Component {
     }
     
     render() {
+       
+        
       return(
         
         <div>
@@ -586,7 +591,13 @@ export default class LoginForm extends Component {
                         toogleCrono = {(next) => this.toogleCrono(next)}
                         data = {initialData}
                         test = {() => this.test()}
-                        testData = {testData} />
+                        testData = {testData} 
+                        age = {this.state.age}
+                        sex = {this.state.sex}
+                        phase = {this.state.phase}
+                       
+                
+                        />
                 <Graphic 
                         diastolicPressure = {this.state.diastolicPressure}
                         heartRate = {this.state.heartRate}
