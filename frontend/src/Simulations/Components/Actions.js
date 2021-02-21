@@ -161,6 +161,29 @@ class Actions extends Component {
 
     
     fillInformation(msg,content){
+        //Añadir acción a la base de datos
+        const baseUrl = "http://localhost:8080/inform/addAction"
+        // parametros de datos post
+        const datapost = {
+            simulationId: this.props.simulationId, message: msg, 
+            minute: Math.trunc((this.props.timeSim-1)/60), second: (this.props.timeSim-1)%60,
+            heartRate: Math.round(this.props.heartRate), breathingRate: Math.round(this.props.breathingRate),
+            sistolicPressure: Math.round(this.props.sistolicPressure),
+            diastolicPressure: Math.round(this.props.diastolicPressure),
+            saturation: Math.round(this.props.saturation), urineOutput:Math.round(this.props.urineOutput), 
+            bloodLoss: Math.round(this.props.bloodLoss), temperature: Math.round(this.props.temperature)
+        }
+    
+        axios.post(baseUrl,datapost)
+        .then(response=>{
+            if (response.data.success!==true) {
+                alert("Error")
+            }
+            })
+        .catch(error=>{
+            alert("Error 34 "+error)
+        })
+
         if(content){
             information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
                 msg: msg, constants:[Math.round(this.props.heartRate),Math.round(this.props.breathingRate),
@@ -169,6 +192,7 @@ class Actions extends Component {
                 Math.round(this.props.bloodLoss),Math.round(this.props.temperature)],
                 attach: content})
         }else{
+            
             information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
                 msg: msg, constants:[Math.round(this.props.heartRate),Math.round(this.props.breathingRate),
                     Math.round(this.props.sistolicPressure),Math.round(this.props.diastolicPressure),
@@ -203,7 +227,7 @@ class Actions extends Component {
 
     getMsg(variant, action){
 
-        const url = "http://127.0.0.1:8080/action/getMsg"
+        const url = "http://localhost:8080/action/getMsg"
         axios.get(url, {
             params: {
                 actionName: action,
