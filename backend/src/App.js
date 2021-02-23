@@ -6,6 +6,7 @@ const trainerRouters = require('./routes/trainerRoute')
 const simulationRouters = require('./routes/simulationRoute')
 const traineeRouters = require('./routes/traineeRoute')
 const actionRouters = require('./routes/actionRoute')
+const informRouters = require('./routes/informRoute')
 
 //Settings
 app.set('port', process.env.PORT || 8080); //puerto por el que se ejecuta la app
@@ -36,6 +37,7 @@ app.use('/trainer',trainerRouters)
 app.use('/simulation', simulationRouters)
 app.use('/trainee', traineeRouters)
 app.use('/action', actionRouters)
+app.use('/inform', informRouters)
 
 
 app.listen(app.get('port'),()=>{

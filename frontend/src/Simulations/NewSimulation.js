@@ -90,7 +90,7 @@ class NewSimulation extends Component {
 
     handleSubmit(event){
 
-        const baseUrl = "http://127.0.0.1:8080/simulation/create"
+        const baseUrl = "http://localhost:8080/simulation/create"
             
         const datapost = {
             trainerId: this.state.trainerId,

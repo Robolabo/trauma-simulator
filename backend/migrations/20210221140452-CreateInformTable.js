@@ -3,44 +3,28 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(
-      'simulations',
+      'informs',
       {
-        simulationId:{
+        actId:{
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           unique: true,
           unique: "compositeKey"
       },
-        trainerId: {
-          type: Sequelize.INTEGER,
-          unique: "compositeKey"
-      },
-        traineeId: {
+        simulationId: {
           type: Sequelize.INTEGER
       },
-        sex: {
-          type: Sequelize.INTEGER
-      },
-        age: {
-          type: Sequelize.INTEGER
-      } ,
-       weight: {
-          type: Sequelize.DOUBLE
-      },
-        partBody: {
-          type: Sequelize.STRING
-      },
-        mentalStatus: {
+        message: {
           type: Sequelize.STRING
       },
         bloodLoss: {
           type: Sequelize.DOUBLE
       } ,
-        diastolicPressure: {
+        sistolicPressure: {
           type: Sequelize.DOUBLE
       },
-        sistolicPressure: {
+        diastolicPressure: {
           type: Sequelize.DOUBLE
       },
         heartRate: {
@@ -58,20 +42,12 @@ module.exports = {
         temperature: {
           type: Sequelize.DOUBLE
       },
-        time: {
-          type: Sequelize.INTEGER
+       minute: {
+         type: Sequelize.INTEGER
       },
-        inform: {
-          type: Sequelize.BLOB
-      },
-        testData: {
-          type: Sequelize.JSON,
-          defaultValue: null
-      },
-        phase: {
-          type: Sequelize.STRING
-      } 
-    
+      second: {
+        type: Sequelize.INTEGER
+     }
       },
       {
         sync: { force: true}
@@ -87,7 +63,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('simulations');
+    return queryInterface.dropTable('informs');
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

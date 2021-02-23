@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button,  } from 'react-bootstrap';
 import axios from 'axios';
 
-const baseUrl = "http://127.0.0.1:8080"
+const baseUrl = "http://localhost:8080"
 
 export default class Document extends Component {
 
