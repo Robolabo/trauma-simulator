@@ -248,6 +248,9 @@ class Actions extends Component {
     }
     
     inspection() {
+        this.setState({
+            inspectionClicked:true
+        });
         this.getMsg("info","inspection")
         this.fillInformation("Inspección vía aérea")
     }
@@ -284,6 +287,9 @@ class Actions extends Component {
     }
 
     clean() {
+        this.setState({
+            cleanClicked:true
+        });
         this.props.change("heartRate", -0.5)
         this.props.change("bloodLoss", 0.5)
         this.props.change("bloodPressure", 0.5)
@@ -963,11 +969,7 @@ class Actions extends Component {
 
     }
     
-    //{value: 'pelvis', label: t('new-simulation.pelvis')},
-           // { value: 'rightArm', label: t('new-simulation.right-a') },
-            //{ value: 'leftArm', label: t('new-simulation.left-a') },
-           // { value: 'rightLeg', label: t('new-simulation.right-l') },
-           // { value: 'leftLeg', label: t('new-simulation.left-l')}
+    
 
     render() {
         console.log(this.props)
@@ -1113,8 +1115,9 @@ class Actions extends Component {
                     ? <div className="action1">
 
                         <div className="actions-buttons">
-                            <Button className="via" onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>
-                            <Button onClick={() => this.clean()}>{t('simulation.clean')}</Button>
+                            <Button className={`via ${this.state.inspectionClicked ?"clicked":null}`} onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>
+                            
+                            <Button className={this.state.cleanClicked?"clicked":null} onClick={() => this.clean()}>{t('simulation.clean')}</Button>
                             <Button onClick={() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
                             <Button onClick={() => this.intubate()}>{t('simulation.intubate')}</Button>
 
