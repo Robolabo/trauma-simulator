@@ -34,7 +34,7 @@ var timeH = 0
 var timeB = 0
 var timeS = 0
 var heart= 0 
-var saturation = 0
+var saturation = 0    
 var breath = 0
 var spaceH = 0
 var spaceS = 0
@@ -145,18 +145,14 @@ export default class Simulation extends Component {
     }
 
     intervalChange(){
-        let newHR = this.state.heartRate + (heartRateValue/60)
-        let newSP = this.state.sistolicPressure + (sistolicPressureValue/60)
-        let newDP = this.state.diastolicPressure + (diastolicPressureValue/60)
-        let newBR = this.state.breathingRate + (breathingRateValue/60)
-        let newUO = this.state.urineOutput + (urineOutputValue/60)
+        let HR = this.state.heartRate + (heartRateValue/60)
+        let SP = this.state.sistolicPressure + (sistolicPressureValue/60)
+        let DP = this.state.diastolicPressure + (diastolicPressureValue/60)
+        let BR = this.state.breathingRate + (breathingRateValue/60)
+        let UO = this.state.urineOutput + (urineOutputValue/60)
         let newSO = this.state.saturation + (saturationValue/60)
-        let HR = (newHR < 160 && newHR > 50 ) ? newHR : this.state.heartRate
-        let SP = (newSP < 190 && newSP > 60 ) ? newSP : this.state.sistolicPressure
-        let DP = (newDP < 85 && newDP > 30 ) ? newDP : this.state.diastolicPressure
-        let BR = (newBR < 60 && newBR > 5 ) ? newBR : this.state.breathingRate
-        let UO = (newUO < 15 && newUO > 5 ) ? newUO : this.state.urineOutput
-        let SO = (newSO < 97 && newSO > 75 ) ? newSO : this.state.saturation
+
+        let SO = (newSO < 100 ) ? newSO : this.state.saturation
         this.setState({
             heartRate: HR,
             sistolicPressure: SP,
@@ -495,18 +491,13 @@ export default class Simulation extends Component {
                newSO = intermSO + (x*(-0.5/60))
             }
           
-            let HR = (newHR > 160) ? 160 : newHR
-                HR = (newHR < 50) ? 50 : HR
-            let SP = (newSP > 190) ? 190 : newSP
-                SP = (newSP < 60) ? 60 : SP
-            let DP = (newDP > 85) ? 85 : newDP
-                DP = (newDP < 30) ? 30 : DP
-            let BR = (newBR > 60) ? 60 : newBR
-                BR = (newBR < 5) ? 5 : BR
-            let UO = (newUO > 15) ? 15 : newUO
-                UO = (newUO < 5) ? 5 : UO
-            let SO = (newSO > 97 ) ? 97 : newSO
-                SO = (newSO < 75) ? 75 : SO
+            let HR = newHR
+            let SP = newSP
+            let DP = newDP
+            let BR =  newBR
+            let UO =  newUO
+            let SO = (newSO > 100 ) ? 100 : newSO
+
             timeSim += (next * 60)
             this.setState({
                 heartRate: HR,
