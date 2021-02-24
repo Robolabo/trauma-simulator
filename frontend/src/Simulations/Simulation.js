@@ -35,7 +35,7 @@ var timeH = 0
 var timeB = 0
 var timeS = 0
 var heart= 0 
-var saturation = 0
+var saturation = 0    
 var breath = 0
 var spaceH = 0
 var spaceS = 0
@@ -149,18 +149,13 @@ export default class LoginForm extends Component {
     }
 
     intervalChange(){
-        let newHR = this.state.heartRate + (heartRateValue/60)
-        let newSP = this.state.sistolicPressure + (sistolicPressureValue/60)
-        let newDP = this.state.diastolicPressure + (diastolicPressureValue/60)
-        let newBR = this.state.breathingRate + (breathingRateValue/60)
-        let newUO = this.state.urineOutput + (urineOutputValue/60)
+        let HR = this.state.heartRate + (heartRateValue/60)
+        let SP = this.state.sistolicPressure + (sistolicPressureValue/60)
+        let DP = this.state.diastolicPressure + (diastolicPressureValue/60)
+        let BR = this.state.breathingRate + (breathingRateValue/60)
+        let UO = this.state.urineOutput + (urineOutputValue/60)
         let newSO = this.state.saturation + (saturationValue/60)
-        let HR = (newHR < 160 && newHR > 50 ) ? newHR : this.state.heartRate
-        let SP = (newSP < 190 && newSP > 60 ) ? newSP : this.state.sistolicPressure
-        let DP = (newDP < 85 && newDP > 30 ) ? newDP : this.state.diastolicPressure
-        let BR = (newBR < 60 && newBR > 5 ) ? newBR : this.state.breathingRate
-        let UO = (newUO < 15 && newUO > 5 ) ? newUO : this.state.urineOutput
-        let SO = (newSO < 92 && newSO > 75 ) ? newSO : this.state.saturation
+        let SO = (newSO < 100 ) ? newSO : this.state.saturation
         this.setState({
             heartRate: HR,
             sistolicPressure: SP,
@@ -367,25 +362,126 @@ export default class LoginForm extends Component {
                 timeCrono:next
             })
             clearInterval(this.myInterval0)
-            let newHR = this.state.heartRate + (heartRateValue * next)
-            let newSP = this.state.sistolicPressure + (sistolicPressureValue * next)
-            let newDP = this.state.diastolicPressure + (diastolicPressureValue * next)
-            let newBR = this.state.breathingRate + (breathingRateValue * next)
-            let newUO = this.state.urineOutput + (urineOutputValue * next)
-            let newSO = this.state.saturation + (saturationValue * next)
-            let HR = (newHR > 160) ? 160 : newHR
-                HR = (newHR < 50) ? 50 : HR
-            let SP = (newSP > 190) ? 190 : newSP
-                SP = (newSP < 60) ? 60 : SP
-            let DP = (newDP > 85) ? 85 : newDP
-                DP = (newDP < 30) ? 30 : DP
-            let BR = (newBR > 60) ? 60 : newBR
-                BR = (newBR < 5) ? 5 : BR
-            let UO = (newUO > 15) ? 15 : newUO
-                UO = (newUO < 5) ? 5 : UO
-            let SO = (newSO > 92 ) ? 92 : newSO
-                SO = (newSO < 75) ? 75 : SO
-            this.timeSim += (next * 60)
+
+            let intermHR = this.state.heartRate
+            let intermSP = this.state.sistolicPressure
+            let intermDP = this.state.diastolicPressure
+            let intermBR = this.state.breathingRate
+            let intermUO = this.state.urineOutput
+            let intermSO = this.state.saturation
+            let newHR = this.state.heartRate
+            let newSP = this.state.sistolicPressure
+            let newDP = this.state.diastolicPressure
+            let newBR = this.state.breathingRate
+            let newUO = this.state.urineOutput
+            let newSO = this.state.saturation
+
+            let dif = 0
+            let x = 0
+            let timeSimOld = timeSim
+
+            if (timeSimOld > 0 && timeSimOld <= 300){
+               dif = 300 - timeSimOld
+
+               intermHR = this.state.heartRate + ((heartRateValue/60) * dif)
+               newHR = intermHR + (timeSimOld*(1.5/60))
+
+               intermSP = this.state.sistolicPressure + ((sistolicPressureValue/60)* dif)
+               newSP = intermSP + (timeSimOld*(-2.3/60))
+
+               intermDP = this.state.diastolicPressure + ((diastolicPressureValue/60)* dif)
+               newDP = intermDP + (timeSimOld*(-1.6/60))
+
+               intermBR = this.state.breathingRate + ((breathingRateValue/60)* dif)
+               newBR = intermBR + (timeSimOld*(1.1/60))
+
+               intermUO = this.state.urineOutput + ((urineOutputValue/60)* dif)
+               newUO =  intermUO + (timeSimOld*(-0.5/60))
+
+               intermSO = this.state.saturation + ((saturationValue/60)* dif)
+               newSO = intermSO + (timeSimOld*(-0.6/60))
+
+            }
+            if (timeSimOld > 300 && timeSimOld <= 900){
+               dif = 900 - timeSimOld
+               if ((300 - dif) > 0){ x = (300 - dif) }
+               else {  dif = 300 }
+
+               intermHR = this.state.heartRate + ((heartRateValue/60) * dif)
+               newHR = intermHR + (x*(-2/60))
+
+               intermSP = this.state.sistolicPressure + ((sistolicPressureValue/60)* dif)
+               newSP = intermSP + (x*(-5/60))
+
+               intermDP = this.state.diastolicPressure + ((diastolicPressureValue/60)* dif)
+               newDP = intermDP + (x*(-1.86/60))
+
+               intermBR = this.state.breathingRate + ((breathingRateValue/60)* dif)
+               newBR = intermBR + (x*(-3.71/60))
+
+               intermUO = this.state.urineOutput + ((urineOutputValue/60)* dif)
+               newUO =  intermUO + (x*(-0.5/60))
+
+               intermSO = this.state.saturation + ((saturationValue/60)* dif)
+               newSO = intermSO + (x*(-0.7/60))
+
+            }
+
+            if (timeSimOld > 900 && timeSimOld <= 1320){
+               dif = 1320 - timeSimOld
+               if ((300 - dif) > 0){ x = (300 - dif) }
+                else { dif = 300 }
+
+               intermHR = this.state.heartRate + ((heartRateValue/60) * dif)
+               newHR = intermHR + (x*(-7.225/60))
+
+               intermSP = this.state.sistolicPressure + ((sistolicPressureValue/60)* dif)
+               newSP = intermSP + (x*(-1.75/60))
+
+               intermDP = this.state.diastolicPressure + ((diastolicPressureValue/60)* dif)
+               newDP = intermDP + (x*(-1.25/60))
+
+               intermBR = this.state.breathingRate + ((breathingRateValue/60)* dif)
+               newBR = intermBR + (x*(-0.75/60))
+
+               intermUO = this.state.urineOutput + ((urineOutputValue/60)* dif)
+               newUO =  intermUO + (x*(-0.5/60))
+
+               intermSO = this.state.saturation + ((saturationValue/60)* dif)
+               newSO = intermSO + (x*(-0.5/60))
+            }
+            if (timeSimOld > 1320 && timeSimOld <= 1800){
+               dif = 1800 - timeSimOld
+               if ((300 - dif) > 0){ x = (300 - dif) }
+                else { dif = 300 }
+
+               intermHR = this.state.heartRate + ((heartRateValue/60) * dif)
+               newHR = intermHR + (x*(-7.225/60))
+
+               intermSP = this.state.sistolicPressure + ((sistolicPressureValue/60)* dif)
+               newSP = intermSP + (x*(-1.75/60))
+
+               intermDP = this.state.diastolicPressure + ((diastolicPressureValue/60)* dif)
+               newDP = intermDP + (x*(-1.25/60))
+
+               intermBR = this.state.breathingRate + ((breathingRateValue/60)* dif)
+               newBR = intermBR + (x*(-0.75/60))
+
+               intermUO = this.state.urineOutput + ((urineOutputValue/60)* dif)
+               newUO =  intermUO + (x*(-0.5/60))
+
+               intermSO = this.state.saturation + ((saturationValue/60)* dif)
+               newSO = intermSO + (x*(-0.5/60))
+            }
+          
+            let HR = newHR
+            let SP = newSP
+            let DP = newDP
+            let BR =  newBR
+            let UO =  newUO
+            let SO = (newSO > 100 ) ? 100 : newSO
+
+            timeSim += (next * 60)
             this.setState({
                 heartRate: HR,
                 sistolicPressure: SP,
