@@ -326,18 +326,17 @@ class Actions extends Component {
         this.setState({
             cleanClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        //this.props.change("urineOutput", -0.5)
-        this.props.change("saturation", 0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        //this.props.change("urineOutput", -0.5, 0, 1)
+        this.props.change("saturation", 0.5, 0, 1)
         this.getMsg("info","clean")
         setTimeout(() => {
             this.props.send("success","La vía aéra se encuentra limpia.")
         }, 8000)
-        this.fillInformation("Aspirador")
-                
+        this.fillInformation("Limpiar vía aérea")                   
     }
 
     laparotomy() {
@@ -813,15 +812,11 @@ class Actions extends Component {
    
 
     oxygenate() {
-        //this.props.change("heartRate", 0)
-        //this.props.change("bloodPressure", 0)
-        //this.props.change("breathingRate", 0)
-        //this.props.change("urineOutput", 0)
         this.setState({
             oxygenateClicked:true
         });
-        this.props.change("saturation", 0.5)
-        console.log(this.avatar)
+        this.props.change("saturation", 0.5, 0, 1)
+        console.log(avatar)
         this.getMsg("info","oxygenate")
         switch(this.avatar) {
             case naked:
@@ -979,22 +974,22 @@ class Actions extends Component {
         this.setState({
             intubateClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", -0.5)
-        this.props.change("bloodPressure", -0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5)
-        this.props.change("saturation", 0.5)
         this.getMsg("info","intubate")
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", -0., 0, 1)
+        this.props.change("bloodPressure", -0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        this.props.change("urineOutput", -0.5, 0, 1)
+        this.props.change("saturation", 0.5, 0, 1)
         this.fillInformation("Intubación")
     }
 
     analgesics() {
         this.getMsg("info","analgesics")
         //this.props.change("heartRate", 0)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
         //this.props.change("urineOutput", 0)
         //this.props.change("saturation", 0)
         this.fillInformation("Suministrar analgésicos")
@@ -1014,12 +1009,12 @@ class Actions extends Component {
         this.setState({
             pelvic_beltClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
         //this.props.change("breathingRate", 0)
         //this.props.change("urineOutput", 0)
-        this.props.change("saturation", 0.5)
+        this.props.change("saturation", 0.5, 0, 1)
         this.getMsg("info","belt")
         this.fillInformation("Cinturón pélvico")
 
@@ -1069,22 +1064,22 @@ class Actions extends Component {
         this.setState({
             transfusionClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", 0.5)
-        this.props.change("saturation", 0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        this.props.change("urineOutput", 0.5, 0, 1)
+        this.props.change("saturation", 0.5, 0, 1)
         this.getMsg("info","transfusion")
         this.fillInformation("Transfusión sanguínea")
     }
 
     hot_liquids(){
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
         //this.props.change("breathingRate", 0)
-        this.props.change("urineOutput", 0.5)
+        this.props.change("urineOutput", 0.5, 0, 1)
         //this.props.change("saturation", 0)
         this.getMsg("info","liquids")
         this.fillInformation("Suministrar líquidos calientes")
@@ -1094,12 +1089,12 @@ class Actions extends Component {
         this.setState({
             surgeryClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
         //this.props.change("urineOutput", -0.5)
-        this.props.change("saturation", 0.5)
+        this.props.change("saturation", 0.5, 0, 1)
         this.getMsg("info","surgery")
         this.fillInformation("Cirugía")
     }
@@ -1108,12 +1103,12 @@ class Actions extends Component {
         this.setState({
             cristaloidesClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", 0.5)
-        this.props.change("saturation", 0)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        this.props.change("urineOutput", 0.5, 0, 1)
+        this.props.change("saturation", 0, 0, 1)
         this.getMsg("info","cristaloides")
         this.fillInformation("Suministrar cristaloides")
     }
