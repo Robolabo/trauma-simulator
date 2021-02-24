@@ -806,6 +806,396 @@ export default class Simulation extends Component {
             break;
         }
       }
+
+
+          /*
+
+    OTRO CHANGE(): DOBLE SWITCH POR PARAMETRO Y POR MANTIENE
+                   CON NUEVO PARAMETRO LATENCIA
+
+    change(parameter,value, tiempo, mantiene, latencia) {
+
+        var tInic = 0
+        var tFin = 0
+        let HR = 0
+        let SP = 0
+        let DP = 0
+        let BR = 0
+        let UO = 0
+        let SAT = 0
+        let tAhora = 0
+
+        switch (parameter) {
+
+          case "heartRate":
+              switch (mantiene) {
+                case 1:
+                //sube o baja value[puntos/min] en tiempo [segundos]
+                tInic = timeSim + latencia
+                tFin = timeSim + tiempo + latencia
+
+                if(timeSim >= tInic){
+                  if (timeSim <= tFin) {
+                        heartRateValue = value
+                    }
+                  }
+                  break;
+                case 2:
+                //sube hasta valor y se mantiene
+                tInic = timeSim + latencia
+
+                if (timeSim >= tInic) {
+                      heartRateValue = 0
+                      HR = value
+                      this.setState({
+                        heartRate: HR})
+                  }
+                  break;
+
+                case 3:
+                //Se mantiene NUEVO TIEMPO [segundos] y después se modifica valor [puntos/min] cada tiempo[segundos]
+                //Como solo hay un caso 3: TORNIQUETE, NUEVO TIEMPO = 5 min = 300 segundos
+
+                tInic = timeSim + latencia
+                tFin = timeSim + 300 + latencia
+
+                if (timeSim >= tInic ){
+                  if (timeSim <= tFin) {
+                      heartRateValue = 0
+                  }
+                  if (timeSim > tFin) {
+                      heartRateValue = value
+                  }
+                }
+                  break;
+
+                case 4:
+                //sube o baja hasta que se realiza una acción concreta
+
+                  break;
+
+                case 5:
+                //NO HAY PARA ESTE PARAMETER
+                  break;
+
+                  case 6:
+                  //NO HAY PARA ESTE PARAMETER
+                    break;
+
+                default:
+                  break;
+                }
+          case "sistolicPressure":
+              switch (mantiene) {
+                case 1:
+                tInic = timeSim + latencia
+                tFin = timeSim + tiempo + latencia
+                if(timeSim >= tInic){
+                  if (timeSim <= tFin) {
+                        sistolicPressureValue = value
+                    }
+                  }
+                  break;
+                case 2:
+                //sube hasta valor y se mantiene
+                tInic = timeSim + latencia
+
+                if (timeSim >= tInic) {
+                      sistolicPressureValue = 0
+                      SP = value
+                      this.setState({
+                        sistolicPressure: SP})
+                  }
+                  break;
+
+                case 3:
+                tInic = timeSim + latencia
+                tFin = timeSim + 300 + latencia
+
+                if (timeSim >= tInic ){
+                  if (timeSim <= tFin) {
+                      sistolicPressureValue = 0
+                  }
+                  if (timeSim > tFin) {
+                      sistolicPressureValue = value
+                  }
+                }
+                  break;
+
+                case 4:
+                //sube o baja hasta que se realiza una acción concreta
+                  break;
+
+                case 5:
+                tInic = timeSim + latencia
+                  if (timeSim >= tInic) {
+                    tAhora = timeSim
+                    if(tAhora <= 300){
+                      sistolicPressureValue = -0.75
+                    }
+                    if (tAhora > 300 && tAhora <=900 ) {
+                        sistolicPressureValue = -1.15
+                     }
+                   if (tAhora > 900 && tAhora <= 1320) {
+                      sistolicPressureValue = -2.5
+                    }
+                   if (tAhora > 1320) {
+                      sistolicPressureValue = -0.875
+                    }
+                  }
+                  break;
+
+                  case 6:
+                  //NO HAY PARA ESTE PARAMETER
+                    break;
+
+            case "diastolicPressure":
+                switch (mantiene) {
+                  case 1:
+                  tInic = timeSim + latencia
+                  tFin = timeSim + tiempo + latencia
+                  if(timeSim >= tInic){
+                    if (timeSim <= tFin) {
+                          diastolicPressureValue = value
+                      }
+                    }
+                    break;
+                  case 2:
+                  //sube hasta valor y se mantiene
+                  tInic = timeSim + latencia
+
+                  if (timeSim >= tInic) {
+                        diastolicPressureValue = 0
+                        DP = value
+                        this.setState({
+                          diastolicPressure: DP})
+                    }
+                    break;
+
+                  case 3:
+                  tInic = timeSim + latencia
+                  tFin = timeSim + 300 + latencia
+
+                  if (timeSim >= tInic ){
+                    if (timeSim <= tFin) {
+                        diastolicPressureValue = 0
+                    }
+                    if (timeSim > tFin) {
+                        diastolicPressureValue = value
+                    }
+                  }
+                    break;
+
+                  case 4:
+                  //sube o baja hasta que se realiza una acción concreta
+                    break;
+
+                  case 5:
+                  tInic = timeSim + latencia
+                    if (timeSim >= tInic) {
+                      tAhora = timeSim
+                      if(tAhora <= 300){
+                        diastolicPressureValue = -0.75
+                      }
+                      if (tAhora > 300 && tAhora <=900 ) {
+                          diastolicPressureValue = -0.8
+                       }
+                     if (tAhora > 900 && tAhora <= 1320) {
+                        diastolicPressureValue = -0.93
+                      }
+                     if (tAhora > 1320) {
+                        diastolicPressureValue = -0.625
+                      }
+                    }
+                    break;
+
+                    case 6:
+                    //NO HAY PARA ESTE PARAMETER
+                      break;
+
+                default:
+                  break;
+                    }
+
+          case "breathingRate":
+              switch (mantiene) {
+                case 1:
+                tInic = timeSim + latencia
+                tFin = timeSim + tiempo + latencia
+                if(timeSim >= tInic){
+                  if (timeSim <= tFin) {
+                        breathingRateValue = value
+                    }
+                  }
+                  break;
+                case 2:
+                //sube hasta valor y se mantiene
+                tInic = timeSim + latencia
+
+                if (timeSim >= tInic) {
+                      breathingRateValue = 0
+                      BR = value
+                      this.setState({
+                        breathingRate: BR})
+                  }
+                  break;
+
+                case 3:
+                tInic = timeSim + latencia
+                tFin = timeSim + 300 + latencia
+
+                if (timeSim >= tInic ){
+                  if (timeSim <= tFin) {
+                      breathingRateValue = 0
+                  }
+                  if (timeSim > tFin) {
+                      breathingRateValue = value
+                  }
+                }
+                  break;
+
+                case 4:
+                //sube o baja hasta que se realiza una acción concreta
+                  break;
+
+                case 5:
+                  //NO HAY PARA ESTE PARAMETER
+                  break;
+
+                  case 6:
+                  //NO HAY PARA ESTE PARAMETER
+                    break;
+
+              default:
+                break;
+                  }
+
+        case "urineOutput":
+            switch (mantiene) {
+              case 1:
+              tInic = timeSim + latencia
+              tFin = timeSim + tiempo + latencia
+              if(timeSim >= tInic){
+                if (timeSim <= tFin) {
+                      urineOutputValue = value
+                  }
+                }
+                break;
+              case 2:
+              //sube hasta valor y se mantiene
+              tInic = timeSim + latencia
+
+              if (timeSim >= tInic) {
+                    urineOutputValue = 0
+                    UO = value
+                    this.setState({
+                      urineOutput: UO})
+                }
+                break;
+
+              case 3:
+              tInic = timeSim + latencia
+              tFin = timeSim + 300 + latencia
+
+              if (timeSim >= tInic ){
+                if (timeSim <= tFin) {
+                    urineOutputValue = 0
+                }
+                if (timeSim > tFin) {
+                    urineOutputValue = value
+                }
+              }
+                break;
+
+              case 4:
+              //sube o baja hasta que se realiza una acción concreta
+                break;
+
+              case 5:
+                //NO HAY PARA ESTE PARAMETER
+                break;
+
+                case 6:
+                //NO HAY PARA ESTE PARAMETER
+                  break;
+
+            default:
+              break;
+                }
+
+      case "saturation":
+          switch (mantiene) {
+            case 1:
+            tInic = timeSim + latencia
+            tFin = timeSim + tiempo + latencia
+            if(timeSim >= tInic){
+              if (timeSim <= tFin) {
+                    saturationValue = value
+                }
+              }
+              break;
+            case 2:
+            //sube hasta valor y se mantiene
+            tInic = timeSim + latencia
+
+            if (timeSim >= tInic) {
+                  saturationValue = 0
+                  SAT = value
+                  this.setState({
+                    saturation: SAT})
+              }
+              break;
+
+            case 3:
+            tInic = timeSim + latencia
+            tFin = timeSim + 300 + latencia
+
+            if (timeSim >= tInic ){
+              if (timeSim <= tFin) {
+                  saturationValue = 0
+              }
+              if (timeSim > tFin) {
+                  saturationValue = value
+              }
+            }
+              break;
+
+            case 4:
+            //sube o baja hasta que se realiza una acción concreta
+              break;
+
+            case 5:
+              //NO HAY PARA ESTE PARAMETER
+              break;
+
+              case 6:
+              //Remonta hasta llegar al 100% la saturación en tiempo [segundos]
+              //value se mide en puntos por minuto
+              tInic = timeSim + latencia
+              tFin = timeSim + tiempo + latencia
+              let x = 0
+              let sat = this.state.saturation
+              x = 100 - sat
+              value = x/tiempo
+
+              if(timeSim >= tInic){
+                if (timeSim <= tFin) {
+                     saturationValue = value*60
+                }
+              }
+                break;
+
+          default:
+            break;
+          }
+            break;
+          default:
+        }
+        }
+
+
+    */
+
   
     
     sendInformation(variant, msg){  

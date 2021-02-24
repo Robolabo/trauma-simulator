@@ -556,6 +556,89 @@ class Actions extends Component {
         this.fillInformation("Suministrar cristaloides")
     }
 
+
+    /*
+//VALORES CALCULADOS PARA LA TABLA DE LA VERSION 2
+//METODO change(parameter, value, tiempo, mantiene, latencia)
+
+//        value [puntos/minuto], tiempo[segundos], latencia[segundos]
+
+
+aspirador() {
+
+    this.props.change("saturation", 150, 0, 1, 5)
+    this.fillInformation("Aspirando vía aerea")
+}
+
+oxygenateGN() {
+
+    this.props.change("saturation", 2.5, 120, 1, 10)
+    this.props.change("breathingRate", -180, 0, 1, 10)
+    this.fillInformation("Gafas nasales")
+}
+
+oxygenateMasc() {
+
+    this.props.change("saturation", 10.5, 40, 1, 10)
+    this.props.change("breathingRate", -300, 0, 1, 10)
+    this.fillInformation("Mascarilla oxígeno")
+}
+
+ ventilacionBolsa() {
+
+    this.props.change("saturation", 1, 0, 6, 10)
+    this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
+}
+
+torniquete() {
+
+    this.props.change("sistolicPressure", -0.8, 75, 3, 15)
+    this.props.change("diastolicPressure", -0.8, 75, 3, 15)
+    this.fillInformation("Torniquete")
+}
+
+pelvic_belt() {
+    this.props.change("sistolicPressure", 0, 0, 5, 35)
+    this.props.change("diastolicPressure", 0, 0, 5, 35)
+    this.fillInformation("Cinturón pélvico colocado")
+
+}
+
+medicacionIntubacion() {
+
+    this.props.change("saturation", -0.1, 10, 4, 30) ///////////falta la accion
+    this.fillInformation("Medicación administrada")
+}
+
+
+midazolam() {
+
+    this.props.change("saturation", -3, 60, 1, 15)
+    this.fillInformation("Midazolam administrado")
+}
+noradrenalina() {
+
+    this.props.change("sistolicPressure", 110, 0, 2, 45)
+    this.props.change("diastolicPressure", 65, 0, 2, 45)
+    this.fillInformation("Se inicia perfusuión de noradrenalina")
+}
+
+ssf20() {
+
+    this.props.change("sistolicPressure", 0.65, 1200, 1, 10)
+    this.props.change("diastolicPressure", 0.25, 1200, 1, 10)
+    this.fillInformation("Bolo SSF administrado")
+}
+
+voluven() {
+
+    this.props.change("sistolicPressure", 1.3077, 780, 1, 10)
+    this.props.change("diastolicPressure", 0.9231, 780, 1, 10)
+    this.fillInformation("Inicio Voluvén 250 ml")
+}
+
+*/
+
     render() {
         const { t } = this.props
         const closeRx = <button className="close" onClick={() => this.setRxModal(false)}>&times;</button>
