@@ -564,49 +564,258 @@ export default class Simulation extends Component {
 
     
 
-    change(parameter,value) {
-        switch (parameter) {
+    change(parameter,value, tiempo, mantiene) {
 
-            case "heartRate":
-
-                heartRateValue += value
-                
-                break;
-
-            case "sistolicPressure":
-
-                sistolicPressureValue += value
-            
-                break;
-
-            case "diastolicPressure":
-
-                diastolicPressureValue += value
-            
-                break;
-
-            case "breathingRate":
-
-                breathingRateValue += value
-            
-                break;
-
-            case "urineOutput":
-
-                urineOutputValue += value
-        
-                break;
-
-            case "saturation":
-
-                saturationValue += value
-            
-                break;
-        
-            default:
-                break;
-        }        
-    }
+        var tInic = 0
+        var tFin = 0
+        let HR = 0
+        let SP = 0
+        let DP = 0
+        let BR = 0
+        let UO = 0
+        let SAT = 0
+        let tAhora = 0
+  
+        switch (mantiene) {
+  
+          case 1:
+          //sube o baja value[puntos/min] en tiempo [segundos]
+          tInic = timeSim
+          tFin = timeSim + tiempo
+  
+          if(timeSim >= tInic){
+            if (timeSim <= tFin) {
+  
+                if (parameter === "heartRate"){
+                  heartRateValue = value
+                  }
+  
+               if (parameter === "sistolicPressure"){
+                  sistolicPressureValue = value
+                  }
+  
+               if (parameter === "diastolicPressure"){
+                  diastolicPressureValue = value
+                  }
+  
+                if (parameter === "breathingRate"){
+                  breathingRateValue = value
+                  }
+  
+                if (parameter === "urineOutput"){
+                  urineOutputValue = value
+                  }
+  
+                if (parameter === "saturation"){
+                  saturationValue = value
+                  }
+            }
+  
+          }
+            break;
+  
+          case 2:
+          //sube hasta valor y se mantiene
+          tInic = timeSim
+  
+          if (timeSim >= tInic) {
+              if (parameter === "heartRate"){
+                heartRateValue = 0
+                HR = value
+                this.setState({
+                  heartRate: HR})
+                }
+  
+             if (parameter === "sistolicPressure"){
+                sistolicPressureValue = 0
+                SP = value
+                this.setState({
+                  sistolicPressure: SP})
+                }
+  
+             if (parameter === "diastolicPressure"){
+                diastolicPressureValue = 0
+                DP = value
+                this.setState({
+                  diastolicPressure: DP})
+                }
+  
+              if (parameter === "breathingRate"){
+                breathingRateValue = 0
+                BR = value
+                this.setState({
+                  breathingRate: BR})
+                }
+  
+              if (parameter === "urineOutput"){
+                urineOutputValue = 0
+                UO = value
+                this.setState({
+                  urineOutput: UO})
+                }
+  
+              if (parameter === "saturation"){
+                saturationValue = 0
+                SAT = value
+                this.setState({
+                  saturation: SAT})
+                }
+            }
+  
+            break;
+  
+          case 3:
+          //Se mantiene NUEVO TIEMPO [segundos] y después se modifica valor [puntos/min] cada tiempo[segundos]
+          //Como solo hay un caso 3: TORNIQUETE, NUEVO TIEMPO = 5 min = 300 segundos
+  
+          tInic = timeSim
+          tFin = timeSim + 300
+  
+          if (timeSim >= tInic ){
+            if (timeSim <= tFin) {
+  
+              if (parameter === "heartRate"){
+                heartRateValue = 0
+                }
+  
+             if (parameter === "sistolicPressure"){
+                sistolicPressureValue = 0
+                }
+  
+             if (parameter === "diastolicPressure"){
+                diastolicPressureValue = 0
+                }
+  
+              if (parameter === "breathingRate"){
+                breathingRateValue = 0
+                }
+  
+              if (parameter === "urineOutput"){
+                urineOutputValue = 0
+                }
+  
+              if (parameter === "saturation"){
+                saturationValue = 0
+                }
+  
+            }
+            if (timeSim > tFin) {
+              if (parameter === "heartRate"){
+                heartRateValue = value
+                }
+  
+             if (parameter === "sistolicPressure"){
+                sistolicPressureValue = value
+                }
+  
+             if (parameter === "diastolicPressure"){
+                diastolicPressureValue = value
+                }
+  
+              if (parameter === "breathingRate"){
+                breathingRateValue = value
+                }
+  
+              if (parameter === "urineOutput"){
+                urineOutputValue = value
+                }
+  
+              if (parameter === "saturation"){
+                saturationValue = value
+                }
+            }
+            }
+  
+            break;
+  
+          case 4:
+          //sube o baja hasta que se realiza una acción concreta
+  
+            break;
+  
+          case 5:
+          //Ralentizar la subida o bajada de un parameter el doble de lo previsto
+          tInic = timeSim
+            if (timeSim >= tInic) {
+              tAhora = timeSim
+              if(tAhora <= 300){
+               // heartRateValue = 1.0
+                diastolicPressureValue = -0.75
+               // breathingRateValue = 0.4
+                //saturationValue = -0.2
+                sistolicPressureValue = -0.75
+              }
+              if (tAhora > 300 && tAhora <=900 ) {
+                 // heartRateValue = 0.75
+                 // breathingRateValue = 0.55
+                  //saturationValue = -0.3
+                  sistolicPressureValue = -1.15
+                  diastolicPressureValue = -0.8
+               }
+             if (tAhora > 900 && tAhora <= 1320) {
+               // heartRateValue = -1.0
+                //breathingRateValue = -1.855
+                //saturationValue = -0.35
+                sistolicPressureValue = -2.5
+                diastolicPressureValue = -0.93
+              }
+             if (tAhora > 1320) {
+                //heartRateValue = -3.6275
+                //breathingRateValue = -0.375
+                //saturationValue = -0.25
+                sistolicPressureValue = -0.875
+                diastolicPressureValue = -0.625
+              }
+            }
+  
+            break;
+  
+            case 6:
+            //Remonta hasta llegar al 100% la saturación en tiempo [segundos]
+            //value se mide en puntos por minuto
+            tInic = timeSim
+            tFin = timeSim + tiempo
+            let x = 0
+            let sat = this.state.saturation
+            x = 100 - sat
+            value = x/tiempo
+  
+            if(timeSim >= tInic){
+              if (timeSim <= tFin) {
+  
+                 if (parameter === "heartRate"){
+                   heartRateValue = value*60
+                   }
+  
+                if (parameter === "sistolicPressure"){
+                   sistolicPressureValue = value*60
+                   }
+  
+                if (parameter === "diastolicPressure"){
+                   diastolicPressureValue = value*60
+                   }
+  
+                 if (parameter === "breathingRate"){
+                   breathingRateValue = value*60
+                   }
+  
+                 if (parameter === "urineOutput"){
+                   urineOutputValue = value*60
+                   }
+  
+                 if (parameter === "saturation"){
+                   saturationValue = value*60
+                   }
+              }
+            }
+  
+              break;
+  
+          default:
+            break;
+        }
+      }
+  
     
     sendInformation(variant, msg){  
 
@@ -705,7 +914,7 @@ export default class Simulation extends Component {
                     disableFordward = {() => this.disableFordward()} />    
             </div>
             <div className="main">
-                <Actions change = {(first, second) => this.change(first, second)}
+                <Actions change = {(first, second, third, fourth) => this.change(first, second, third, fourth)}
                         send = {(variant,msg) => this.sendInformation(variant, msg)}
                         sendModal = {(id, type, header,content) => this.sendModal(id, type, header, content)}
                         time = {this.state.time}
