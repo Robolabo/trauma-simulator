@@ -252,7 +252,7 @@ class Actions extends Component {
             if (res.data.success) {
                 const data = res.data.data
                 this.props.send(variant,data[0].message)
-                this.props.toogleCrono(data[0].time)
+                //this.props.toogleCrono(data[0].time)
             }
             else {
             alert("Error web service")
@@ -326,7 +326,7 @@ class Actions extends Component {
         this.setState({
             cleanClicked:true
         });
-        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("heartRate", -0.5, 10, 1, 10)
         this.props.change("bloodLoss", 0.5, 0, 1)
         this.props.change("bloodPressure", 0.5, 0, 1)
         this.props.change("breathingRate", -0.5, 0, 1)

@@ -16,8 +16,14 @@ var heartRateValue = 0.5
 var diastolicPressureValue = -0.5
 var breathingRateValue = 0.5
 var urineOutputValue = -0.5
-var saturationValue = -0.5
-var sistolicPressureValue = -0.5
+var saturationValue = -0.4
+var sistolicPressureValue = -1.5
+var blockHR = false
+var blockDP = false
+var blockSP = false
+var blockUO = false
+var blockSO = false
+var blockBR = false
 var breathConstant = [{x: (0.25), y: 500},{x: (0.5), y: 125},{x: 1, y: 0}]
 var heartConstant = [{x: 1/12, y: 0.07}, {x: 1/6, y: 0},
                      {x: 4/15, y: 0}, {x: 0.3, y: -0.14}, {x: 11/30, y: 0.96},
@@ -75,6 +81,7 @@ export default class LoginForm extends Component {
         saturation: 0.0,
         mentalStatus: "",
         time: 0,
+        timeSim:-1,
         dataHeartRate: [],
         dataSaturation: [],
         dataBreathingRate: [],
@@ -133,6 +140,7 @@ export default class LoginForm extends Component {
         })
     }
 
+    //Esta función empieza cuando se pulsa el botón de start
     start () {
 
         if ( this.state.confirm) {
@@ -141,14 +149,45 @@ export default class LoginForm extends Component {
                 start: !start,
                 confirm: false
             }))
-
-            this.myInterval0 = setInterval(this.interval0.bind(this) , 1000)
-            this.changeConstants = setInterval(this.intervalChange.bind(this),1000)
+            //Se actualizan las gráficas cada segundo
+            this.changeGraphs = setInterval(this.intervalGraphs.bind(this) , 1000)
+            //Se actualizan los valores cada segundo
+            this.changeConstants = setInterval(this.intervalConstants.bind(this),1000)
             
         }
     }
 
-    intervalChange(){
+    intervalConstants(){
+      //Curva de los 30 minutos si no se pulsa ninguna acción
+      if (this.state.timeSim <=300 ) {
+        heartRateValue = blockHR ? heartRateValue : 2
+        breathingRateValue = 0.8
+        saturationValue = -0.4
+        sistolicPressureValue = -1.5
+        diastolicPressureValue = -1.5
+      }
+      if (this.state.timeSim > 300 && this.state.timeSim <=900 ) {
+        heartRateValue = blockHR ? heartRateValue : 1.5
+        breathingRateValue = 1.1
+        saturationValue = -0.6
+        sistolicPressureValue = -2.3
+        diastolicPressureValue = -1.6
+      }
+      if (this.state.timeSim > 900 && this.state.timeSim <= 1320) {
+        heartRateValue = blockHR ? heartRateValue : -2.0
+        breathingRateValue = -3.71
+        saturationValue = -0.7
+        sistolicPressureValue = -5.0
+        diastolicPressureValue = -1.86
+      }
+      if (this.state.timeSim > 1320) {
+        heartRateValue = blockHR ? heartRateValue : -7.255
+        breathingRateValue = -0.75
+        saturationValue = -0.5
+        sistolicPressureValue = -1.75
+        diastolicPressureValue = -1.25
+      }
+      // Se obtiene el valor actual de cada constante y se le suma la variación.
         let HR = this.state.heartRate + (heartRateValue/60)
         let SP = this.state.sistolicPressure + (sistolicPressureValue/60)
         let DP = this.state.diastolicPressure + (diastolicPressureValue/60)
@@ -156,6 +195,7 @@ export default class LoginForm extends Component {
         let UO = this.state.urineOutput + (urineOutputValue/60)
         let newSO = this.state.saturation + (saturationValue/60)
         let SO = (newSO < 100 ) ? newSO : this.state.saturation
+        // Se actualiza el estado con los nuevos valores.
         this.setState({
             heartRate: HR,
             sistolicPressure: SP,
@@ -166,7 +206,8 @@ export default class LoginForm extends Component {
         })   
     }
 
-    interval0() {
+    //Este intervalo sirve para generar las gráficas
+    intervalGraphs() {
         this.setState({
             crono: false,
             timeCrono:0
@@ -216,7 +257,7 @@ export default class LoginForm extends Component {
           }
         }
         time += 1
-        this.timeSim += 1
+        
         //Eliminar datos
         interval +=1
         intervalB +=1
@@ -352,8 +393,13 @@ export default class LoginForm extends Component {
             dataBreathingRate: dBreath
         })
 
+        this.setState(( { timeSim }) => ( {
+          timeSim: timeSim + 1
+        }))
+
     }
-        
+    
+    //Función que se utiliza cuando se adelanta el cronómetro
     toogleCrono(next){
         if (this.state.start){
             
@@ -361,7 +407,7 @@ export default class LoginForm extends Component {
                 crono: true,
                 timeCrono:next
             })
-            clearInterval(this.myInterval0)
+            clearInterval(this.changeGraphs)
 
             let intermHR = this.state.heartRate
             let intermSP = this.state.sistolicPressure
@@ -378,7 +424,7 @@ export default class LoginForm extends Component {
 
             let dif = 0
             let x = 0
-            let timeSimOld = timeSim
+            let timeSimOld = this.state.timeSim
 
             if (timeSimOld > 0 && timeSimOld <= 300){
                dif = 300 - timeSimOld
@@ -474,23 +520,19 @@ export default class LoginForm extends Component {
                newSO = intermSO + (x*(-0.5/60))
             }
           
-            let HR = newHR
-            let SP = newSP
-            let DP = newDP
-            let BR =  newBR
-            let UO =  newUO
             let SO = (newSO > 100 ) ? 100 : newSO
 
-            timeSim += (next * 60)
+            this.state.timeSim += (next * 60)
             this.setState({
-                heartRate: HR,
-                sistolicPressure: SP,
-                diastolicPressure: DP ,
-                breathingRate: BR,
-                urineOutput: UO,
+                heartRate: newHR,
+                sistolicPressure: newSP,
+                diastolicPressure: newDP ,
+                breathingRate: newBR,
+                urineOutput: newUO,
                 saturation: SO
             })
-            if( HR === 160 && SP === 60 && DP === 30 && BR === 60 && SO === 75 ){
+            //Esto se dispara cuando el paciente se muere.
+            if( newHR === 160 && newSP === 60 && newDP === 30 && newBR === 60 && SO === 75 ){
                 breathConstant = [{x: (0.25), y: 0},{x: (0.5), y: 0},{x: 1, y: 0}]
                 heartConstant = [{x: 1/12, y: 0}, {x: 1/6, y: 0},
                     {x: 4/15, y: 0}, {x: 0.3, y: 0}, {x: 11/30, y: 0},
@@ -507,23 +549,55 @@ export default class LoginForm extends Component {
 
                 })
             }
-            this.myInterval0 = setInterval(this.interval0.bind(this) , 1000)
+            if( newHR <= 63 && newSP <= 61 && newDP <= 42 && SO <= 81){
+                breathConstant = [{x: (0.25), y: 0},{x: (0.5), y: 0},{x: 1, y: 0}]
+                heartConstant = [{x: 1/12, y: 0}, {x: 1/6, y: 0},
+                    {x: 4/15, y: 0}, {x: 0.3, y: 0}, {x: 11/30, y: 0},
+                    {x: 13/30, y: 0}, {x: 7/15,y:0}, {x: 37/60, y:0},
+                    {x: 0.75, y:0}, {x: 0.85, y:0}, {x: 1, y: 0}]
+                saturationConstant = [{x: 1/6, y: 0}, {x: 1/3, y: 0}, {x: 13/30, y: 0}, {x: 1, y: 0}]
+                this.setState({
+                    deadModal:true,
+                    saturation: 0,
+                    sistolicPressure: 0,
+                    breathingRate: 0,
+                    heartRate:0,
+                    diastolicPressure:0
+
+                })
+          }
+            this.changeGraphs = setInterval(this.intervalGraphs.bind(this) , 1000)
         }
         
     }
-
+    //Función para enviar el informe
     sendData(next){
-
         this.setState({
             document: next
         })
     }
 
-    
+    blockChangeValue(parameter){
+      switch(parameter){
+        case "heartRate":
+          blockHR = true
+      }
+    }
 
-    change(parameter,value, tiempo, mantiene) {
+    unBlockChangeValue(parameter){
+      switch(parameter){
+        case "heartRate":
+          blockHR = false
+          clearTimeout(this.blockHRValue)
+      }
+    }
 
-        var tInic = 0
+    change(parameter,value, time, type, latency){
+      this.changeAction = setTimeout(this.changeAux.bind(this,parameter,value, time, type), (latency * 1000))
+    }
+    changeAux(parameter,value, time, type) {
+
+        /*var tInic = 0
         var tFin = 0
         let HR = 0
         let SP = 0
@@ -531,17 +605,25 @@ export default class LoginForm extends Component {
         let BR = 0
         let UO = 0
         let SAT = 0
-        let tAhora = 0
-  
-        switch (mantiene) {
-  
-          case 1:
+        let tAhora = 0*/
+
+          switch (type) {
+            
+            case 1:
+              switch(parameter){
+                case "heartRate":
+                  this.blockChangeValue(parameter)
+                  heartRateValue = value
+                  this.blockHR1Value = setTimeout(this.unBlockChangeValue.bind(this,parameter) , (time * 1000))
+              }
+          }
+      }
           //sube o baja value[puntos/min] en tiempo [segundos]
-          tInic = timeSim
-          tFin = timeSim + tiempo
+          /*tInic = this.state.timeSim
+          tFin = this.state.timeSim + time
   
-          if(timeSim >= tInic){
-            if (timeSim <= tFin) {
+          if(this.state.timeSim >= tInic){
+            if (this.state.timeSim <= tFin) {
   
                 if (parameter === "heartRate"){
                   heartRateValue = value
@@ -573,9 +655,9 @@ export default class LoginForm extends Component {
   
           case 2:
           //sube hasta valor y se mantiene
-          tInic = timeSim
+          tInic = this.state.timeSim
   
-          if (timeSim >= tInic) {
+          if (this.state.timeSim >= tInic) {
               if (parameter === "heartRate"){
                 heartRateValue = 0
                 HR = value
@@ -625,11 +707,11 @@ export default class LoginForm extends Component {
           //Se mantiene NUEVO TIEMPO [segundos] y después se modifica valor [puntos/min] cada tiempo[segundos]
           //Como solo hay un caso 3: TORNIQUETE, NUEVO TIEMPO = 5 min = 300 segundos
   
-          tInic = timeSim
-          tFin = timeSim + 300
+          tInic = this.state.timeSim
+          tFin = this.state.timeSim + 300
   
-          if (timeSim >= tInic ){
-            if (timeSim <= tFin) {
+          if (this.state.timeSim >= tInic ){
+            if (this.state.timeSim <= tFin) {
   
               if (parameter === "heartRate"){
                 heartRateValue = 0
@@ -656,7 +738,7 @@ export default class LoginForm extends Component {
                 }
   
             }
-            if (timeSim > tFin) {
+            if (this.state.timeSim > tFin) {
               if (parameter === "heartRate"){
                 heartRateValue = value
                 }
@@ -692,9 +774,9 @@ export default class LoginForm extends Component {
   
           case 5:
           //Ralentizar la subida o bajada de un parameter el doble de lo previsto
-          tInic = timeSim
-            if (timeSim >= tInic) {
-              tAhora = timeSim
+          tInic = this.state.timeSim
+            if (this.state.timeSim >= tInic) {
+              tAhora = this.state.timeSim
               if(tAhora <= 300){
                // heartRateValue = 1.0
                 diastolicPressureValue = -0.75
@@ -728,17 +810,17 @@ export default class LoginForm extends Component {
             break;
   
             case 6:
-            //Remonta hasta llegar al 100% la saturación en tiempo [segundos]
+            //Remonta hasta llegar al 100% la saturación en time [segundos]
             //value se mide en puntos por minuto
-            tInic = timeSim
-            tFin = timeSim + tiempo
+            tInic = this.state.timeSim
+            tFin = this.state.timeSim + time
             let x = 0
             let sat = this.state.saturation
             x = 100 - sat
-            value = x/tiempo
+            value = x/time
   
-            if(timeSim >= tInic){
-              if (timeSim <= tFin) {
+            if(this.state.timeSim >= tInic){
+              if (this.state.timeSim <= tFin) {
   
                  if (parameter === "heartRate"){
                    heartRateValue = value*60
@@ -797,20 +879,20 @@ export default class LoginForm extends Component {
               switch (mantiene) {
                 case 1:
                 //sube o baja value[puntos/min] en tiempo [segundos]
-                tInic = timeSim + latencia
-                tFin = timeSim + tiempo + latencia
+                tInic = this.state.timeSim + latencia
+                tFin = this.state.timeSim + tiempo + latencia
 
-                if(timeSim >= tInic){
-                  if (timeSim <= tFin) {
+                if(this.state.timeSim >= tInic){
+                  if (this.state.timeSim <= tFin) {
                         heartRateValue = value
                     }
                   }
                   break;
                 case 2:
                 //sube hasta valor y se mantiene
-                tInic = timeSim + latencia
+                tInic = this.state.timeSim + latencia
 
-                if (timeSim >= tInic) {
+                if (this.state.timeSim >= tInic) {
                       heartRateValue = 0
                       HR = value
                       this.setState({
@@ -822,14 +904,14 @@ export default class LoginForm extends Component {
                 //Se mantiene NUEVO TIEMPO [segundos] y después se modifica valor [puntos/min] cada tiempo[segundos]
                 //Como solo hay un caso 3: TORNIQUETE, NUEVO TIEMPO = 5 min = 300 segundos
 
-                tInic = timeSim + latencia
-                tFin = timeSim + 300 + latencia
+                tInic = this.state.timeSim + latencia
+                tFin = this.state.timeSim + 300 + latencia
 
-                if (timeSim >= tInic ){
-                  if (timeSim <= tFin) {
+                if (this.state.timeSim >= tInic ){
+                  if (this.state.timeSim <= tFin) {
                       heartRateValue = 0
                   }
-                  if (timeSim > tFin) {
+                  if (this.state.timeSim > tFin) {
                       heartRateValue = value
                   }
                 }
@@ -854,19 +936,19 @@ export default class LoginForm extends Component {
           case "sistolicPressure":
               switch (mantiene) {
                 case 1:
-                tInic = timeSim + latencia
-                tFin = timeSim + tiempo + latencia
-                if(timeSim >= tInic){
-                  if (timeSim <= tFin) {
+                tInic = this.state.timeSim + latencia
+                tFin = this.state.timeSim + tiempo + latencia
+                if(this.state.timeSim >= tInic){
+                  if (this.state.timeSim <= tFin) {
                         sistolicPressureValue = value
                     }
                   }
                   break;
                 case 2:
                 //sube hasta valor y se mantiene
-                tInic = timeSim + latencia
+                tInic = this.state.timeSim + latencia
 
-                if (timeSim >= tInic) {
+                if (this.state.timeSim >= tInic) {
                       sistolicPressureValue = 0
                       SP = value
                       this.setState({
@@ -875,14 +957,14 @@ export default class LoginForm extends Component {
                   break;
 
                 case 3:
-                tInic = timeSim + latencia
-                tFin = timeSim + 300 + latencia
+                tInic = this.state.timeSim + latencia
+                tFin = this.state.timeSim + 300 + latencia
 
-                if (timeSim >= tInic ){
-                  if (timeSim <= tFin) {
+                if (this.state.timeSim >= tInic ){
+                  if (this.state.timeSim <= tFin) {
                       sistolicPressureValue = 0
                   }
-                  if (timeSim > tFin) {
+                  if (this.state.timeSim > tFin) {
                       sistolicPressureValue = value
                   }
                 }
@@ -893,9 +975,9 @@ export default class LoginForm extends Component {
                   break;
 
                 case 5:
-                tInic = timeSim + latencia
-                  if (timeSim >= tInic) {
-                    tAhora = timeSim
+                tInic = this.state.timeSim + latencia
+                  if (this.state.timeSim >= tInic) {
+                    tAhora = this.state.timeSim
                     if(tAhora <= 300){
                       sistolicPressureValue = -0.75
                     }
@@ -918,19 +1000,19 @@ export default class LoginForm extends Component {
             case "diastolicPressure":
                 switch (mantiene) {
                   case 1:
-                  tInic = timeSim + latencia
-                  tFin = timeSim + tiempo + latencia
-                  if(timeSim >= tInic){
-                    if (timeSim <= tFin) {
+                  tInic = this.state.timeSim + latencia
+                  tFin = this.state.timeSim + tiempo + latencia
+                  if(this.state.timeSim >= tInic){
+                    if (this.state.timeSim <= tFin) {
                           diastolicPressureValue = value
                       }
                     }
                     break;
                   case 2:
                   //sube hasta valor y se mantiene
-                  tInic = timeSim + latencia
+                  tInic = this.state.timeSim + latencia
 
-                  if (timeSim >= tInic) {
+                  if (this.state.timeSim >= tInic) {
                         diastolicPressureValue = 0
                         DP = value
                         this.setState({
@@ -939,14 +1021,14 @@ export default class LoginForm extends Component {
                     break;
 
                   case 3:
-                  tInic = timeSim + latencia
-                  tFin = timeSim + 300 + latencia
+                  tInic = this.state.timeSim + latencia
+                  tFin = this.state.timeSim + 300 + latencia
 
-                  if (timeSim >= tInic ){
-                    if (timeSim <= tFin) {
+                  if (this.state.timeSim >= tInic ){
+                    if (this.state.timeSim <= tFin) {
                         diastolicPressureValue = 0
                     }
-                    if (timeSim > tFin) {
+                    if (this.state.timeSim > tFin) {
                         diastolicPressureValue = value
                     }
                   }
@@ -957,9 +1039,9 @@ export default class LoginForm extends Component {
                     break;
 
                   case 5:
-                  tInic = timeSim + latencia
-                    if (timeSim >= tInic) {
-                      tAhora = timeSim
+                  tInic = this.state.timeSim + latencia
+                    if (this.state.timeSim >= tInic) {
+                      tAhora = this.state.timeSim
                       if(tAhora <= 300){
                         diastolicPressureValue = -0.75
                       }
@@ -986,19 +1068,19 @@ export default class LoginForm extends Component {
           case "breathingRate":
               switch (mantiene) {
                 case 1:
-                tInic = timeSim + latencia
-                tFin = timeSim + tiempo + latencia
-                if(timeSim >= tInic){
-                  if (timeSim <= tFin) {
+                tInic = this.state.timeSim + latencia
+                tFin = this.state.timeSim + tiempo + latencia
+                if(this.state.timeSim >= tInic){
+                  if (this.state.timeSim <= tFin) {
                         breathingRateValue = value
                     }
                   }
                   break;
                 case 2:
                 //sube hasta valor y se mantiene
-                tInic = timeSim + latencia
+                tInic = this.state.timeSim + latencia
 
-                if (timeSim >= tInic) {
+                if (this.state.timeSim >= tInic) {
                       breathingRateValue = 0
                       BR = value
                       this.setState({
@@ -1007,14 +1089,14 @@ export default class LoginForm extends Component {
                   break;
 
                 case 3:
-                tInic = timeSim + latencia
-                tFin = timeSim + 300 + latencia
+                tInic = this.state.timeSim + latencia
+                tFin = this.state.timeSim + 300 + latencia
 
-                if (timeSim >= tInic ){
-                  if (timeSim <= tFin) {
+                if (this.state.timeSim >= tInic ){
+                  if (this.state.timeSim <= tFin) {
                       breathingRateValue = 0
                   }
-                  if (timeSim > tFin) {
+                  if (this.state.timeSim > tFin) {
                       breathingRateValue = value
                   }
                 }
@@ -1039,19 +1121,19 @@ export default class LoginForm extends Component {
         case "urineOutput":
             switch (mantiene) {
               case 1:
-              tInic = timeSim + latencia
-              tFin = timeSim + tiempo + latencia
-              if(timeSim >= tInic){
-                if (timeSim <= tFin) {
+              tInic = this.state.timeSim + latencia
+              tFin = this.state.timeSim + tiempo + latencia
+              if(this.state.timeSim >= tInic){
+                if (this.state.timeSim <= tFin) {
                       urineOutputValue = value
                   }
                 }
                 break;
               case 2:
               //sube hasta valor y se mantiene
-              tInic = timeSim + latencia
+              tInic = this.state.timeSim + latencia
 
-              if (timeSim >= tInic) {
+              if (this.state.timeSim >= tInic) {
                     urineOutputValue = 0
                     UO = value
                     this.setState({
@@ -1060,14 +1142,14 @@ export default class LoginForm extends Component {
                 break;
 
               case 3:
-              tInic = timeSim + latencia
-              tFin = timeSim + 300 + latencia
+              tInic = this.state.timeSim + latencia
+              tFin = this.state.timeSim + 300 + latencia
 
-              if (timeSim >= tInic ){
-                if (timeSim <= tFin) {
+              if (this.state.timeSim >= tInic ){
+                if (this.state.timeSim <= tFin) {
                     urineOutputValue = 0
                 }
-                if (timeSim > tFin) {
+                if (this.state.timeSim > tFin) {
                     urineOutputValue = value
                 }
               }
@@ -1092,19 +1174,19 @@ export default class LoginForm extends Component {
       case "saturation":
           switch (mantiene) {
             case 1:
-            tInic = timeSim + latencia
-            tFin = timeSim + tiempo + latencia
-            if(timeSim >= tInic){
-              if (timeSim <= tFin) {
+            tInic = this.state.timeSim + latencia
+            tFin = this.state.timeSim + tiempo + latencia
+            if(this.state.timeSim >= tInic){
+              if (this.state.timeSim <= tFin) {
                     saturationValue = value
                 }
               }
               break;
             case 2:
             //sube hasta valor y se mantiene
-            tInic = timeSim + latencia
+            tInic = this.state.timeSim + latencia
 
-            if (timeSim >= tInic) {
+            if (this.state.timeSim >= tInic) {
                   saturationValue = 0
                   SAT = value
                   this.setState({
@@ -1113,14 +1195,14 @@ export default class LoginForm extends Component {
               break;
 
             case 3:
-            tInic = timeSim + latencia
-            tFin = timeSim + 300 + latencia
+            tInic = this.state.timeSim + latencia
+            tFin = this.state.timeSim + 300 + latencia
 
-            if (timeSim >= tInic ){
-              if (timeSim <= tFin) {
+            if (this.state.timeSim >= tInic ){
+              if (this.state.timeSim <= tFin) {
                   saturationValue = 0
               }
-              if (timeSim > tFin) {
+              if (this.state.timeSim > tFin) {
                   saturationValue = value
               }
             }
@@ -1137,15 +1219,15 @@ export default class LoginForm extends Component {
               case 6:
               //Remonta hasta llegar al 100% la saturación en tiempo [segundos]
               //value se mide en puntos por minuto
-              tInic = timeSim + latencia
-              tFin = timeSim + tiempo + latencia
+              tInic = this.state.timeSim + latencia
+              tFin = this.state.timeSim + tiempo + latencia
               let x = 0
               let sat = this.state.saturation
               x = 100 - sat
               value = x/tiempo
 
-              if(timeSim >= tInic){
-                if (timeSim <= tFin) {
+              if(this.state.timeSim >= tInic){
+                if (this.state.timeSim <= tFin) {
                      saturationValue = value*60
                 }
               }
@@ -1202,7 +1284,7 @@ export default class LoginForm extends Component {
         this.setState({
             finish: true
         })
-        clearInterval(this.myInterval0)
+        clearInterval(this.changeGraphs)
     }
 
     disableFordward(){
@@ -1212,12 +1294,12 @@ export default class LoginForm extends Component {
     }
 
     test(){
-        testHeartRate.push({x: this.timeSim, y: this.state.heartRate})
-        testBreathRate.push({x: this.timeSim, y: this.state.breathingRate})
-        testDistolic.push({x: this.timeSim, y: this.state.diastolicPressure})
-        testSistolic.push({x: this.timeSim, y: this.state.sistolicPressure})
-        testUrine.push({x: this.timeSim, y: this.state.urineOutput})
-        testSaturation.push({x: this.timeSim, y: this.state.saturation})
+        testHeartRate.push({x: this.state.timeSim, y: this.state.heartRate})
+        testBreathRate.push({x: this.state.timeSim, y: this.state.breathingRate})
+        testDistolic.push({x: this.state.timeSim, y: this.state.diastolicPressure})
+        testSistolic.push({x: this.state.timeSim, y: this.state.sistolicPressure})
+        testUrine.push({x: this.state.timeSim, y: this.state.urineOutput})
+        testSaturation.push({x: this.state.timeSim, y: this.state.saturation})
         testData = {
             testHeartRate: testHeartRate,
             testBreathRate: testBreathRate,
@@ -1263,7 +1345,7 @@ export default class LoginForm extends Component {
                     disableFordward = {() => this.disableFordward()} />    
             </div>
             <div className="main">
-                <Actions change = {(first, second, third, fourth) => this.change(first, second, third, fourth)}
+                <Actions change = {(first, second, third, fourth, fifth) => this.change(first, second, third, fourth, fifth)}
                         send = {(variant,msg) => this.sendInformation(variant, msg)}
                         sendModal = {(id, type, header,content) => this.sendModal(id, type, header, content)}
                         time = {this.state.time}
@@ -1282,7 +1364,7 @@ export default class LoginForm extends Component {
                         finish = {this.state.finish}
                         id = {this.props.location.state.id}
                         simulationId = {this.props.match.params.id}
-                        timeSim = {this.timeSim}
+                        timeSim = {this.state.timeSim}
                         sendData = {(next) => this.sendData(next)}
                         toogleCrono = {(next) => this.toogleCrono(next)}
                         data = {initialData}
