@@ -1166,6 +1166,7 @@ class Actions extends Component {
 //        value [puntos/minuto], tiempo[segundos], latencia[segundos]
 
 
+
 aspirador() {
 
     this.props.change("saturation", 150, 0, 1, 5)
@@ -1175,33 +1176,33 @@ aspirador() {
 oxygenateGN() {
 
     this.props.change("saturation", 2.5, 120, 1, 10)
-    this.props.change("breathingRate", -180, 0, 1, 10)
+    this.props.change("breathingRate", -1.5, 120, 1, 10)
     this.fillInformation("Gafas nasales")
 }
 
 oxygenateMasc() {
 
     this.props.change("saturation", 10.5, 40, 1, 10)
-    this.props.change("breathingRate", -300, 0, 1, 10)
+    this.props.change("breathingRate", -7.5, 40, 1, 10)
     this.fillInformation("Mascarilla oxígeno")
 }
 
  ventilacionBolsa() {
 
-    this.props.change("saturation", 1, 0, 6, 10)
+    this.props.change("saturation", 100, 40, 2, 10)
     this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
 }
 
 torniquete() {
 
-    this.props.change("sistolicPressure", -0.8, 75, 3, 15)
-    this.props.change("diastolicPressure", -0.8, 75, 3, 15)
+    this.props.change("sistolicPressure", -0.8, 300, 3, 15)
+    this.props.change("diastolicPressure", -0.8, 300, 3, 15)
     this.fillInformation("Torniquete")
 }
 
 pelvic_belt() {
-    this.props.change("sistolicPressure", 0, 0, 5, 35)
-    this.props.change("diastolicPressure", 0, 0, 5, 35)
+    this.props.change("sistolicPressure", 0.5, 0, 5, 35)
+    this.props.change("diastolicPressure", 0.5, 0, 5, 35)
     this.fillInformation("Cinturón pélvico colocado")
 
 }
@@ -1220,8 +1221,8 @@ midazolam() {
 }
 noradrenalina() {
 
-    this.props.change("sistolicPressure", 110, 0, 2, 45)
-    this.props.change("diastolicPressure", 65, 0, 2, 45)
+    this.props.change("sistolicPressure", 110, 20, 2, 45)
+    this.props.change("diastolicPressure", 65, 20, 2, 45)
     this.fillInformation("Se inicia perfusuión de noradrenalina")
 }
 
@@ -1238,6 +1239,7 @@ voluven() {
     this.props.change("diastolicPressure", 0.9231, 780, 1, 10)
     this.fillInformation("Inicio Voluvén 250 ml")
 }
+
 
 */
 
