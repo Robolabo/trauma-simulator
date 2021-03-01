@@ -156,31 +156,31 @@ export default class Simulation extends Component {
       //Curva de los 30 minutos si no se pulsa ninguna acción
       if (this.state.timeSim <=300 ) {
         heartRateValue = blockHR ? heartRateValue : 2
-        breathingRateValue = 0.8
-        saturationValue = -0.4
-        sistolicPressureValue = -1.5
-        diastolicPressureValue = -1.5
+        breathingRateValue = blockBR ? breathingRateValue : 0.8
+        saturationValue = blockSO ? saturationValue : -0.4
+        sistolicPressureValue = blockSP ? sistolicPressureValue : -1.5
+        diastolicPressureValue = blockDP ? diastolicPressureValue : -1.5
       }
       if (this.state.timeSim > 300 && this.state.timeSim <=900 ) {
         heartRateValue = blockHR ? heartRateValue : 1.5
-        breathingRateValue = 1.1
-        saturationValue = -0.6
-        sistolicPressureValue = -2.3
-        diastolicPressureValue = -1.6
+        breathingRateValue = blockBR ? breathingRateValue : 1.1
+        saturationValue = blockSO ? saturationValue : -0.6
+        sistolicPressureValue = blockSP ? sistolicPressureValue : -2.3
+        diastolicPressureValue = blockDP ? diastolicPressureValue : -1.6
       }
       if (this.state.timeSim > 900 && this.state.timeSim <= 1320) {
         heartRateValue = blockHR ? heartRateValue : -2.0
-        breathingRateValue = -3.71
-        saturationValue = -0.7
-        sistolicPressureValue = -5.0
-        diastolicPressureValue = -1.86
+        breathingRateValue = blockBR ? breathingRateValue : -3.71
+        saturationValue = blockSO ? saturationValue : -0.7
+        sistolicPressureValue = blockSP ? sistolicPressureValue : -5.0
+        diastolicPressureValue = blockDP ? diastolicPressureValue : -1.86
       }
       if (this.state.timeSim > 1320) {
         heartRateValue = blockHR ? heartRateValue : -7.255
-        breathingRateValue = -0.75
-        saturationValue = -0.5
-        sistolicPressureValue = -1.75
-        diastolicPressureValue = -1.25
+        breathingRateValue = blockBR ? breathingRateValue : -0.75
+        saturationValue = blockSO ? saturationValue : -0.5
+        sistolicPressureValue = blockSP ? sistolicPressureValue : -1.75
+        diastolicPressureValue = blockDP ? diastolicPressureValue  : -1.25
       }
       // Se obtiene el valor actual de cada constante y se le suma la variación.
         let HR = this.state.heartRate + (heartRateValue/60)
@@ -576,14 +576,177 @@ export default class Simulation extends Component {
       switch(parameter){
         case "heartRate":
           blockHR = true
+            break;
+        case "sistolicPressure":
+          blockSP = true
+            break;
+        case "diastolicPressure":
+          blockDP = true
+            break;
+        case "breathingRate":
+          blockBR = true
+            break;
+        case "urineOutput":
+          blockUO = true
+            break;
+        case "saturation":
+          blockSO = true
+            break;
+        default:
+          break;
       }
     }
 
-    unBlockChangeValue(parameter){
+    unBlockChangeValue(parameter, type, value){
       switch(parameter){
         case "heartRate":
           blockHR = false
-          clearTimeout(this.blockHRValue)
+          // HR1, 2 ,3 ...
+          switch (type) {
+            case 1:
+              clearTimeout(this.blockHR1Value)
+              break;
+            case 2:
+              clearTimeout(this.blockHR2Value)
+              this.blockChangeValue(parameter)
+              heartRateValue  = 0
+              break;
+            case 3:
+              clearTimeout(this.blockHR3Value)
+              this.blockChangeValue(parameter)
+              heartRateValue = value
+              break;
+            case 4:
+              break;
+            case 5:
+              break;
+            default:
+              break;
+          }
+            break;
+        case "sistolicPressure":
+          blockSP = false
+          switch (type) {
+            case 1:
+              clearTimeout(this.blockSP1Value)
+              break;
+            case 2:
+              clearTimeout(this.blockSP2Value)
+              this.blockChangeValue(parameter)
+              sistolicPressureValue  = 0
+              break;
+            case 3:
+              clearTimeout(this.blockSP3Value)
+              this.blockChangeValue(parameter)
+              sistolicPressureValue = value
+              break;
+            case 4:
+              break;
+            case 5:
+              break;
+            default:
+              break;
+          }
+            break;
+        case "diastolicPressure":
+          blockDP = false
+          switch (type) {
+            case 1:
+              clearTimeout(this.blockDP1Value)
+              break;
+            case 2:
+              clearTimeout(this.blockDP2Value)
+              this.blockChangeValue(parameter)
+              diastolicPressureValue  = 0
+              break;
+            case 3:
+              clearTimeout(this.blockDP3Value)
+              this.blockChangeValue(parameter)
+              diastolicPressureValue = value
+              break;
+            case 4:
+              break;
+            case 5:
+              break;
+            default:
+              break;
+          }
+            break;
+        case "breathingRate":
+          blockBR = false
+          switch (type) {
+            case 1:
+              clearTimeout(this.blockBR1Value)
+              break;
+            case 2:
+              clearTimeout(this.blockBR2Value)
+              this.blockChangeValue(parameter)
+              breathingRateValue  = 0
+              break;
+            case 3:
+              clearTimeout(this.blockBR3Value)
+              this.blockChangeValue(parameter)
+              breathingRateValue = value
+              break;
+            case 4:
+              break;
+            case 5:
+              break;
+            default:
+              break;
+          }
+            break;
+        case "urineOutput":
+          blockUO = false
+          switch (type) {
+            case 1:
+              clearTimeout(this.blockUO1Value)
+              break;
+            case 2:
+              clearTimeout(this.blockUO2Value)
+              this.blockChangeValue(parameter)
+              urineOutputValue  = 0
+              break;
+            case 3:
+              clearTimeout(this.blockUO3Value)
+              this.blockChangeValue(parameter)
+              urineOutputValue = value
+              break;
+            case 4:
+              break;
+            case 5:
+              break;
+            default:
+              break;
+          }
+            break;
+        case "saturation":
+          blockSO = false
+          clearTimeout(this.blockSOValue)
+          switch (type) {
+            case 1:
+              clearTimeout(this.blockSO1Value)
+              break;
+            case 2:
+              clearTimeout(this.blockSO2Value)
+              this.blockChangeValue(parameter)
+              saturationValue  = 0
+              break;
+            case 3:
+              clearTimeout(this.blockSO3Value)
+              this.blockChangeValue(parameter)
+              saturationValue = value
+              break;
+            case 4:
+              break;
+            case 5:
+              break;
+            default:
+              break;
+          }
+            break;
+        default:
+          break;
       }
     }
 
@@ -591,654 +754,201 @@ export default class Simulation extends Component {
       this.changeAction = setTimeout(this.changeAux.bind(this,parameter,value, time, type), (latency * 1000))
     }
     changeAux(parameter,value, time, type) {
+      switch (type) {
 
-        /*var tInic = 0
-        var tFin = 0
-        let HR = 0
-        let SP = 0
-        let DP = 0
-        let BR = 0
-        let UO = 0
-        let SAT = 0
-        let tAhora = 0*/
+        //sube o baja value[puntos/min] en tiempo [segundos]
+        case 1:
+          switch(parameter){
+            case "heartRate":
+              this.blockChangeValue(parameter)
+              heartRateValue = value
+              this.blockHR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+                break;
 
-          switch (type) {
-            
-            case 1:
-              switch(parameter){
-                case "heartRate":
-                  this.blockChangeValue(parameter)
-                  heartRateValue = value
-                  this.blockHR1Value = setTimeout(this.unBlockChangeValue.bind(this,parameter) , (time * 1000))
-              }
-          }
-      }
-          //sube o baja value[puntos/min] en tiempo [segundos]
-          /*tInic = this.state.timeSim
-          tFin = this.state.timeSim + time
-  
-          if(this.state.timeSim >= tInic){
-            if (this.state.timeSim <= tFin) {
-  
-                if (parameter === "heartRate"){
-                  heartRateValue = value
-                  }
-  
-               if (parameter === "sistolicPressure"){
-                  sistolicPressureValue = value
-                  }
-  
-               if (parameter === "diastolicPressure"){
-                  diastolicPressureValue = value
-                  }
-  
-                if (parameter === "breathingRate"){
-                  breathingRateValue = value
-                  }
-  
-                if (parameter === "urineOutput"){
-                  urineOutputValue = value
-                  }
-  
-                if (parameter === "saturation"){
-                  saturationValue = value
-                  }
-            }
-  
-          }
-            break;
-  
-          case 2:
-          //sube hasta valor y se mantiene
-          tInic = this.state.timeSim
-  
-          if (this.state.timeSim >= tInic) {
-              if (parameter === "heartRate"){
-                heartRateValue = 0
-                HR = value
-                this.setState({
-                  heartRate: HR})
-                }
-  
-             if (parameter === "sistolicPressure"){
-                sistolicPressureValue = 0
-                SP = value
-                this.setState({
-                  sistolicPressure: SP})
-                }
-  
-             if (parameter === "diastolicPressure"){
-                diastolicPressureValue = 0
-                DP = value
-                this.setState({
-                  diastolicPressure: DP})
-                }
-  
-              if (parameter === "breathingRate"){
-                breathingRateValue = 0
-                BR = value
-                this.setState({
-                  breathingRate: BR})
-                }
-  
-              if (parameter === "urineOutput"){
-                urineOutputValue = 0
-                UO = value
-                this.setState({
-                  urineOutput: UO})
-                }
-  
-              if (parameter === "saturation"){
-                saturationValue = 0
-                SAT = value
-                this.setState({
-                  saturation: SAT})
-                }
-            }
-  
-            break;
-  
-          case 3:
-          //Se mantiene NUEVO TIEMPO [segundos] y después se modifica valor [puntos/min] cada tiempo[segundos]
-          //Como solo hay un caso 3: TORNIQUETE, NUEVO TIEMPO = 5 min = 300 segundos
-  
-          tInic = this.state.timeSim
-          tFin = this.state.timeSim + 300
-  
-          if (this.state.timeSim >= tInic ){
-            if (this.state.timeSim <= tFin) {
-  
-              if (parameter === "heartRate"){
-                heartRateValue = 0
-                }
-  
-             if (parameter === "sistolicPressure"){
-                sistolicPressureValue = 0
-                }
-  
-             if (parameter === "diastolicPressure"){
-                diastolicPressureValue = 0
-                }
-  
-              if (parameter === "breathingRate"){
-                breathingRateValue = 0
-                }
-  
-              if (parameter === "urineOutput"){
-                urineOutputValue = 0
-                }
-  
-              if (parameter === "saturation"){
-                saturationValue = 0
-                }
-  
-            }
-            if (this.state.timeSim > tFin) {
-              if (parameter === "heartRate"){
-                heartRateValue = value
-                }
-  
-             if (parameter === "sistolicPressure"){
-                sistolicPressureValue = value
-                }
-  
-             if (parameter === "diastolicPressure"){
-                diastolicPressureValue = value
-                }
-  
-              if (parameter === "breathingRate"){
-                breathingRateValue = value
-                }
-  
-              if (parameter === "urineOutput"){
-                urineOutputValue = value
-                }
-  
-              if (parameter === "saturation"){
-                saturationValue = value
-                }
-            }
-            }
-  
-            break;
-  
-          case 4:
-          //sube o baja hasta que se realiza una acción concreta
-  
-            break;
-  
-          case 5:
-          //Ralentizar la subida o bajada de un parameter el doble de lo previsto
-          tInic = this.state.timeSim
-            if (this.state.timeSim >= tInic) {
-              tAhora = this.state.timeSim
-              if(tAhora <= 300){
-               // heartRateValue = 1.0
-                diastolicPressureValue = -0.75
-               // breathingRateValue = 0.4
-                //saturationValue = -0.2
-                sistolicPressureValue = -0.75
-              }
-              if (tAhora > 300 && tAhora <=900 ) {
-                 // heartRateValue = 0.75
-                 // breathingRateValue = 0.55
-                  //saturationValue = -0.3
-                  sistolicPressureValue = -1.15
-                  diastolicPressureValue = -0.8
-               }
-             if (tAhora > 900 && tAhora <= 1320) {
-               // heartRateValue = -1.0
-                //breathingRateValue = -1.855
-                //saturationValue = -0.35
-                sistolicPressureValue = -2.5
-                diastolicPressureValue = -0.93
-              }
-             if (tAhora > 1320) {
-                //heartRateValue = -3.6275
-                //breathingRateValue = -0.375
-                //saturationValue = -0.25
-                sistolicPressureValue = -0.875
-                diastolicPressureValue = -0.625
-              }
-            }
-  
-            break;
-  
-            case 6:
-            //Remonta hasta llegar al 100% la saturación en time [segundos]
-            //value se mide en puntos por minuto
-            tInic = this.state.timeSim
-            tFin = this.state.timeSim + time
-            let x = 0
-            let sat = this.state.saturation
-            x = 100 - sat
-            value = x/time
-  
-            if(this.state.timeSim >= tInic){
-              if (this.state.timeSim <= tFin) {
-  
-                 if (parameter === "heartRate"){
-                   heartRateValue = value*60
-                   }
-  
-                if (parameter === "sistolicPressure"){
-                   sistolicPressureValue = value*60
-                   }
-  
-                if (parameter === "diastolicPressure"){
-                   diastolicPressureValue = value*60
-                   }
-  
-                 if (parameter === "breathingRate"){
-                   breathingRateValue = value*60
-                   }
-  
-                 if (parameter === "urineOutput"){
-                   urineOutputValue = value*60
-                   }
-  
-                 if (parameter === "saturation"){
-                   saturationValue = value*60
-                   }
-              }
-            }
-  
-              break;
-  
-          default:
-            break;
-        }
-      }
-
-
-          /*
-
-    OTRO CHANGE(): DOBLE SWITCH POR PARAMETRO Y POR MANTIENE
-                   CON NUEVO PARAMETRO LATENCIA
-
-    change(parameter,value, tiempo, mantiene, latencia) {
-
-        var tInic = 0
-        var tFin = 0
-        let HR = 0
-        let SP = 0
-        let DP = 0
-        let BR = 0
-        let UO = 0
-        let SAT = 0
-        let tAhora = 0
-
-        switch (parameter) {
-
-          case "heartRate":
-              switch (mantiene) {
-                case 1:
-                //sube o baja value[puntos/min] en tiempo [segundos]
-                tInic = this.state.timeSim + latencia
-                tFin = this.state.timeSim + tiempo + latencia
-
-                if(this.state.timeSim >= tInic){
-                  if (this.state.timeSim <= tFin) {
-                        heartRateValue = value
-                    }
-                  }
-                  break;
-                case 2:
-                //sube hasta valor y se mantiene
-                tInic = this.state.timeSim + latencia
-
-                if (this.state.timeSim >= tInic) {
-                      heartRateValue = 0
-                      HR = value
-                      this.setState({
-                        heartRate: HR})
-                  }
-                  break;
-
-                case 3:
-                //Se mantiene NUEVO TIEMPO [segundos] y después se modifica valor [puntos/min] cada tiempo[segundos]
-                //Como solo hay un caso 3: TORNIQUETE, NUEVO TIEMPO = 5 min = 300 segundos
-
-                tInic = this.state.timeSim + latencia
-                tFin = this.state.timeSim + 300 + latencia
-
-                if (this.state.timeSim >= tInic ){
-                  if (this.state.timeSim <= tFin) {
-                      heartRateValue = 0
-                  }
-                  if (this.state.timeSim > tFin) {
-                      heartRateValue = value
-                  }
-                }
-                  break;
-
-                case 4:
-                //sube o baja hasta que se realiza una acción concreta
-
-                  break;
-
-                case 5:
-                //NO HAY PARA ESTE PARAMETER
-                  break;
-
-                  case 6:
-                  //NO HAY PARA ESTE PARAMETER
-                    break;
-
-                default:
-                  break;
-                }
-          case "sistolicPressure":
-              switch (mantiene) {
-                case 1:
-                tInic = this.state.timeSim + latencia
-                tFin = this.state.timeSim + tiempo + latencia
-                if(this.state.timeSim >= tInic){
-                  if (this.state.timeSim <= tFin) {
-                        sistolicPressureValue = value
-                    }
-                  }
-                  break;
-                case 2:
-                //sube hasta valor y se mantiene
-                tInic = this.state.timeSim + latencia
-
-                if (this.state.timeSim >= tInic) {
-                      sistolicPressureValue = 0
-                      SP = value
-                      this.setState({
-                        sistolicPressure: SP})
-                  }
-                  break;
-
-                case 3:
-                tInic = this.state.timeSim + latencia
-                tFin = this.state.timeSim + 300 + latencia
-
-                if (this.state.timeSim >= tInic ){
-                  if (this.state.timeSim <= tFin) {
-                      sistolicPressureValue = 0
-                  }
-                  if (this.state.timeSim > tFin) {
-                      sistolicPressureValue = value
-                  }
-                }
-                  break;
-
-                case 4:
-                //sube o baja hasta que se realiza una acción concreta
-                  break;
-
-                case 5:
-                tInic = this.state.timeSim + latencia
-                  if (this.state.timeSim >= tInic) {
-                    tAhora = this.state.timeSim
-                    if(tAhora <= 300){
-                      sistolicPressureValue = -0.75
-                    }
-                    if (tAhora > 300 && tAhora <=900 ) {
-                        sistolicPressureValue = -1.15
-                     }
-                   if (tAhora > 900 && tAhora <= 1320) {
-                      sistolicPressureValue = -2.5
-                    }
-                   if (tAhora > 1320) {
-                      sistolicPressureValue = -0.875
-                    }
-                  }
-                  break;
-
-                  case 6:
-                  //NO HAY PARA ESTE PARAMETER
-                    break;
+            case "sistolicPressure":
+              this.blockChangeValue(parameter)
+              sistolicPressureValue  = value
+              this.blockSP1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+                break;
 
             case "diastolicPressure":
-                switch (mantiene) {
-                  case 1:
-                  tInic = this.state.timeSim + latencia
-                  tFin = this.state.timeSim + tiempo + latencia
-                  if(this.state.timeSim >= tInic){
-                    if (this.state.timeSim <= tFin) {
-                          diastolicPressureValue = value
-                      }
-                    }
-                    break;
-                  case 2:
-                  //sube hasta valor y se mantiene
-                  tInic = this.state.timeSim + latencia
-
-                  if (this.state.timeSim >= tInic) {
-                        diastolicPressureValue = 0
-                        DP = value
-                        this.setState({
-                          diastolicPressure: DP})
-                    }
-                    break;
-
-                  case 3:
-                  tInic = this.state.timeSim + latencia
-                  tFin = this.state.timeSim + 300 + latencia
-
-                  if (this.state.timeSim >= tInic ){
-                    if (this.state.timeSim <= tFin) {
-                        diastolicPressureValue = 0
-                    }
-                    if (this.state.timeSim > tFin) {
-                        diastolicPressureValue = value
-                    }
-                  }
-                    break;
-
-                  case 4:
-                  //sube o baja hasta que se realiza una acción concreta
-                    break;
-
-                  case 5:
-                  tInic = this.state.timeSim + latencia
-                    if (this.state.timeSim >= tInic) {
-                      tAhora = this.state.timeSim
-                      if(tAhora <= 300){
-                        diastolicPressureValue = -0.75
-                      }
-                      if (tAhora > 300 && tAhora <=900 ) {
-                          diastolicPressureValue = -0.8
-                       }
-                     if (tAhora > 900 && tAhora <= 1320) {
-                        diastolicPressureValue = -0.93
-                      }
-                     if (tAhora > 1320) {
-                        diastolicPressureValue = -0.625
-                      }
-                    }
-                    break;
-
-                    case 6:
-                    //NO HAY PARA ESTE PARAMETER
-                      break;
-
-                default:
-                  break;
-                    }
-
-          case "breathingRate":
-              switch (mantiene) {
-                case 1:
-                tInic = this.state.timeSim + latencia
-                tFin = this.state.timeSim + tiempo + latencia
-                if(this.state.timeSim >= tInic){
-                  if (this.state.timeSim <= tFin) {
-                        breathingRateValue = value
-                    }
-                  }
-                  break;
-                case 2:
-                //sube hasta valor y se mantiene
-                tInic = this.state.timeSim + latencia
-
-                if (this.state.timeSim >= tInic) {
-                      breathingRateValue = 0
-                      BR = value
-                      this.setState({
-                        breathingRate: BR})
-                  }
-                  break;
-
-                case 3:
-                tInic = this.state.timeSim + latencia
-                tFin = this.state.timeSim + 300 + latencia
-
-                if (this.state.timeSim >= tInic ){
-                  if (this.state.timeSim <= tFin) {
-                      breathingRateValue = 0
-                  }
-                  if (this.state.timeSim > tFin) {
-                      breathingRateValue = value
-                  }
-                }
-                  break;
-
-                case 4:
-                //sube o baja hasta que se realiza una acción concreta
-                  break;
-
-                case 5:
-                  //NO HAY PARA ESTE PARAMETER
-                  break;
-
-                  case 6:
-                  //NO HAY PARA ESTE PARAMETER
-                    break;
-
-              default:
-                break;
-                  }
-
-        case "urineOutput":
-            switch (mantiene) {
-              case 1:
-              tInic = this.state.timeSim + latencia
-              tFin = this.state.timeSim + tiempo + latencia
-              if(this.state.timeSim >= tInic){
-                if (this.state.timeSim <= tFin) {
-                      urineOutputValue = value
-                  }
-                }
-                break;
-              case 2:
-              //sube hasta valor y se mantiene
-              tInic = this.state.timeSim + latencia
-
-              if (this.state.timeSim >= tInic) {
-                    urineOutputValue = 0
-                    UO = value
-                    this.setState({
-                      urineOutput: UO})
-                }
+              this.blockChangeValue(parameter)
+              diastolicPressureValue  = value
+              this.blockDP1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter , type, value) , (time * 1000))
                 break;
 
-              case 3:
-              tInic = this.state.timeSim + latencia
-              tFin = this.state.timeSim + 300 + latencia
-
-              if (this.state.timeSim >= tInic ){
-                if (this.state.timeSim <= tFin) {
-                    urineOutputValue = 0
-                }
-                if (this.state.timeSim > tFin) {
-                    urineOutputValue = value
-                }
-              }
+            case "breathingRate":
+              this.blockChangeValue(parameter)
+              breathingRateValue  = value
+              this.blockBR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+                break;
+            case "urineOutput":
+              this.blockChangeValue(parameter)
+              urineOutputValue   = value
+              this.blockUO1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
                 break;
 
-              case 4:
-              //sube o baja hasta que se realiza una acción concreta
+            case "saturation":
+              this.blockChangeValue(parameter)
+              saturationValue  = value
+              this.blockSO1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
                 break;
-
-              case 5:
-                //NO HAY PARA ESTE PARAMETER
-                break;
-
-                case 6:
-                //NO HAY PARA ESTE PARAMETER
-                  break;
 
             default:
-              break;
-                }
-
-      case "saturation":
-          switch (mantiene) {
-            case 1:
-            tInic = this.state.timeSim + latencia
-            tFin = this.state.timeSim + tiempo + latencia
-            if(this.state.timeSim >= tInic){
-              if (this.state.timeSim <= tFin) {
-                    saturationValue = value
-                }
-              }
-              break;
-            case 2:
-            //sube hasta valor y se mantiene
-            tInic = this.state.timeSim + latencia
-
-            if (this.state.timeSim >= tInic) {
-                  saturationValue = 0
-                  SAT = value
-                  this.setState({
-                    saturation: SAT})
-              }
-              break;
-
-            case 3:
-            tInic = this.state.timeSim + latencia
-            tFin = this.state.timeSim + 300 + latencia
-
-            if (this.state.timeSim >= tInic ){
-              if (this.state.timeSim <= tFin) {
-                  saturationValue = 0
-              }
-              if (this.state.timeSim > tFin) {
-                  saturationValue = value
-              }
-            }
-              break;
-
-            case 4:
-            //sube o baja hasta que se realiza una acción concreta
-              break;
-
-            case 5:
-              //NO HAY PARA ESTE PARAMETER
-              break;
-
-              case 6:
-              //Remonta hasta llegar al 100% la saturación en tiempo [segundos]
-              //value se mide en puntos por minuto
-              tInic = this.state.timeSim + latencia
-              tFin = this.state.timeSim + tiempo + latencia
-              let x = 0
-              let sat = this.state.saturation
-              x = 100 - sat
-              value = x/tiempo
-
-              if(this.state.timeSim >= tInic){
-                if (this.state.timeSim <= tFin) {
-                     saturationValue = value*60
-                }
-              }
-                break;
-
-          default:
-            break;
+               break;
           }
             break;
-          default:
-        }
-        }
 
+        //sube hasta value[valor concreto] en x [segundos]  y se mantiene
+        // meto el caso 6 aquí puesto que suponemos al final que la ventilación con bolsa se mantiene fija
+        case 2:
+          switch(parameter){
+            case "heartRate":
+              this.blockChangeValue(parameter)
+              heartRateValue = (((value - this.state.heartRate)*60)/ time)
+              this.blockHR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
 
-    */
+                break;
 
+            case "sistolicPressure":
+              this.blockChangeValue(parameter)
+              sistolicPressureValue  = (((value - this.state.sistolicPressure)*60)/ time)
+              this.blockSP2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "diastolicPressure":
+              this.blockChangeValue(parameter)
+              diastolicPressureValue  = (((value - this.state.diastolicPressure)*60)/ time)
+              this.blockDP2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "breathingRate":
+              this.blockChangeValue(parameter)
+              breathingRateValue  = (((value - this.state.breathingRate)*60)/ time)
+              this.blockBR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "urineOutput":
+              this.blockChangeValue(parameter)
+              urineOutputValue   = (((value - this.state.urineOutput)*60)/ time)
+              this.blockUO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "saturation":
+              this.blockChangeValue(parameter)
+              saturationValue  = (((value - this.state.saturation)*60)/ time)
+              this.blockSO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            default:
+               break;
+          }
+            break;
+
+      //Se mantiene tiempo [segundos] y después se modifica value [puntos/min] hasta el final
+
+        case 3:
+          switch(parameter){
+            case "heartRate":
+              this.blockChangeValue(parameter)
+              heartRateValue = 0
+              this.blockHR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "sistolicPressure":
+              this.blockChangeValue(parameter)
+              sistolicPressureValue  = 0
+              this.blockSP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "diastolicPressure":
+              this.blockChangeValue(parameter)
+              diastolicPressureValue  = 0
+              this.blockDP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "breathingRate":
+              this.blockChangeValue(parameter)
+              breathingRateValue  = 0
+              this.blockBR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "urineOutput":
+              this.blockChangeValue(parameter)
+              urineOutputValue   = 0
+              this.blockUO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            case "saturation":
+              this.blockChangeValue(parameter)
+              saturationValue  = 0
+              this.blockSO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+
+                break;
+
+            default:
+               break;
+          }
+            break;
+
+      //sube o baja hasta que se realiza una acción concreta
+        case 4:
+          break;
+
+      //Acelera (o Ralentiza si es un número menor que cero) la subida o bajada de un parameter
+      //value multiplica al valor actual de subida o bajada
+        case 5:
+          switch(parameter){
+            case "heartRate":
+              this.blockChangeValue(parameter)
+              heartRateValue = heartRateValue*value
+                break;
+
+            case "sistolicPressure":
+              this.blockChangeValue(parameter)
+              sistolicPressureValue  = sistolicPressureValue*value
+                break;
+
+            case "diastolicPressure":
+              this.blockChangeValue(parameter)
+              diastolicPressureValue  = diastolicPressureValue*value
+                break;
+
+            case "breathingRate":
+              this.blockChangeValue(parameter)
+              breathingRateValue  = breathingRateValue*value
+                break;
+
+            case "urineOutput":
+              this.blockChangeValue(parameter)
+              urineOutputValue   = urineOutputValue*value
+                break;
+
+            case "saturation":
+              this.blockChangeValue(parameter)
+              saturationValue  = saturationValue*value
+                break;
+
+            default:
+               break;
+          }
+            break;
+
+        default:
+          break;
+      }
+      }
+ 
   
     
     sendInformation(variant, msg){  
