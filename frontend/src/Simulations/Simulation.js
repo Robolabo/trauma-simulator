@@ -753,7 +753,7 @@ export default class Simulation extends Component {
     change(parameter,value, time, type, latency){
       this.changeAction = setTimeout(this.changeAux.bind(this,parameter,value, time, type), (latency * 1000))
     }
-    changeAux(parameter,value, time, type) {
+    changeAux(parameter,value, duration, type) {
       switch (type) {
 
         //sube o baja value[puntos/min] en tiempo [segundos]
@@ -762,36 +762,36 @@ export default class Simulation extends Component {
             case "heartRate":
               this.blockChangeValue(parameter)
               heartRateValue = value
-              this.blockHR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockHR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                 break;
 
             case "sistolicPressure":
               this.blockChangeValue(parameter)
               sistolicPressureValue  = value
-              this.blockSP1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockSP1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                 break;
 
             case "diastolicPressure":
               this.blockChangeValue(parameter)
               diastolicPressureValue  = value
-              this.blockDP1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter , type, value) , (time * 1000))
+              this.blockDP1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter , type, value) , (duration * 1000))
                 break;
 
             case "breathingRate":
               this.blockChangeValue(parameter)
               breathingRateValue  = value
-              this.blockBR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockBR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                 break;
             case "urineOutput":
               this.blockChangeValue(parameter)
               urineOutputValue   = value
-              this.blockUO1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockUO1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                 break;
 
             case "saturation":
               this.blockChangeValue(parameter)
               saturationValue  = value
-              this.blockSO1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockSO1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                 break;
 
             default:
@@ -805,43 +805,44 @@ export default class Simulation extends Component {
           switch(parameter){
             case "heartRate":
               this.blockChangeValue(parameter)
-              heartRateValue = (((value - this.state.heartRate)*60)/ time)
-              this.blockHR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              heartRateValue = (((value - this.state.heartRate)*60)/ duration)
+              this.blockHR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "sistolicPressure":
               this.blockChangeValue(parameter)
-              sistolicPressureValue  = (((value - this.state.sistolicPressure)*60)/ time)
-              this.blockSP2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              sistolicPressureValue  = (((value - this.state.sistolicPressure)*60)/ duration)
+              this.blockSP2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "diastolicPressure":
               this.blockChangeValue(parameter)
-              diastolicPressureValue  = (((value - this.state.diastolicPressure)*60)/ time)
-              this.blockDP2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              diastolicPressureValue  = (((value - this.state.diastolicPressure)*60)/ duration)
+              console.log("subiendo dp "+this.state.timeSim)
+              this.blockDP2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "breathingRate":
               this.blockChangeValue(parameter)
-              breathingRateValue  = (((value - this.state.breathingRate)*60)/ time)
-              this.blockBR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              breathingRateValue  = (((value - this.state.breathingRate)*60)/ duration)
+              this.blockBR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "urineOutput":
               this.blockChangeValue(parameter)
-              urineOutputValue   = (((value - this.state.urineOutput)*60)/ time)
-              this.blockUO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              urineOutputValue   = (((value - this.state.urineOutput)*60)/ duration)
+              this.blockUO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "saturation":
               this.blockChangeValue(parameter)
-              saturationValue  = (((value - this.state.saturation)*60)/ time)
-              this.blockSO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              saturationValue  = (((value - this.state.saturation)*60)/ duration)
+              this.blockSO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
@@ -857,42 +858,42 @@ export default class Simulation extends Component {
             case "heartRate":
               this.blockChangeValue(parameter)
               heartRateValue = 0
-              this.blockHR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockHR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "sistolicPressure":
               this.blockChangeValue(parameter)
               sistolicPressureValue  = 0
-              this.blockSP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockSP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "diastolicPressure":
               this.blockChangeValue(parameter)
               diastolicPressureValue  = 0
-              this.blockDP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockDP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "breathingRate":
               this.blockChangeValue(parameter)
               breathingRateValue  = 0
-              this.blockBR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockBR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "urineOutput":
               this.blockChangeValue(parameter)
               urineOutputValue   = 0
-              this.blockUO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockUO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "saturation":
               this.blockChangeValue(parameter)
               saturationValue  = 0
-              this.blockSO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (time * 1000))
+              this.blockSO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
@@ -947,7 +948,7 @@ export default class Simulation extends Component {
         default:
           break;
       }
-      }
+  }
  
   
     
