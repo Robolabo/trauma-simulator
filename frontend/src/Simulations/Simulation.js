@@ -45,7 +45,7 @@ var interval= 1
 var lengthH, lengthS = 0
 var intervalB = 1
 var lengthB = 0
-var timeSim = 1
+//var this.timeSim = 1
 var initialData
 
 var testHeartRate = []
@@ -59,6 +59,7 @@ var testData = null
 export default class LoginForm extends Component {
     constructor(props){
       super(props);
+      this.timeSim=1;
       this.state = {
         sex: 0,
         age: 0,
@@ -220,7 +221,7 @@ export default class LoginForm extends Component {
           }
         }
         time += 1
-        timeSim += 1
+        this.timeSim += 1
         //Eliminar datos
         interval +=1
         intervalB +=1
@@ -384,7 +385,7 @@ export default class LoginForm extends Component {
                 UO = (newUO < 5) ? 5 : UO
             let SO = (newSO > 92 ) ? 92 : newSO
                 SO = (newSO < 75) ? 75 : SO
-            timeSim += (next * 60)
+            this.timeSim += (next * 60)
             this.setState({
                 heartRate: HR,
                 sistolicPressure: SP,
@@ -516,12 +517,12 @@ export default class LoginForm extends Component {
     }
 
     test(){
-        testHeartRate.push({x: timeSim, y: this.state.heartRate})
-        testBreathRate.push({x: timeSim, y: this.state.breathingRate})
-        testDistolic.push({x: timeSim, y: this.state.diastolicPressure})
-        testSistolic.push({x: timeSim, y: this.state.sistolicPressure})
-        testUrine.push({x: timeSim, y: this.state.urineOutput})
-        testSaturation.push({x: timeSim, y: this.state.saturation})
+        testHeartRate.push({x: this.timeSim, y: this.state.heartRate})
+        testBreathRate.push({x: this.timeSim, y: this.state.breathingRate})
+        testDistolic.push({x: this.timeSim, y: this.state.diastolicPressure})
+        testSistolic.push({x: this.timeSim, y: this.state.sistolicPressure})
+        testUrine.push({x: this.timeSim, y: this.state.urineOutput})
+        testSaturation.push({x: this.timeSim, y: this.state.saturation})
         testData = {
             testHeartRate: testHeartRate,
             testBreathRate: testBreathRate,
@@ -586,7 +587,7 @@ export default class LoginForm extends Component {
                         finish = {this.state.finish}
                         id = {this.props.location.state.id}
                         simulationId = {this.props.match.params.id}
-                        timeSim = {timeSim}
+                        timeSim = {this.timeSim}
                         sendData = {(next) => this.sendData(next)}
                         toogleCrono = {(next) => this.toogleCrono(next)}
                         data = {initialData}
