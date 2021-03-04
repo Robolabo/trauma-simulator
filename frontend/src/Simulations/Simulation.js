@@ -625,6 +625,11 @@ export default class LoginForm extends Component {
               break;
             case 5:
               break;
+            case 6:
+              clearTimeout(this.blockHR6Value)
+              this.blockChangeValue(parameter)
+              heartRateValue  = 0
+              break;
             default:
               break;
           }
@@ -648,6 +653,11 @@ export default class LoginForm extends Component {
             case 4:
               break;
             case 5:
+              break;
+            case 6:
+              clearTimeout(this.blockSP6Value)
+              this.blockChangeValue(parameter)
+              sistolicPressureValue  = 0
               break;
             default:
               break;
@@ -673,6 +683,11 @@ export default class LoginForm extends Component {
               break;
             case 5:
               break;
+            case 6:
+              clearTimeout(this.blockDP6Value)
+              this.blockChangeValue(parameter)
+              diastolicPressureValue  = 0
+              break;
             default:
               break;
           }
@@ -697,6 +712,11 @@ export default class LoginForm extends Component {
               break;
             case 5:
               break;
+            case 6:
+              clearTimeout(this.blockBR6Value)
+              this.blockChangeValue(parameter)
+              breathingRateValue  = 0
+              break;
             default:
               break;
           }
@@ -720,6 +740,11 @@ export default class LoginForm extends Component {
             case 4:
               break;
             case 5:
+              break;
+            case 6:
+              clearTimeout(this.blockUO6Value)
+              this.blockChangeValue(parameter)
+              urineOutputValue  = 0
               break;
             default:
               break;
@@ -746,6 +771,11 @@ export default class LoginForm extends Component {
               break;
             case 5:
               break;
+            case 6:
+              clearTimeout(this.blockSO6Value)
+              this.blockChangeValue(parameter)
+              saturationValue = 0
+              break;
             default:
               break;
           }
@@ -761,7 +791,7 @@ export default class LoginForm extends Component {
     changeAux(parameter,value, duration, type) {
       switch (type) {
 
-        //sube o baja value[puntos/min] en tiempo [segundos]
+        //sube o baja value[puntos/min] en tiempo [segundos], luego vuelve a la evolución normal
         case 1:
           switch(parameter){
             case "heartRate":
@@ -949,6 +979,49 @@ export default class LoginForm extends Component {
                break;
           }
             break;
+
+       //sube o baja value[puntos/min] en tiempo [segundos] y se mantiene
+          case 6:
+            switch(parameter){
+              case "heartRate":
+                this.blockChangeValue(parameter)
+                heartRateValue = value
+                this.blockHR6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
+                  break;
+
+              case "sistolicPressure":
+                this.blockChangeValue(parameter)
+                sistolicPressureValue  = value
+                this.blockSP6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
+                  break;
+
+              case "diastolicPressure":
+                this.blockChangeValue(parameter)
+                diastolicPressureValue  = value
+                this.blockDP6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter , type, value) , (duration * 1000))
+                  break;
+
+              case "breathingRate":
+                this.blockChangeValue(parameter)
+                breathingRateValue  = value
+                this.blockBR6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
+                  break;
+              case "urineOutput":
+                this.blockChangeValue(parameter)
+                urineOutputValue   = value
+                this.blockUO6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
+                  break;
+
+              case "saturation":
+                this.blockChangeValue(parameter)
+                saturationValue  = value
+                this.blockSO6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
+                  break;
+
+              default:
+                  break;
+            }
+              break;
 
         default:
           break;
