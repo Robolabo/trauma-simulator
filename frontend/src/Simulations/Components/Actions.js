@@ -567,21 +567,21 @@ class Actions extends Component {
 
 aspirador() {
 
-    this.props.change("saturation", 150, 0, 1, 5)
+    this.props.change("saturation", 120, 0, 1, 10)
     this.fillInformation("Aspirando vía aerea")
 }
 
 oxygenateGN() {
 
-    this.props.change("saturation", 2.5, 120, 1, 10)
-    this.props.change("breathingRate", -1.5, 120, 1, 10)
+    this.props.change("saturation", 2.5, 120, 6, 10)
+    this.props.change("breathingRate", -1.5, 120, 1, 10) 
     this.fillInformation("Gafas nasales")
 }
 
 oxygenateMasc() {
 
-    this.props.change("saturation", 10.5, 40, 1, 10)
-    this.props.change("breathingRate", -7.5, 40, 1, 10)
+    this.props.change("saturation", 96, 30, 2, 10)
+    this.props.change("breathingRate", -10, 30, 1, 10) 
     this.fillInformation("Mascarilla oxígeno")
 }
 
@@ -599,8 +599,8 @@ torniquete() {
 }
 
 pelvic_belt() {
-    this.props.change("sistolicPressure", 0.5, 0, 5, 35)
-    this.props.change("diastolicPressure", 0.5, 0, 5, 35)
+    this.props.change("sistolicPressure", 0.5, 0, 5, 50)
+    this.props.change("diastolicPressure", 0.5, 0, 5, 50)
     this.fillInformation("Cinturón pélvico colocado")
 
 }
@@ -614,7 +614,7 @@ medicacionIntubacion() {
 
 midazolam() {
 
-    this.props.change("saturation", -3, 60, 1, 15)
+    this.props.change("saturation", -3, 60, 1, 20)
     this.fillInformation("Midazolam administrado")
 }
 noradrenalina() {
@@ -626,15 +626,15 @@ noradrenalina() {
 
 ssf20() {
 
-    this.props.change("sistolicPressure", 0.65, 1200, 1, 10)
-    this.props.change("diastolicPressure", 0.25, 1200, 1, 10)
+    this.props.change("sistolicPressure", 0.65, 1200, 1, 20)
+    this.props.change("diastolicPressure", 0.25, 1200, 1, 20)
     this.fillInformation("Bolo SSF administrado")
 }
 
 voluven() {
 
-    this.props.change("sistolicPressure", 1.3077, 780, 1, 10)
-    this.props.change("diastolicPressure", 0.9231, 780, 1, 10)
+    this.props.change("sistolicPressure", 1.1539, 780, 1, 20)
+    this.props.change("diastolicPressure", 0.7693, 780, 1, 20)
     this.fillInformation("Inicio Voluvén 250 ml")
 }
 
