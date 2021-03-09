@@ -9,12 +9,12 @@
         "sistolicPressure": 141,
         "diastolicPressure": 89,
         "heartRate": 110.0,
-        "breathingRate": 35,
+        "breathingRate": 26,
         "urineOutput": 10,
         "saturation": 98,
         "temperature":34.2,
         "mentalStatus": "confused",
-        "time": 250
+        "time": 30
     }    
     ]
     
