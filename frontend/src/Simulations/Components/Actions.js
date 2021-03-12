@@ -816,7 +816,6 @@ class Actions extends Component {
             oxygenateClicked:true
         });
         this.props.change("saturation", 0.5, 0, 1)
-        console.log(avatar)
         this.getMsg("info","oxygenate")
         switch(this.avatar) {
             case naked:
