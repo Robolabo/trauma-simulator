@@ -61,38 +61,38 @@ var testSaturation = []
 var testData = null
 
 var heartRateValue1 = 2.0
-//var diastolicPressureValue1 = -1.5
-//var breathingRateValue1 = 0.8
-//var urineOutputValue = -0.5
-//var saturationValue1 = -0.4
-//var sistolicPressureValue1 = -1.5
+var diastolicPressureValue1 = -1.5
+var breathingRateValue1 = 0.8
+var urineOutputValue1 = -0.5
+var saturationValue1 = -0.4
+var sistolicPressureValue1 = -1.5
 var heartRateValue2 = 1.5
 var diastolicPressureValue2 = -1.6
 var breathingRateValue2 = 1.1
-//var urineOutputValue2 = -0.5
+var urineOutputValue2 = -0.5
 var saturationValue2 = -0.6
 var sistolicPressureValue2 = -2.3
 var heartRateValue3 = -2
 var diastolicPressureValue3 = -1.86
 var breathingRateValue3 = -3.71
-//var urineOutputValue3 = -0.5
+var urineOutputValue3 = -0.5
 var saturationValue3 = -0.7
 var sistolicPressureValue3 = -5
 var heartRateValue4 = -7.225
 var diastolicPressureValue4 = -1.25
 var breathingRateValue4 = -0.75
-//var urineOutputValue4 = -0.5
+var urineOutputValue4 = -0.5
 var saturationValue4 = -0.5
 var sistolicPressureValue4 = -1.75
 
 var newParameter = 0
 
 var tFinHR = 0
-//var tFinSP = 0
-//var tFinDP = 0
-//var tFinBR = 0
-//var tFinSO = 0
-//var tFinUO = 0
+var tFinSP = 0
+var tFinDP = 0
+var tFinBR = 0
+var tFinSO = 0
+var tFinUO = 0
 
 export default class LoginForm extends Component {
     constructor(props){
@@ -434,6 +434,8 @@ export default class LoginForm extends Component {
        let dif = 0
        let x = 0
        let y = 0
+       let timeBlocked = 0
+
 
           if (timeSimOld > 0 && timeSimOld <= 300){
                x= tFin - timeSimOld
@@ -443,6 +445,8 @@ export default class LoginForm extends Component {
               if(x > (timeSimOld + 300)){
                 x = 300
                 y = 0
+                timeBlocked = tFin - timeSimOld
+                this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
               }
               else{
                 blocked = false
@@ -458,7 +462,8 @@ export default class LoginForm extends Component {
              if ( dif > 0){
                blocked = false
              }
-             else {  dif = 0 }
+             else {
+               dif = 0 }
              if (900 <= (timeSimOld + 300)){
                if(tFin <= 900){
                   dif = 900 - tFin
@@ -474,6 +479,8 @@ export default class LoginForm extends Component {
                   x = 300
                   dif = 0
                   y = 0
+                  timeBlocked = tFin - timeSimOld
+                  this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
                 }
             }
             else {
@@ -507,10 +514,14 @@ export default class LoginForm extends Component {
                    x = 300
                    dif = 0
                    y = 0
+                   timeBlocked = tFin - timeSimOld
+                   this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
                  }
              }
              else {
                y = 0
+               timeBlocked = tFin - timeSimOld
+               this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
              }
               interm1 = parameter + ((value/60) * x)
               if(dif === 0){interm2 = 0}
@@ -540,10 +551,14 @@ export default class LoginForm extends Component {
                     x = 300
                     dif = 0
                     y = 0
+                    timeBlocked = tFin - timeSimOld
+                    this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
                   }
               }
               else {
                 y = 0
+                timeBlocked = tFin - timeSimOld
+                this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
               }
                interm1 = parameter + ((value/60) * x)
                 if(dif === 0){interm2 = 0}
@@ -552,177 +567,172 @@ export default class LoginForm extends Component {
              }
     }
 
-    //Función que se utiliza cuando se adelanta el cronómetro
+   //Función que se utiliza cuando se adelanta el cronómetro
     toogleCrono(next){
-        if (this.state.start){
+      if (this.state.start){
 
-            this.setState({
-                crono: true,
-                timeCrono:next
-            })
-            clearInterval(this.changeGraphs)
+          this.setState({
+              crono: true,
+              timeCrono:next
+          })
+          clearInterval(this.changeGraphs)
 
-            let intermSP = this.state.sistolicPressure
-            let intermDP = this.state.diastolicPressure
-            let intermBR = this.state.breathingRate
-            let intermUO = this.state.urineOutput
-            let intermSO = this.state.saturation
-            let newHR = this.state.heartRate
-            let newSP = this.state.sistolicPressure
-            let newDP = this.state.diastolicPressure
-            let newBR = this.state.breathingRate
-            let newUO = this.state.urineOutput
-            let newSO = this.state.saturation
+          let newHR = this.state.heartRate
+          let newSP = this.state.sistolicPressure
+          let newDP = this.state.diastolicPressure
+          let newBR = this.state.breathingRate
+          let newUO = this.state.urineOutput
+          let newSO = this.state.saturation
 
-            let dif = 0
-            let x = 0
-            let timeSimOld = this.state.timeSim
+          let dif = 0
+          let x = 0
+          let timeSimOld = this.state.timeSim
 
-            if (timeSimOld > 0 && timeSimOld <= 300){
-               dif = 300 - timeSimOld
+          if (timeSimOld > 0 && timeSimOld <= 300){
+             dif = 300 - timeSimOld
 
-////////////////// ------------------------------------------- REVISARRRRRRRR: timeSimOld, parameter, value, value1, value2, blocked, tFin
-               this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue1, heartRateValue2, blockHR, tFinHR)
-               newHR = blockHR ? newParameter : this.state.heartRate + ((heartRateValue/60) * dif)  + (timeSimOld*(heartRateValue2/60))
+             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue1, heartRateValue2, blockHR, tFinHR)
+             newHR = blockHR ? newParameter : this.state.heartRate + ((heartRateValue/60) * dif)  + (timeSimOld*(heartRateValue2/60))
 
-               intermSP = this.state.sistolicPressure + ((sistolicPressureValue/60)* dif)
-               newSP = intermSP + (timeSimOld*(sistolicPressureValue2/60))
+             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue1, sistolicPressureValue2, blockSP, tFinSP)
+             newSP = blockSP ? newParameter : this.state.sistolicPressure + ((sistolicPressureValue/60)* dif) + (timeSimOld*(sistolicPressureValue2/60))
 
-               intermDP = this.state.diastolicPressure + ((diastolicPressureValue/60)* dif)
-               newDP = intermDP + (timeSimOld*(diastolicPressureValue2/60))
+             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue1, diastolicPressureValue2, blockDP, tFinDP)
+             newDP = blockDP ? newParameter : this.state.diastolicPressure + ((diastolicPressureValue/60)* dif) + (timeSimOld*(diastolicPressureValue2/60))
 
-               intermBR = this.state.breathingRate + ((breathingRateValue/60)* dif)
-               newBR = intermBR + (timeSimOld*(breathingRateValue2/60))
+             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue1, breathingRateValue2, blockBR, tFinBR)
+             newBR = blockBR ? newParameter : this.state.breathingRate + ((breathingRateValue/60)* dif) + (timeSimOld*(breathingRateValue2/60))
 
-               intermUO = this.state.urineOutput + ((urineOutputValue/60)* dif)
-               newUO =  intermUO + (timeSimOld*(-0.5/60))
+             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue1, urineOutputValue2, blockUO, tFinUO)
+             newUO =  this.state.urineOutput + ((urineOutputValue/60)* dif) + (timeSimOld*(-0.5/60))
 
-               intermSO = this.state.saturation + ((saturationValue/60)* dif)
-               newSO = intermSO + (timeSimOld*(saturationValue2/60))
+             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue1, saturationValue2, blockSO, tFinSO)
+             newSO = this.state.saturation + ((saturationValue/60)* dif) + (timeSimOld*(saturationValue2/60))
 
-            }
-            if (timeSimOld > 300 && timeSimOld <= 900){
-               dif = 900 - timeSimOld
-               if ((300 - dif) > 0){ x = (300 - dif) }
-               else {  dif = 300 }
+          }
+          if (timeSimOld > 300 && timeSimOld <= 900){
+             dif = 900 - timeSimOld
+             if ((300 - dif) > 0){ x = (300 - dif) }
+             else {  dif = 300 }
 
-               this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue2, heartRateValue3, blockHR, tFinHR)
-               newHR = blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue3/60))
+             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue2, heartRateValue3, blockHR, tFinHR)
+             newHR = blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue3/60))
 
-               intermSP = this.state.sistolicPressure + ((sistolicPressureValue/60)* dif)
-               newSP = intermSP + (x*(sistolicPressureValue3/60))
+             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue2, sistolicPressureValue3, blockSP, tFinSP)
+             newSP = blockSP ? newParameter : this.state.sistolicPressure + ((sistolicPressureValue/60)* dif) + (x*(sistolicPressureValue3/60))
 
-               intermDP = this.state.diastolicPressure + ((diastolicPressureValue/60)* dif)
-               newDP = intermDP + (x*(diastolicPressureValue3/60))
+             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue2, diastolicPressureValue3, blockDP, tFinDP)
+             newDP = blockDP ? newParameter : this.state.diastolicPressure + ((diastolicPressureValue/60)* dif) + (x*(diastolicPressureValue3/60))
 
-               intermBR = this.state.breathingRate + ((breathingRateValue/60)* dif)
-               newBR = intermBR + (x*(breathingRateValue3/60))
+             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue2, breathingRateValue3, blockBR, tFinBR)
+             newBR = this.state.breathingRate + ((breathingRateValue/60)* dif) + (x*(breathingRateValue3/60))
 
-               intermUO = this.state.urineOutput + ((urineOutputValue/60)* dif)
-               newUO =  intermUO + (x*(-0.5/60))
+             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue2, urineOutputValue3, blockUO, tFinUO)
+             newUO =  this.state.urineOutput + ((urineOutputValue/60)* dif) + (x*(-0.5/60))
 
-               intermSO = this.state.saturation + ((saturationValue/60)* dif)
-               newSO = intermSO + (x*(saturationValue3/60))
+             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue2, saturationValue3, blockSO, tFinSO)
+             newSO = this.state.saturation + ((saturationValue/60)* dif) + (x*(saturationValue3/60))
 
-            }
+          }
 
-            if (timeSimOld > 900 && timeSimOld <= 1320){
-               dif = 1320 - timeSimOld
-               if ((300 - dif) > 0){ x = (300 - dif) }
-                else { dif = 300 }
+          if (timeSimOld > 900 && timeSimOld <= 1320){
+             dif = 1320 - timeSimOld
+             if ((300 - dif) > 0){ x = (300 - dif) }
+              else { dif = 300 }
 
-               this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue3, heartRateValue4, blockHR, tFinHR)
-               newHR =  blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue4/60))
+             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue3, heartRateValue4, blockHR, tFinHR)
+             newHR =  blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue4/60))
 
-               intermSP = this.state.sistolicPressure + ((sistolicPressureValue/60)* dif)
-               newSP = intermSP + (x*(sistolicPressureValue4/60))
+             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue3, sistolicPressureValue4, blockSP, tFinSP)
+             newSP = blockSP ? newParameter : this.state.sistolicPressure + ((sistolicPressureValue/60)* dif) + (x*(sistolicPressureValue4/60))
 
-               intermDP = this.state.diastolicPressure + ((diastolicPressureValue/60)* dif)
-               newDP = intermDP + (x*(diastolicPressureValue4/60))
+             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue3, diastolicPressureValue4, blockDP, tFinDP)
+             newDP = blockDP ? newParameter : this.state.diastolicPressure + ((diastolicPressureValue/60)* dif) + (x*(diastolicPressureValue4/60))
 
-               intermBR = this.state.breathingRate + ((breathingRateValue/60)* dif)
-               newBR = intermBR + (x*(breathingRateValue4/60))
+             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue3, breathingRateValue4, blockBR, tFinBR)
+             newBR = this.state.breathingRate + ((breathingRateValue/60)* dif) + (x*(breathingRateValue4/60))
 
-               intermUO = this.state.urineOutput + ((urineOutputValue/60)* dif)
-               newUO =  intermUO + (x*(-0.5/60))
+             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue3, urineOutputValue4, blockUO, tFinUO)
+             newUO =  this.state.urineOutput + ((urineOutputValue/60)* dif) + (x*(-0.5/60))
 
-               intermSO = this.state.saturation + ((saturationValue/60)* dif)
-               newSO = intermSO + (x*(saturationValue4/60))
-            }
-            if (timeSimOld > 1320 && timeSimOld <= 1800){
-               dif = 1800 - timeSimOld
-               if ((300 - dif) > 0){ x = (300 - dif) }
-                else { dif = 300 }
+             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue3, saturationValue4, blockSO, tFinSO)
+             newSO = this.state.saturation + ((saturationValue/60)* dif) + (x*(saturationValue4/60))
+          }
+          if (timeSimOld > 1320 && timeSimOld <= 1800){
+             dif = 1800 - timeSimOld
+             if ((300 - dif) > 0){ x = (300 - dif) }
+              else { dif = 300 }
 
-              this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue4, heartRateValue4, blockHR, tFinHR)
-               newHR = blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue4/60))
+            this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue4, heartRateValue4, blockHR, tFinHR)
+             newHR = blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue4/60))
 
-               intermSP = this.state.sistolicPressure + ((sistolicPressureValue/60)* dif)
-               newSP = intermSP + (x*(sistolicPressureValue4/60))
+             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue4, sistolicPressureValue4, blockSP, tFinSP)
+             newSP = blockSP ? newParameter : this.state.sistolicPressure + ((sistolicPressureValue/60)* dif) + (x*(sistolicPressureValue4/60))
 
-               intermDP = this.state.diastolicPressure + ((diastolicPressureValue/60)* dif)
-               newDP = intermDP + (x*(diastolicPressureValue4/60))
+             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue4, diastolicPressureValue4, blockDP, tFinDP)
+             newDP = blockDP ? newParameter : this.state.diastolicPressure + ((diastolicPressureValue/60)* dif) + (x*(diastolicPressureValue4/60))
 
-               intermBR = this.state.breathingRate + ((breathingRateValue/60)* dif)
-               newBR = intermBR + (x*(breathingRateValue4/60))
+             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue4, breathingRateValue4, blockBR, tFinBR)
+             newBR = this.state.breathingRate + ((breathingRateValue/60)* dif) + (x*(breathingRateValue4/60))
 
-               intermUO = this.state.urineOutput + ((urineOutputValue/60)* dif)
-               newUO =  intermUO + (x*(-0.5/60))
+             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue4, urineOutputValue4, blockUO, tFinUO)
+             newUO =  this.state.urineOutput + ((urineOutputValue/60)* dif) + (x*(-0.5/60))
 
-               intermSO = this.state.saturation + ((saturationValue/60)* dif)
-               newSO = intermSO + (x*(saturationValue4/60))
-            }
+             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue4, saturationValue4, blockSO, tFinSO)
+             newSO = this.state.saturation + ((saturationValue/60)* dif) + (x*(saturationValue4/60))
+          }
 
-            let SO = (newSO > 100 ) ? 100 : newSO
+          let SO = (newSO > 100 ) ? 100 : newSO
 
-            this.state.timeSim += (next * 60)
-            this.setState({
-                heartRate: newHR,
-                sistolicPressure: newSP,
-                diastolicPressure: newDP ,
-                breathingRate: newBR,
-                //urineOutput: newUO,
-                saturation: SO
-            })
-            //Esto se dispara cuando el paciente se muere.
-            if( newHR === 160 && newSP === 60 && newDP === 30 && newBR === 60 && SO === 75 ){
-                 breathConstant = [{x: (0.25), y: 0},{x: (0.5), y: 0},{x: 1, y: 0}]
-                 heartConstant = [{x: 1/12, y: 0}, {x: 1/6, y: 0},
-                     {x: 4/15, y: 0}, {x: 0.3, y: 0}, {x: 11/30, y: 0},
-                     {x: 13/30, y: 0}, {x: 7/15,y:0}, {x: 37/60, y:0},
-                     {x: 0.75, y:0}, {x: 0.85, y:0}, {x: 1, y: 0}]
-                 saturationConstant = [{x: 1/6, y: 0}, {x: 1/3, y: 0}, {x: 13/30, y: 0}, {x: 1, y: 0}]
-                 this.setState({
-                     deadModal:true,
-                     saturation: 0,
-                     sistolicPressure: 0,
-                     breathingRate: 0,
-                     heartRate:0,
-                     diastolicPressure:0
+          this.state.timeSim = this.state.timeSim + (next * 60)
+          this.setState({
+              heartRate: newHR,
+              sistolicPressure: newSP,
+              diastolicPressure: newDP ,
+              breathingRate: newBR,
+              urineOutput: newUO,
+              saturation: SO
+          })
+          //Esto se dispara cuando el paciente se muere.
+          if( newHR === 160 && newSP === 60 && newDP === 30 && newBR === 60 && SO === 75 ){
+               breathConstant = [{x: (0.25), y: 0},{x: (0.5), y: 0},{x: 1, y: 0}]
+               heartConstant = [{x: 1/12, y: 0}, {x: 1/6, y: 0},
+                   {x: 4/15, y: 0}, {x: 0.3, y: 0}, {x: 11/30, y: 0},
+                   {x: 13/30, y: 0}, {x: 7/15,y:0}, {x: 37/60, y:0},
+                   {x: 0.75, y:0}, {x: 0.85, y:0}, {x: 1, y: 0}]
+               saturationConstant = [{x: 1/6, y: 0}, {x: 1/3, y: 0}, {x: 13/30, y: 0}, {x: 1, y: 0}]
+               this.setState({
+                   deadModal:true,
+                   saturation: 0,
+                   sistolicPressure: 0,
+                   breathingRate: 0,
+                   heartRate:0,
+                   diastolicPressure:0
 
-                 })
-               }
-            if( newHR <= 63 && newSP <= 61 && newDP <= 42 && SO <= 81){
-                breathConstant = [{x: (0.25), y: 0},{x: (0.5), y: 0},{x: 1, y: 0}]
-                heartConstant = [{x: 1/12, y: 0}, {x: 1/6, y: 0},
-                    {x: 4/15, y: 0}, {x: 0.3, y: 0}, {x: 11/30, y: 0},
-                    {x: 13/30, y: 0}, {x: 7/15,y:0}, {x: 37/60, y:0},
-                    {x: 0.75, y:0}, {x: 0.85, y:0}, {x: 1, y: 0}]
-                saturationConstant = [{x: 1/6, y: 0}, {x: 1/3, y: 0}, {x: 13/30, y: 0}, {x: 1, y: 0}]
-                this.setState({
-                    deadModal:true,
-                    saturation: 0,
-                    sistolicPressure: 0,
-                    breathingRate: 0,
-                    heartRate:0,
-                    diastolicPressure:0
+               })
+             }
+          if( newHR <= 63 && newSP <= 61 && newDP <= 42 && SO <= 81){
+              breathConstant = [{x: (0.25), y: 0},{x: (0.5), y: 0},{x: 1, y: 0}]
+              heartConstant = [{x: 1/12, y: 0}, {x: 1/6, y: 0},
+                  {x: 4/15, y: 0}, {x: 0.3, y: 0}, {x: 11/30, y: 0},
+                  {x: 13/30, y: 0}, {x: 7/15,y:0}, {x: 37/60, y:0},
+                  {x: 0.75, y:0}, {x: 0.85, y:0}, {x: 1, y: 0}]
+              saturationConstant = [{x: 1/6, y: 0}, {x: 1/3, y: 0}, {x: 13/30, y: 0}, {x: 1, y: 0}]
+              this.setState({
+                  deadModal:true,
+                  saturation: 0,
+                  sistolicPressure: 0,
+                  breathingRate: 0,
+                  heartRate:0,
+                  diastolicPressure:0
 
-                })
-            }
-            this.changeGraphs = setInterval(this.intervalGraphs.bind(this) , 1000)
-        }
+              })
+          }
+          this.changeGraphs = setInterval(this.intervalGraphs.bind(this) , 1000)
+      }
 
-    }
+  }
+
  
     //Función para enviar el informe
     sendData(next){
@@ -784,6 +794,9 @@ export default class LoginForm extends Component {
               this.blockChangeValue(parameter)
               heartRateValue  = 0
               break;
+            case 7:
+              clearTimeout(this.blockedValue)
+              break;
             default:
               break;
           }
@@ -812,6 +825,9 @@ export default class LoginForm extends Component {
               clearTimeout(this.blockSP6Value)
               this.blockChangeValue(parameter)
               sistolicPressureValue  = 0
+              break;
+            case 7:
+              clearTimeout(this.blockedValue)
               break;
             default:
               break;
@@ -842,6 +858,9 @@ export default class LoginForm extends Component {
               this.blockChangeValue(parameter)
               diastolicPressureValue  = 0
               break;
+            case 7:
+              clearTimeout(this.blockedValue)
+              break;
             default:
               break;
           }
@@ -870,6 +889,9 @@ export default class LoginForm extends Component {
               clearTimeout(this.blockBR6Value)
               this.blockChangeValue(parameter)
               breathingRateValue  = 0
+              break;
+            case 7:
+              clearTimeout(this.blockedValue)
               break;
             default:
               break;
@@ -900,6 +922,9 @@ export default class LoginForm extends Component {
               this.blockChangeValue(parameter)
               urineOutputValue  = 0
               break;
+            case 7:
+              clearTimeout(this.blockedValue)
+              break;
             default:
               break;
           }
@@ -929,6 +954,9 @@ export default class LoginForm extends Component {
               this.blockChangeValue(parameter)
               saturationValue = 0
               break;
+            case 7:
+              clearTimeout(this.blockedValue)
+              break;
             default:
               break;
           }
@@ -955,32 +983,33 @@ export default class LoginForm extends Component {
                 break;
 
             case "sistolicPressure":
-            //  tFinSP = duration + latency + this.state.timeSim
+                tFinSP = duration + latency + this.state.timeSim
                 this.blockChangeValue(parameter)
                 sistolicPressureValue  = value
                 this.blockSP1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                 break;
 
             case "diastolicPressure":
-            //  tFinDP = duration + latency + this.state.timeSim
+                tFinDP = duration + latency + this.state.timeSim
                 this.blockChangeValue(parameter)
                 diastolicPressureValue  = value
                 this.blockDP1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter , type, value) , (duration * 1000))
                 break;
 
             case "breathingRate":
-            //  tFinBR = duration + latency + this.state.timeSim
+              tFinBR = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               breathingRateValue  = value
               this.blockBR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                 break;
             case "urineOutput":
+              tFinUO = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               urineOutputValue   = value
               this.blockUO1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                 break;
             case "saturation":
-            //  tFinSO = duration + latency + this.state.timeSim
+              tFinSO = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               saturationValue  = value
               this.blockSO1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1004,7 +1033,7 @@ export default class LoginForm extends Component {
                 break;
 
             case "sistolicPressure":
-            //  tFinSP = 1800
+               tFinSP = 1800
               this.blockChangeValue(parameter)
               sistolicPressureValue  = (((value - this.state.sistolicPressure)*60)/ duration)
                 console.log("subiendo sp "+this.state.timeSim)
@@ -1013,7 +1042,7 @@ export default class LoginForm extends Component {
                 break;
 
             case "diastolicPressure":
-              //tFinDP = 1800
+              tFinDP = 1800
               this.blockChangeValue(parameter)
               diastolicPressureValue  = (((value - this.state.diastolicPressure)*60)/ duration)
               console.log("subiendo dp "+this.state.timeSim)
@@ -1022,7 +1051,7 @@ export default class LoginForm extends Component {
                 break;
 
             case "breathingRate":
-            //  tFinBR = 1800
+              tFinBR = 1800
               this.blockChangeValue(parameter)
               breathingRateValue  = (((value - this.state.breathingRate)*60)/ duration)
               this.blockBR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1030,6 +1059,7 @@ export default class LoginForm extends Component {
                 break;
 
             case "urineOutput":
+              tFinUO = 1800
               this.blockChangeValue(parameter)
               urineOutputValue   = (((value - this.state.urineOutput)*60)/ duration)
               this.blockUO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1037,7 +1067,7 @@ export default class LoginForm extends Component {
                 break;
 
             case "saturation":
-            //  tFinSO = 1800
+              tFinSO = 1800
               this.blockChangeValue(parameter)
               saturationValue  = (((value - this.state.saturation)*60)/ duration)
               this.blockSO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1062,7 +1092,7 @@ export default class LoginForm extends Component {
                 break;
 
             case "sistolicPressure":
-            //  tFinSP = 1800
+              tFinSP = 1800
               this.blockChangeValue(parameter)
               sistolicPressureValue  = 0
               this.blockSP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1070,16 +1100,15 @@ export default class LoginForm extends Component {
                 break;
 
             case "diastolicPressure":
-            //  tFinDP = 1800
+             tFinDP = 1800
               this.blockChangeValue(parameter)
               diastolicPressureValue  = 0
-
               this.blockDP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
 
                 break;
 
             case "breathingRate":
-            //  tFinBR = 1800
+              tFinBR = 1800
               this.blockChangeValue(parameter)
               breathingRateValue  = 0
               this.blockBR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1087,6 +1116,7 @@ export default class LoginForm extends Component {
                 break;
 
             case "urineOutput":
+              tFinUO = 1800
               this.blockChangeValue(parameter)
               urineOutputValue   = 0
               this.blockUO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1094,7 +1124,7 @@ export default class LoginForm extends Component {
                 break;
 
             case "saturation":
-            //  tFinSO = 1800
+              tFinSO = 1800
               this.blockChangeValue(parameter)
               saturationValue  = 0
               this.blockSO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1121,30 +1151,31 @@ export default class LoginForm extends Component {
                 break;
 
             case "sistolicPressure":
-            //  tFinSP = 1800
+              tFinSP = 1800
               this.blockChangeValue(parameter)
               sistolicPressureValue  = sistolicPressureValue*value
                 break;
 
             case "diastolicPressure":
-            //  tFinDP = 1800
+              tFinDP = 1800
               this.blockChangeValue(parameter)
               diastolicPressureValue  = diastolicPressureValue*value
                 break;
 
             case "breathingRate":
-            //  tFinBR = 1800
+              tFinBR = 1800
               this.blockChangeValue(parameter)
               breathingRateValue  = breathingRateValue*value
                 break;
 
             case "urineOutput":
+              tFinUO = 1800
               this.blockChangeValue(parameter)
               urineOutputValue   = urineOutputValue*value
                 break;
 
             case "saturation":
-            //  tFinSO = 1800
+              tFinSO = 1800
               this.blockChangeValue(parameter)
               saturationValue  = saturationValue*value
                 break;
@@ -1164,33 +1195,34 @@ export default class LoginForm extends Component {
                     break;
 
                 case "sistolicPressure":
-                  //tFinSP = 1800
+                  tFinSP = 1800
                   this.blockChangeValue(parameter)
                   sistolicPressureValue  = value
                   this.blockSP6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                     break;
 
                 case "diastolicPressure":
-                  //tFinDP = 1800
+                  tFinDP = 1800
                   this.blockChangeValue(parameter)
                   diastolicPressureValue  = value
                   this.blockDP6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter , type, value) , (duration * 1000))
                     break;
 
                 case "breathingRate":
-                //  tFinBR = 1800
+                  tFinBR = 1800
                   this.blockChangeValue(parameter)
                   breathingRateValue  = value
                   this.blockBR6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                     break;
                 case "urineOutput":
+                  tFinUO = 1800
                   this.blockChangeValue(parameter)
                   urineOutputValue   = value
                   this.blockUO6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                     break;
 
                 case "saturation":
-                //  tFinSO = 1800
+                  tFinSO = 1800
                   this.blockChangeValue(parameter)
                   saturationValue  = value
                   this.blockSO6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
