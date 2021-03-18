@@ -89,6 +89,9 @@ var sistolicPressureValue4 = -1.75
 
 var newParameter = 0
 
+var tintermHR = 0
+var valueFinHR = 0
+
 var tFinHR = 0
 var tFinSP = 0
 var tFinDP = 0
@@ -433,7 +436,7 @@ export default class LoginForm extends Component {
 
     }
 
-    toogleBlock(timeSimOld, parameter, value, value1, value2, blocked, tFin){
+    toogleBlock(timeSimOld, parameter, value, value1, value2, blocked, tFin, tinterm, valueFin){
       let interm1 = parameter
       let interm2 = parameter
        let dif = 0
@@ -443,6 +446,7 @@ export default class LoginForm extends Component {
 
 
           if (timeSimOld > 0 && timeSimOld <= 300){
+            if (tinterm === 0){
                x= tFin - timeSimOld
                dif = 300 - tFin
               if(dif < 0){dif = 0}
@@ -461,6 +465,18 @@ export default class LoginForm extends Component {
               else  {interm2 = ((value1/60) * dif) }
               newParameter = interm1 + interm2 + (y*(value2/60))
             }
+            else{
+              timeBlocked = tFin - timeSimOld
+              this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+              x = tinterm - timeSimOld
+              dif = timeSimOld + 300 - tinterm
+              if(x < 0){ x = 0}
+              if (dif < 0) { dif = 0 }
+              interm1 = ((value/60) * x)
+              interm2 = ((valueFin/60) * dif)
+              newParameter = parameter + interm1 + interm2
+            }
+          }
           if (timeSimOld > 300 && timeSimOld <= 900){
              x = tFin - timeSimOld
              dif = timeSimOld + 300 - tFin
@@ -596,7 +612,7 @@ export default class LoginForm extends Component {
           if (timeSimOld > 0 && timeSimOld <= 300){
              dif = 300 - timeSimOld
 
-             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue1, heartRateValue2, blockHR, tFinHR)
+             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue1, heartRateValue2, blockHR, tFinHR, tintermHR, valueFinHR)
              newHR = blockHR ? newParameter : this.state.heartRate + ((heartRateValue/60) * dif)  + (timeSimOld*(heartRateValue2/60))
 
              this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue1, sistolicPressureValue2, blockSP, tFinSP)
@@ -620,7 +636,7 @@ export default class LoginForm extends Component {
              if ((300 - dif) > 0){ x = (300 - dif) }
              else {  dif = 300 }
 
-             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue2, heartRateValue3, blockHR, tFinHR)
+             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue2, heartRateValue3, blockHR, tFinHR, tintermHR, valueFinHR)
              newHR = blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue3/60))
 
              this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue2, sistolicPressureValue3, blockSP, tFinSP)
@@ -645,7 +661,7 @@ export default class LoginForm extends Component {
              if ((300 - dif) > 0){ x = (300 - dif) }
               else { dif = 300 }
 
-             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue3, heartRateValue4, blockHR, tFinHR)
+             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue3, heartRateValue4, blockHR, tFinHR, tintermHR, valueFinHR)
              newHR =  blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue4/60))
 
              this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue3, sistolicPressureValue4, blockSP, tFinSP)
@@ -668,7 +684,7 @@ export default class LoginForm extends Component {
              if ((300 - dif) > 0){ x = (300 - dif) }
               else { dif = 300 }
 
-            this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue4, heartRateValue4, blockHR, tFinHR)
+            this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue4, heartRateValue4, blockHR, tFinHR, tintermHR, valueFinHR)
              newHR = blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue4/60))
 
              this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue4, sistolicPressureValue4, blockSP, tFinSP)
@@ -1031,6 +1047,8 @@ export default class LoginForm extends Component {
         case 2:
           switch(parameter){
             case "heartRate":
+              tFinHR =  1800
+              tintermHR = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               heartRateValue = (((value - this.state.heartRate)*60)/ duration)
               this.blockHR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1088,6 +1106,9 @@ export default class LoginForm extends Component {
         case 3:
           switch(parameter){
             case "heartRate":
+              tFinHR = 1800
+              tintermHR = duration + latency + this.state.timeSim
+              valueFinHR = value
               this.blockChangeValue(parameter)
               heartRateValue = 0
               this.blockHR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1191,6 +1212,7 @@ export default class LoginForm extends Component {
               switch(parameter){
                 case "heartRate":
                   tFinHR = 1800
+                  tintermHR = duration + latency + this.state.timeSim
                   this.blockChangeValue(parameter)
                   heartRateValue = value
                   this.blockHR6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
