@@ -596,7 +596,7 @@ export default class LoginForm extends Component {
                         age = {this.state.age}
                         sex = {this.state.sex}
                         phase = {this.state.phase}
-                        trainerList={this.props.trainerList}
+                        trainerList={this.props.location.state.trainerList}
                        
                 
                         />

@@ -71,39 +71,39 @@ class SimulationList extends React.Component  {
             traineeId: this.props.location.state.id,
             sex: 1,
             age: 30,
-            weight: 60,
-            partBody: "brazo derecho",
-            bloodLoss: 10,
-            sistolicPressure: 10,
-            diastolicPressure: 10,
-            heartRate: this.state.heartRate,
-            breathingRate: this.state.breathingRate,
-            urineOutput: this.state.urineOutput,
-            saturation: this.state.saturation,
-            mentalStatus: this.state.mentalStatus,
-            phase: this.state.phase,
-            temperature: this.state.temperature,
-            time: this.state.time,
+            weight: 70,
+            partBody: "pelvis",
+            bloodLoss: 100,
+            sistolicPressure: 70,
+            diastolicPressure: 45,
+            heartRate: 55,
+            breathingRate: 10,
+            urineOutput: 12,
+            saturation: 80,
+            mentalStatus: "lethargic",
+            phase: "prehospitalaria",
+            temperature: 34,
+            time: 50,
             
          }
           var datapost3 = {
             trainerId: 2,
             traineeId: this.props.location.state.id,
-            sex: 1,
-            age: 30,
-            weight: 60,
+            sex: 0,
+            age: 70,
+            weight: 40,
             partBody: "brazo derecho",
-            bloodLoss: 10,
-            sistolicPressure: 10,
-            diastolicPressure: 10,
-            heartRate: this.state.heartRate,
-            breathingRate: this.state.breathingRate,
-            urineOutput: this.state.urineOutput,
-            saturation: this.state.saturation,
-            mentalStatus: this.state.mentalStatus,
-            phase: this.state.phase,
-            temperature: this.state.temperature,
-            time: this.state.time,
+            bloodLoss: 100,
+            sistolicPressure: 70,
+            diastolicPressure: 40,
+            heartRate: 55,
+            breathingRate: 10,
+            urineOutput: 12,
+            saturation: 80,
+            mentalStatus: "lethargic",
+            phase: "prehospitalaria",
+            temperature: 34,
+            time: 250,
             
             }
       // La añadimos al array
@@ -276,8 +276,9 @@ class SimulationList extends React.Component  {
             : <Link className="btn btn-outline-info " 
             to={{
                 pathname: "/simulation/"+data.simulationId,
-                state: { id: this.props.location.state.id},
-                trainerList:this.props.location.state.trainerList
+                state: { id: this.props.location.state.id,
+                  trainerList:this.props.location.state.trainerList},
+                
             }} >{t('list-simulation.enter')}
             </Link>}
           </td>
