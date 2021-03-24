@@ -97,6 +97,22 @@ var tFinBR = 0
 var tFinSO = 0
 var tFinUO = 0
 
+var blocked = true
+
+var tintermHR = 0
+var tintermSP = 0
+var tintermDP = 0
+var tintermBR = 0
+var tintermSO = 0
+var tintermUO = 0
+
+var valueFinHR = 0
+var valueFinSP = 0
+var valueFinDP = 0
+var valueFinBR = 0
+var valueFinSO = 0
+var valueFinUO = 0
+
 export default class LoginForm extends Component {
     constructor(props){
       super(props);
@@ -438,31 +454,33 @@ export default class LoginForm extends Component {
        let x = 0
        let y = 0
        let timeBlocked = 0
+       blocked = true 
 
 
           if (timeSimOld > 0 && timeSimOld <= 300){
-            if (tinterm === 0){
-               x= tFin - timeSimOld
-               dif = 300 - tFin
-              if(dif < 0){dif = 0}
-              let y = (timeSimOld + 300) - (tFin - dif)
-              if(x > (timeSimOld + 300)){
-                x = 300
-                y = 0
-                timeBlocked = tFin - timeSimOld
-                this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+              if (tinterm === 0){
+                  x = tFin - timeSimOld
+                 dif = 300 - tFin
+                if(dif < 0){dif = 0}
+                let y = (timeSimOld + 300) - (tFin - dif)
+                if(x > (timeSimOld + 300)){
+                  x = 300
+                  y = 0
+                  timeBlocked = tFin - timeSimOld - 300
+                  this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+                }
+                else{
+                  blocked = false
+                }
+                interm1 = parameter + ((value/60) * x)
+                if(dif=== 0){interm2 = 0}
+                else  {interm2 = ((value1/60) * dif) }
+                newParameter = interm1 + interm2 + (y*(value2/60))
               }
-              else{
-                blocked = false
-              }
-              interm1 = parameter + ((value/60) * x)
-              if(dif=== 0){interm2 = 0}
-              else  {interm2 = ((value1/60) * dif) }
-              newParameter = interm1 + interm2 + (y*(value2/60))
-            }
-            else{
+            else {
               timeBlocked = tFin - timeSimOld
               this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+              blocked = true
               x = tinterm - timeSimOld
               dif = timeSimOld + 300 - tinterm
               if(x < 0){ x = 0}
@@ -472,93 +490,23 @@ export default class LoginForm extends Component {
               newParameter = parameter + interm1 + interm2
             }
           }
+
           if (timeSimOld > 300 && timeSimOld <= 900){
-             x = tFin - timeSimOld
-             dif = timeSimOld + 300 - tFin
-             if ( dif > 0){
-               blocked = false
-             }
-             else {
-               dif = 0 }
-             if (900 <= (timeSimOld + 300)){
-               if(tFin <= 900){
-                  dif = 900 - tFin
-                  y = (timeSimOld + 300) - 900
-                  blocked = false
-                }
-                else if (tFin > 900 && tFin < (timeSimOld + 300)) {
-                  dif = 0
-                  y = (timeSimOld + 300) - tFin
-                  blocked = false
-                }
-                else{
-                  x = 300
-                  dif = 0
-                  y = 0
-                  timeBlocked = tFin - timeSimOld
-                  this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
-                }
-            }
-            else {
-              y = 0
-            }
-             interm1 = parameter + ((value/60) * x)
-             if(dif === 0){interm2 = 0}
-             else  {interm2 =  ((value1/60) * dif) }
-            newParameter = interm1 + interm2 + (y*(value2/60))
-           }
-
-           if (timeSimOld > 900 && timeSimOld <= 1320){
-              x = tFin - timeSimOld
-              dif = timeSimOld + 300 - tFin
-              if ( dif > 0){
-                blocked = false
-              }
-              else {  dif = 0 }
-              if (1320 <= (timeSimOld + 300)){
-                if(tFin <= 1320){
-                   dif = 1320 - tFin
-                   y = (timeSimOld + 300) - 1320
-                   blocked = false
-                 }
-                 else if (tFin > 1320 && tFin < (timeSimOld + 300)) {
-                   dif = 0
-                   y = (timeSimOld + 300) - tFin
-                   blocked = false
-                 }
-                 else{
-                   x = 300
-                   dif = 0
-                   y = 0
-                   timeBlocked = tFin - timeSimOld
-                   this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
-                 }
-             }
-             else {
-               y = 0
-               timeBlocked = tFin - timeSimOld
-               this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
-             }
-              interm1 = parameter + ((value/60) * x)
-              if(dif === 0){interm2 = 0}
-              else  {interm2 =  ((value1/60) * dif) }
-              newParameter = interm1 + interm2 + (y*(value2/60))
-            }
-
-            if (timeSimOld > 1320 && timeSimOld <= 1800){
+              if (tinterm === 0){
                x = tFin - timeSimOld
                dif = timeSimOld + 300 - tFin
                if ( dif > 0){
                  blocked = false
                }
-               else {  dif = 0 }
-               if (1800 <= (timeSimOld + 300)){
-                 if(tFin <= 1800){
-                    dif = 1800 - tFin
-                    y = (timeSimOld + 300) - 1800
+               else {
+                 dif = 0 }
+               if (900 <= (timeSimOld + 300)){
+                 if(tFin <= 900){
+                    dif = 900 - tFin
+                    y = (timeSimOld + 300) - 900
                     blocked = false
                   }
-                  else if (tFin > 1800 && tFin < (timeSimOld + 300)) {
+                  else if (tFin > 900 && tFin < (timeSimOld + 300)) {
                     dif = 0
                     y = (timeSimOld + 300) - tFin
                     blocked = false
@@ -567,21 +515,135 @@ export default class LoginForm extends Component {
                     x = 300
                     dif = 0
                     y = 0
-                    timeBlocked = tFin - timeSimOld
+                    timeBlocked = tFin - timeSimOld -300
                     this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
                   }
+                }
+                else {
+                  y = 0
+                }
+                 interm1 = parameter + ((value/60) * x)
+                 if(dif === 0){interm2 = 0}
+                 else  {interm2 =  ((value1/60) * dif) }
+                newParameter = interm1 + interm2 + (y*(value2/60))
               }
-              else {
-                y = 0
+              else{
                 timeBlocked = tFin - timeSimOld
                 this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+                blocked = true
+                x = tinterm - timeSimOld
+                dif = timeSimOld + 300 - tinterm
+                if(x < 0){ x = 0}
+                if (dif < 0) { dif = 0 }
+                interm1 = ((value/60) * x)
+                interm2 = ((valueFin/60) * dif)
+                newParameter = parameter + interm1 + interm2
               }
-               interm1 = parameter + ((value/60) * x)
-                if(dif === 0){interm2 = 0}
-                 else {interm2 = ((value1/60) * dif) }
-               newParameter = interm1 + interm2 + (y*(value2/60))
+           }
+
+           if (timeSimOld > 900 && timeSimOld <= 1320){
+              if (tinterm === 0){
+                  x = tFin - timeSimOld
+                  dif = timeSimOld + 300 - tFin
+                  if ( dif > 0){
+                    blocked = false
+                  }
+                  else {  dif = 0 }
+                  if (1320 <= (timeSimOld + 300)){
+                    if(tFin <= 1320){
+                       dif = 1320 - tFin
+                       y = (timeSimOld + 300) - 1320
+                       blocked = false
+                     }
+                     else if (tFin > 1320 && tFin < (timeSimOld + 300)) {
+                       dif = 0
+                       y = (timeSimOld + 300) - tFin
+                       blocked = false
+                     }
+                     else{
+                       x = 300
+                       dif = 0
+                       y = 0
+                       timeBlocked = tFin - timeSimOld - 300
+                       this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+                     }
+                 }
+                 else {
+                   y = 0
+                   timeBlocked = tFin - timeSimOld
+                   this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+                 }
+                  interm1 = parameter + ((value/60) * x)
+                  if(dif === 0){interm2 = 0}
+                  else  {interm2 =  ((value1/60) * dif) }
+                  newParameter = interm1 + interm2 + (y*(value2/60))
+              }
+              else{
+                timeBlocked = tFin - timeSimOld
+                this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+                blocked = true
+                x = tinterm - timeSimOld
+                dif = timeSimOld + 300 - tinterm
+                if(x < 0){ x = 0}
+                if (dif < 0) { dif = 0 }
+                interm1 = ((value/60) * x)
+                interm2 = ((valueFin/60) * dif)
+                newParameter = parameter + interm1 + interm2
+              }
+            }
+
+            if (timeSimOld > 1320 && timeSimOld <= 1800){
+              if (tinterm === 0){
+                 x = tFin - timeSimOld
+                 dif = timeSimOld + 300 - tFin
+                 if ( dif > 0){
+                   blocked = false
+                 }
+                 else {  dif = 0 }
+                 if (1800 <= (timeSimOld + 300)){
+                   if(tFin <= 1800){
+                      dif = 1800 - tFin
+                      y = (timeSimOld + 300) - 1800
+                      blocked = false
+                    }
+                    else if (tFin > 1800 && tFin < (timeSimOld + 300)) {
+                      dif = 0
+                      y = (timeSimOld + 300) - tFin
+                      blocked = false
+                    }
+                    else{
+                      x = 300
+                      dif = 0
+                      y = 0
+                      timeBlocked = tFin - timeSimOld - 300
+                      this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+                    }
+                }
+                else {
+                  y = 0
+                  timeBlocked = tFin - timeSimOld - 300
+                  this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+                }
+                 interm1 = parameter + ((value/60) * x)
+                  if(dif === 0){interm2 = 0}
+                   else {interm2 = ((value1/60) * dif) }
+                 newParameter = interm1 + interm2 + (y*(value2/60))
+               }
+               else{
+                 timeBlocked = tFin - timeSimOld
+                 this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
+                 blocked = true
+                 x = tinterm - timeSimOld
+                 dif = timeSimOld + 300 - tinterm
+                 if(x < 0){ x = 0}
+                 if (dif < 0) { dif = 0 }
+                 interm1 = ((value/60) * x)
+                 interm2 = ((valueFin/60) * dif)
+                 newParameter = parameter + interm1 + interm2
+               }
              }
     }
+
 
    //Función que se utiliza cuando se adelanta el cronómetro
     toogleCrono(next){
@@ -608,21 +670,33 @@ export default class LoginForm extends Component {
              dif = 300 - timeSimOld
 
              this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue1, heartRateValue2, blockHR, tFinHR, tintermHR, valueFinHR)
+             if (blocked === false){blockHR = false}
+             if (tintermHR !== 0){heartRateValue = valueFinHR}
              newHR = blockHR ? newParameter : this.state.heartRate + ((heartRateValue/60) * dif)  + (timeSimOld*(heartRateValue2/60))
 
-             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue1, sistolicPressureValue2, blockSP, tFinSP)
+             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue1, sistolicPressureValue2, blockSP, tFinSP, tintermSP, valueFinSP)
+             if (blocked === false){blockSP = false}
+             if (tintermSP !== 0){sistolicPressureValue = valueFinSP}
              newSP = blockSP ? newParameter : this.state.sistolicPressure + ((sistolicPressureValue/60)* dif) + (timeSimOld*(sistolicPressureValue2/60))
 
-             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue1, diastolicPressureValue2, blockDP, tFinDP)
+             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue1, diastolicPressureValue2, blockDP, tFinDP, tintermDP, valueFinDP)
+             if (blocked === false){blockDP = false}
+             if (tintermDP !== 0){diastolicPressureValue = valueFinDP}
              newDP = blockDP ? newParameter : this.state.diastolicPressure + ((diastolicPressureValue/60)* dif) + (timeSimOld*(diastolicPressureValue2/60))
 
-             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue1, breathingRateValue2, blockBR, tFinBR)
+             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue1, breathingRateValue2, blockBR, tFinBR, tintermBR, valueFinBR)
+             if (blocked === false){blockBR = false}
+             if (tintermBR !== 0){breathingRateValue = valueFinBR}
              newBR = blockBR ? newParameter : this.state.breathingRate + ((breathingRateValue/60)* dif) + (timeSimOld*(breathingRateValue2/60))
 
-             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue1, urineOutputValue2, blockUO, tFinUO)
+             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue1, urineOutputValue2, blockUO, tFinUO, tintermUO, valueFinUO)
+             if (blocked === false){blockUO = false}
+             if (tintermUO !== 0){urineOutputValue = valueFinUO}
              newUO =  this.state.urineOutput + ((urineOutputValue/60)* dif) + (timeSimOld*(-0.5/60))
 
-             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue1, saturationValue2, blockSO, tFinSO)
+             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue1, saturationValue2, blockSO, tFinSO, tintermSO, valueFinSO)
+             if (blocked === false){blockSO = false}
+             if (tintermSO !== 0){saturationValue = valueFinSO}
              newSO = this.state.saturation + ((saturationValue/60)* dif) + (timeSimOld*(saturationValue2/60))
 
           }
@@ -632,21 +706,33 @@ export default class LoginForm extends Component {
              else {  dif = 300 }
 
              this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue2, heartRateValue3, blockHR, tFinHR, tintermHR, valueFinHR)
+             if (blocked === false){blockHR = false}
+             if (tintermHR !== 0){heartRateValue = valueFinHR}
              newHR = blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue3/60))
 
-             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue2, sistolicPressureValue3, blockSP, tFinSP)
+             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue2, sistolicPressureValue3, blockSP, tFinSP, tintermSP, valueFinSP)
+             if (blocked === false){blockSP = false}
+             if (tintermSP !== 0){sistolicPressureValue = valueFinSP}
              newSP = blockSP ? newParameter : this.state.sistolicPressure + ((sistolicPressureValue/60)* dif) + (x*(sistolicPressureValue3/60))
 
-             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue2, diastolicPressureValue3, blockDP, tFinDP)
+             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue2, diastolicPressureValue3, blockDP, tFinDP, tintermDP, valueFinDP)
+             if (blocked === false){blockDP = false}
+             if (tintermDP !== 0){diastolicPressureValue = valueFinDP}
              newDP = blockDP ? newParameter : this.state.diastolicPressure + ((diastolicPressureValue/60)* dif) + (x*(diastolicPressureValue3/60))
 
-             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue2, breathingRateValue3, blockBR, tFinBR)
+             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue2, breathingRateValue3, blockBR, tFinBR, tintermBR, valueFinBR)
+             if (blocked === false){blockBR = false}
+             if (tintermBR !== 0){breathingRateValue = valueFinBR}
              newBR = this.state.breathingRate + ((breathingRateValue/60)* dif) + (x*(breathingRateValue3/60))
 
-             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue2, urineOutputValue3, blockUO, tFinUO)
+             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue2, urineOutputValue3, blockUO, tFinUO, tintermUO, valueFinUO)
+             if (blocked === false){blockUO = false}
+             if (tintermUO !== 0){urineOutputValue = valueFinUO}
              newUO =  this.state.urineOutput + ((urineOutputValue/60)* dif) + (x*(-0.5/60))
 
-             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue2, saturationValue3, blockSO, tFinSO)
+             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue2, saturationValue3, blockSO, tFinSO, tintermSO, valueFinSO)
+             if (blocked === false){blockSO = false}
+             if (tintermSO !== 0){saturationValue = valueFinSO}
              newSO = this.state.saturation + ((saturationValue/60)* dif) + (x*(saturationValue3/60))
 
           }
@@ -657,21 +743,33 @@ export default class LoginForm extends Component {
               else { dif = 300 }
 
              this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue3, heartRateValue4, blockHR, tFinHR, tintermHR, valueFinHR)
+             if (blocked === false){blockHR = false}
+             if (tintermHR !== 0){heartRateValue = valueFinHR}
              newHR =  blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue4/60))
 
-             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue3, sistolicPressureValue4, blockSP, tFinSP)
+             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue3, sistolicPressureValue4, blockSP, tFinSP, tintermSP, valueFinSP)
+             if (blocked === false){blockSP = false}
+             if (tintermSP !== 0){sistolicPressureValue = valueFinSP}
              newSP = blockSP ? newParameter : this.state.sistolicPressure + ((sistolicPressureValue/60)* dif) + (x*(sistolicPressureValue4/60))
 
-             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue3, diastolicPressureValue4, blockDP, tFinDP)
+             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue3, diastolicPressureValue4, blockDP, tFinDP, tintermDP, valueFinDP)
+             if (blocked === false){blockDP = false}
+             if (tintermDP !== 0){diastolicPressureValue = valueFinDP}
              newDP = blockDP ? newParameter : this.state.diastolicPressure + ((diastolicPressureValue/60)* dif) + (x*(diastolicPressureValue4/60))
 
-             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue3, breathingRateValue4, blockBR, tFinBR)
+             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue3, breathingRateValue4, blockBR, tFinBR, tintermBR, valueFinBR)
+             if (blocked === false){blockBR = false}
+             if (tintermBR !== 0){breathingRateValue = valueFinBR}
              newBR = this.state.breathingRate + ((breathingRateValue/60)* dif) + (x*(breathingRateValue4/60))
 
-             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue3, urineOutputValue4, blockUO, tFinUO)
+             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue3, urineOutputValue4, blockUO, tFinUO, tintermUO, valueFinUO)
+             if (blocked === false){blockUO = false}
+             if (tintermUO !== 0){urineOutputValue = valueFinUO}
              newUO =  this.state.urineOutput + ((urineOutputValue/60)* dif) + (x*(-0.5/60))
 
-             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue3, saturationValue4, blockSO, tFinSO)
+             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue3, saturationValue4, blockSO, tFinSO, tintermSO, valueFinSO)
+             if (blocked === false){blockSO = false}
+             if (tintermSO !== 0){saturationValue = valueFinSO}
              newSO = this.state.saturation + ((saturationValue/60)* dif) + (x*(saturationValue4/60))
           }
           if (timeSimOld > 1320 && timeSimOld <= 1800){
@@ -680,21 +778,33 @@ export default class LoginForm extends Component {
               else { dif = 300 }
 
             this.toogleBlock(timeSimOld, this.state.heartRate, heartRateValue, heartRateValue4, heartRateValue4, blockHR, tFinHR, tintermHR, valueFinHR)
+            if (blocked === false){blockHR = false}
+            if (tintermHR !== 0){heartRateValue = valueFinHR}
              newHR = blockHR? newParameter : this.state.heartRate + ((heartRateValue/60) * dif) + (x*(heartRateValue4/60))
 
-             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue4, sistolicPressureValue4, blockSP, tFinSP)
+             this.toogleBlock(timeSimOld, this.state.sistolicPressure, sistolicPressureValue, sistolicPressureValue4, sistolicPressureValue4, blockSP, tFinSP, tintermSP, valueFinSP)
+             if (blocked === false){blockSP = false}
+             if (tintermSP !== 0){sistolicPressureValue = valueFinSP}
              newSP = blockSP ? newParameter : this.state.sistolicPressure + ((sistolicPressureValue/60)* dif) + (x*(sistolicPressureValue4/60))
 
-             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue4, diastolicPressureValue4, blockDP, tFinDP)
+             this.toogleBlock(timeSimOld, this.state.diastolicPressure, diastolicPressureValue, diastolicPressureValue4, diastolicPressureValue4, blockDP, tFinDP, tintermDP, valueFinDP)
+             if (blocked === false){blockDP = false}
+             if (tintermDP !== 0){diastolicPressureValue = valueFinDP}
              newDP = blockDP ? newParameter : this.state.diastolicPressure + ((diastolicPressureValue/60)* dif) + (x*(diastolicPressureValue4/60))
 
-             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue4, breathingRateValue4, blockBR, tFinBR)
+             this.toogleBlock(timeSimOld, this.state.breathingRate, breathingRateValue, breathingRateValue4, breathingRateValue4, blockBR, tFinBR, tintermBR, valueFinBR)
+             if (blocked === false){blockBR = false}
+             if (tintermBR !== 0){breathingRateValue = valueFinBR}
              newBR = this.state.breathingRate + ((breathingRateValue/60)* dif) + (x*(breathingRateValue4/60))
 
-             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue4, urineOutputValue4, blockUO, tFinUO)
+             this.toogleBlock(timeSimOld, this.state.urineOutput, urineOutputValue, urineOutputValue4, urineOutputValue4, blockUO, tFinUO, tintermUO, valueFinUO)
+             if (blocked === false){blockUO = false}
+             if (tintermUO !== 0){urineOutputValue = valueFinUO}
              newUO =  this.state.urineOutput + ((urineOutputValue/60)* dif) + (x*(-0.5/60))
 
-             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue4, saturationValue4, blockSO, tFinSO)
+             this.toogleBlock(timeSimOld, this.state.saturation, saturationValue, saturationValue4, saturationValue4, blockSO, tFinSO, tintermSO, valueFinSO)
+             if (blocked === false){blockSO = false}
+             if (tintermSO !== 0){saturationValue = valueFinSO}
              newSO = this.state.saturation + ((saturationValue/60)* dif) + (x*(saturationValue4/60))
           }
 
@@ -1051,6 +1161,7 @@ export default class LoginForm extends Component {
 
             case "sistolicPressure":
                tFinSP = 1800
+               tintermSP = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               sistolicPressureValue  = (((value - this.state.sistolicPressure)*60)/ duration)
                 console.log("subiendo sp "+this.state.timeSim)
@@ -1060,6 +1171,7 @@ export default class LoginForm extends Component {
 
             case "diastolicPressure":
               tFinDP = 1800
+              tintermDP = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               diastolicPressureValue  = (((value - this.state.diastolicPressure)*60)/ duration)
               console.log("subiendo dp "+this.state.timeSim)
@@ -1069,6 +1181,7 @@ export default class LoginForm extends Component {
 
             case "breathingRate":
               tFinBR = 1800
+              tintermBR = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               breathingRateValue  = (((value - this.state.breathingRate)*60)/ duration)
               this.blockBR2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1077,6 +1190,8 @@ export default class LoginForm extends Component {
 
             case "urineOutput":
               tFinUO = 1800
+              intermUO = duration + latency + this.state.timeSim
+              tintermBR = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               urineOutputValue   = (((value - this.state.urineOutput)*60)/ duration)
               this.blockUO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1085,6 +1200,7 @@ export default class LoginForm extends Component {
 
             case "saturation":
               tFinSO = 1800
+              tintermSO = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               saturationValue  = (((value - this.state.saturation)*60)/ duration)
               this.blockSO2Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1112,6 +1228,7 @@ export default class LoginForm extends Component {
 
             case "sistolicPressure":
               tFinSP = 1800
+              tintermSP = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               sistolicPressureValue  = 0
               this.blockSP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1120,6 +1237,7 @@ export default class LoginForm extends Component {
 
             case "diastolicPressure":
              tFinDP = 1800
+             tintermDP = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               diastolicPressureValue  = 0
               this.blockDP3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1128,6 +1246,7 @@ export default class LoginForm extends Component {
 
             case "breathingRate":
               tFinBR = 1800
+              tintermBR = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               breathingRateValue  = 0
               this.blockBR3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1136,6 +1255,7 @@ export default class LoginForm extends Component {
 
             case "urineOutput":
               tFinUO = 1800
+              tintermUO = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               urineOutputValue   = 0
               this.blockUO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1144,6 +1264,7 @@ export default class LoginForm extends Component {
 
             case "saturation":
               tFinSO = 1800
+              tintermSO = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               saturationValue  = 0
               this.blockSO3Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1216,6 +1337,7 @@ export default class LoginForm extends Component {
 
                 case "sistolicPressure":
                   tFinSP = 1800
+                  tintermSP = duration + latency + this.state.timeSim
                   this.blockChangeValue(parameter)
                   sistolicPressureValue  = value
                   this.blockSP6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1223,6 +1345,7 @@ export default class LoginForm extends Component {
 
                 case "diastolicPressure":
                   tFinDP = 1800
+                  tintermDP = duration + latency + this.state.timeSim
                   this.blockChangeValue(parameter)
                   diastolicPressureValue  = value
                   this.blockDP6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter , type, value) , (duration * 1000))
@@ -1230,12 +1353,14 @@ export default class LoginForm extends Component {
 
                 case "breathingRate":
                   tFinBR = 1800
+                  tintermBR = duration + latency + this.state.timeSim
                   this.blockChangeValue(parameter)
                   breathingRateValue  = value
                   this.blockBR6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
                     break;
                 case "urineOutput":
                   tFinUO = 1800
+                  tintermUO = duration + latency + this.state.timeSim
                   this.blockChangeValue(parameter)
                   urineOutputValue   = value
                   this.blockUO6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
@@ -1243,6 +1368,7 @@ export default class LoginForm extends Component {
 
                 case "saturation":
                   tFinSO = 1800
+                  tintermSO = duration + latency + this.state.timeSim
                   this.blockChangeValue(parameter)
                   saturationValue  = value
                   this.blockSO6Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
