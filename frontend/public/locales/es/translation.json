@@ -25,7 +25,10 @@
 
     "dashboard": {
         "new-simulation": "Nueva Simulación",
-        "access-simulation": "Mis Simulaciones"
+        "access-simulation": "Mis Simulaciones",
+        "training-simulation": "Entrenamiento",
+        "exam-simulation": "Examen"
+
     },
 
     "new-simulation": {

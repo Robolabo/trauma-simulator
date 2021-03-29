@@ -22,10 +22,13 @@
         "login": "Login",
         "welcome": "Welcome"
     },
-
+    
     "dashboard": {
         "new-simulation": "New Simulation",
-        "access-simulation": "Access Existing Simulation"
+        "access-simulation": "Access Existing Simulation",
+        "training-simulation": "training",
+        "exam-simulation": "Exam"
+        
     },
 
     "new-simulation": {

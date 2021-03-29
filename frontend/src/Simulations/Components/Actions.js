@@ -155,6 +155,7 @@ class Actions extends Component {
                     pathname: '/listSimulation',
                     state: { id: this.props.id,
                             isTrainer: false,
+                            trainerList:this.props.trainerList,
                             data: this.props.data}
                 }} />
 
