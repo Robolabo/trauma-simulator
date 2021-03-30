@@ -113,6 +113,29 @@ var valueFinBR = 0
 var valueFinSO = 0
 var valueFinUO = 0
 
+var nHR = 0
+var nSP = 0
+var nDP = 0
+var nBR = 0
+var nSO = 0
+var nUO = 0
+
+var timeAct = 0
+var valueTot = 0
+var value0 = 0
+var val1 = 0
+var val2 = 0
+var t0 = 0
+var t1 = 0
+var t2 = 0
+var timeNow = 0
+var nConstante = 0
+
+var value1HR = 0
+var t1HR = 0
+var value2HR = 0
+var t2HR = 0
+
 export default class LoginForm extends Component {
     constructor(props){
       super(props);
@@ -570,7 +593,7 @@ export default class LoginForm extends Component {
                  }
                  else {
                    y = 0
-                   timeBlocked = tFin - timeSimOld
+                   timeBlocked = tFin - timeSimOld - 300
                    this.blockedValue = setTimeout(this.unBlockChangeValue.bind(this, parameter, 7, 0) , (timeBlocked * 1000))
                  }
                   interm1 = parameter + ((value/60) * x)
@@ -923,6 +946,90 @@ export default class LoginForm extends Component {
             case 7:
               clearTimeout(this.blockedValue)
               break;
+              case 8:
+                clearTimeout(this.block8Value)
+                this.blockChangeValue(parameter)
+                nConstante -= 1
+                nHR = nConstante
+                if (t1 < t2) {
+                  valueTot -= val1
+                  heartRateValue = valueTot
+                  val1 = val2
+                  val2 = 0
+                  t1 = t2
+                  t2 = 0
+                  timeAct = t1 - timeNow
+                } else {
+                  valueTot -= val2
+                  heartRateValue = valueTot
+                  val2 = 0
+                  t2 = 0
+                  timeAct = t1 - timeNow
+                }
+                this.block9Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 9, valueTot) , (timeAct * 1000))
+                break;
+              case 9:
+                clearTimeout(this.block9Value)
+                timeAct = 0
+                value0 = 0
+                val1 =  0
+                val2 = 0
+                t0 = 0
+                t1 = 0
+                t2 = 0
+                nConstante -=1 //Deberia ser 0
+                nHR = nConstante
+                heartRateValue = valueTot
+                valueTot = 0
+                break;
+              case 10:
+                clearTimeout(this.block10Value)
+                this.blockChangeValue(parameter)
+                nConstante -= 1
+                nHR = nConstante
+                if (t1 < t0 && t1 < t2) {
+                 valueTot -= val1
+                 heartRateValue = valueTot
+                  if (t2 < t0){
+                    val1 = val2
+                    t1 = t2
+                    val2 = value0
+                    t2 = t0
+                  }
+                  else {
+                    val1 = value0
+                    t1 = t0
+                  }
+                }
+                else if (t1 < t0 && t2 < t1) {
+                 valueTot -= val2
+                 heartRateValue = valueTot
+                  val2 = value0
+                  t2 = t0
+                }
+                else if (t0 < t1 && t0 < t2) {
+                 valueTot -= value0
+                 heartRateValue = valueTot
+                  if (t2 < t1){
+                    value0 = val1
+                    t0 = t1
+                    val1 = val2
+                    t1 = t2
+                    val2 = value0
+                    t2 = t0
+                  }
+                }
+                else if (t1 > t0 && t0 > t2) {
+                 valueTot -= val2
+                 heartRateValue = valueTot
+                 val2 = val1
+                 t2 = t1
+                 val1 = value0
+                 t1 = t0
+                }
+                timeAct = t1 - timeNow
+                this.block8Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 8, valueTot) , (timeAct * 1000))
+                break;
             default:
               break;
           }
@@ -1092,6 +1199,95 @@ export default class LoginForm extends Component {
       }
     }
 
+    simultaneous(parameter, value, value01, t01, val11, t11, val12, t12, nConstant){
+      valueTot = value
+      value0 = value01
+      t0 = t01
+      val1 = val11
+      t1 = t11
+      val2 = val12
+      t2 = t12
+      nConstante = nConstant
+      if (val1 === 0) {
+        val1 = valueTot
+        valueTot += value0
+        val2 = value0
+        t2 = t0
+        if (t1 < t0) {
+          timeAct = t1 - timeNow
+        } else {
+          timeAct = t0 - timeNow
+        }
+        switch (parameter) {
+          case "heartRate":
+              heartRateValue = valueTot
+              break;
+          case "diastolicPressure":
+              diastolicPressureValue = valueTot
+              break;
+          case "sistolicPressure":
+              sistolicPressureValue = valueTot
+              break;
+          case "breathingRate":
+              breathingRateValue = valueTot
+              break;
+          case "urineOutput":
+              urineOutputValue = valueTot
+              break;
+          case "saturation":
+              saturationValue = valueTot
+              break;
+          default:
+              break;
+        }
+        this.block8Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 8, valueTot) , (timeAct * 1000))
+      }
+      else {
+        //segunda vez del simultaneous() "seguida"
+       valueTot += value0
+       switch (parameter) {
+         case "heartRate":
+             heartRateValue = valueTot
+             break;
+         case "diastolicPressure":
+             diastolicPressureValue = valueTot
+             break;
+         case "sistolicPressure":
+             sistolicPressureValue = valueTot
+             break;
+         case "breathingRate":
+             breathingRateValue = valueTot
+             break;
+         case "urineOutput":
+             urineOutputValue = valueTot
+             break;
+         case "saturation":
+             saturationValue = valueTot
+             break;
+         default:
+             break;
+       }
+        if (t1 < t0) {
+          if(t1 < t2){
+            timeAct = t1 - timeNow
+            this.block10Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 10, valueTot) , (timeAct * 1000))
+            } else {
+              timeAct = t2 - timeNow
+              this.block10Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 10, valueTot) , (timeAct * 1000))
+            }
+        }
+        else {
+          if (t0 < t2){
+            timeAct = t0 - timeNow
+            this.block10Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 10, valueTot) , (timeAct * 1000))
+          }  else {
+            timeAct = t2 - timeNow
+            this.block10Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 10, valueTot) , (timeAct * 1000))
+          }
+        }
+       }
+    }
+
     change(parameter,value, duration, type, latency){
       this.changeAction = setTimeout(this.changeAux.bind(this,parameter,value, duration, type, latency), (latency * 1000))
     }
@@ -1104,8 +1300,18 @@ export default class LoginForm extends Component {
             case "heartRate":
               tFinHR = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
-              heartRateValue = value
-              this.blockHR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
+              if(nHR === 0){
+                heartRateValue = value
+                nHR +=1
+                t1HR = duration + latency + this.state.timeSim
+                this.blockHR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
+              }
+              else {
+                timeNow = this.state.timeSim
+                t0 = duration + latency + this.state.timeSim
+                // simultaneous(parameter, valueTot, value0, t0, val1, t1, val2, t2, nConstante)
+                this.simultaneous(parameter, heartRateValue, value, t0, value1HR, t1HR, value2HR, t2HR, nHR)
+              }
                 break;
 
             case "sistolicPressure":
