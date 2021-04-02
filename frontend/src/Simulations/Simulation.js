@@ -946,11 +946,13 @@ export default class LoginForm extends Component {
             case 7:
               clearTimeout(this.blockedValue)
               break;
-              case 8:
-                clearTimeout(this.block8Value)
-                this.blockChangeValue(parameter)
-                nConstante -= 1
-                nHR = nConstante
+            case 8:
+              clearTimeout(this.block8Value)
+              this.blockChangeValue(parameter)
+              timeNow = this.state.timeSim
+              nConstante -= 1
+              nHR = nConstante
+              if(nConstante ===1){
                 if (t1 < t2) {
                   valueTot -= val1
                   heartRateValue = valueTot
@@ -967,26 +969,8 @@ export default class LoginForm extends Component {
                   timeAct = t1 - timeNow
                 }
                 this.block9Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 9, valueTot) , (timeAct * 1000))
-                break;
-              case 9:
-                clearTimeout(this.block9Value)
-                timeAct = 0
-                value0 = 0
-                val1 =  0
-                val2 = 0
-                t0 = 0
-                t1 = 0
-                t2 = 0
-                nConstante -=1 //Deberia ser 0
-                nHR = nConstante
-                heartRateValue = valueTot
-                valueTot = 0
-                break;
-              case 10:
-                clearTimeout(this.block10Value)
-                this.blockChangeValue(parameter)
-                nConstante -= 1
-                nHR = nConstante
+              }
+              else {
                 if (t1 < t0 && t1 < t2) {
                  valueTot -= val1
                  heartRateValue = valueTot
@@ -1029,7 +1013,22 @@ export default class LoginForm extends Component {
                 }
                 timeAct = t1 - timeNow
                 this.block8Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 8, valueTot) , (timeAct * 1000))
-                break;
+              }
+              break;
+            case 9:
+              clearTimeout(this.block9Value)
+              timeAct = 0
+              value0 = 0
+              val1 =  0
+              val2 = 0
+              t0 = 0
+              t1 = 0
+              t2 = 0
+              nConstante -=1 
+              nHR = nConstante
+              heartRateValue = valueTot
+              valueTot = 0
+              break;
             default:
               break;
           }
@@ -1207,8 +1206,8 @@ export default class LoginForm extends Component {
       t1 = t11
       val2 = val12
       t2 = t12
-      nConstante = nConstant
-      if (val1 === 0) {
+      nConstante = nConstant + 1
+      if (nConstante === 2) {
         val1 = valueTot
         valueTot += value0
         val2 = value0
@@ -1221,6 +1220,11 @@ export default class LoginForm extends Component {
         switch (parameter) {
           case "heartRate":
               heartRateValue = valueTot
+              value1HR = val1
+              t1HR = t1
+              value2HR = val2
+              t2HR = t2
+              nHR = nConstante
               break;
           case "diastolicPressure":
               diastolicPressureValue = valueTot
@@ -1248,6 +1252,7 @@ export default class LoginForm extends Component {
        switch (parameter) {
          case "heartRate":
              heartRateValue = valueTot
+             nHR = nConstante
              break;
          case "diastolicPressure":
              diastolicPressureValue = valueTot
@@ -1270,19 +1275,19 @@ export default class LoginForm extends Component {
         if (t1 < t0) {
           if(t1 < t2){
             timeAct = t1 - timeNow
-            this.block10Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 10, valueTot) , (timeAct * 1000))
+            this.block8Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 8, valueTot) , (timeAct * 1000))
             } else {
               timeAct = t2 - timeNow
-              this.block10Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 10, valueTot) , (timeAct * 1000))
+              this.block8Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 8, valueTot) , (timeAct * 1000))
             }
         }
         else {
           if (t0 < t2){
             timeAct = t0 - timeNow
-            this.block10Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 10, valueTot) , (timeAct * 1000))
+            this.block8Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 8, valueTot) , (timeAct * 1000))
           }  else {
             timeAct = t2 - timeNow
-            this.block10Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 10, valueTot) , (timeAct * 1000))
+            this.block8Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, 8, valueTot) , (timeAct * 1000))
           }
         }
        }
