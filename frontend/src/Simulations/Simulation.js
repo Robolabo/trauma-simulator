@@ -929,15 +929,7 @@ export default class LoginForm extends Component {
                         data = {initialData}
                         test = {() => this.test()}
                         testData = {testData} />
-                <Graphic
-                        testData = {testData} 
-                        age = {this.state.age}
-                        sex = {this.state.sex}
-                        phase = {this.state.phase}
-                        trainerList={this.props.location.state.trainerList}
-                       
-                
-                        />
+
                 <Graphic 
                         diastolicPressure = {this.state.diastolicPressure}
                         heartRate = {this.state.heartRate}
@@ -957,6 +949,11 @@ export default class LoginForm extends Component {
                         fordward = {this.state.fordward}
                         time = {this.state.time}
                         test = {() => this.test()}
+                        testData = {testData} 
+                        age = {this.state.age}
+                        sex = {this.state.sex}
+                        phase = {this.state.phase}
+                        trainerList={this.props.location.state.trainerList}
                 />
 
             </div>
