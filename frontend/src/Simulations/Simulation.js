@@ -1303,17 +1303,17 @@ export default class LoginForm extends Component {
         case 1:
           switch(parameter){
             case "heartRate":
-              tFinHR = duration + latency + this.state.timeSim
+              tFinHR = duration + this.state.timeSim
               this.blockChangeValue(parameter)
               if(nHR === 0){
                 heartRateValue = value
                 nHR +=1
-                t1HR = duration + latency + this.state.timeSim
+                t1HR = duration  + this.state.timeSim
                 this.blockHR1Value = setTimeout(this.unBlockChangeValue.bind(this, parameter, type, value) , (duration * 1000))
               }
               else {
                 timeNow = this.state.timeSim
-                t0 = duration + latency + this.state.timeSim
+                t0 = duration + this.state.timeSim
                 // simultaneous(parameter, valueTot, value0, t0, val1, t1, val2, t2, nConstante)
                 this.simultaneous(parameter, heartRateValue, value, t0, value1HR, t1HR, value2HR, t2HR, nHR)
               }
@@ -1401,7 +1401,7 @@ export default class LoginForm extends Component {
 
             case "urineOutput":
               tFinUO = 1800
-              intermUO = duration + latency + this.state.timeSim
+              tintermUO = duration + latency + this.state.timeSim
               tintermBR = duration + latency + this.state.timeSim
               this.blockChangeValue(parameter)
               urineOutputValue   = (((value - this.state.urineOutput)*60)/ duration)
