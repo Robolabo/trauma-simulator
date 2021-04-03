@@ -25,7 +25,10 @@
 
     "dashboard": {
         "new-simulation": "Nueva Simulación",
-        "access-simulation": "Mis Simulaciones"
+        "access-simulation": "Mis Simulaciones",
+        "training-simulation": "Entrenamiento",
+        "exam-simulation": "Examen"
+
     },
 
     "new-simulation": {
@@ -76,9 +79,9 @@
         "initial-text": "CLICK START!",
         "time": "Tiempo restante:",
         "start": "Start",
-        "clean": "Limpiar vía aérea",
-        "oxygenate": "Oxigenar",
-        "intubate": "Intubar",
+        "clean": "Aspirador",
+        "oxygenate": "Mascarilla con reservorio",
+        "intubate": "Intubación orotraqueal",
         "analgesics": "Analgésicos",
         "fluids": "Fluidos",
         "belt": "Cinturón pélvico",
@@ -87,7 +90,52 @@
         "surgery": "Cirugía",
         "reset": "Reset",
         "breath-unit": "resp/min",
-        "heart-unit": "lat/min"
+        "heart-unit": "lat/min",
+        "laparotomy": "Laparotomía",
+        "thoracotomy": "Toracotomía",
+        "tourniquet" : "Torniquete",
+        "auscultation" : "Auscultación",
+        "pulseoximeter" : "Pulsioxímetro",
+        "oropharyngealcannula" : "Cánula orofaríngea",
+        "nasalglasses" : "Oxigenoterapia con gafas nasales",
+        "capnographer" : "Capnógrafo",
+        "ventilation" : "Ventilación con bolsa autoinfable",
+        "occlusivedressing" : "Apósito oclusivo",
+        "thoracentesis" : "Toracocentesis con aguja",
+        "chestdrainage" : "Drenaje torácico",
+        "ferule" : "Férula de vacio",
+        "cervicalcontrol" : "Control crevical manual",
+        "mattress" : "Colchón de vacio",
+        "venous" : "Gasometría venosa",
+        "arterial" : "Gasometría arterial",
+        "crossmatch" : "Pruebas cruzadas",
+        "pressure" : "Presión directa",
+        "hemostatic" : "Agente hemostático",
+        "vvp" : "Canalización VVP",
+        "io" : "Canalización IO",
+        "pani" : "PANI Digital",
+        "derivations" : "6 Derivaciones",
+        "ECGderivations" : " ECG 12 Derivaciones",
+        "pupils" : "Exploración pupilar",
+        "nerves" : "Exploración nervios craneales",
+        "extremities" : "Exploración en extremidades",
+        "bladder" : "Sondaje vesical",
+        "nasogastric" : "Sondaje nasogástrico",
+        "SIR" : "SIR",
+        "fentanilo" : "Fentanilo",
+        "midazolam" : "Midazolam",
+        "tranexamico": "Ácido Tranexámico",
+        "noradrenalina" : "Noradrenalina",
+        "SSF" : "Suero salino fisiológico",
+        "voluven" : "Voluven",
+        "sg" : "SG",
+        "inr" : "INR",
+        "glicemia" : "Glucemia capilar"
+
+
+
+
+    
     }
 
 }

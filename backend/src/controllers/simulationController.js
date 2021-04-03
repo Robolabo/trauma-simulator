@@ -4,7 +4,7 @@ var sequelize = require ('../model/database')
 var Trainer = require('../model/Trainer')
 var Trainee = require('../model/Trainee')
 const { QueryTypes } = require('sequelize');
-
+const { Op } = require("sequelize");
 controller.testdata = async ( req, res) => {
   
   const response = await sequelize.sync().then(function() {
@@ -35,8 +35,8 @@ controller.list = async (req, res) => {
 controller.create = async (req,res) => {
   // data
   const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
-            saturation, mentalStatus, time, traineeId, trainerId } = req.body;
-    
+            saturation, mentalStatus, time, traineeId, trainerId, phase } = req.body;
+  console.log("BODCRE",req.body) 
   // create
   const data = await Simulation.create({
     sex: sex,
@@ -54,7 +54,8 @@ controller.create = async (req,res) => {
     mentalStatus: mentalStatus,
     time: time,
     traineeId: traineeId,
-    trainerId: trainerId
+    trainerId: trainerId,
+    phase: phase
   })
   .then(function(data){
     return data;
@@ -175,10 +176,36 @@ controller.listByTraineeId = async (req, res) => {
   const data = await Simulation.findAll({
     include: [ { model: Trainer, as: 'trainer' },
                { model: Trainee, as: 'trainee' } ],
-    where: { traineeId: id}
+    where: { traineeId: id, trainerId : {
+      [Op.ne] : 2
+  }}
   })
   .then(function(data){
     return data;
+  })
+  .catch(error => {
+    return error;
+  }); 
+
+  res.json({success : true, data : data});
+
+}
+//Devolver las simulaciones con el entrenador train
+//Cambiar nombre 
+controller.listByTraineeAndTrainer = async (req, res) => {
+  const { idTrainer,idTrainee } = req.query;
+console.log(req)
+  console.log(idTrainer, idTrainee);
+  const data = await Simulation.findAll({
+    include: [ { model: Trainer, as: 'trainer' },
+               { model: Trainee, as: 'trainee' } ],
+    where: {  trainerId: idTrainer, traineeId:idTrainee }
+  })
+    .then(function (data) {
+      if (data)
+        return data;
+      else
+        return {error:"Not foaaund"}
   })
   .catch(error => {
     return error;
