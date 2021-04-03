@@ -1157,6 +1157,40 @@ class Actions extends Component {
 
     }
     
+    oxygenateGN1() {
+        this.props.change("breathingRate", -1.5, 200, 1, 10) 
+        this.fillInformation("Gafas nasales")
+    }
+
+    oxygenateGN6() {
+        this.props.change("saturation", 2.5, 120, 6, 10)
+        this.fillInformation("Gafas nasales")
+    }
+
+    ventilacionBolsa2() {
+        this.props.change("saturation", 100, 40, 2, 10)
+        this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
+    }
+
+    torniquete3() {
+
+        this.props.change("sistolicPressure", -0.8, 300, 3, 15)
+        //this.props.change("diastolicPressure", -0.8, 300, 3, 15)
+        this.fillInformation("Torniquete")
+    }
+
+    medicacionIntubacion4() {
+
+        this.props.change("saturation", -0.1, 10, 4, 30) ///////////falta la accion
+        this.fillInformation("Medicación administrada")
+    }
+
+    pelvic_belt5() {
+        this.props.change("sistolicPressure", 0.5, 0, 5, 50)
+       // this.props.change("diastolicPressure", 0.5, 0, 5, 50)
+        this.fillInformation("Cinturón pélvico colocado")
+    
+    }
     
 
     /*
@@ -1389,9 +1423,9 @@ voluven() {
                         <div className="actions-buttons">
                             <Button className={`via ${this.state.inspectionClicked ?"clicked":null}`} onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>
                             
-                            <Button className={this.state.cleanClicked?"clicked":null} onClick={() => this.clean()}>{t('simulation.clean')}</Button>
-                            <Button className={this.state.oxygenateClicked?"clicked":null} onClick={() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
-                            <Button className={this.state.intubateClicked?"clicked":null} onClick={() => this.intubate()}>{t('simulation.intubate')}</Button>
+                            <Button className={this.state.cleanClicked?"clicked":null} onClick={() => this.oxygenateGN6()}>{t('simulation.clean')}</Button>
+                            <Button className={this.state.oxygenateClicked?"clicked":null} onClick={() => this.oxygenateGN1()}>{t('simulation.oxygenate')}</Button>
+                            <Button className={this.state.intubateClicked?"clicked":null} onClick={() => this.ventilacionBolsa2()}>{t('simulation.intubate')}</Button>
 
                             
 
@@ -1428,7 +1462,7 @@ voluven() {
                     ? <div className="action1">
 
                         <div className="actions-buttons">
-                            <Button className={this.state.tourniquetClicked?"clicked":null} onClick={() => this.tourniquet()}>{t('simulation.tourniquet')}</Button>
+                            <Button className={this.state.tourniquetClicked?"clicked":null} onClick={() => this.torniquete3()}>{t('simulation.tourniquet')}</Button>
                             <Button className={this.state.pressureClicked?"clicked":null} onClick={() => this.pressure()}>{t('simulation.pressure')}</Button>
                             <Button className={this.state.hemostaticClicked?"clicked":null} onClick={() => this.hemostatic()}>{t('simulation.hemostatic')}</Button>
                             <Button className={this.state.paniClicked?"clicked":null} onClick={() => this.pani()}>{t('simulation.pani')}</Button>
@@ -1516,7 +1550,7 @@ voluven() {
                         <div className="actions-buttons">
                             <Button className={this.state.cervicalcontrolClicked?"clicked":null} onClick={() => this.cervicalcontrol()}>{t('simulation.cervicalcontrol')}</Button>
                             <Button className={this.state.collarinClicked?"clicked":null} onClick={() => this.collarin()}>Collarín Cervical</Button>
-                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
+                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt5()}>{t('simulation.belt')}</Button>
                             
                          </div>
 
