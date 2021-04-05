@@ -787,8 +787,8 @@ export default class LoginForm extends Component {
           eval(parameter+"Actions.push({'parameter': "+parameter+" , 'duration' : "+duration+", 'finalTime': "+tFin+",'value' : "+value+", 'finalValue': "+finalValue+"});")
           for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
             valueTot += eval(parameter+"Actions[i].value")
-            eval(parameter+"Value") = valueTot 
           }
+          eval(parameter+"Value = valueTot")
           eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
           eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
           break; 
@@ -800,8 +800,8 @@ export default class LoginForm extends Component {
             eval(parameter+"Block = true")
             for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
               valueTot += eval(parameter+"Actions[i].value")
-              eval(parameter+"Value") = valueTot
             }
+            eval(parameter+"Value = valueTot")
             eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
             eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
           }
@@ -818,8 +818,8 @@ export default class LoginForm extends Component {
           eval(parameter+"Actions[0].value = "+value)
           for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
             valueTot += eval(parameter+"Actions[i].value")
-            eval(parameter+"Value") = valueTot
           }
+          eval(parameter+"Value = valueTot")
           eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
           eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
           break;
