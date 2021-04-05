@@ -21,7 +21,13 @@ import collManta from '../../assets/coll+manta.png'
 // eslint-disable-next-line
 //import arrow_down_disabled from '../../assets/arrow-down-disabled.png'
 import rxTorax from '../../assets/rxTorax.png'
-import rxPelvis from '../../assets/rxPelvis.png'
+import rxPelvis1_1 from '../../assets/Rx11.jpg'
+import rxPelvis1_2 from '../../assets/Rx12.jpg'
+import rxPelvis2_1 from '../../assets/Rx21.jpg'
+import rxPelvis2_2 from '../../assets/Rx22.jpg'
+import rxPelvis3_1 from '../../assets/Rx31.jpg'
+import rxPelvis3_2 from '../../assets/Rx32.jpg'
+import rxPelvis4_1 from '../../assets/Rx41.jpg'
 import ecoAbd from '../../assets/ecoAbd.png'
 import tacAbdPelv from '../../assets/tacAbdPelv.png'
 import { withTranslation } from 'react-i18next';
@@ -211,10 +217,110 @@ class Actions extends Component {
     handleChange(num){
         
         this.setState({
-            actionPage: num
+            actionPage: num,
+            anamnesisClicked:false,
+            viaClicked:false,
+            circulacionClicked :false,
+            posicionClicked:false,
+            farmacosClicked:false,
+            pruebasClicked:false,
+            inmovilizacionClicked:false,
+            anamnesis2Clicked:false,
+            via2Clicked:false,
+            circulacion2Clicked:false,
+            posicion2Clicked:false,
+            farmacos2Clicked:false,
+            pruebas2Clicked:false,
+            inmovilizacion2Clicked:false
         });
-        
+    
+    switch(num){
+      case(1):
+      this.setState({
+        anamnesisClicked:true
+    });
+      break
 
+      case(2):
+      this.setState({
+        viaClicked:true
+    });
+      break
+
+      case(3):
+      this.setState({
+        circulacionClicked:true
+    });
+      break
+
+      case(4):
+      this.setState({
+        posicionClicked:true
+    });
+      break
+
+      case(5):
+      this.setState({
+        farmacosClicked:true
+    });
+      break
+
+      case(6):
+      this.setState({
+        pruebasClicked:true
+    });
+      break
+
+      case(7):
+      this.setState({
+        inmovilizacionClicked:true
+    });
+      break
+
+      case(8):
+      this.setState({
+        anamnesis2Clicked:true
+    });
+      break
+
+      case(9):
+      this.setState({
+        via2Clicked:true
+    });
+      break
+
+      case(10):
+      this.setState({
+        circulacion2Clicked:true
+    });
+      break
+
+      case(11):
+      this.setState({
+        posicion2Clicked:true
+    });
+      break
+      case(12):
+      this.setState({
+        farmacos2Clicked:true
+    });
+      break
+      case(13):
+      this.setState({
+        pruebas2Clicked:true
+    });
+      break
+      case(14):
+      this.setState({
+        inmovilizacion2Clicked:true
+    });
+      break
+
+      default:
+                break;
+
+    }
+    
     }
 
     
@@ -232,7 +338,7 @@ class Actions extends Component {
     }
 
     getMsg(variant, action){
-
+        console.log("EDAD",this.props.age)
         const url = "http://localhost:8080/action/getMsg"
         axios.get(url, {
             params: {
@@ -246,7 +352,9 @@ class Actions extends Component {
                 saturation: this.props.saturation,
                 temperature: this.props.temperature,
                 partBody: this.props.partBody,
-                mentalStatus: this.props.mentalStatus
+                mentalStatus: this.props.mentalStatus,
+                age:this.props.age
+                //añadir edad 
             }
           })
         .then(res => {
@@ -727,7 +835,7 @@ class Actions extends Component {
         this.props.change("bloodPressure", 0.5)
         this.props.change("breathingRate", -0.5)
         this.getMsg("info","fentanilo")
-        this.fillInformation("Sondaje Fentanilo")
+        this.fillInformation("Fentanilo 50mcg IV")
     }
 
     midazolam(){
@@ -737,7 +845,7 @@ class Actions extends Component {
         this.props.change("heartRate", -0.5)
         this.props.change("bloodLoss", 0.5)
         this.getMsg("info","midazolam")
-        this.fillInformation("Midazolam")
+        this.fillInformation("Midazolam 2mg IV")
     }
 
     tranexamico(){
@@ -747,7 +855,7 @@ class Actions extends Component {
         this.props.change("bloodPressure", 0.5)
         this.props.change("breathingRate", -0.5)
         this.getMsg("info","tranexamico")
-        this.fillInformation("Ácido Tranexámico")
+        this.fillInformation("Ácido Tranexámico 1g IV")
     }
 
     noradrenalina(){
@@ -757,7 +865,7 @@ class Actions extends Component {
         this.props.change("heartRate", -0.5)
         this.props.change("bloodLoss", 0.5)
         this.getMsg("info","noradrenalina")
-        this.fillInformation("Noradrenalina")
+        this.fillInformation("Noradrenalina IV")
     }
 
     SSF(){
@@ -766,7 +874,16 @@ class Actions extends Component {
         });
         
         this.getMsg("info","SSF")
-        this.fillInformation("Suero salino fisiológico")
+        this.fillInformation("SSF 20ml/kg en 10 minutos")
+    }
+
+    SSF500(){
+        this.setState({
+            SSF500Clicked:true
+        });
+        
+        this.getMsg("info","SSF500")
+        this.fillInformation("SSF 500ml mantenimiento")
     }
 
     voluven(){
@@ -776,7 +893,7 @@ class Actions extends Component {
         this.props.change("heartRate", -0.5)
         this.props.change("bloodLoss", 0.5)
         this.getMsg("info","voluven")
-        this.fillInformation("Voluven")
+        this.fillInformation("Voluven 250ml IV")
     }
 
     sg(){
@@ -786,7 +903,7 @@ class Actions extends Component {
         this.props.change("heartRate", -0.5)
         this.props.change("bloodLoss", 0.5)
         this.getMsg("info","sg")
-        this.fillInformation("SG")
+        this.fillInformation("SG 5% mantenimiento")
     }
 
     inr(){
@@ -808,10 +925,143 @@ class Actions extends Component {
         this.fillInformation("Glucemia capilar")
     }
     
+    name(){
+        this.setState({
+            nameClicked:true
+        });
+        
+        this.getMsg("info","name")
+        this.fillInformation("¿Cómo te llamas?")
+    }
+
+    age(){
+        this.setState({
+            ageClicked:true
+        });
+        
+        this.getMsg("info","age")
+        this.fillInformation("¿Qué edad tienes?")
+    }
+
+    allergy(){
+        this.setState({
+            allergyClicked:true
+        });
+        
+        this.getMsg("info","allergy")
+        this.fillInformation("¿Tienes alguna alergia?")
+    }
+
+    disease(){
+        this.setState({
+            diseaseClicked:true
+        });
+        
+        this.getMsg("info","disease")
+        this.fillInformation("¿Tienes alguna enfermedad importante?")
+    }
+
+    medication(){
+        this.setState({
+            medicationClicked:true
+        });
+        
+        this.getMsg("info","medication")
+        this.fillInformation("¿Tomas alguna medicación?")
+    }
+
+    place(){
+        this.setState({
+            placeClicked:true
+        });
+        
+        this.getMsg("info","place")
+        this.fillInformation("¿Sabes dónde estás?")
+    }
+
+    happen(){
+        this.setState({
+            happenClicked:true
+        });
+        
+        this.getMsg("info","happen")
+        this.fillInformation("¿Sabes que ha pasado?")
+    }
+
+    pain(){
+        this.setState({
+            painClicked:true
+        });
+        
+        this.getMsg("info","pain")
+        this.fillInformation("¿Dónde te duele?")
+    }
+
+    breathe(){
+        this.setState({
+            breatheClicked:true
+        });
+        
+        this.getMsg("info","breathe")
+        this.fillInformation("¿Te cuesta respirar?")
+    }
+
+    movement(){
+        this.setState({
+            movementClicked:true
+        });
+        
+        this.getMsg("info","movement")
+        this.fillInformation("¿Puedes mover las piernas y los brazos? ¿Sientes cómo te toco?")
+    }
+
+    feel(){
+        this.setState({
+            feelClicked:true
+        });
+        
+        this.getMsg("info","feel")
+        this.fillInformation("¿Sientes cómo te toco?")
+    }
+
+    mecanicventilation(){
+        this.setState({
+            mecanicventilationClicked:true
+        });
+        
+        this.getMsg("info","mecanicventilation")
+        this.fillInformation("Conexión a ventilación mecánica")
+    }
 
 
+    clothes(){
+        this.setState({
+            clothesClicked:true
+        });
+        
+        this.getMsg("info","clothes")
+        this.fillInformation("Retirada de ropa")
+    }
 
-   
+    massivetransfusion(){
+        this.setState({
+            massivetransfusionClicked:true
+        });
+        
+        this.getMsg("info","massivetransfusion")
+        this.fillInformation("Protocolo de transfusión masiva")
+    }
+
+    interconsultations(){
+        this.setState({
+            interconsultationsClicked:true
+        });
+        
+        this.getMsg("info","interconsultations")
+        this.fillInformation("Solicitud de ineterconsultas a otras especialidades")
+    }
+
+
 
     oxygenate() {
         //this.props.change("heartRate", 0)
@@ -880,16 +1130,67 @@ class Actions extends Component {
                 this.fillInformation("Rx Tórax",content)
                 break;
             case "pelvis":
-                content = rxPelvis
-                this.getMsg("info","rx")
-                this.props.sendModal(0, rx, "Rx Pelvis", content)
-                this.fillInformation("Rx Pelvis",content)
+                content=""
+                rx=[]
+                
+                switch(this.props.rxPelvis){
+                case "1":
+                    content=rxPelvis1_1
+                    
+                    rx.push({
+                        src: rxPelvis1_2,  
+                        altText: "rx pelvis",
+                        caption: "rx pelvis"
+                    })
+                    this.fillrx()
+                       break;
+
+                case "2":
+                    content=rxPelvis2_1
+                    
+                    rx.push({
+                        src: rxPelvis2_2,  
+                        altText: "rx pelvis",
+                        caption: "rx pelvis"
+                    })
+                    this.fillrx()
+                       break;
+                case "3":
+                    content=rxPelvis3_1
+                    
+                    rx.push({
+                        src: rxPelvis3_2,  
+                        altText: "rx pelvis",
+                        caption: "rx pelvis"
+                    })
+                    this.fillrx()
+                       break;
+                case "4":
+                    content=rxPelvis4_1
+                    this.fillrx()
+                       break;
+                default:
+                    content=rxPelvis1_1
+                    this.fillrx()
+                    
+            }
+            console.log("CONTENT RADIOGRAFIA",content,rx)
+                
+                //this.getMsg("info","rx")
+                //this.props.sendModal(0, rx, "Rx Pelvis", content)
+                //this.fillInformation("Rx Pelvis",content)
                 break;
             default:
                 break;
+
         }
     }
-
+    fillrx(){
+        this.getMsg("info","rx")
+                this.props.sendModal(0, rx, "Rx Pelvis", content)
+                this.fillInformation("Rx Pelvis",content)
+    }
+    
     ecoType(next){
         this.setEcoModal(false)
         switch(next){
@@ -1199,7 +1500,7 @@ class Actions extends Component {
                         <CardBody>
                             <Input type="select" name="select" onChange={(event) => this.handleRx(event)} >
                                 <option defaultValue></option>
-                                <option value="torax">Tórax</option>
+                                {/*<option value="torax">Tórax</option>*/}
                                 <option value="pelvis">Pelvis</option>
                             </Input>
                             <Button className="buttonModal" onClick= {() => this.rxType(this.state.rxType)}>Solicitar RX</Button>
@@ -1242,65 +1543,94 @@ class Actions extends Component {
                    </card>
                 </Modal>
                 
+                <div
 
+                className="actions-bloques">
                 {this.props.phase === "hospitalaria" ? 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <Button onClick={() => { this.handleChange(1) }}>Anamnesis</Button>&nbsp;
-                    <Button onClick={() => { this.handleChange(2) }}>Vía aérea y ventilación</Button>&nbsp;
-                    <Button onClick={() => { this.handleChange(3) }}>Circulación/Hemorragias Externas</Button>&nbsp;
+                  
+                    <Button className={this.state.anamnesisClicked?"clicked":null} onClick={() => { this.handleChange(1) }}>Anamnesis</Button>&nbsp;
+                    <Button className={this.state.viaClicked?"clicked":null} onClick={() => { this.handleChange(2) }}>Vía aérea y ventilación</Button>&nbsp;
+                    <Button className={this.state.circulacionClicked?"clicked":null} onClick={() => { this.handleChange(3) }}>Circulación/Hemorragias Externas</Button>&nbsp;
                     
 
-
+                
                 </div>
                 :
-
+                
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <Button onClick={() => { this.handleChange(8) }}>Anamnesis</Button>&nbsp;
-                <Button onClick={() => { this.handleChange(9) }}>Vía aérea y ventilación</Button>&nbsp;
-                <Button onClick={() => { this.handleChange(10) }}>Circulación/Hemorragias Externas</Button>&nbsp;
+                
+                <Button className={this.state.anamnesis2Clicked?"clicked":null} onClick={() => { this.handleChange(8) }}>Anamnesis</Button>&nbsp;
+                <Button className={this.state.via2Clicked?"clicked":null} onClick={() => { this.handleChange(9) }}>Vía aérea y ventilación</Button>&nbsp;
+                <Button className={this.state.circulacion2Clicked?"clicked":null}onClick={() => { this.handleChange(10) }}>Circulación/Hemorragias Externas</Button>&nbsp;
             </div>
                 }
 
                 {this.props.phase === "hospitalaria" ?
 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'20px'}}>
-                    <Button onClick={() => { this.handleChange(4) }}>Posición/Otros</Button>&nbsp;
-                    <Button onClick={() => { this.handleChange(5) }}>Fármacos y fluidoterapia</Button>&nbsp;
-                    <Button onClick={() => { this.handleChange(6) }}>Pruebas Complementarias</Button>&nbsp;
-                    <Button onClick={() => { this.handleChange(7) }}>Inmovilización</Button>
+                    
+                    <Button className={this.state.posicionClicked?"clicked":null} onClick={() => { this.handleChange(4) }}>Exposición/Otros</Button>&nbsp;
+                    <Button className={this.state.farmacosClicked?"clicked":null} onClick={() => { this.handleChange(5) }}>Fármacos y fluidoterapia</Button>&nbsp;
+                    <Button className={this.state.pruebasClicked?"clicked":null} onClick={() => { this.handleChange(6) }}>Pruebas Complementarias</Button>&nbsp;
+                    <Button className={this.state.inmovilizacionClicked?"clicked":null} onClick={() => { this.handleChange(7) }}>Inmovilización</Button>
 
-
+                    
                 </div>
                 :
                 
                  
 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'20px'}}>
-                    <Button onClick={() => { this.handleChange(11) }}>NRL/Exposición/Otros</Button>&nbsp;
-                    <Button onClick={() => { this.handleChange(12) }}>Fármacos y Sueros</Button>&nbsp;
-                    <Button onClick={() => { this.handleChange(13) }}>Pruebas Complementarias</Button>&nbsp;
-                    <Button onClick={() => { this.handleChange(14) }}>Inmovilización</Button>
+                    <Button className={this.state.posicion2Clicked?"clicked":null} onClick={() => { this.handleChange(11) }}>Exposición/Otros</Button>&nbsp;
+                    <Button className={this.state.farmacos2Clicked?"clicked":null} onClick={() => { this.handleChange(12) }}>Fármacos y fluidoterapia</Button>&nbsp;
+                    {/*<Button className={this.state.pruebas2Clicked?"clicked":null} onClick={() => { this.handleChange(13) }}>Pruebas Complementarias</Button>&nbsp;*/}
+                    <Button className={this.state.inmovilizacion2Clicked?"clicked":null} onClick={() => { this.handleChange(14) }}>Inmovilización</Button>
 
                  
                 
                 </div>
                }
 
-                
+</div>
 
 
                  {this.state.actionPage === 8
                     ? <div className="action1">
 
                         <div className="actions-buttons">
+
+                        <Button className={this.state.nameClicked?"clicked":null} onClick={() => this.name()}>{t('simulation.name')}</Button>
+                        <Button className={this.state.ageClicked?"clicked":null} onClick={() => this.age()}>{t('simulation.age')}</Button>
+                        <Button className={this.state.allergyClicked?"clicked":null} onClick={() => this.allergy()}>{t('simulation.allergy')}</Button>
+                        <Button className={this.state.diseaseClicked?"clicked":null} onClick={() => this.disease()}>{t('simulation.disease')}</Button>
                             
+                         
+                            {/*
                             <Button className={this.state.dialogClicked?"clicked":null} onClick={() => this.dialog()}>Diálogo</Button>
-                            {/*<Button onClick={() => this.analisis()}>Análisis</Button>
+                            <Button onClick={() => this.analisis()}>Análisis</Button>
                             <Button onClick={() => this.rx()}>RX</Button>
                             <Button onClick={() => this.eco()}>Ecografía</Button>
                             <Button onClick={() => this.tac()}>TAC</Button>*/}
 
                         </div>
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.medicationClicked?"clicked":null} onClick={() => this.medication()}>{t('simulation.medication')}</Button>
+                            <Button className={this.state.placeClicked?"clicked":null} onClick={() => this.place()}>{t('simulation.place')}</Button>
+                            <Button className={this.state.happenClicked?"clicked":null} onClick={() => this.happen()}>{t('simulation.happen')}</Button>
+                            <Button className={this.state.painClicked?"clicked":null} onClick={() => this.pain()}>{t('simulation.pain')}</Button>
+
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.breatheClicked?"clicked":null} onClick={() => this.breathe()}>{t('simulation.breathe')}</Button>
+                            <Button className={this.state.movementClicked?"clicked":null} onClick={() => this.movement()}>{t('simulation.movement')}</Button>
+                            <Button className={this.state.feelClicked?"clicked":null} onClick={() => this.feel()}>{t('simulation.feel')}</Button>
+                            <Button className="btn-hidden"></Button>
+                         </div>
+
+
                     </div>
                     : null
                 }
@@ -1309,8 +1639,8 @@ class Actions extends Component {
                     ? <div className="action1">
 
                         <div className="actions-buttons">
-                            <Button className={`via ${this.state.inspectionClicked ?"clicked":null}`} onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>
-                            
+                            {/*<Button className={`via ${this.state.inspectionClicked ?"clicked":null}`} onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>*/}
+                            <Button className={this.state.mecanicventilationClicked?"clicked":null} onClick={() => this.mecanicventilation()}>{t('simulation.mecanicventilation')}</Button>
                             <Button className={this.state.cleanClicked?"clicked":null} onClick={() => this.clean()}>{t('simulation.clean')}</Button>
                             <Button className={this.state.oxygenateClicked?"clicked":null} onClick={() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
                             <Button className={this.state.intubateClicked?"clicked":null} onClick={() => this.intubate()}>{t('simulation.intubate')}</Button>
@@ -1339,6 +1669,9 @@ class Actions extends Component {
 
                          <div className="actions-buttons">
                             <Button className={this.state.chestdrainageClicked?"clicked":null} onClick={() => this.chestdrainage()}>{t('simulation.chestdrainage')}</Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
                             
 
                          </div>
@@ -1369,7 +1702,8 @@ class Actions extends Component {
 
                 {this.state.actionPage === 11
                     ? <div className="action1">
-                        <div className="actions-buttons">
+                        
+                        {/*<div className="actions-buttons">
                             
                             <Button className={this.state.pupilsClicked?"clicked":null} onClick={() => this.pupils()}>{t('simulation.pupils')}</Button>
                             <Button className={this.state.extremitiesClicked?"clicked":null} onClick={() => this.extremities()}>{t('simulation.extremities')}</Button>
@@ -1377,13 +1711,13 @@ class Actions extends Component {
                             <Button className={this.state.glasgowClicked?"clicked":null} onClick={() => this.glasgow()}>Nivel Consciencia</Button>
                             
                         
-                          </div>
+                </div>*/}
 
                           <div className="actions-buttons">
                             <Button className={this.state.bladderClicked?"clicked":null} onClick={() => this.bladder()}>{t('simulation.bladder')}</Button>
                             <Button className={this.state.nasogastricClicked?"clicked":null} onClick={() => this.nasogastric()}>{t('simulation.nasogastric')}</Button>
                             <Button className={this.state.mantaClicked?"clicked":null} onClick={() => this.manta()}>Manta Térmica</Button>
-                        
+                            <Button className={this.state.clothesClicked?"clicked":null} onClick={() => this.clothes()}>{t('simulation.clothes')}</Button>
                           </div>
 
                     </div>
@@ -1402,11 +1736,20 @@ class Actions extends Component {
                          <div className="actions-buttons">
                             <Button className={this.state.fentaniloClicked?"clicked":null} onClick={() => this.fentanilo()}>{t('simulation.fentanilo')}</Button>
                             <Button className={this.state.SSFClicked?"clicked":null} onClick={() => this.SSF()}>{t('simulation.SSF')}</Button>
+                            <Button className={this.state.SSF500Clicked?"clicked":null} onClick={() => this.SSF500()}>{t('simulation.SSF500')}</Button>
                             <Button className={this.state.voluvenClicked?"clicked":null} onClick={() => this.voluven()}>{t('simulation.voluven')}</Button>
                             {/*<Button onClick={() => this.cristaloides()}>Cristaloides</Button>*/}
-                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
+                            
                          </div>
 
+                         <div className="actions-buttons">
+                            
+                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                         </div>
+                         
                           
 
                     </div>
@@ -1445,7 +1788,7 @@ class Actions extends Component {
                          <div className="actions-buttons">
                             <Button className={this.state.feruleClicked?"clicked":null} onClick={() => this.ferule()}>{t('simulation.ferule')}</Button>
                             <Button className={this.state.mattressClicked?"clicked":null} onClick={() => this.mattress()}>{t('simulation.mattress')}</Button>
-                            
+                            <Button className="btn-hidden"></Button>
                          </div>
 
 
@@ -1483,12 +1826,30 @@ class Actions extends Component {
                     ? <div className="action1">
                         <div className="actions-buttons">
                            {/**<Button onClick={() => this.clean()}>{t('simulation.clean')}</Button> 
-                            <Button onClick={() => this.analgesics()}>{t('simulation.analgesics')}</Button>*/}
+                            <Button onClick={() => this.analgesics()}>{t('simulation.analgesics')}</Button>
+                            <Button className={this.state.dialogClicked?"clicked":null} onClick={() => this.dialog()}>Diálogo</Button>*/}
+                        <Button className={this.state.nameClicked?"clicked":null} onClick={() => this.name()}>{t('simulation.name')}</Button>
+                        <Button className={this.state.ageClicked?"clicked":null} onClick={() => this.age()}>{t('simulation.age')}</Button>
+                        <Button className={this.state.allergyClicked?"clicked":null} onClick={() => this.allergy()}>{t('simulation.allergy')}</Button>
+                        <Button className={this.state.diseaseClicked?"clicked":null} onClick={() => this.disease()}>{t('simulation.disease')}</Button>
                             
-                            <Button className={this.state.dialogClicked?"clicked":null} onClick={() => this.dialog()}>Diálogo</Button>
                             
-
                         </div>
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.medicationClicked?"clicked":null} onClick={() => this.medication()}>{t('simulation.medication')}</Button>
+                            <Button className={this.state.placeClicked?"clicked":null} onClick={() => this.place()}>{t('simulation.place')}</Button>
+                            <Button className={this.state.happenClicked?"clicked":null} onClick={() => this.happen()}>{t('simulation.happen')}</Button>
+                            <Button className={this.state.painClicked?"clicked":null} onClick={() => this.pain()}>{t('simulation.pain')}</Button>
+
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.breatheClicked?"clicked":null} onClick={() => this.breathe()}>{t('simulation.breathe')}</Button>
+                            <Button className={this.state.movementClicked?"clicked":null} onClick={() => this.movement()}>{t('simulation.movement')}</Button>
+                            <Button className={this.state.feelClicked?"clicked":null} onClick={() => this.feel()}>{t('simulation.feel')}</Button>
+                            <Button className="btn-hidden"></Button>
+                         </div>
 
                         
 
@@ -1501,7 +1862,8 @@ class Actions extends Component {
                     ? <div className="action1">
 
                         <div className="actions-buttons">
-                            <Button className={`via ${this.state.inspectionClicked ?"clicked":null}`} onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>
+                            {/*<Button className={`via ${this.state.inspectionClicked ?"clicked":null}`} onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>*/}
+                            <Button className={this.state.mecanicventilationClicked?"clicked":null} onClick={() => this.mecanicventilation()}>{t('simulation.mecanicventilation')}</Button>
                             <Button className={this.state.cleanClicked?"clicked":null} onClick={() => this.clean()}>{t('simulation.clean')}</Button>
                             <Button className={this.state.oxygenateClicked?"clicked":null} onClick={() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
                             <Button className={this.state.intubateClicked?"clicked":null} onClick={() => this.intubate()}>{t('simulation.intubate')}</Button>
@@ -1530,7 +1892,9 @@ class Actions extends Component {
 
                          <div className="actions-buttons">
                             <Button className={this.state.chestdrainageClicked?"clicked":null} onClick={() => this.chestdrainage()}>{t('simulation.chestdrainage')}</Button>
-                            
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
 
                          </div>
 
@@ -1567,7 +1931,7 @@ class Actions extends Component {
 
                 {this.state.actionPage === 4
                     ? <div className="action1">
-                        <div className="actions-buttons">
+                        {/*<div className="actions-buttons">
                             
                             <Button className={this.state.pupilsClicked?"clicked":null} onClick={() => this.pupils()}>{t('simulation.pupils')}</Button>
                             <Button className={this.state.extremitiesClicked?"clicked":null} onClick={() => this.extremities()}>{t('simulation.extremities')}</Button>
@@ -1575,13 +1939,13 @@ class Actions extends Component {
                             <Button className={this.state.glasgowClicked?"clicked":null} onClick={() => this.glasgow()}>Nivel Consciencia</Button>
                             
                         
-                          </div>
+                </div>*/}
 
                           <div className="actions-buttons">
                             <Button className={this.state.bladderClicked?"clicked":null} onClick={() => this.bladder()}>{t('simulation.bladder')}</Button>
                             <Button className={this.state.nasogastricClicked?"clicked":null} onClick={() => this.nasogastric()}>{t('simulation.nasogastric')}</Button>
                             <Button className={this.state.mantaClicked?"clicked":null} onClick={() => this.manta()}>Manta Térmica</Button>
-                        
+                            <Button className={this.state.clothesClicked?"clicked":null} onClick={() => this.clothes()}>{t('simulation.clothes')}</Button>
                           </div>
 
                     </div>
@@ -1594,7 +1958,9 @@ class Actions extends Component {
                             <Button onClick={() => this.analgesics()}>{t('simulation.analgesics')}</Button>
                             <Button onClick={() => this.hot_liquids()}>{t('simulation.liquids')}</Button>
                             <Button onClick={() => this.cristaloides()}>Cristaloides</Button>
-                         </div>*/}
+                         </div>
+                         // ACCIONES QUE QUITO PQ FERNANDO NO LAS HA PUESTO :
+                         <Button className={this.state.cristaloidesClicked?"clicked":null} onClick={() => this.cristaloides()}>Cristaloides</Button>*/}
 
                          <div className="actions-buttons">
                             <Button className={this.state.SIRClicked?"clicked":null} onClick={() => this.SIR()}>{t('simulation.SIR')}</Button>
@@ -1606,8 +1972,18 @@ class Actions extends Component {
                          <div className="actions-buttons">
                             <Button className={this.state.fentaniloClicked?"clicked":null} onClick={() => this.fentanilo()}>{t('simulation.fentanilo')}</Button>
                             <Button className={this.state.SSFClicked?"clicked":null} onClick={() => this.SSF()}>{t('simulation.SSF')}</Button>
+                            <Button className={this.state.SSF500Clicked?"clicked":null} onClick={() => this.SSF500()}>{t('simulation.SSF500')}</Button>
                             <Button className={this.state.voluvenClicked?"clicked":null} onClick={() => this.voluven()}>{t('simulation.voluven')}</Button>
-                            <Button className={this.state.cristaloidesClicked?"clicked":null} onClick={() => this.cristaloides()}>Cristaloides</Button>
+                            
+                            
+                         </div>
+
+                         <div className="actions-buttons">
+                            
+                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
+                            <Button className={this.state.massivetransfusionClicked?"clicked":null} onClick={() => this.massivetransfusion()}>{t('simulation.massivetransfusion')}</Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
                          </div>
 
                     </div>
@@ -1616,30 +1992,38 @@ class Actions extends Component {
 
                 {this.state.actionPage === 6
                     ? <div className="action1">
-                        <div className="actions-buttons">
+                        {/*<div className="actions-buttons">
                             <Button className={this.state.analisisClicked?"clicked":null} onClick={() => this.analisis()}>Análitica de sangre</Button>
-                            <Button className={this.state.rxClicked?"clicked":null} onClick={() => this.rx()}>RX</Button>
+                            <Button className={this.state.rxClicked?"clicked":null} onClick={() => this.rx()}>Rx Pelvis</Button>
                             <Button className={this.state.tacClicked?"clicked":null} onClick={() => this.tac()}>TAC</Button>
                             <Button className={this.state.ecoClicked?"clicked":null} onClick={() => this.eco()}>Ecografía</Button>
                     
-                        </div>
+                </div>*/}
 
                         <div className="actions-buttons">
+                        <Button className="btn-hidden"></Button>
+                        <Button className={this.state.interconsultationsClicked?"clicked":null} onClick={() => this.interconsultations()}>{t('simulation.interconsultations')}</Button>
+                        <Button className={this.state.rxClicked?"clicked":null} onClick={() => this.rx()}>Rx Pelvis</Button>
+                         <Button className="btn-hidden"></Button>
+                        </div>
+
+                        {/*<div className="actions-buttons">
 
                             <Button className={this.state.surgeryClicked?"clicked":null} onClick={() => this.surgery()}>{t('simulation.surgery')}</Button>
                             <Button className={this.state.laparotomyClicked?"clicked":null} onClick={() => this.laparotomy()}>{t('simulation.laparotomy')}</Button>
                             <Button className={this.state.thoracotomyClicked?"clicked":null} onClick={() => this.thoracotomy()}>{t('simulation.thoracotomy')}</Button>
-                            <Button className={this.state.transfusionClicked?"clicked":null} onClick={() => this.transfusion()}>{t('simulation.transfusion')}</Button>
+                           <Button className={this.state.transfusionClicked?"clicked":null} onClick={() => this.transfusion()}>{t('simulation.transfusion')}</Button>
                             
-                         </div>
+                         </div>*/}
 
-                         <div className="actions-buttons">
+
+                         {/*<div className="actions-buttons">
 
                             <Button className={this.state.venousClicked?"clicked":null} onClick={() => this.venous()}>{t('simulation.venous')}</Button>
                             <Button className={this.state.arterialClicked?"clicked":null} onClick={() => this.arterial()}>{t('simulation.arterial')}</Button>
                             <Button className={this.state.crossmatchClicked?"clicked":null} onClick={() => this.crossmatch()}>{t('simulation.crossmatch')}</Button>
-                            
-                         </div>
+                            <Button className="btn-hidden"></Button>
+                        </div>*/}
 
 
 
@@ -1651,16 +2035,17 @@ class Actions extends Component {
                 {this.state.actionPage === 7
                     ? <div className="action1">
                         <div className="actions-buttons">
+                            <Button className="btn-hidden"></Button>
                             <Button className={this.state.cervicalcontrolClicked?"clicked":null} onClick={() => this.cervicalcontrol()}>{t('simulation.cervicalcontrol')}</Button>
                             <Button className={this.state.collarinClicked?"clicked":null} onClick={() => this.collarin()}>Collarín Cervical</Button>
-                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
+                            <Button className="btn-hidden"></Button>
                             
                          </div>
 
                          {/*<div className="actions-buttons">
                             <Button onClick={() => this.ferule()}>{t('simulation.ferule')}</Button>
                             <Button onClick={() => this.mattress()}>{t('simulation.mattress')}</Button>
-                            
+                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
                 </div>*/}
 
 

@@ -30,6 +30,7 @@ var Simulation = sequelize.define('simulation', {
     phase: Sequelize.STRING,
     temperature: Sequelize.DOUBLE, 
     inform: Sequelize.BLOB,
+    rxPelvis:Sequelize.STRING,
     testData: {
         type: Sequelize.JSON,
         defaultValue: null

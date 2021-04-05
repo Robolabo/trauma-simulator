@@ -36,10 +36,14 @@ class NewSimulation extends Component {
             phase:"",
             time: 0,
             redirect: false,
-            alert: false
+            alert: false,
+            rxPelvis:"",
+            showrx:false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+
     
     componentDidMount(){
 
@@ -109,7 +113,8 @@ class NewSimulation extends Component {
             mentalStatus: this.state.mentalStatus,
             phase: this.state.phase,
             temperature: this.state.temperature,
-            time: this.state.time
+            time: this.state.time,
+            rxPelvis:this.state.rxPelvis
         }
 
         if (this.state.traineeId !== 0) {
@@ -164,6 +169,22 @@ class NewSimulation extends Component {
     handleChange5 = selectedOption => {
        
         this.setState({ phase: selectedOption.value });
+        console.log(selectedOption.value)
+        if(selectedOption.value==="hospitalaria"){
+            this.setState({ showrx: true });
+        
+        }
+
+        else{
+
+            this.setState({ showrx: false });
+        }
+        
+    };
+
+    handleChangerxPelvis = selectedOption => {
+       
+        this.setState({ rxPelvis: selectedOption.value });
     };
 
     render() {
@@ -186,7 +207,17 @@ class NewSimulation extends Component {
             { value: 'rightArm', label: t('new-simulation.right-a') },
             { value: 'leftArm', label: t('new-simulation.left-a') },
             { value: 'rightLeg', label: t('new-simulation.right-l') },
-            { value: 'leftLeg', label: t('new-simulation.left-l')}
+            { value: 'leftLeg', label: t('new-simulation.left-l')},
+            { value: 'Ambas Piernas', label: "Pierna izquierda y derecha"}
+
+          ];
+         // Creación de opciones para las radiografías de pelvis 
+          const optionsrxPelvis = [
+            { value: '1', label: "Radiografía Caso 1"},
+            { value: '2', label: "Radiografía Caso 2" },
+            { value: '3', label: "Radiografía Caso 3" },
+            { value: '4', label: "Radiografía Caso 4" },
+            
           ];
         return (
             <div>
@@ -221,7 +252,19 @@ class NewSimulation extends Component {
                                         options={optionsTrainees}
                                     />
                                 </td>
-                                <td></td>
+                                {this.state.showrx === true &&
+                                <>
+      
+                                 <td>{t('new-simulation.rxPelvis')}</td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        onChange={this.handleChangerxPelvis}
+                                        options={optionsrxPelvis}
+                                        value={optionsrxPelvis.filter(option => option.value === this.state.rxPelvis)}
+                                    />
+                                </td> </> }
+
                             </tr>
                             <tr>
                                 <td>{t('new-simulation.sex')}</td>
@@ -253,6 +296,7 @@ class NewSimulation extends Component {
                                         value={optionsPartBody.filter(option => option.value === this.state.partBody)}
                                     />
                                 </td>    
+                               
                                 <td>{t('new-simulation.status')}</td>
                                 <td>
                                     <Select

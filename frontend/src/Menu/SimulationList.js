@@ -44,72 +44,152 @@ class SimulationList extends React.Component  {
           } else {
             
             const baseUrl = "http://localhost:8080/simulation/create"
+           
             // Sustituir por datos de simulaciones que proponga Fernando
-       // Primera simulacion
+       
+       // sex:1 es mujer, sex:0 es hombre
+       // Caso clínico 2 con fase prehospitlaria
         var datapost1 = {
             trainerId: 2,
             traineeId: this.props.location.state.id,
-            sex: 1,
-            age: 30,
-            weight: 60,
-            partBody: "pelvis",
+            sex: 0,
+            age: 33,
+            weight: 80,
+            partBody: "Pierna derecha",
             bloodLoss: 100,
-            sistolicPressure: 70,
-            diastolicPressure: 45,
-            heartRate: 55,
-            breathingRate: 10,
+            sistolicPressure: 141,
+            diastolicPressure: 89,
+            heartRate: 135,
+            breathingRate: 41,
             urineOutput: 12,
-            saturation: 80,
-            mentalStatus: "lethargic",
-            phase: "prehospitalaria",
+            saturation: 90,
+            mentalStatus: "normal",
+            phase: "Pre Hospitalaria",
             temperature: 34,
-            time: 250,
+            time: 30,
+            rxPelvis:"2"
+            
             
         }
-         var datapost2 = {
-            trainerId: 2,
-            traineeId: this.props.location.state.id,
-            sex: 1,
-            age: 30,
-            weight: 70,
-            partBody: "pelvis",
-            bloodLoss: 100,
-            sistolicPressure: 70,
-            diastolicPressure: 45,
-            heartRate: 55,
-            breathingRate: 10,
-            urineOutput: 12,
-            saturation: 80,
-            mentalStatus: "lethargic",
-            phase: "prehospitalaria",
-            temperature: 34,
-            time: 50,
-            
-         }
-          var datapost3 = {
+        // Caso clínico 2 con fase hospitlaria
+        var datapost2 = {
+          trainerId: 2,
+          traineeId: this.props.location.state.id,
+          sex: 0,
+          age: 33,
+          weight: 80,
+          partBody: "Pierna derecha",
+          bloodLoss: 100,
+          sistolicPressure: 141,
+          diastolicPressure: 89,
+          heartRate: 135,
+          breathingRate: 41,
+          urineOutput: 12,
+          saturation: 90,
+          mentalStatus: "normal",
+          phase: "Hospitalaria",
+          temperature: 34,
+          time: 30,
+          rxPelvis:"2"
+          
+      }
+
+      // Caso clínico 3 con fase prehospitlaria
+         var datapost3 = {
             trainerId: 2,
             traineeId: this.props.location.state.id,
             sex: 0,
-            age: 70,
-            weight: 40,
-            partBody: "brazo derecho",
+            age: 50,
+            weight: 90, 
+            partBody: "Ambas piernas", 
             bloodLoss: 100,
-            sistolicPressure: 70,
-            diastolicPressure: 40,
-            heartRate: 55,
-            breathingRate: 10,
-            urineOutput: 12,
-            saturation: 80,
-            mentalStatus: "lethargic",
-            phase: "prehospitalaria",
+            sistolicPressure: 141,
+            diastolicPressure: 89,
+            heartRate: 120,
+            breathingRate: 28,
+            urineOutput: 12, 
+            saturation: 92, 
+            mentalStatus: "normal", 
+            phase: "Pre Hospitalaria",
             temperature: 34,
-            time: 250,
+            time: 30,
+            rxPelvis:"3"
+            
+         }
+        // Caso clínico 3 con fase hospitlaria
+         var datapost4 = {
+          trainerId: 2,
+          traineeId: this.props.location.state.id,
+          sex: 0,
+          age: 50,
+          weight: 90, 
+          partBody: "Ambas piernas", 
+          bloodLoss: 100,
+          sistolicPressure: 141,
+          diastolicPressure: 89,
+          heartRate: 120,
+          breathingRate: 28,
+          urineOutput: 12, 
+          saturation: 92, 
+          mentalStatus: "normal", 
+          phase: "Hospitalaria",
+          temperature: 34,
+          time: 30,
+          rxPelvis:"3"
+          
+       }
+        // Caso clínico 4 con fase prehospitlaria
+
+          var datapost5 = {
+            trainerId: 2,
+            traineeId: this.props.location.state.id,
+            sex: 0,
+            age: 82,
+            weight: 80,
+            partBody: "Pierna izquierda",
+            bloodLoss: 100, 
+            sistolicPressure: 141,
+            diastolicPressure: 91,
+            heartRate: 120,
+            breathingRate: 28,
+            urineOutput: 12,
+            saturation: 95,
+            mentalStatus: "normal",
+            phase: "Pre Hospitalaria",
+            temperature:34,
+            time: 30,
+            rxPelvis:"4"
             
             }
-      // La añadimos al array
+          // Caso clínico 4 con fase hospitlaria
+            var datapost6 = {
+              trainerId: 2,
+              traineeId: this.props.location.state.id,
+              sex: 0,
+              age: 82,
+              weight: 80,
+              partBody: "Pierna izquierda",
+              bloodLoss: 100, 
+              sistolicPressure: 141,
+              diastolicPressure: 91,
+              heartRate: 120,
+              breathingRate: 28,
+              urineOutput: 12,
+              saturation: 95,
+              mentalStatus: "normal",
+              phase: "Hospitalaria",
+              temperature: 34,
+              time: 30,
+              rxPelvis:"4"
+              
+              }
+      // Añado cada uno de los datapost creados al array
       arrSimulations.push(datapost1);
       arrSimulations.push(datapost2);
       arrSimulations.push(datapost3);
+      arrSimulations.push(datapost4);
+      arrSimulations.push(datapost5);
+      arrSimulations.push(datapost6);
     
       
         arrSimulations.forEach(dataPost => {
@@ -227,8 +307,10 @@ class SimulationList extends React.Component  {
               <th scope="col"></th>
               {this.state.isTrainer
               ? <th scope="col">{t('list-simulation.trainee')}</th>
-              : <th scope="col">{t('list-simulation.trainer')}</th>}
+              : <th scope="col">Fase</th>}
+              
               <th scope="col">{t('list-simulation.sex')}</th>
+
               <th scope="col">{t('list-simulation.age')}</th>
               <th scope="col">{t('list-simulation.trauma')}</th>
               <th scope="col">{t('list-simulation.time')}</th>
@@ -260,7 +342,8 @@ class SimulationList extends React.Component  {
           <th></th>
           {this.state.isTrainer
           ? <td>{data.trainee.name} {data.trainee.surname}</td>
-          : <td>{data.trainer.name} {data.trainer.surname}</td>}
+          : <td>{data.phase} </td>}
+          
           <th>{(data.sex === 0) ? t('new-simulation.male') : t('new-simulation.female')}</th>
           <td>{data.age}</td>
           <td>{data.partBody}</td>

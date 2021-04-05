@@ -77,7 +77,14 @@ module.exports = {
       },
        time: {
          type: Sequelize.INTEGER
-      }
+      },
+
+      age: {
+        type: Sequelize.INTEGER
+     }
+
+
+
       },
       {
         sync: { force: true}

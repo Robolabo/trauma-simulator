@@ -92,7 +92,8 @@ export default class LoginForm extends Component {
         finish:false,
         fordward: true,
         deadModal: false,
-        phase: ""
+        phase: "",
+        rxPelvis:""
       }
     }
 
@@ -103,6 +104,7 @@ export default class LoginForm extends Component {
         .then(res=>{
             if (res.data.success) {
                 const data = res.data.data[0]
+                console.log("DATOS DEVUELTOS",data.rxPelvis)
                 //añadir constantes del caso clínico creado
                 this.setState({
                     sex: data.sex,
@@ -120,7 +122,8 @@ export default class LoginForm extends Component {
                     time: data.time,
                     temperature: data.temperature,
                     phase: data.phase,
-                    document: []
+                    document: [],
+                    rxPelvis: data.rxPelvis
                 })
                 initialData = data
             }
@@ -482,6 +485,7 @@ export default class LoginForm extends Component {
     }
 
     sendModal(id, type, header, content){
+        console.log("PARAMETROSS",id, type, header, content)
         this.setState(({ num }) => ({
             header: header,
             content: content,
@@ -596,7 +600,8 @@ export default class LoginForm extends Component {
                         age = {this.state.age}
                         sex = {this.state.sex}
                         phase = {this.state.phase}
-                        trainerList={this.props.location.state.trainerList}
+                        trainerList={this.props.location.state.trainerList}//props viene del componente anterior
+                        rxPelvis={this.state.rxPelvis}
                        
                 
                         />
