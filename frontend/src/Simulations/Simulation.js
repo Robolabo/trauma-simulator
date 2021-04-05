@@ -78,6 +78,19 @@ var breathingRateFinalValue
 var sistolicPressureFinalValue
 var diastolicPressureFinalValue
 
+var heartRateN = 0
+var saturationN = 0
+var breathingRateN = 0
+var sistolicPressureN = 0
+var diastolicPressureN = 0
+var heartRateActions = []
+var breathingRateActions = []
+var diastolicPressureActions  = []
+var sistolicPressureAactions = []
+var saturationActions = []
+var valueTot = 0
+
+
 export default class LoginForm extends Component {
     constructor(props){
       super(props);
@@ -753,15 +766,66 @@ export default class LoginForm extends Component {
       switch (finalValue) {
         case -1:
           eval(parameter+"Block = false")
+          this.simultaneousActions(parameter,0, 0, 0, -1, 0)
           break;
         case 0:
           eval(parameter+"Value  = 0")
+          this.simultaneousActions(parameter,1800, 1800, 0, -1, 2)
           break;
         default:
           eval(parameter+"Value  = "+ finalValue)
+          this.simultaneousActions(parameter,1800, 1800, finalValue, finalValue, 2)
           break;
       }
     }
+  
+
+    simultaneousActions(parameter, duration, tFin, value, finalValue, type){
+      switch (type){
+        //Añadir al array de acciones simultáneas de una constante
+        case 1:
+          eval(parameter+"Actions.push({'parameter': "+parameter+" , 'duration' : "+duration+", 'finalTime': "+tFin+",'value' : "+value+", 'finalValue': "+finalValue+"});")
+          for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+            valueTot += eval(parameter+"Actions[i].value")
+            eval(parameter+"Value") = valueTot 
+          }
+          eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
+          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
+          break; 
+        //Eliminar acciones del array de acciones de una constante vital        
+        case 0: 
+          eval(parameter+"Actions.splice(0,1);")
+          eval(parameter + "N -= 1")
+          if(eval(parameter + "N") > 0){
+            eval(parameter+"Block = true")
+            for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+              valueTot += eval(parameter+"Actions[i].value")
+              eval(parameter+"Value") = valueTot
+            }
+            eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
+            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
+          }
+          else{
+            eval(parameter+"Block = false")
+            eval(parameter+"Actions.splice(0, "+parameter+"Actions.length")
+          }
+          break;
+        // Cuando una acción tiene dos valores, se cambia de valor en la funcion unblock y se modifica
+        // el objeto del array de acciones cin un nuevo valor para la acción y un nuevo tiempofinal y duración
+        case 2:
+          eval(parameter+"Actions[0].duration = "+duration)
+          eval(parameter+"Actions[0].finalTime = "+tFin)
+          eval(parameter+"Actions[0].value = "+value)
+          for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+            valueTot += eval(parameter+"Actions[i].value")
+            eval(parameter+"Value") = valueTot
+          }
+          eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
+          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
+          break;
+        }    
+    }
+
 
     change(parameter,value, time, type, latency){
       this.changeAction = setTimeout(this.changeAux.bind(this,parameter,value, time, type), (latency * 1000))
@@ -772,17 +836,42 @@ export default class LoginForm extends Component {
       switch (type) {
         //sube o baja value[puntos/min] en tiempo [segundos], luego vuelve a la evolución normal
         case 1:
-          this.blockChangeValue(parameter, duration, value, -1)
+          if((eval(parameter + "N")) === 0) {
+            this.blockChangeValue(parameter, duration, value, -1)
+            eval("clearTimeout(this."+parameter+"Timer)")
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, -1, 1)
+          }
+          else{
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, -1, 1)
+          }
           break; 
         //sube hasta value[valor concreto] en x [segundos]  y se mantiene
         // meto el caso 6 aquí puesto que suponemos al final que la ventilación con bolsa se mantiene fija
         case 2:
-          initialValue = (value - eval("this.state."+parameter))/duration*60
-          this.blockChangeValue(parameter, duration, initialValue, 0)
+          if((eval(parameter + "N")) === 0) {
+            initialValue = (value - eval("this.state."+parameter))/duration*60
+            this.blockChangeValue(parameter, duration, initialValue, 0)
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), initialValue, 0, 1)
+          }
+          else{
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), initialValue, 0, 1)
+          }
           break;
       //Se mantiene tiempo [segundos] y después se modifica value [puntos/min] hasta el final
         case 3:
-          this.blockChangeValue(parameter, duration, 0, value)
+          if((eval(parameter + "N")) === 0) {
+            this.blockChangeValue(parameter, duration, 0, value)
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), 0, value, 1)
+          }
+          else{
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), 0, value, 1)
+          }
           break;
       //sube o baja hasta que se realiza una acción concreta
         case 4:
@@ -795,7 +884,15 @@ export default class LoginForm extends Component {
           break;
         //sube o baja value[puntos/min] en tiempo [segundos] y se mantiene
         case 6:
-          this.blockChangeValue(parameter, duration, value, 0)
+          if((eval(parameter + "N")) === 0) {
+            this.blockChangeValue(parameter, duration, value, 0)
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, 0, 1)
+          }
+          else{
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, 0, 1)
+          }
           break;         
         default:
           break;
