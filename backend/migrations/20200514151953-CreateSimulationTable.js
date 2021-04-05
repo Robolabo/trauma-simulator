@@ -70,7 +70,12 @@ module.exports = {
       },
         phase: {
           type: Sequelize.STRING
-      } 
+      },
+
+      rxPelvis: {
+        type: Sequelize.STRING
+    },
+
     
       },
       {

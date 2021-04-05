@@ -35,7 +35,7 @@ controller.list = async (req, res) => {
 controller.create = async (req,res) => {
   // data
   const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
-            saturation, mentalStatus, time, traineeId, trainerId, phase } = req.body;
+            saturation, mentalStatus, time, traineeId, trainerId, phase, rxPelvis } = req.body;
   console.log("BODCRE",req.body) 
   // create
   const data = await Simulation.create({
@@ -55,7 +55,9 @@ controller.create = async (req,res) => {
     time: time,
     traineeId: traineeId,
     trainerId: trainerId,
-    phase: phase
+    phase: phase,
+    rxPelvis: rxPelvis
+
   })
   .then(function(data){
     return data;
@@ -194,8 +196,7 @@ controller.listByTraineeId = async (req, res) => {
 //Cambiar nombre 
 controller.listByTraineeAndTrainer = async (req, res) => {
   const { idTrainer,idTrainee } = req.query;
-console.log(req)
-  console.log(idTrainer, idTrainee);
+
   const data = await Simulation.findAll({
     include: [ { model: Trainer, as: 'trainer' },
                { model: Trainee, as: 'trainee' } ],

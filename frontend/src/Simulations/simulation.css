@@ -62,14 +62,33 @@
 }
 
 .actions-buttons button {
-    width: 180px;
-    height: 49px;
+    width: 165px;
+    height: 50px;
     margin-top: 2pc;
     white-space:pre-wrap;
-    font-size: 15px;
+    font-size: 12.4px;
+}
+
+.actions-bloques button{
+    width: 201px;
+    height: 53px;
+    
+    white-space:pre-wrap;
+    font-size: 15.5px;
+    margin-left: 5px;
+
+}
+
+.btn-hidden {
+    visibility:hidden;
 }
 
 .actions-buttons button:hover {
+    background: rgb(45, 45, 51);
+    color: white
+}
+
+.actions-bloques button:hover {
     background: rgb(45, 45, 51);
     color: white
 }

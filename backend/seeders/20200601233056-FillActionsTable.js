@@ -2,11 +2,11 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('actions',[
+    return queryInterface.bulkInsert('actions', [
       {
         actionId: 1,
         actionName: 'inspection',
-        message:'Se han encontrado cuerpos extraños durante la inspección de la vía aérea.',
+        message: 'Se han encontrado cuerpos extraños durante la inspección de la vía aérea.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -26,13 +26,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 3
       },
 
       {
         actionId: 2,
         actionName: 'inspection',
-        message:'Se han encontrado cuerpos extraños durante la inspección de la vía aérea.',
+        message: 'Se han encontrado cuerpos extraños durante la inspección de la vía aérea.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -52,12 +53,13 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 3
       },
       {
         actionId: 3,
         actionName: 'inspection',
-        message:'No se han encontrado anomalías durante la inspección de la vía aérea.',
+        message: 'No se han encontrado anomalías durante la inspección de la vía aérea.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -77,13 +79,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 3
       },
 
       {
         actionId: 4,
         actionName: 'dialog',
-        message:'El paciente responde con normalidad al diálogo.',
+        message: 'El paciente responde con normalidad al diálogo.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -103,13 +106,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'normal',
+        age: -1,
         time: 1
       },
-      
+
       {
         actionId: 5,
         actionName: 'dialog',
-        message:'El paciente no responde, encontrándose en estado de incosciencia.',
+        message: 'El paciente no responde, encontrándose en estado de incosciencia.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -129,13 +133,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'lethargic',
+        age: -1,
         time: 1
       },
-      
+
       {
         actionId: 6,
         actionName: 'dialog',
-        message:'El paciente responde al díalogo, mostrándose confuso, escuchándose ruidos en la respiración.',
+        message: 'El paciente responde al díalogo, mostrándose confuso, escuchándose ruidos en la respiración.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -155,9 +160,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'confused',
+        age: -1,
         time: 1
       },
-      
+
       {
         actionId: 7,
         actionName: 'oxygenate',
@@ -181,13 +187,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 2
       },
-      
+
       {
         actionId: 8,
         actionName: 'collarin',
-        message: 'Se coloca un collarín cervical.',
+        message: 'Collarín cervical colocado.',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -207,9 +214,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 1
       },
-      
+
       {
         actionId: 9,
         actionName: 'cristaloides',
@@ -233,13 +241,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
       },
-      
+
       {
         actionId: 10,
         actionName: 'manta',
-        message: 'Se coloca una manta térmica para subir la temperatura al paciente.',
+        message: 'Manta térmica colocada.',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -259,9 +268,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 1
       },
-      
+
       {
         actionId: 11,
         actionName: 'liquids',
@@ -285,13 +295,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 10
       },
-      
+
       {
         actionId: 12,
         actionName: 'belt',
-        message: 'Se coloca un cinturón pélvico.',
+        message: 'Cinturón pélvico colocado.',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -311,9 +322,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 1
       },
-      
+
       {
         actionId: 13,
         actionName: 'analisis',
@@ -337,9 +349,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
       },
-      
+
       {
         actionId: 14,
         actionName: 'transfusion',
@@ -363,9 +376,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
       },
-      
+
       {
         actionId: 15,
         actionName: 'surgery',
@@ -389,13 +403,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 50
       },
-      
+
       {
         actionId: 16,
         actionName: 'rx',
-        message: 'Ya se encuentran disponibles los resultados de la radiografía.',
+        message: 'Ya se encuentran disponibles los resultados de placa RX.',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -415,9 +430,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
       },
-      
+
       {
         actionId: 17,
         actionName: 'eco',
@@ -441,9 +457,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
       },
-      
+
       {
         actionId: 18,
         actionName: 'tac',
@@ -467,9 +484,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
       },
-      
+
       {
         actionId: 19,
         actionName: 'clean',
@@ -493,13 +511,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 5
       },
-      
+
       {
         actionId: 20,
         actionName: 'glasgow',
-        message:'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 9 en la escala de Glasgow',
+        message: 'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 9 en la escala de Glasgow',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -519,13 +538,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'confused',
+        age: -1,
         time: 2
       },
-      
+
       {
         actionId: 21,
         actionName: 'glasgow',
-        message:'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 15 en la escala de Glasgow',
+        message: 'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 15 en la escala de Glasgow',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -545,13 +565,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'normal',
+        age: -1,
         time: 2
       },
-      
+
       {
         actionId: 22,
         actionName: 'glasgow',
-        message:'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 12 en la escala de Glasgow',
+        message: 'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 12 en la escala de Glasgow',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -571,13 +592,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'anxious',
+        age: -1,
         time: 2
       },
-      
+
       {
         actionId: 23,
         actionName: 'glasgow',
-        message:'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 4 en la escala de Glasgow',
+        message: 'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 4 en la escala de Glasgow',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -597,9 +619,10 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'lethargic',
+        age: -1,
         time: 2
       },
-      
+
       {
         actionId: 24,
         actionName: 'analgesics',
@@ -623,13 +646,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 10
       },
-      
+
       {
         actionId: 25,
         actionName: 'intubate',
-        message: 'Se procede a intubar al paciente.',
+        message: 'IOT correcta.',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -649,6 +673,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 4
       },
 
@@ -675,6 +700,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 50
       },
 
@@ -701,8 +727,9 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 50
-      }, 
+      },
 
       {
         actionId: 28,
@@ -727,6 +754,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 10
       },
 
@@ -753,13 +781,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
       },
 
       {
         actionId: 30,
         actionName: 'pulseoximeter',
-        message: 'La saturación de oxígeno en sangre es adecuada.',
+        message: 'Se mide la saturación de oxígeno en sangre y la frecuencia cardiaca.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -773,16 +802,17 @@ module.exports = {
         breathingRateMax: -1,
         urineOutputMin: -1,
         urineOutputMax: -1,
-        saturationMin: 86,
-        saturationMax: 100,
+        saturationMin: -1,
+        saturationMax: -1,
         temperatureMin: -1,
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
       },
 
-      {
+      {/*{
         actionId: 31,
         actionName: 'pulseoximeter',
         message: 'La saturación de oxígeno en sangre es baja, presentando hipoxemia.',
@@ -805,14 +835,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
-        time: 20
-      },
+        age:-1, 
+			 time: 20
+      }*/},
 
 
       {
         actionId: 32,
         actionName: 'oropharyngealcannula',
-        message: 'Se coloca una cánula orofaríngea para facilitar la apertura de la vía aérea  .',
+        message: 'Cánula orofaríngea colocada.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -826,16 +857,17 @@ module.exports = {
         breathingRateMax: -1,
         urineOutputMin: -1,
         urineOutputMax: -1,
-        saturationMin: 91,
-        saturationMax: 100,
+        saturationMin: -1,
+        saturationMax: -1,
         temperatureMin: -1,
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 3
       },
 
-      {
+      {/*{
         actionId: 33,
         actionName: 'oropharyngealcannula',
         message: 'Reflejo nauseoso y vómitos por colocación de cánula orofaríngea.',
@@ -858,15 +890,16 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
-        time: 3
-      },
+        age:-1, 
+			 time: 3
+      },*/},
 
 
 
       {
         actionId: 34,
         actionName: 'nasalglasses',
-        message: 'Se colocan gafas nasales para suministrar oxígeno al paciente.',
+        message: 'Gafas nasales colocadas.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -886,6 +919,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
       },
 
@@ -906,16 +940,17 @@ module.exports = {
         breathingRateMax: -1,
         urineOutputMin: -1,
         urineOutputMax: -1,
-        saturationMin: 81,
-        saturationMax: 100,
+        saturationMin: -1,
+        saturationMax: -1,
         temperatureMin: -1,
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
       },
 
-      {
+      {/*{
         actionId: 36,
         actionName: 'capnographer',
         message: 'La concentración de dioxido de carbono es elevada, presentando hipercapnia.',
@@ -938,15 +973,16 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
-        time: 30
-      },
+        age:-1, 
+			 time: 30
+      },*/},
 
 
 
       {
         actionId: 37,
         actionName: 'ventilation',
-        message: 'Se administra oxigeno en la vía aérea del paciente.',
+        message: 'Se administra oxigeno al paciente.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -966,6 +1002,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -993,6 +1030,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1020,6 +1058,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1047,6 +1086,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1054,7 +1094,7 @@ module.exports = {
       {
         actionId: 41,
         actionName: 'ferule',
-        message: 'Se coloca una férula de vacio.',
+        message: 'Se coloca férula de vacio .',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1074,6 +1114,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1101,6 +1142,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 10
 
       },
@@ -1108,7 +1150,7 @@ module.exports = {
       {
         actionId: 43,
         actionName: 'mattress',
-        message: 'Se coloca un colchón de vacio.',
+        message: 'Se coloca colchón de vacio.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1128,6 +1170,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1155,6 +1198,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1182,6 +1226,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1209,6 +1254,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 3
 
       },
@@ -1236,6 +1282,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 3
 
       },
@@ -1265,6 +1312,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 10
 
       },
@@ -1292,6 +1340,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1299,7 +1348,7 @@ module.exports = {
       {
         actionId: 50,
         actionName: 'vvp',
-        message: 'Canalización de vía venosa periférica para tener una vía permanente al sistema vascular del paciente .',
+        message: 'VVP colocada y permeable .',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1319,6 +1368,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 40
 
       },
@@ -1326,7 +1376,7 @@ module.exports = {
       {
         actionId: 51,
         actionName: 'io',
-        message: 'Canalización de vía intraósea para la administración de fármacos.',
+        message: 'VVP colocada y permeable.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1346,6 +1396,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 40
 
       },
@@ -1373,6 +1424,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 40
 
       },
@@ -1380,7 +1432,7 @@ module.exports = {
       {
         actionId: 53,
         actionName: 'derivations',
-        message: 'Monitorización del paciente mediante la colocación de 3 a 5 electrodos .',
+        message: 'Monitorización del paciente mediante la colocación de 4 electrodos .',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1400,6 +1452,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 40
 
       },
@@ -1427,6 +1480,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 40
 
       },
@@ -1454,6 +1508,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'confused',
+        age: -1,
         time: 10
 
       },
@@ -1481,6 +1536,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'normal',
+        age: -1,
         time: 10
 
       },
@@ -1508,6 +1564,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'lethargic',
+        age: -1,
         time: 10
 
       },
@@ -1535,6 +1592,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'anxious',
+        age: -1,
         time: 10
 
       },
@@ -1562,6 +1620,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1589,6 +1648,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1616,6 +1676,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1623,7 +1684,7 @@ module.exports = {
       {
         actionId: 62,
         actionName: 'bladder',
-        message: 'Se realiza un sondaje vesical para valorar las características de la orina .',
+        message: 'Se realiza sondaje vesical.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1643,6 +1704,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1650,7 +1712,7 @@ module.exports = {
       {
         actionId: 63,
         actionName: 'nasogastric',
-        message: 'Se realiza un sondaje nasogástrico para extraer y analizar el contenido gástrico .',
+        message: 'Se realiza sondaje nasogástrico.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1670,6 +1732,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 30
 
       },
@@ -1697,6 +1760,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1724,6 +1788,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1751,6 +1816,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1778,6 +1844,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1805,6 +1872,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1814,8 +1882,8 @@ module.exports = {
         actionName: 'SSF',
         message: 'Bolo SSF administrado.',
         photo: false,
-        bloodLossMin: 100,
-        bloodLossMax: 300,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
         sistolicPressureMin: -1,
         sistolicPressureMax: -1,
         diastolicPressureMin: -1,
@@ -1832,17 +1900,18 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
 
       {
         actionId: 70,
-        actionName: 'SSF',
+        actionName: 'SSF500',
         message: 'Inicio SSF 500 ml.',
         photo: false,
-        bloodLossMin: 300,
-        bloodLossMax: 500,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
         sistolicPressureMin: -1,
         sistolicPressureMax: -1,
         diastolicPressureMin: -1,
@@ -1859,6 +1928,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1886,6 +1956,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1893,7 +1964,7 @@ module.exports = {
       {
         actionId: 72,
         actionName: 'sg',
-        message: 'Se administra al paciente 500 ml de SG al 5%.',
+        message: 'Inicio SG 5%.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1913,6 +1984,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 20
 
       },
@@ -1940,6 +2012,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 2
 
       },
@@ -1967,6 +2040,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 2
 
       },
@@ -1994,6 +2068,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 2
 
       },
@@ -2021,6 +2096,7 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        age: -1,
         time: 10
 
       },
@@ -2028,7 +2104,7 @@ module.exports = {
       {
         actionId: 77,
         actionName: 'dialog',
-        message:'El paciente no responde al díalogo, encontrándose en estado de ansiedad.',
+        message: 'El paciente no responde al díalogo, encontrándose en estado de ansiedad.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2048,36 +2124,1498 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'anxious',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 78,
+        actionName: 'name',
+        message: 'Antonio.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 79,
+        actionName: 'name',
+        message: 'Javier.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 80,
+        actionName: 'name',
+        message: 'Paco.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 81,
+        actionName: 'name',
+        message: 'Manuel.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+
+      {
+        actionId: 82,
+        actionName: 'name',
+        message: 'Antonio.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+
+      {
+        actionId: 83,
+        actionName: 'age',
+        message: 'Tengo 25 años.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 84,
+        actionName: 'age',
+        message: 'Tengo 33 años.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 85,
+        actionName: 'age',
+        message: 'Tengo 50 años.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 86,
+        actionName: 'age',
+        message: 'Tengo 82 años.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+
+      {
+        actionId: 87,
+        actionName: 'age',
+        message: 'Tengo 25 años.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+
+
+      {
+        actionId: 88,
+        actionName: 'allergy',
+        message: 'A la piel del melocotón.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 89,
+        actionName: 'allergy',
+        message: 'A los frutos secos.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 90,
+        actionName: 'allergy',
+        message: 'No.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 91,
+        actionName: 'allergy',
+        message: 'Sí, al nolotil.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+
+      {
+        actionId: 92,
+        actionName: 'allergy',
+        message: 'A la piel del melocotón.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 93,
+        actionName: 'disease',
+        message: 'No.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 94,
+        actionName: 'disease',
+        message: 'No.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 95,
+        actionName: 'disease',
+        message: 'No, aunque tengo trastornos intestinales que me han diagnosticado como colon irritable.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 96,
+        actionName: 'disease',
+        message: 'No, aunque por la edad tengo la tensión algo alta y problemas de azucar.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+
+      {
+        actionId: 97,
+        actionName: 'disease',
+        message: 'No.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 98,
+        actionName: 'medication',
+        message: 'Sí, a veces tomo paracetamol .',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 99,
+        actionName: 'medication',
+        message: 'Ibuprofeno a veces.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 100,
+        actionName: 'medication',
+        message: 'Somníferos en algunas ocasiones, cuando tengo problemas para dormir .',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 101,
+        actionName: 'medication',
+        message: 'Lisinopril, una pastilla al día.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+
+      {
+        actionId: 102,
+        actionName: 'medication',
+        message: 'Sí, a veces tomo paracetamol .',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+
+      {
+        actionId: 103,
+        actionName: 'place',
+        message: 'Sí, estoy en medio de la calle.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 104,
+        actionName: 'place',
+        message: 'Sí, fuera de la carretera entre unos arbustos.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 105,
+        actionName: 'place',
+        message: 'Sí, en la obra en la que estoy trabajando.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 106,
+        actionName: 'place',
+        message: 'Sí, en casa.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+
+      {
+        actionId: 107,
+        actionName: 'place',
+        message: 'Sí, estoy en medio de la calle.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 108,
+        actionName: 'happen',
+        message: 'Estaba esperando en un semáforo en rojo y he sentido un fuerte golpe detrás y me he visto en el suelo. He visto un coche salir acelerando.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 109,
+        actionName: 'happen',
+        message: 'Estaba circulando y de repente un coche me dio en el lateral del coche y ya no recuerdo nada hasta verme entre medio de estos arbustos fuera de la carretera.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 110,
+        actionName: 'happen',
+        message: 'Estaba trabajando cuando me he tropezado yo solo y me he caído del andamio. No recuerdo el impacto pero sí cómo me he caído.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 111,
+        actionName: 'happen',
+        message: 'Iba a cruzar la calle y esa bicicleta me ha atropellado, me he caído al suelo y me he pegado un buen golpe, tanto que no me puedo levantar.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+
+      {
+        actionId: 112,
+        actionName: 'happen',
+        message: 'Estaba esperando en un semáforo en rojo y he sentido un fuerte golpe detrás y me he visto en el suelo. He visto un coche salir acelerando.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 113,
+        actionName: 'pain',
+        message: 'Me duele mucho la ingle. En cuanto intento mover una pierna me duele. ',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 114,
+        actionName: 'pain',
+        message: 'Me duele mucho en cuanto intento mover la pierna derecha. ',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 115,
+        actionName: 'pain',
+        message: 'Me duele mucho en cuanto intento mover cualquiera de las dos piernas.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 116,
+        actionName: 'pain',
+        message: 'Me duele mucho en la ingle. ',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+
+      {
+        actionId: 117,
+        actionName: 'pain',
+        message: 'Me duele mucho la ingle. En cuanto intento mover una pierna me duele. ',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+
+      {
+        actionId: 118,
+        actionName: 'breathe',
+        message: 'No, me duele mucho la ingle.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1 
+      },
+
+      {
+        actionId: 119,
+        actionName: 'breathe',
+        message: 'No, no me cuesta respirar pero me noto muy nervioso y como si el corazón se me saliera del pecho.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 120,
+        actionName: 'breathe',
+        message: 'No, no me cuesta respirar pero me noto como si estuviera un poco confundido.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 121,
+        actionName: 'breathe',
+        message: 'No, no me cuesta respirar aunque cuando me dan pinchazos de dolor me cuesta respirar.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+      {
+        actionId: 122,
+        actionName: 'breathe',
+        message: 'No, me duele mucho la ingle.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1 
+      },
+
+      {
+        actionId: 123,
+        actionName: 'movement',
+        message: 'Mueve ambos pies',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 25,
+        time: 1
+      },
+
+      {
+        actionId: 124,
+        actionName: 'movement',
+        message: 'Aunque me cueste, creo que puedo mover los dedos de la pierna derecha. ',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 33,
+        time: 1
+      },
+
+      {
+        actionId: 125,
+        actionName: 'movement',
+        message: 'Puedo moverme aunque me duele muchísimo y hacia afuera me cuesta mucho también.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 50,
+        time: 1
+      },
+
+      {
+        actionId: 126,
+        actionName: 'movement',
+        message: 'Puedo moverme, aunque me duele muchísimo y sobretodo la pierna izquierda que no puedo apenas moverla.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: 82,
+        time: 1
+      },
+      {
+        actionId: 127,
+        actionName: 'movement',
+        message: 'Mueve ambos pies',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 128,
+        actionName: 'feel',
+        message: 'Sí, te siento',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 129,
+        actionName: 'mecanicventilation',
+        message: 'Paciente conectado a ventilación mecánica.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 130,
+        actionName: 'clothes',
+        message: 'Ropa retirada.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 131,
+        actionName: 'massivetransfusion',
+        message: 'Transfusión de sangre realizada.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
+        time: 1
+      },
+
+      {
+        actionId: 132,
+        actionName: 'interconsultations',
+        message: 'Consulta a otra especialidad solicitada.',
+        photo: false,
+        bloodLossMin: -1,
+        bloodLossMax: -1,
+        sistolicPressureMin: -1,
+        sistolicPressureMax: -1,
+        diastolicPressureMin: -1,
+        diastolicPressureMax: -1,
+        heartRateMin: -1,
+        heartRateMax: -1,
+        breathingRateMin: -1,
+        breathingRateMax: -1,
+        urineOutputMin: -1,
+        urineOutputMax: -1,
+        saturationMin: -1,
+        saturationMax: -1,
+        temperatureMin: -1,
+        temperatureMax: -1,
+        partBody: '-1',
+        mentalStatus: '-1',
+        age: -1,
         time: 1
       }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       
 
 
@@ -2088,10 +3626,48 @@ module.exports = {
 
 
 
-      
 
-      
-    ] );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ]);
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
