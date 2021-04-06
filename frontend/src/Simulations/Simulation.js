@@ -625,18 +625,18 @@ export default class LoginForm extends Component {
               var nTimes = 0
               for(var i = 0; i<(eval(element.parameter+"Actions.length")); i++){
                 if(eval(element.parameter+"Actions[i].finalTime") < finalTime){
-                  element.parameter = eval(element.parameter+"Actions[i].value")
-                  this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime")) - currentTime)
+                  //element.parameter = eval(element.parameter+"Actions[i].value")
+                  this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime - "+currentTime)))
                   eval(element.parameter+"N -= 1")
                   if(eval(element.parameter+"N === 0")){ 
                     this.unBlockChangeValue.bind(this,element.parameter, element.finalValue)
                     this.normalTransition(element.parameter, eval(element.parameter+"Actions[i].finalTime"), finalTime)
-                    eval(element.parameter+"Actions.splice(0, "+parameter+"Actions.length")
+                    eval(element.parameter+"Actions.splice(0, "+element.parameter+"Actions.length -1)")
                   }
                   else{
                     eval(element.parameter+"Actions.splice(0,1);")
                     i -= 1 // al eliminar una acción, se mueve el array y hay que volver a recorrer esa posición
-                    eval(element.parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
+                    eval(element.parameter+"Actions.sort((a, b) => a.finalTime - b.finalTime);")
                   }
                 } else{
                   this.addConstant(element.parameter,  finalTime - currentTime)
@@ -650,7 +650,7 @@ export default class LoginForm extends Component {
               }
               eval(element.parameter+"Value = valueTot")
               if(eval(element.parameter+"N !== 0")){eval(element.parameter+"V = "+element.parameter+"Value")}
-              eval(element.parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
+              eval(element.parameter+"Actions.sort((a, b) => a.finalTime - b.finalTime);")
               nTimes= 0
               constants.push(element.parameter)
             }
@@ -815,16 +815,19 @@ export default class LoginForm extends Component {
   
 
     simultaneousActions(parameter, duration, tFin, value, finalValue, type){
+      valueTot = 0
       switch (type){
+        
         //Añadir al array de acciones simultáneas de una constante
         case 1:
-          eval(parameter+"Actions.push({'parameter': "+parameter+" , 'duration' : "+duration+", 'finalTime': "+tFin+",'value' : "+value+", 'finalValue': "+finalValue+"});")
+          let obj = {'parameter': parameter, 'duration' : duration, 'finalTime': tFin,'value' : value, 'finalValue': finalValue}
+          eval(parameter+"Actions.push(obj);")
           for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
             valueTot += eval(parameter+"Actions[i].value")
           }
           eval(parameter+"Value = valueTot")
-          eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
-          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
+          eval(parameter+"Actions.sort((a, b) => a.finalTime-b.finalTime);")
+          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           break; 
         //Eliminar acciones del array de acciones de una constante vital        
         case 0: 
@@ -836,12 +839,12 @@ export default class LoginForm extends Component {
               valueTot += eval(parameter+"Actions[i].value")
             }
             eval(parameter+"Value = valueTot")
-            eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
-            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
+            eval(parameter+"Actions.sort((a, b) => a.finalTime -b.finalTime);")
+            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           }
           else{
             eval(parameter+"Block = false")
-            eval(parameter+"Actions.splice(0, "+parameter+"Actions.length")
+            eval(parameter+"Actions.splice(0, "+parameter+"Actions.length-1)")
           }
           break;
         // Cuando una acción tiene dos valores, se cambia de valor en la funcion unblock y se modifica
@@ -854,8 +857,8 @@ export default class LoginForm extends Component {
             valueTot += eval(parameter+"Actions[i].value")
           }
           eval(parameter+"Value = valueTot")
-          eval(parameter+"Actions.sort((a.finalTime, b.finalTime) => a-b);")
-          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+".Actions[0].parameter, "+parameter+".Actions[0].finalValue), ("+parameter+".Actions[0].duration)*1000)")
+          eval(parameter+"Actions.sort((a, b) => a.finalTime-b.finalTime);")
+          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           break;
         }    
     }
