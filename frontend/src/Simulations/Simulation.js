@@ -816,14 +816,29 @@ export default class LoginForm extends Component {
 
     simultaneousActions(parameter, duration, tFin, value, finalValue, type){
       valueTot = 0
+      var factor = 1
       switch (type){
         
         //Añadir al array de acciones simultáneas de una constante
         case 1:
+        
           let obj = {'parameter': parameter, 'duration' : duration, 'finalTime': tFin,'value' : value, 'finalValue': finalValue}
           eval(parameter+"Actions.push(obj);")
           for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+            if(eval(parameter+"Actions[i].value")=== 0){ 
+              valueTot = 0
+              break;
+            }
+            else if (eval(parameter+"Actions[i].finalValue") ===0) {
+              valueTot = eval(parameter+"Actions[i].value")
+              break;
+            }
+            else if (eval(parameter+"Actions[i].finalValue") !== 0 && eval(parameter+"Actions[i].finalValue") !== -1 && eval(parameter+"Actions[i].value")!== 0) {
+              valueTot -= eval(parameter+"Actions[i].value")
+              factor = eval(parameter+"Actions[i].value")
+            }
             valueTot += eval(parameter+"Actions[i].value")
+            valueTot = valueTot* factor
           }
           eval(parameter+"Value = valueTot")
           eval(parameter+"Actions.sort((a, b) => a.finalTime-b.finalTime);")
@@ -887,8 +902,8 @@ export default class LoginForm extends Component {
         //sube hasta value[valor concreto] en x [segundos]  y se mantiene
         // meto el caso 6 aquí puesto que suponemos al final que la ventilación con bolsa se mantiene fija
         case 2:
+          initialValue = (value - eval("this.state."+parameter))/duration*60
           if((eval(parameter + "N")) === 0) {
-            initialValue = (value - eval("this.state."+parameter))/duration*60
             this.blockChangeValue(parameter, duration, initialValue, 0)
             eval(parameter + "N += 1")
             this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), initialValue, 0, 1)
@@ -916,8 +931,20 @@ export default class LoginForm extends Component {
       //Acelera (o Ralentiza si es un número menor que cero) la subida o bajada de un parameter
       //value multiplica al valor actual de subida o bajada
         case 5:
-          initialValue = value * eval(parameter+"Value")
-          this.blockChangeValue(parameter, duration, initialValue, initialValue)
+          if((eval(parameter + "N")) === 0) {
+            initialValue = value * eval(parameter+"Value")
+            this.blockChangeValue(parameter, duration, initialValue, initialValue)
+            eval(parameter + "N += 1")
+            duration = 1800
+            eval(parameter + "FinalTime = this.state.timeSim + duration")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, initialValue, 1)
+          }
+          else{
+            eval(parameter + "N += 1")
+            duration = 1800
+            eval(parameter + "FinalTime = this.state.timeSim + duration")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, initialValue, 1)
+          }
           break;
         //sube o baja value[puntos/min] en tiempo [segundos] y se mantiene
         case 6:
