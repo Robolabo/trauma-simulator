@@ -90,6 +90,12 @@ var sistolicPressureAactions = []
 var saturationActions = []
 var valueTot = 0
 
+var heartRateFactorMultiplicativo = 1
+var saturationFactorMultiplicativo = 1
+var breathingRateFactorMultiplicativo = 1
+var sistolicPressureFactorMultiplicativo = 1
+var diastolicPressureFactorMultiplicativo = 1
+
 
 export default class LoginForm extends Component {
     constructor(props){
@@ -189,32 +195,32 @@ export default class LoginForm extends Component {
     intervalConstants(){
       //Curva de los 30 minutos si no se pulsa ninguna acción
       if (this.state.timeSim <=300 ) {
-        heartRateValue = heartRateBlock ? heartRateValue : 2
-        breathingRateValue = breathingRateBlock ? breathingRateValue : 0.8
-        saturationValue = saturationBlock ? saturationValue : -0.4
-        sistolicPressureValue = sistolicPressureBlock ? sistolicPressureValue : -1.5
-        diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue : -1.5
+        heartRateValue = heartRateBlock ? heartRateValue : (2 * heartRateFactorMultiplicativo)
+        breathingRateValue = breathingRateBlock ? breathingRateValue : (0.8 * breathingRateFactorMultiplicativo)
+        saturationValue = saturationBlock ? saturationValue : (-0.4 * saturationFactorMultiplicativo)
+        sistolicPressureValue = sistolicPressureBlock ? sistolicPressureValue : (-1.5 * sistolicPressureFactorMultiplicativo)
+        diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue : (-1.5 * diastolicPressureFactorMultiplicativo)
       }
       if (this.state.timeSim > 300 && this.state.timeSim <=900 ) {
-        heartRateValue = heartRateBlock ? heartRateValue : 1.5
-        breathingRateValue = breathingRateBlock ? breathingRateValue : 1.1
-        saturationValue = saturationBlock ? saturationValue : -0.6
-        sistolicPressureValue = sistolicPressureBlock ? sistolicPressureValue : -2.3
-        diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue : -1.6
+        heartRateValue = heartRateBlock ? heartRateValue : (1.5 * heartRateFactorMultiplicativo)
+        breathingRateValue = breathingRateBlock ? breathingRateValue : (1.1 * breathingRateFactorMultiplicativo)
+        saturationValue = saturationBlock ? saturationValue : (-0.6 * saturationFactorMultiplicativo)
+        sistolicPressureValue = sistolicPressureBlock ? sistolicPressureValue : (-2.3 * sistolicPressureFactorMultiplicativo)
+        diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue : (-1.6 * diastolicPressureFactorMultiplicativo)
       }
       if (this.state.timeSim > 900 && this.state.timeSim <= 1320) {
-        heartRateValue = heartRateBlock ? heartRateValue : -2.0
-        breathingRateValue = breathingRateBlock ? breathingRateValue : -3.71
-        saturationValue = saturationBlock ? saturationValue : -0.7
-        sistolicPressureValue = sistolicPressureBlock ? sistolicPressureValue : -5.0
-        diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue : -1.86
+        heartRateValue = heartRateBlock ? heartRateValue : (-2.0 * heartRateFactorMultiplicativo)
+        breathingRateValue = breathingRateBlock ? breathingRateValue : (-3.71 * breathingRateFactorMultiplicativo)
+        saturationValue = saturationBlock ? saturationValue : (-0.7 * saturationFactorMultiplicativo)
+        sistolicPressureValue = sistolicPressureBlock ? sistolicPressureValue : (-5.0 * sistolicPressureFactorMultiplicativo)
+        diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue : (-1.86 * diastolicPressureFactorMultiplicativo)
       }
       if (this.state.timeSim > 1320) {
-        heartRateValue = heartRateBlock ? heartRateValue : -7.255
-        breathingRateValue = breathingRateBlock ? breathingRateValue : -0.75
-        saturationValue = saturationBlock ? saturationValue : -0.5
-        sistolicPressureValue = sistolicPressureBlock ? sistolicPressureValue : -1.75
-        diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue  : -1.25
+        heartRateValue = heartRateBlock ? heartRateValue : (-7.255 * heartRateFactorMultiplicativo)
+        breathingRateValue = breathingRateBlock ? breathingRateValue : (-0.75  * breathingRateFactorMultiplicativo)
+        saturationValue = saturationBlock ? saturationValue : (-0.5 * saturationFactorMultiplicativo)
+        sistolicPressureValue = sistolicPressureBlock ? sistolicPressureValue : (-1.75 * sistolicPressureFactorMultiplicativo)
+        diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue  : (-1.25 * diastolicPressureFactorMultiplicativo)
       }
       // Se obtiene el valor actual de cada constante y se le suma la variación.
         let HR = this.state.heartRate + (heartRateValue/60)
@@ -248,32 +254,32 @@ export default class LoginForm extends Component {
     transitionValues(interval){
       switch(interval){
         case 1:
-          heartRateValue = 2
-          breathingRateValue = 0.8
-          saturationValue = -0.4
-          sistolicPressureValue = -1.5
-          diastolicPressureValue = -1.5
+          heartRateValue = 2 * heartRateFactorMultiplicativo
+          breathingRateValue = 0.8  * breathingRateFactorMultiplicativo
+          saturationValue = -0.4 * saturationFactorMultiplicativo
+          sistolicPressureValue = -1.5 * sistolicPressureFactorMultiplicativo
+          diastolicPressureValue = -1.5 * diastolicPressureFactorMultiplicativo
           break;
         case 2:
-          heartRateValue = 1.5
-          diastolicPressureValue = -1.6
-          breathingRateValue = 1.1
-          saturationValue = -0.6
-          sistolicPressureValue = -2.3
+          heartRateValue = 1.5 * heartRateFactorMultiplicativo
+          diastolicPressureValue = -1.6 * diastolicPressureFactorMultiplicativo
+          breathingRateValue = 1.1  * breathingRateFactorMultiplicativo
+          saturationValue = -0.6 * saturationFactorMultiplicativo
+          sistolicPressureValue = -2.3 * sistolicPressureFactorMultiplicativo
           break;
         case 3:
-          heartRateValue = -2
-          diastolicPressureValue = -1.86
-          breathingRateValue = -3.71
-          saturationValue = -0.7
-          sistolicPressureValue = -5
+          heartRateValue = -2 * heartRateFactorMultiplicativo
+          diastolicPressureValue = -1.86 * diastolicPressureFactorMultiplicativo
+          breathingRateValue = -3.71  * breathingRateFactorMultiplicativo
+          saturationValue = -0.7 * saturationFactorMultiplicativo
+          sistolicPressureValue = -5 * sistolicPressureFactorMultiplicativo
           break;
         case 4:
-          heartRateValue= -7.225
-          diastolicPressureValue = -1.25
-          breathingRateValue = -0.75
-          saturationValue = -0.5
-          sistolicPressureValue = -1.75
+          heartRateValue= -7.225 * heartRateFactorMultiplicativo
+          diastolicPressureValue = -1.25 * diastolicPressureFactorMultiplicativo
+          breathingRateValue = -0.75  * breathingRateFactorMultiplicativo
+          saturationValue = -0.5 * saturationFactorMultiplicativo
+          sistolicPressureValue = -1.75 * sistolicPressureFactorMultiplicativo
           break;
         default:
           break;
@@ -851,7 +857,16 @@ export default class LoginForm extends Component {
           if(eval(parameter + "N") > 0){
             eval(parameter+"Block = true")
             for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+              if(eval(parameter + "N") === 1 && eval(parameter+"Actions[i].finalValue") !== 0 && eval(parameter+"Actions[i].finalValue") !== -1 && eval(parameter+"Actions[i].value")!== 0 ){
+                eval(parameter+"Block = false")
+                break;
+              }
+              if (eval(parameter+"Actions[i].finalValue") !== 0 && eval(parameter+"Actions[i].finalValue") !== -1 && eval(parameter+"Actions[i].value")!== 0) {
+                valueTot -= eval(parameter+"Actions[i].value")
+                factor = eval(parameter+"Actions[i].value")
+              }
               valueTot += eval(parameter+"Actions[i].value")
+              valueTot = valueTot* factor
             }
             eval(parameter+"Value = valueTot")
             eval(parameter+"Actions.sort((a, b) => a.finalTime -b.finalTime);")
@@ -932,17 +947,19 @@ export default class LoginForm extends Component {
       //value multiplica al valor actual de subida o bajada
         case 5:
           if((eval(parameter + "N")) === 0) {
-            initialValue = value * eval(parameter+"Value")
+            /*initialValue = value * eval(parameter+"Value")
             this.blockChangeValue(parameter, duration, initialValue, initialValue)
-            eval(parameter + "N += 1")
             duration = 1800
             eval(parameter + "FinalTime = this.state.timeSim + duration")
-            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, initialValue, 1)
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, initialValue, 1)*/
+            eval(parameter + "N += 1")
+            eval(parameter + "FactorMultiplicativo *= value")
           }
           else{
             eval(parameter + "N += 1")
             duration = 1800
             eval(parameter + "FinalTime = this.state.timeSim + duration")
+            eval(parameter + "FactorMultiplicativo *= value")
             this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, initialValue, 1)
           }
           break;
