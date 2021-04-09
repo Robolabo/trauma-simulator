@@ -11,21 +11,31 @@ class RegisterForm extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            //campName: "",
+            //campSurname:"",
+            //campPassword:"",
+            //campConfirm:"",
+            //campEmail:"",
+            //campWorkplace:"",
+            //selectRole:0,
+            //trainer: true,
+            //trainee: false
+            trainer: false,
+            trainee: true,
             campName: "",
             campSurname:"",
             campPassword:"",
             campConfirm:"",
             campEmail:"",
             campWorkplace:"",
-            selectRole:0,
-            trainer: true,
-            trainee: false
+            selectRole:0
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toogleTrainer = this.toogleTrainer.bind(this);
         this.toogleTrainee = this.toogleTrainee.bind(this);
+        
     }
     
     handleInputChange(event) {
@@ -126,11 +136,12 @@ class RegisterForm extends React.Component {
             campWorkplace:"",
             selectRole:0
           });
-
+          
           var tab_trainer = document.getElementById("trainer-tab")
           var tab_trainee = document.getElementById("trainee-tab")
           tab_trainee.className= "nav-link active"
           tab_trainer.className="nav-link"
+          
     }
 
     render() {
@@ -145,9 +156,9 @@ class RegisterForm extends React.Component {
                     </div>
                     <div className="col-md-9 register-right">
                         <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                            <li className="nav-item">
+                            {/*<li className="nav-item">
                                 <Link className="nav-link active" id="trainer-tab" data-toggle="tab" to="#" role="tab" aria-controls="home" aria-selected="false" onClick={this.toogleTrainer}>{t('list-simulation.trainer')}</Link>
-                            </li>
+        </li>*/}
                             <li className="nav-item">
                                 <Link className="nav-link" id="trainee-tab" data-toggle="tab"  to="#" role="tab" aria-controls="profile" aria-selected="false" onClick={this.toogleTrainee}>{t('list-simulation.trainee')}</Link>
                             </li>

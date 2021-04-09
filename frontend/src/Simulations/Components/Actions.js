@@ -435,12 +435,8 @@ class Actions extends Component {
         this.setState({
             cleanClicked:true
         });
-        this.props.change("heartRate", -0.5, 10, 1, 10)
-        this.props.change("bloodLoss", 0.5, 0, 1)
-        this.props.change("bloodPressure", 0.5, 0, 1)
-        this.props.change("breathingRate", -0.5, 0, 1)
-        //this.props.change("urineOutput", -0.5, 0, 1)
-        this.props.change("saturation", 0.5, 0, 1)
+        
+        this.props.change("saturation", 120,0,1,10)
         this.getMsg("info","clean")
         setTimeout(() => {
             this.props.send("success","La vía aéra se encuentra limpia.")
@@ -485,12 +481,9 @@ class Actions extends Component {
             tourniquetClicked:true
         });
 
-        this.props.change("heartRate", 0.5)
-        this.props.change("bloodLoss", -0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        //this.props.change("urineOutput", -0.5) 
-        //this.props.change("saturation", 0.5)
+        
+        this.props.change("diastolicPressure", -0.8,300,3,15)
+        this.props.change("sistolicPressure", -0.8,300,3,15)
         this.getMsg("info","tourniquet")
         this.fillInformation("Torniquete")
 
@@ -527,12 +520,9 @@ class Actions extends Component {
         this.setState({
             nasalglassesClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        //this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+       
+        this.props.change("breathingRate", -1.5,120,1,10)
+        this.props.change("saturation", 2.5,120,6,10)
         this.getMsg("info","nasalglasses")
         this.fillInformation("Oxigenoterapia con gafas nasales")
 
@@ -551,12 +541,8 @@ class Actions extends Component {
         this.setState({
             ventilationClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.8)
+        
+        this.props.change("saturation", 100,40,2,10)
         this.getMsg("info","ventilation")
         this.fillInformation("Ventilación con bolsa autoinflable")
 
@@ -575,12 +561,7 @@ class Actions extends Component {
         this.setState({
             thoracentesisClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+       
         this.getMsg("info","thoracentesis")
         this.fillInformation("Toracocentesis con aguja")
 
@@ -590,12 +571,7 @@ class Actions extends Component {
         this.setState({
             chestdrainageClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+       
         this.getMsg("info","chestdrainage")
         this.fillInformation("Drenaje torácico")
     }
@@ -628,12 +604,7 @@ class Actions extends Component {
         this.setState({
             venousClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
         this.getMsg("info","venous")
         this.fillInformation("Gasometría venosa")
     }
@@ -642,12 +613,7 @@ class Actions extends Component {
         this.setState({
             arterialClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
         this.getMsg("info","arterial")
         this.fillInformation("Gasometría arterial")
     }
@@ -664,12 +630,9 @@ class Actions extends Component {
         this.setState({
             pressureClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
+        this.props.change("diastolicPressure", -0.8,180,3,0)
+        this.props.change("sistolicPressure", -0.8,180,3,0)
         this.getMsg("info","pressure")
         this.fillInformation("Presión directa")
     }
@@ -678,12 +641,9 @@ class Actions extends Component {
         this.setState({
             hemostaticClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
+        this.props.change("diastolicPressure", -0.8,180,3,10)
+        this.props.change("sistolicPressure", -0.8,180,3,10)
         this.getMsg("info","hemostatic")
         this.fillInformation("Agente hemostático")
     }
@@ -692,12 +652,7 @@ class Actions extends Component {
         this.setState({
             vvpClicked:true
         });
-        //this.props.change("heartRate", -0.5)
-        //this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+       
         this.getMsg("info","vvp")
         this.fillInformation("Canalización VVP")
     }
@@ -706,12 +661,7 @@ class Actions extends Component {
         this.setState({
             ioClicked:true
         });
-        //this.props.change("heartRate", -0.5)
-        //this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
         this.getMsg("info","io")
         this.fillInformation("Canalización IO")
     }
@@ -729,12 +679,7 @@ class Actions extends Component {
         this.setState({
             derivationsClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
         this.getMsg("info","derivations")
         this.fillInformation("6 Derivaciones")
     }
@@ -743,12 +688,7 @@ class Actions extends Component {
         this.setState({
             ECGderivationsClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
         this.getMsg("info","ECGderivations")
         this.fillInformation("ECG 12 Derivaciones")
     }
@@ -788,12 +728,7 @@ class Actions extends Component {
         this.setState({
             bladderClicked:true
         });
-        //this.props.change("heartRate", -0.5)
-        //this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        //this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
         
         this.getMsg("info","bladder")
         this.fillInformation("Sondaje vesical")
@@ -803,12 +738,7 @@ class Actions extends Component {
         this.setState({
             nasogastricClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
         this.getMsg("info","nasogastric")
         this.fillInformation("Sondaje nasogástrico")
     }
@@ -817,12 +747,8 @@ class Actions extends Component {
         this.setState({
             SIRClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5) 
-        this.props.change("saturation", 0.5)
+        
+        //this.props.change("saturation", -0.1,ACCION,4,30) ¿?????????? 
         this.getMsg("info","SIR")
         this.fillInformation("SIR")
     }
@@ -831,8 +757,7 @@ class Actions extends Component {
         this.setState({
             fentaniloClicked:true
         });
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
+        
         this.getMsg("info","fentanilo")
         this.fillInformation("Fentanilo 50mcg IV")
     }
@@ -841,8 +766,8 @@ class Actions extends Component {
         this.setState({
             midazolamClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
+        
+        this.props.change("saturation",-3,60,1,20)
         this.getMsg("info","midazolam")
         this.fillInformation("Midazolam 2mg IV")
     }
@@ -851,8 +776,7 @@ class Actions extends Component {
         this.setState({
             tranexamicoClicked:true
         });
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
+        
         this.getMsg("info","tranexamico")
         this.fillInformation("Ácido Tranexámico 1g IV")
     }
@@ -861,8 +785,9 @@ class Actions extends Component {
         this.setState({
             noradrenalinaClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
+        
+        this.props.change("diastolicPressure", 65,20,2,45)
+        this.props.change("sistolicPressure", 110,20,2,45)
         this.getMsg("info","noradrenalina")
         this.fillInformation("Noradrenalina IV")
     }
@@ -871,7 +796,8 @@ class Actions extends Component {
         this.setState({
             SSFClicked:true
         });
-        
+        this.props.change("diastolicPressure", 0.25,1200,1,20)
+        this.props.change("sistolicPressure", 0.65,1200,1,20)
         this.getMsg("info","SSF")
         this.fillInformation("SSF 20ml/kg en 10 minutos")
     }
@@ -889,8 +815,9 @@ class Actions extends Component {
         this.setState({
             voluvenClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
+        
+        this.props.change("diastolicPressure", 0.7693,780,1,20)
+        this.props.change("sistolicPressure", 1.1539,780,1,20)
         this.getMsg("info","voluven")
         this.fillInformation("Voluven 250ml IV")
     }
@@ -1027,7 +954,8 @@ class Actions extends Component {
         this.setState({
             mecanicventilationClicked:true
         });
-        
+        this.props.change("breathingRate",12,30,2,20)
+        this.props.change("saturation",100,30,2,20)
         this.getMsg("info","mecanicventilation")
         this.fillInformation("Conexión a ventilación mecánica")
     }
@@ -1046,7 +974,8 @@ class Actions extends Component {
         this.setState({
             massivetransfusionClicked:true
         });
-        
+        this.props.change("diastolicPressure", 1.6,300,1,20)
+        this.props.change("sistolicPressure", 3,300,1,20)
         this.getMsg("info","massivetransfusion")
         this.fillInformation("Protocolo de transfusión masiva")
     }
@@ -1063,10 +992,13 @@ class Actions extends Component {
 
 
     oxygenate() {
+        
         this.setState({
             oxygenateClicked:true
         });
-        this.props.change("saturation", 0.5, 0, 1)
+        this.props.change("breathingRate", -10,30,1,10)
+        this.props.change("saturation", 96,30,2,10)
+        console.log(this.avatar)
         this.getMsg("info","oxygenate")
         switch(this.avatar) {
             case naked:
@@ -1275,6 +1207,7 @@ class Actions extends Component {
         this.setState({
             intubateClicked:true
         });
+        
         this.getMsg("info","intubate")
         this.props.change("heartRate", -0.5, 0, 1)
         this.props.change("bloodLoss", -0., 0, 1)
@@ -1310,12 +1243,9 @@ class Actions extends Component {
         this.setState({
             pelvic_beltClicked:true
         });
-        this.props.change("heartRate", -0.5, 0, 1)
-        this.props.change("bloodLoss", 0.5, 0, 1)
-        this.props.change("bloodPressure", 0.5, 0, 1)
-        //this.props.change("breathingRate", 0)
-        //this.props.change("urineOutput", 0)
-        this.props.change("saturation", 0.5, 0, 1)
+        
+        this.props.change("diastolicPressure", 0.5,0,5,50)
+        this.props.change("sistolicPressure", 0.5,0,5,50)
         this.getMsg("info","belt")
         this.fillInformation("Cinturón pélvico")
 
@@ -1673,7 +1603,7 @@ voluven() {
         return (
             <div className="actions">
                 
-                <img className="avatar" alt="avatar" src={this.avatar} height="190px" width="485px" />
+                <img className="avatar" alt="avatar" src={this.avatar} height="189px" width="485px" margin-top="0px" />
 
                 <div className="timer">
                     {!this.props.start 
@@ -1765,7 +1695,7 @@ voluven() {
 
                 {this.props.phase === "hospitalaria" ?
 
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'20px'}}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'10px'}}>
                     
                     <Button className={this.state.posicionClicked?"clicked":null} onClick={() => { this.handleChange(4) }}>Exposición/Otros</Button>&nbsp;
                     <Button className={this.state.farmacosClicked?"clicked":null} onClick={() => { this.handleChange(5) }}>Fármacos y fluidoterapia</Button>&nbsp;
@@ -1778,7 +1708,7 @@ voluven() {
                 
                  
 
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'20px'}}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'10px'}}>
                     <Button className={this.state.posicion2Clicked?"clicked":null} onClick={() => { this.handleChange(11) }}>Exposición/Otros</Button>&nbsp;
                     <Button className={this.state.farmacos2Clicked?"clicked":null} onClick={() => { this.handleChange(12) }}>Fármacos y fluidoterapia</Button>&nbsp;
                     {/*<Button className={this.state.pruebas2Clicked?"clicked":null} onClick={() => { this.handleChange(13) }}>Pruebas Complementarias</Button>&nbsp;*/}
