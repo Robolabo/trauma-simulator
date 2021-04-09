@@ -628,38 +628,169 @@ export default class LoginForm extends Component {
               }
               constants.push(element.parameter)
             } else {
+              clearTimeout(eval("this."+element.parameter+"Timer"))
               var nTimes = 0
+              var timeAction = currentTime
+              valueTot = 0
               for(var i = 0; i<(eval(element.parameter+"Actions.length")); i++){
                 if(eval(element.parameter+"Actions[i].finalTime") < finalTime){
                   //element.parameter = eval(element.parameter+"Actions[i].value")
-                  this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime - "+currentTime)))
-                  eval(element.parameter+"N -= 1")
-                  if(eval(element.parameter+"N === 0")){ 
-                    this.unBlockChangeValue.bind(this,element.parameter, element.finalValue)
-                    this.normalTransition(element.parameter, eval(element.parameter+"Actions[i].finalTime"), finalTime)
-                    eval(element.parameter+"Actions.splice(0, "+element.parameter+"Actions.length -1)")
+                  if(eval(element.parameter+"Actions[i].value") === 0){ 
+                    valueTot = 1
+                    this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime - "+timeAction)))
+                    eval(element.parameter+"Actions[i].duration = 1800")
+                    eval(element.parameter+"Actions[i].finalTime = 1800")
+                    this.addConstant(element.parameter,  finalTime - currentTime)
+                    eval(element.parameter+"Actions[i].value ="+element.parameter+"Actions[i].finalValue")
+                    if(i<(eval(element.parameter+"Actions.length +1"))){
+                      for(i = i+1 ; i<(eval(element.parameter+"Actions.length")); i++){
+                        if (eval(element.parameter+"Actions[i].value") === 0) {
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                        else if(eval(element.parameter+"Actions[i].finalValue") === 0){
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                        else if (eval(element.parameter+"Actions[i].finalValue === -1")){
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                      }
+                    }
+                    else if(i!=0){
+                      for(i = i-1 ; i<(eval(element.parameter+"Actions.length")); i++){
+                        eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                      }
+                    }
+                    break;
                   }
-                  else{
-                    eval(element.parameter+"Actions.splice(0,1);")
-                    i -= 1 // al eliminar una acción, se mueve el array y hay que volver a recorrer esa posición
-                    eval(element.parameter+"Actions.sort((a, b) => a.finalTime - b.finalTime);")
+                  else if (eval(element.parameter+"Actions[i].finalValue") === 0) {
+                    valueTot = 2
+                    this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime - "+timeAction)))
+                    eval(element.parameter+"Actions[i].duration = 1800")
+                    eval(element.parameter+"Actions[i].finalTime = 1800")
+                    eval(element.parameter+"Actions[i].value = 0")
+                    if(i<(eval(element.parameter+"Actions.length +1"))){
+                      for(i = i+1 ; i<(eval(element.parameter+"Actions.length")); i++){
+                        if(eval(element.parameter+"Actions[i].finalValue") === 0){
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                        else if (eval(element.parameter+"Actions[i].finalValue === -1")){
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                      }
+                    }
+                    else if(i!=0){
+                      for(i = i-1 ; i<(eval(element.parameter+"Actions.length")); i++){
+                        eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                      }
+                    }
+                    break;
                   }
-                } else{
-                  this.addConstant(element.parameter,  finalTime - currentTime)
-                  nTimes = 0
-                  if(nTimes === 0){eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[i].finalValue) , ((("+element.parameter+"Actions[i].finalTime) - finalTime) * 1000))")}
-                  nTimes += 1
+                  else if (eval(element.parameter+"Actions[i].finalValue === -1")){
+                    this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime - "+timeAction)))
+                    eval(element.parameter+"N -= 1")
+                    if(eval(element.parameter+"N === 0")){ 
+                      this.unBlockChangeValue.bind(this,element.parameter, element.finalValue)
+                      eval(element.parameter+"N += 1")
+                      eval(element.parameter+"Block = false")
+                      this.normalTransition(element.parameter, eval(element.parameter+"Actions[i].finalTime"), finalTime)
+                      eval(element.parameter+"Actions.splice(0, "+element.parameter+"Actions.length)")
+                    }
+                    else{
+                      eval(element.parameter+"Value -= "+element.parameter+"Actions[0].value")
+                      timeAction = eval(element.parameter+"Actions[0].finalTime")
+                      eval(element.parameter+"Actions.splice(0,1);")
+                      i -= 1 // al eliminar una acción, se mueve el array y hay que volver a recorrer esa posición
+                      eval(element.parameter+"Actions.sort((a, b) => a.finalTime - b.finalTime);")
+                    }
+                  }
+                } else {
+                  if (eval(element.parameter+"Actions[i].value") === 0){ 
+                    valueTot = 1
+                    this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime - "+timeAction)))
+                    if(i<(eval(element.parameter+"Actions.length +1"))){
+                      for(i = i+1 ; i<(eval(element.parameter+"Actions.length")); i++){
+                        if (eval(element.parameter+"Actions[i].value") === 0) {
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                        else if(eval(element.parameter+"Actions[i].finalValue") === 0){
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                        else if (eval(element.parameter+"Actions[i].finalValue === -1")){
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                      }
+                    }
+                    else if(i!=0){
+                      for(i = i-1 ; i<(eval(element.parameter+"Actions.length")); i++){
+                        eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                      }
+                    }
+                    eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[i].finalValue) , ((("+element.parameter+"Actions[i].finalTime) - finalTime) * 1000))") 
+                    break;
+                  }
+                  else if (eval(element.parameter+"Actions[i].finalValue") === 0) {
+                    valueTot = 2
+                    this.addConstant(element.parameter,  finalTime - currentTime)
+                    if(i<(eval(element.parameter+"Actions.length + 1"))){
+                      for(i = i+1 ; i<(eval(element.parameter+"Actions.length")); i++){
+                        if(eval(element.parameter+"Actions[i].finalValue") === 0){
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                        else if (eval(element.parameter+"Actions[i].finalValue === -1")){
+                          eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                        }
+                      }
+                    }
+                    else if(i!=0){
+                      for(i = i-1 ; i<(eval(element.parameter+"Actions.length")); i++){
+                        eval(element.parameter+"Actions.splice(i,1);")
+                          eval(element.parameter+"N -= 1")
+                      }
+                    eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[i].finalValue) , ((("+element.parameter+"Actions[i].finalTime) - finalTime) * 1000))") 
+                  }
+                  else if (eval(element.parameter+"Actions[i].finalValue === -1")){
+                    if (eval(element.parameter+"Actions[i].finalValue") !== 0 && eval(element.parameter+"Actions[i].finalValue") !== -1 && eval(element.parameter+"Actions[i].value")!== 0) {
+                      this.normalTransition(element.parameter,timeAction , finalTime)
+                      break;
+                    }
+                    this.addConstant(element.parameter,  finalTime - currentTime)
+                    nTimes = 0
+                    if(nTimes === 0){eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[i].finalValue) , ((("+element.parameter+"Actions[i].finalTime) - finalTime) * 1000))")}
+                    nTimes += 1
+                  }
                 }
               }
-              for(var i = 0; i<(eval(element.parameter+"Actions.length")); i++){
-                valueTot += eval(element.parameter+"Actions[i].value")
+              if( valueTot === 1){
+                valueTot = eval(element.parameter+"Actions[i].value")
+              }
+              else if(valueTot === 2){ 
+                valueTot = eval(element.parameter+"Actions[i].value") }
+              else{
+                for(var i = 0; i<(eval(element.parameter+"Actions.length")); i++){
+                    valueTot += eval(element.parameter+"Actions[i].value")
+                  }
               }
               eval(element.parameter+"Value = valueTot")
-              if(eval(element.parameter+"N !== 0")){eval(element.parameter+"V = "+element.parameter+"Value")}
-              eval(element.parameter+"Actions.sort((a, b) => a.finalTime - b.finalTime);")
-              nTimes= 0
-              constants.push(element.parameter)
+              if(eval(element.parameter+"N !== 0") && eval(element.parameter+"Actions.length") > 0){eval(element.parameter+"V = "+element.parameter+"Value")}
+                eval(element.parameter+"Actions.sort((a, b) => a.finalTime - b.finalTime);")
+                nTimes= 0
+                if(nTimes === 0){eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[0].finalValue) , ((("+element.parameter+"Actions[0].finalTime) - finalTime) * 1000))")}
+                constants.push(element.parameter)
             }
+          }
           }
         });
 
@@ -874,7 +1005,7 @@ export default class LoginForm extends Component {
           }
           else{
             eval(parameter+"Block = false")
-            eval(parameter+"Actions.splice(0, "+parameter+"Actions.length-1)")
+            eval(parameter+"Actions.splice(0, "+parameter+"Actions.length)")
           }
           break;
         // Cuando una acción tiene dos valores, se cambia de valor en la funcion unblock y se modifica
