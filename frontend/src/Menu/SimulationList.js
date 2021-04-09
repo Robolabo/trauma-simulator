@@ -64,7 +64,7 @@ class SimulationList extends React.Component  {
             urineOutput: 12,
             saturation: 90,
             mentalStatus: "normal",
-            phase: "Pre Hospitalaria",
+            phase: "prehospitalaria",
             temperature: 34,
             time: 30,
             rxPelvis:"2"
@@ -87,7 +87,7 @@ class SimulationList extends React.Component  {
           urineOutput: 12,
           saturation: 90,
           mentalStatus: "normal",
-          phase: "Hospitalaria",
+          phase: "hospitalaria",
           temperature: 34,
           time: 30,
           rxPelvis:"2"
@@ -110,7 +110,7 @@ class SimulationList extends React.Component  {
             urineOutput: 12, 
             saturation: 92, 
             mentalStatus: "normal", 
-            phase: "Pre Hospitalaria",
+            phase: "prehospitalaria",
             temperature: 34,
             time: 30,
             rxPelvis:"3"
@@ -132,7 +132,7 @@ class SimulationList extends React.Component  {
           urineOutput: 12, 
           saturation: 92, 
           mentalStatus: "normal", 
-          phase: "Hospitalaria",
+          phase: "hospitalaria",
           temperature: 34,
           time: 30,
           rxPelvis:"3"
@@ -155,7 +155,7 @@ class SimulationList extends React.Component  {
             urineOutput: 12,
             saturation: 95,
             mentalStatus: "normal",
-            phase: "Pre Hospitalaria",
+            phase: "prehospitalaria",
             temperature:34,
             time: 30,
             rxPelvis:"4"
@@ -177,7 +177,7 @@ class SimulationList extends React.Component  {
               urineOutput: 12,
               saturation: 95,
               mentalStatus: "normal",
-              phase: "Hospitalaria",
+              phase: "hospitalaria",
               temperature: 34,
               time: 30,
               rxPelvis:"4"
@@ -342,7 +342,9 @@ class SimulationList extends React.Component  {
           <th></th>
           {this.state.isTrainer
           ? <td>{data.trainee.name} {data.trainee.surname}</td>
-          : <td>{data.phase} </td>}
+          :data.phase==="prehospitalaria"?
+
+           <td>Pre Hospitalaria </td>: <td>Hospitalaria</td>}
           
           <th>{(data.sex === 0) ? t('new-simulation.male') : t('new-simulation.female')}</th>
           <td>{data.age}</td>
@@ -350,7 +352,18 @@ class SimulationList extends React.Component  {
           <td>{data.time}</td>
           <td>
             {data.inform !== null ?
-             <p>Simulación Finalizada</p> :
+                this.props.location.state.trainerList ===true?
+                    <Link className="btn btn-outline-info " 
+                    to={{
+                        pathname: "/simulation/"+data.simulationId,
+                        state: { id: this.props.location.state.id,
+                          trainerList:this.props.location.state.trainerList},
+                        
+                    }} >Volver a entrar
+                    </Link> :
+                    <p>Simulación Finalizada</p>
+             
+             :
              
           this.state.isTrainer 
             ? 

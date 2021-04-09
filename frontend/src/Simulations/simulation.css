@@ -52,8 +52,12 @@
     display: flex;
     flex: 9;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    
 }
+
+h1{font-size: 2rem;}
+
 
 .actions-buttons {
     display: flex;
@@ -62,23 +66,33 @@
 }
 
 .actions-buttons button {
-    width: 165px;
-    height: 50px;
-    margin-top: 2pc;
+    width: 158px;
+    height: 46px;
+    margin-top: 1pc;
     white-space:pre-wrap;
     font-size: 12.4px;
+    background-color: #9aa0a7;
+    
+    
 }
 
 .actions-bloques button{
-    width: 201px;
-    height: 53px;
+    width: 195px;
+    height: 52px;
     
     white-space:pre-wrap;
     font-size: 15.5px;
-    margin-left: 5px;
+    margin-left: 0px;
+    background-color: #6c757d;
 
 }
+.actions-buttons button.clicked{
+    background:#212529;
+}
 
+.actions-bloques button.clicked{
+    background:#030303;
+}
 .btn-hidden {
     visibility:hidden;
 }
@@ -89,7 +103,7 @@
 }
 
 .actions-bloques button:hover {
-    background: rgb(45, 45, 51);
+    background: #030303;
     color: white
 }
 
