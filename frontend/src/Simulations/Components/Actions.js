@@ -1399,6 +1399,12 @@ class Actions extends Component {
     }
 
     ventilacionBolsa2() {
+        this.props.actionsType4.forEach(action => {//cambio tipo4
+            if (action ==="ventilacionBolsa"){
+                this.props.simultaneousActions("saturation","ventilacionBolsa",1800,-6,-1,4)
+                this.props.actionsType4.splice(this.props.actionsType4.indexOf(action),1)
+            }
+        })
         this.props.change("saturation", 100, 40, 2, 10)
         this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
     }
@@ -1411,8 +1417,7 @@ class Actions extends Component {
     }
 
     medicacionIntubacion4() {
-
-        this.props.change("saturation", -0.1, 10, 4, 30) ///////////falta la accion
+        this.props.change("saturation", -6, "ventilacionBolsa", 4, 30) ///////////falta la accion
         this.fillInformation("Medicación administrada")
     }
 

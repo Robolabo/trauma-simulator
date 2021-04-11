@@ -160,7 +160,7 @@ class RegisterForm extends React.Component {
                                 <Link className="nav-link active" id="trainer-tab" data-toggle="tab" to="#" role="tab" aria-controls="home" aria-selected="false" onClick={this.toogleTrainer}>{t('list-simulation.trainer')}</Link>
         </li>*/}
                             <li className="nav-item">
-                                <Link className="nav-link" id="trainee-tab" data-toggle="tab"  to="#" role="tab" aria-controls="profile" aria-selected="false" onClick={this.toogleTrainee}>{t('list-simulation.trainee')}</Link>
+                                <Link className="nav-link" id="trainee-tab" data-toggle="tab"  to="#" role="tab" aria-controls="profile" aria-selected="false" /*onClick={this.toogleTrainee}*/>{t('list-simulation.trainee')}</Link>
                             </li>
                         </ul>
                         <div className="tab-content" id="myTabContent">

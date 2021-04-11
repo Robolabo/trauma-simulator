@@ -86,7 +86,7 @@ var diastolicPressureN = 0
 var heartRateActions = []
 var breathingRateActions = []
 var diastolicPressureActions  = []
-var sistolicPressureAactions = []
+var sistolicPressureActions = []
 var saturationActions = []
 var valueTot = 0
 
@@ -95,6 +95,7 @@ var saturationFactorMultiplicativo = 1
 var breathingRateFactorMultiplicativo = 1
 var sistolicPressureFactorMultiplicativo = 1
 var diastolicPressureFactorMultiplicativo = 1
+var actionsType4 = []
 
 
 export default class LoginForm extends Component {
@@ -927,11 +928,16 @@ export default class LoginForm extends Component {
     }
 
     blockChangeValue(parameter, finalTime, initialValue, finalValue){
-      eval(parameter + "Block = true")
-      eval(parameter + "Value = "+ initialValue)
-      eval(parameter + "FinalValue = "+ finalValue)
-      eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+
-      ".bind(this,parameter, finalValue, finalTime), finalTime*1000)") 
+      if (typeof finalTime === 'string'){
+        eval(parameter + "Block = true")
+        eval(parameter + "Value = "+ initialValue)
+      } else{
+        eval(parameter + "Block = true")
+        eval(parameter + "Value = "+ initialValue)
+        eval(parameter + "FinalValue = "+ finalValue)
+        eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+
+        ".bind(this,parameter, finalValue, finalTime), finalTime*1000)")
+      } 
       
     }
 
@@ -1023,7 +1029,35 @@ export default class LoginForm extends Component {
           eval(parameter+"Value = valueTot")
           eval(parameter+"Actions.sort((a, b) => a.finalTime-b.finalTime);")
           eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
-          break;
+        break;
+
+        case 4:
+          let obj1 = {'parameter': "saturation", 'duration' : "ventilacionBolsa", 'finalTime': 1800,'value' : -6, 'finalValue': -1}
+          eval(parameter+"Actions.splice("+parameter+"Actions.indexOf(obj1),1);")
+          eval(parameter + "N -= 1")
+          if(eval(parameter + "N") > 0){
+            eval(parameter+"Block = true")
+            for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+              if(eval(parameter + "N") === 1 && eval(parameter+"Actions[i].finalValue") !== 0 && eval(parameter+"Actions[i].finalValue") !== -1 && eval(parameter+"Actions[i].value")!== 0 ){
+                eval(parameter+"Block = false")
+                break;
+              }
+              if (eval(parameter+"Actions[i].finalValue") !== 0 && eval(parameter+"Actions[i].finalValue") !== -1 && eval(parameter+"Actions[i].value")!== 0) {
+                valueTot -= eval(parameter+"Actions[i].value")
+                factor = eval(parameter+"Actions[i].value")
+              }
+              valueTot += eval(parameter+"Actions[i].value")
+              valueTot = valueTot* factor
+            }
+            eval(parameter+"Value = valueTot")
+            eval(parameter+"Actions.sort((a, b) => a.finalTime -b.finalTime);")
+            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
+          }
+          else{
+            eval(parameter+"Block = false")
+            eval(parameter+"Actions.splice(0, "+parameter+"Actions.length)")
+          }
+        break;
         }    
     }
 
@@ -1032,7 +1066,11 @@ export default class LoginForm extends Component {
       this.changeAction = setTimeout(this.changeAux.bind(this,parameter,value, time, type), (latency * 1000))
     }
     changeAux(parameter,value, duration, type) {
-      eval(parameter + "FinalTime = this.state.timeSim + duration")
+      if (typeof duration === 'string'){
+        eval(parameter + "FinalTime = 1800")
+      } else{
+        eval(parameter + "FinalTime = this.state.timeSim + duration")
+      }
       let initialValue
       switch (type) {
         //sube o baja value[puntos/min] en tiempo [segundos], luego vuelve a la evolución normal
@@ -1076,6 +1114,17 @@ export default class LoginForm extends Component {
           break;
       //sube o baja hasta que se realiza una acción concreta
         case 4:
+          if((eval(parameter + "N")) === 0) {
+            actionsType4.push(duration)
+            this.blockChangeValue(parameter, duration, value, -1)
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, -1, 1)
+          }
+          else{
+            actionsType4.push(duration)
+            eval(parameter + "N += 1")
+            this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), value, -1, 1)
+          }
           break;
       //Acelera (o Ralentiza si es un número menor que cero) la subida o bajada de un parameter
       //value multiplica al valor actual de subida o bajada
@@ -1247,6 +1296,8 @@ export default class LoginForm extends Component {
                         phase = {this.state.phase}
                         trainerList={this.props.location.state.trainerList}//props viene del componente anterior
                         rxPelvis={this.state.rxPelvis}
+                        actionsType4={actionsType4}
+                        simultaneousActions = {(parameter, duration, tFin, value, finalValue, type) => this.simultaneousActions(parameter, duration, tFin, value, finalValue, type)}
                 />
                 <Graphic 
                         diastolicPressure = {this.state.diastolicPressure}
