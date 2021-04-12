@@ -441,8 +441,7 @@ class Actions extends Component {
         setTimeout(() => {
             this.props.send("success","La vía aéra se encuentra limpia.")
         }, 8000)
-        this.fillInformation("Aspirador")
-                
+        this.fillInformation("Limpiar vía aérea")                   
     }
 
     laparotomy() {
@@ -1210,15 +1209,21 @@ class Actions extends Component {
         });
         
         this.getMsg("info","intubate")
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", -0., 0, 1)
+        this.props.change("bloodPressure", -0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        this.props.change("urineOutput", -0.5, 0, 1)
+        this.props.change("saturation", 0.5, 0, 1)
         this.fillInformation("Intubación")
     }
 
     analgesics() {
         this.getMsg("info","analgesics")
         //this.props.change("heartRate", 0)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
         //this.props.change("urineOutput", 0)
         //this.props.change("saturation", 0)
         this.fillInformation("Suministrar analgésicos")
@@ -1290,22 +1295,22 @@ class Actions extends Component {
         this.setState({
             transfusionClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", 0.5)
-        this.props.change("saturation", 0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        this.props.change("urineOutput", 0.5, 0, 1)
+        this.props.change("saturation", 0.5, 0, 1)
         this.getMsg("info","transfusion")
         this.fillInformation("Transfusión sanguínea")
     }
 
     hot_liquids(){
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
         //this.props.change("breathingRate", 0)
-        this.props.change("urineOutput", 0.5)
+        this.props.change("urineOutput", 0.5, 0, 1)
         //this.props.change("saturation", 0)
         this.getMsg("info","liquids")
         this.fillInformation("Suministrar líquidos calientes")
@@ -1315,12 +1320,12 @@ class Actions extends Component {
         this.setState({
             surgeryClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
         //this.props.change("urineOutput", -0.5)
-        this.props.change("saturation", 0.5)
+        this.props.change("saturation", 0.5, 0, 1)
         this.getMsg("info","surgery")
         this.fillInformation("Cirugía")
     }
@@ -1329,12 +1334,12 @@ class Actions extends Component {
         this.setState({
             cristaloidesClicked:true
         });
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", 0.5)
-        this.props.change("saturation", 0)
+        this.props.change("heartRate", -0.5, 0, 1)
+        this.props.change("bloodLoss", 0.5, 0, 1)
+        this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        this.props.change("urineOutput", 0.5, 0, 1)
+        this.props.change("saturation", 0, 0, 1)
         this.getMsg("info","cristaloides")
         this.fillInformation("Suministrar cristaloides")
     }
@@ -1383,7 +1388,215 @@ class Actions extends Component {
 
     }
     
+    oxygenateGN1() {
+        this.props.change("breathingRate", -1.5, 200, 1, 10) 
+        this.fillInformation("Gafas nasales")
+    }
+
+    oxygenateGN6() {
+        this.props.change("saturation", 2.5, 120, 6, 10)
+        this.fillInformation("Gafas nasales")
+    }
+
+    ventilacionBolsa2() {
+        this.props.actionsType4.forEach(action => {//cambio tipo4
+            if (action ==="ventilacionBolsa"){
+                this.props.simultaneousActions("saturation","ventilacionBolsa",1800,-6,-1,4)
+                this.props.actionsType4.splice(this.props.actionsType4.indexOf(action),1)
+            }
+        })
+        this.props.change("saturation", 100, 40, 2, 10)
+        this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
+    }
+
+    torniquete3() {
+
+        this.props.change("sistolicPressure", -0.8, 300, 3, 15)
+        //this.props.change("diastolicPressure", -0.8, 300, 3, 15)
+        this.fillInformation("Torniquete")
+    }
+
+    medicacionIntubacion4() {
+        this.props.change("saturation", -6, "ventilacionBolsa", 4, 30) ///////////falta la accion
+        this.fillInformation("Medicación administrada")
+    }
+
+    pelvic_belt5() {
+        this.props.change("sistolicPressure", 0.5, 0, 5, 50)
+       // this.props.change("diastolicPressure", 0.5, 0, 5, 50)
+        this.fillInformation("Cinturón pélvico colocado")
     
+    }
+    
+
+    /*
+//VALORES CALCULADOS PARA LA TABLA DE LA VERSION 2
+//METODO change(parameter, value, tiempo, mantiene, latencia)
+
+//        value [puntos/minuto], tiempo[segundos], latencia[segundos]
+
+
+
+aspirador() {
+
+    this.props.change("saturation", 120, 0, 1, 10)
+    this.fillInformation("Aspirando vía aerea")
+}
+
+oxygenateGN() {
+
+    this.props.change("saturation", 2.5, 120, 6, 10)
+    this.props.change("breathingRate", -1.5, 120, 1, 10) 
+    this.fillInformation("Gafas nasales")
+}
+
+oxygenateMasc() {
+
+    this.props.change("saturation", 96, 30, 2, 10)
+    this.props.change("breathingRate", -10, 30, 1, 10) 
+    this.fillInformation("Mascarilla oxígeno")
+}
+
+ ventilacionBolsa() {
+
+    this.props.change("saturation", 100, 40, 2, 10)
+    this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
+}
+
+torniquete() {
+
+    this.props.change("sistolicPressure", -0.8, 300, 3, 15)
+    this.props.change("diastolicPressure", -0.8, 300, 3, 15)
+    this.fillInformation("Torniquete")
+}
+
+pelvic_belt() {
+    this.props.change("sistolicPressure", 0.5, 0, 5, 50)
+    this.props.change("diastolicPressure", 0.5, 0, 5, 50)
+    this.fillInformation("Cinturón pélvico colocado")
+
+}
+
+medicacionIntubacion() {
+
+    this.props.change("saturation", -0.1, 10, 4, 30) ///////////falta la accion
+    this.fillInformation("Medicación administrada")
+}
+
+
+midazolam() {
+
+    this.props.change("saturation", -3, 60, 1, 20)
+    this.fillInformation("Midazolam administrado")
+}
+noradrenalina() {
+
+    this.props.change("sistolicPressure", 110, 20, 2, 45)
+    this.props.change("diastolicPressure", 65, 20, 2, 45)
+    this.fillInformation("Se inicia perfusuión de noradrenalina")
+}
+
+ssf20() {
+
+    this.props.change("sistolicPressure", 0.65, 1200, 1, 20)
+    this.props.change("diastolicPressure", 0.25, 1200, 1, 20)
+    this.fillInformation("Bolo SSF administrado")
+}
+
+voluven() {
+
+    this.props.change("sistolicPressure", 1.1539, 780, 1, 20)
+    this.props.change("diastolicPressure", 0.7693, 780, 1, 20)
+    this.fillInformation("Inicio Voluvén 250 ml")
+}
+
+
+*/
+
+
+    /*
+//VALORES CALCULADOS PARA LA TABLA DE LA VERSION 2
+//METODO change(parameter, value, tiempo, mantiene, latencia)
+
+//        value [puntos/minuto], tiempo[segundos], latencia[segundos]
+
+
+
+aspirador() {
+
+    this.props.change("saturation", 120, 0, 1, 10)
+    this.fillInformation("Aspirando vía aerea")
+}
+
+oxygenateGN() {
+
+    this.props.change("saturation", 2.5, 120, 6, 10)
+    this.props.change("breathingRate", -1.5, 120, 1, 10) 
+    this.fillInformation("Gafas nasales")
+}
+
+oxygenateMasc() {
+
+    this.props.change("saturation", 96, 30, 2, 10)
+    this.props.change("breathingRate", -10, 30, 1, 10) 
+    this.fillInformation("Mascarilla oxígeno")
+}
+
+ ventilacionBolsa() {
+
+    this.props.change("saturation", 100, 40, 2, 10)
+    this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
+}
+
+torniquete() {
+
+    this.props.change("sistolicPressure", -0.8, 300, 3, 15)
+    this.props.change("diastolicPressure", -0.8, 300, 3, 15)
+    this.fillInformation("Torniquete")
+}
+
+pelvic_belt() {
+    this.props.change("sistolicPressure", 0.5, 0, 5, 50)
+    this.props.change("diastolicPressure", 0.5, 0, 5, 50)
+    this.fillInformation("Cinturón pélvico colocado")
+
+}
+
+medicacionIntubacion() {
+
+    this.props.change("saturation", -0.1, 10, 4, 30) ///////////falta la accion
+    this.fillInformation("Medicación administrada")
+}
+
+
+midazolam() {
+
+    this.props.change("saturation", -3, 60, 1, 20)
+    this.fillInformation("Midazolam administrado")
+}
+noradrenalina() {
+
+    this.props.change("sistolicPressure", 110, 20, 2, 45)
+    this.props.change("diastolicPressure", 65, 20, 2, 45)
+    this.fillInformation("Se inicia perfusuión de noradrenalina")
+}
+
+ssf20() {
+
+    this.props.change("sistolicPressure", 0.65, 1200, 1, 20)
+    this.props.change("diastolicPressure", 0.25, 1200, 1, 20)
+    this.fillInformation("Bolo SSF administrado")
+}
+
+voluven() {
+
+    this.props.change("sistolicPressure", 1.1539, 780, 1, 20)
+    this.props.change("diastolicPressure", 0.7693, 780, 1, 20)
+    this.fillInformation("Inicio Voluvén 250 ml")
+}
+
+
+*/
 
     render() {
         console.log(this.props)
@@ -1602,7 +1815,7 @@ class Actions extends Component {
                     ? <div className="action1">
 
                         <div className="actions-buttons">
-                            <Button className={this.state.tourniquetClicked?"clicked":null} onClick={() => this.tourniquet()}>{t('simulation.tourniquet')}</Button>
+                            <Button className={this.state.tourniquetClicked?"clicked":null} onClick={() => this.torniquete3()}>{t('simulation.tourniquet')}</Button>
                             <Button className={this.state.pressureClicked?"clicked":null} onClick={() => this.pressure()}>{t('simulation.pressure')}</Button>
                             <Button className={this.state.hemostaticClicked?"clicked":null} onClick={() => this.hemostatic()}>{t('simulation.hemostatic')}</Button>
                             <Button className={this.state.paniClicked?"clicked":null} onClick={() => this.pani()}>{t('simulation.pani')}</Button>
@@ -1700,7 +1913,7 @@ class Actions extends Component {
                         <div className="actions-buttons">
                             <Button className={this.state.cervicalcontrolClicked?"clicked":null} onClick={() => this.cervicalcontrol()}>{t('simulation.cervicalcontrol')}</Button>
                             <Button className={this.state.collarinClicked?"clicked":null} onClick={() => this.collarin()}>Collarín Cervical</Button>
-                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
+                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt5()}>{t('simulation.belt')}</Button>
                             
                          </div>
 
