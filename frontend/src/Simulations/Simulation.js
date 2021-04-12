@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Alert from 'react-bootstrap/Alert'
+import { Alert } from 'reactstrap';
 import axios from 'axios';
 import Nav from '../Menu/Nav'
 import Timer from '../Simulations/Components/Timer'
@@ -101,6 +101,7 @@ var actionsType4 = []
 export default class LoginForm extends Component {
     constructor(props){
       super(props);
+      this.information=[]
       this.timeSim=1;
       this.state = {
         sex: 0,
@@ -124,7 +125,7 @@ export default class LoginForm extends Component {
         start: false,
         confirm: true,
         alert: null,
-        show:true,
+        showingAlert:true,
         header:null,
         content: null,
         num:0,
@@ -1167,8 +1168,8 @@ export default class LoginForm extends Component {
     
     sendInformation(variant, msg){  
 
-
-        var alertMsg =  <Alert id="alert" variant={variant} show={this.state.show}>
+      const closeAlert = () => this.toogle()
+        var alertMsg =  <Alert id="alert" color={variant} isOpen={true} toggle={closeAlert}>
                                 {msg}
                         </Alert>
 
@@ -1192,13 +1193,10 @@ export default class LoginForm extends Component {
 
 
     toogle() {
-
-        setTimeout(() => {
-          this.setState({
-            showingAlert: false,
-            alert: null
-          });
-        }, 4000);
+      this.setState({
+        showingAlert: false,
+        alert: null
+      });
     }
 
     finish(){
@@ -1255,7 +1253,9 @@ export default class LoginForm extends Component {
             >
             </Nav>
             <Messages alert = {this.state.alert}
-                    toogle = {() => this.toogle()}/>
+                    toogle = {() => this.toogle()}
+                    information = {this.information}
+            />
             <div className="timer">
                 <Timer time = {this.state.time}
                     start = {this.state.start}
@@ -1298,6 +1298,7 @@ export default class LoginForm extends Component {
                         rxPelvis={this.state.rxPelvis}
                         actionsType4={actionsType4}
                         simultaneousActions = {(parameter, duration, tFin, value, finalValue, type) => this.simultaneousActions(parameter, duration, tFin, value, finalValue, type)}
+                        information = {this.information}
                 />
                 <Graphic 
                         diastolicPressure = {this.state.diastolicPressure}

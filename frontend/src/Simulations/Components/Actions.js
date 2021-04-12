@@ -51,7 +51,6 @@ class Actions extends Component {
 
     constructor(props){
         super(props);
-        this.information=[]
         this.avatar=naked;
         this.state = {
           actionPage:0,
@@ -116,7 +115,7 @@ class Actions extends Component {
                 //content
                 doc.setFontSize(12)
                 //acciones
-                this.information.forEach(e => {
+                this.props.information.forEach(e => {
                     doc.rect(24, i, 2, 2, 'F');
                     doc.text(30, j, `Tiempo ${e.min}:${(e.seg < 10 ? '0'+e.seg : e.seg)}`)
                     doc.setFontType('bold')
@@ -196,7 +195,7 @@ class Actions extends Component {
         })
 
         if(content){
-            this.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
+            this.props.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
                 msg: msg, constants:[Math.round(this.props.heartRate),Math.round(this.props.breathingRate),
                 Math.round(this.props.sistolicPressure),Math.round(this.props.diastolicPressure),
                 Math.round(this.props.saturation),Math.round(this.props.urineOutput), 
@@ -204,7 +203,7 @@ class Actions extends Component {
                 attach: content})
         }else{
             
-            this.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
+            this.props.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
                 msg: msg, constants:[Math.round(this.props.heartRate),Math.round(this.props.breathingRate),
                     Math.round(this.props.sistolicPressure),Math.round(this.props.diastolicPressure),
                     Math.round(this.props.saturation),Math.round(this.props.urineOutput), 
@@ -1599,7 +1598,6 @@ voluven() {
 */
 
     render() {
-        console.log(this.props)
         const { t } = this.props
         const closeRx = <button className="close" onClick={() => this.setRxModal(false)}>&times;</button>
         const closeEco = <button className="close" onClick={() => this.setEcoModal(false)}>&times;</button>
