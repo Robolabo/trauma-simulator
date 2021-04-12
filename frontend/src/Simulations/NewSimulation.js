@@ -208,7 +208,7 @@ class NewSimulation extends Component {
             { value: 'leftArm', label: t('new-simulation.left-a') },
             { value: 'rightLeg', label: t('new-simulation.right-l') },
             { value: 'leftLeg', label: t('new-simulation.left-l')},
-            { value: 'Ambas Piernas', label: "Pierna izquierda y derecha"}
+            { value: 'Ambas Piernas', label: "pierna izquierda y derecha"}
 
           ];
          // Creación de opciones para las radiografías de pelvis 
