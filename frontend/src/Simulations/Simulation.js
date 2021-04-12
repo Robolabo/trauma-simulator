@@ -741,7 +741,8 @@ export default class LoginForm extends Component {
                           eval(element.parameter+"N -= 1")
                       }
                     }
-                    eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[i].finalValue) , ((("+element.parameter+"Actions[i].finalTime) - finalTime) * 1000))") 
+                      eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[0].finalValue) , ((("+element.parameter+"Actions[0].finalTime) - finalTime) * 1000))") 
+                    
                     break;
                   }
                   else if (eval(element.parameter+"Actions[i].finalValue") === 0) {
@@ -772,8 +773,8 @@ export default class LoginForm extends Component {
                       break;
                     }
                     this.addConstant(element.parameter,  finalTime - currentTime)
-                    nTimes = 0
-                    if(nTimes === 0){eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[i].finalValue) , ((("+element.parameter+"Actions[i].finalTime) - finalTime) * 1000))")}
+                    
+                    if(nTimes === 0 && eval(element.parameter+"Actions.length")){eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[i].finalValue) , ((("+element.parameter+"Actions[i].finalTime) - finalTime) * 1000))")}
                     nTimes += 1
                   }
                 }
@@ -790,10 +791,9 @@ export default class LoginForm extends Component {
               }
               eval(element.parameter+"Value = valueTot")
               if(eval(element.parameter+"N !== 0") && eval(element.parameter+"Actions.length") > 0){eval(element.parameter+"V = "+element.parameter+"Value")}
-                eval(element.parameter+"Actions.sort((a, b) => a.finalTime - b.finalTime);")
-                nTimes= 0
-                if(nTimes === 0){eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[0].finalValue) , ((("+element.parameter+"Actions[0].finalTime) - finalTime) * 1000))")}
-                constants.push(element.parameter)
+              eval(element.parameter+"Actions.sort((a, b) => a.finalTime - b.finalTime);")
+              if(nTimes === 0 && eval(element.parameter+"Actions.length") >0){eval("this."+element.parameter+"Timer = setTimeout(this.unBlockChangeValue.bind(this, element.parameter, "+element.parameter+"Actions[0].finalValue) , ((("+element.parameter+"Actions[0].finalTime) - finalTime) * 1000))")}
+              constants.push(element.parameter)
             }
           }
           }
