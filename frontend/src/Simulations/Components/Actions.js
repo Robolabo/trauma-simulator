@@ -1454,7 +1454,7 @@ class Actions extends Component {
                    <ModalHeader  close={closeInfo}>Información del paciente:</ModalHeader>
                    <card>
                        <CardBody>
-                           <p>{this.props.sex === 0 ? 'Varón' : 'Mujer'} de {this.props.age} años con traumatismo en {t(this.getPartBody(this.props.partBody))}, presión sistólica de {this.props.sistolicPressure}mmHg y presión diastólica de {this.props.diastolicPressure}mmHg. Posee {this.props.heartRate} latidos por minuto y una frecuencia respiratoria de {this.props.breathingRate}. La saturación de oxígeno en sangre es del {this.props.saturation}% y la diuresis de {this.props.urineOutput}ml/min. Estado mental {t(this.getMentalState(this.props.mentalStatus))}
+                           <p>{this.props.sex === 0 ? 'Varón' : 'Mujer'} de {this.props.age} años con traumatismo en {t(this.getPartBody(this.props.partBody))}, presión sistólica de {this.props.sistolicPressure}mmHg y presión diastólica de {this.props.diastolicPressure}mmHg. Posee {this.props.heartRate} latidos por minuto, una frecuencia respiratoria de {this.props.breathingRate} respiraciones/min y la saturación de oxígeno en sangre es del {this.props.saturation}%. Estado mental {t(this.getMentalState(this.props.mentalStatus))}
 
                            </p>
                        </CardBody>

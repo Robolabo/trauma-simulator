@@ -761,7 +761,7 @@ module.exports = {
       {
         actionId: 29,
         actionName: 'auscultation',
-        message: 'Se ausculta al paciente mediante el fonendoscopio para escuchar los latidos cardiacos .',
+        message: 'Se ausculta al paciente observando un murmullo vesicular conservado.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -788,7 +788,7 @@ module.exports = {
       {
         actionId: 30,
         actionName: 'pulseoximeter',
-        message: 'Se mide la saturación de oxígeno en sangre y la frecuencia cardiaca.',
+        message: 'Se mide la saturación de oxígeno en sangre y la frecuencia cardiaca que aparece en la pantalla.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -926,7 +926,7 @@ module.exports = {
       {
         actionId: 35,
         actionName: 'capnographer',
-        message: 'Se mide la concentración de dioxido de carbono durante un ciclo respiratorio.',
+        message: 'Se mide el EtC02 obteniendo un valor de 30-43 mmHg.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1376,7 +1376,7 @@ module.exports = {
       {
         actionId: 51,
         actionName: 'io',
-        message: 'VVP colocada y permeable.',
+        message: 'Vía intraósea colocada.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1404,7 +1404,7 @@ module.exports = {
       {
         actionId: 52,
         actionName: 'pani',
-        message: 'PANI Digital .',
+        message: 'PANI digital muestra la tensión del paciente que se puede ver en la pantalla.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1432,7 +1432,7 @@ module.exports = {
       {
         actionId: 53,
         actionName: 'derivations',
-        message: 'Monitorización del paciente mediante la colocación de 4 electrodos .',
+        message: 'Monitorización del paciente mediante la colocación de 4 electrodos. ECG normal.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1460,7 +1460,7 @@ module.exports = {
       {
         actionId: 54,
         actionName: 'ECGderivations',
-        message: 'Monitorización del paciente mediante 10 electrodos para obtener 12 derivaciones .',
+        message: 'Monitorización del paciente mediante 10 electrodos para obtener 12 derivaciones. ECG normal.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
