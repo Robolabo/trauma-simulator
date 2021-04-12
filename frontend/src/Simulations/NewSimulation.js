@@ -339,7 +339,7 @@ class NewSimulation extends Component {
                                             }
                                         }}
                                         axis="x"
-                                        xmax= {85}
+                                        xmax= {90}
                                         xmin= {35}
                                         x={this.state.diastolicPressure}
                                         onChange={({ x }) => this.setState({ diastolicPressure: x })}
