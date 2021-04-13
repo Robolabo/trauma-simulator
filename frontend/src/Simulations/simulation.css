@@ -211,5 +211,13 @@ h1{font-size: 2rem;}
     justify-content: center;
 }
 
+.actions-info{
+    overflow-y: scroll;
+    height: 25vh;
+}
+.popover-hist{
+    margin: 4px;
+}
+
 
 

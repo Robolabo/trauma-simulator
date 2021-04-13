@@ -51,7 +51,6 @@ class Actions extends Component {
 
     constructor(props){
         super(props);
-        this.information=[]
         this.avatar=naked;
         this.state = {
           actionPage:0,
@@ -102,7 +101,7 @@ class Actions extends Component {
                 doc.text(75, 50, `${Math.trunc((this.props.timeSim-1)/60)} minutos ${(this.props.timeSim-1)%60} segundos`)
                 doc.text(58, 55, `${this.props.data.time} minutos`)
                 doc.text(89, 60, `${this.props.data.heartRate} puls/min, ${this.props.data.breathingRate} resp/min, ${this.props.data.sistolicPressure} mmHg, ${this.props.data.diastolicPressure} mmHg, ${this.props.data.saturation} SatO2`)
-                doc.text(89, 65, `${this.props.data.urineOutput} mL/min, 200 mL, ${this.props.data.temperature} °C`)
+                //doc.text(89, 65, `${this.props.data.urineOutput} mL/min, 200 mL, ${this.props.data.temperature} °C`)
 
                 //Simulation
                 doc.setFontSize(14)
@@ -116,7 +115,7 @@ class Actions extends Component {
                 //content
                 doc.setFontSize(12)
                 //acciones
-                this.information.forEach(e => {
+                this.props.information.forEach(e => {
                     doc.rect(24, i, 2, 2, 'F');
                     doc.text(30, j, `Tiempo ${e.min}:${(e.seg < 10 ? '0'+e.seg : e.seg)}`)
                     doc.setFontType('bold')
@@ -124,7 +123,7 @@ class Actions extends Component {
                     doc.setFontType('normal')
                     i += 5
                     j += 5
-                    doc.text(30, j,`${e.constants[0]} puls/min, ${e.constants[1]} resp/min, ${e.constants[2]} mmHg, ${e.constants[3]} mmHg, ${e.constants[4]} % SatO2, ${e.constants[5]} mL/min, ${e.constants[6]} mL, ${e.constants[7]} °C`)
+                    doc.text(30, j,`${e.constants[0]} puls/min, ${e.constants[1]} resp/min, ${e.constants[2]} mmHg, ${e.constants[3]} mmHg, ${e.constants[4]} % SatO2`)
                     i += 7
                     j += 7
                     if(i === 270 || i > 270){
@@ -196,7 +195,7 @@ class Actions extends Component {
         })
 
         if(content){
-            this.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
+            this.props.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
                 msg: msg, constants:[Math.round(this.props.heartRate),Math.round(this.props.breathingRate),
                 Math.round(this.props.sistolicPressure),Math.round(this.props.diastolicPressure),
                 Math.round(this.props.saturation),Math.round(this.props.urineOutput), 
@@ -204,7 +203,7 @@ class Actions extends Component {
                 attach: content})
         }else{
             
-            this.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
+            this.props.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
                 msg: msg, constants:[Math.round(this.props.heartRate),Math.round(this.props.breathingRate),
                     Math.round(this.props.sistolicPressure),Math.round(this.props.diastolicPressure),
                     Math.round(this.props.saturation),Math.round(this.props.urineOutput), 
@@ -540,8 +539,13 @@ class Actions extends Component {
         this.setState({
             ventilationClicked:true
         });
-        
-        this.props.change("saturation", 100,40,2,10)
+        this.props.actionsType4.forEach(action => {//cambio tipo4
+            if (action ==="ventilacionBolsa"){
+                this.props.simultaneousActions("saturation","ventilacionBolsa",1800,-6,-1,4)
+                this.props.actionsType4.splice(this.props.actionsType4.indexOf(action),1)
+            }
+        })
+        this.props.change("saturation", 100, 40, 2, 10)
         this.getMsg("info","ventilation")
         this.fillInformation("Ventilación con bolsa autoinflable")
 
@@ -746,8 +750,7 @@ class Actions extends Component {
         this.setState({
             SIRClicked:true
         });
-        
-        //this.props.change("saturation", -0.1,ACCION,4,30) ¿?????????? 
+        this.props.change("saturation", -6, "ventilacionBolsa", 4, 30)
         this.getMsg("info","SIR")
         this.fillInformation("SIR")
     }
@@ -978,14 +981,19 @@ class Actions extends Component {
         this.getMsg("info","massivetransfusion")
         this.fillInformation("Protocolo de transfusión masiva")
     }
-
+    
     interconsultations(){
         this.setState({
             interconsultationsClicked:true
         });
+        //Lamo a finalizar
+        
         
         this.getMsg("info","interconsultations")
         this.fillInformation("Solicitud de ineterconsultas a otras especialidades")
+        //Esto es para que se finalice la simualación pasados 10 segundos
+        setTimeout(()=>{this.props.finish_interconsultations();}, 10000)
+        
     }
 
 
@@ -1377,7 +1385,12 @@ class Actions extends Component {
             case 'rightLeg':
                 returnValue = 'new-simulation.right-l'
                 break;
+
+            case 'bothLeg':
+                returnValue = 'new-simulation.both-l'
+                break;
             case 'leftLeg':
+                
             default:
                 returnValue = 'new-simulation.left-l'
                 break;
@@ -1598,7 +1611,6 @@ voluven() {
 */
 
     render() {
-        console.log(this.props)
         const { t } = this.props
         const closeRx = <button className="close" onClick={() => this.setRxModal(false)}>&times;</button>
         const closeEco = <button className="close" onClick={() => this.setEcoModal(false)}>&times;</button>
@@ -1666,7 +1678,7 @@ voluven() {
                    <ModalHeader  close={closeInfo}>Información del paciente:</ModalHeader>
                    <card>
                        <CardBody>
-                           <p>{this.props.sex === 0 ? 'Varón' : 'Mujer'} de {this.props.age} años con traumatismo en {t(this.getPartBody(this.props.partBody))}, presión sistólica de {this.props.sistolicPressure}mmHg y presión diastólica de {this.props.diastolicPressure}mmHg. Posee {this.props.heartRate} latidos por minuto y una frecuencia respiratoria de {this.props.breathingRate}. La saturación de oxígeno en sangre es del {this.props.saturation}% y la diuresis de {this.props.urineOutput}ml/min. Estado mental {t(this.getMentalState(this.props.mentalStatus))}
+                           <p>{this.props.sex === 0 ? 'Varón' : 'Mujer'} de {this.props.age} años con traumatismo en {t(this.getPartBody(this.props.partBody)).toLowerCase()}, presión sistólica de {this.props.sistolicPressure}mmHg y presión diastólica de {this.props.diastolicPressure}mmHg. Posee {this.props.heartRate} latidos por minuto, una frecuencia respiratoria de {this.props.breathingRate} respiraciones/min y la saturación de oxígeno en sangre es del {this.props.saturation}%. Estado mental {t(this.getMentalState(this.props.mentalStatus))}
 
                            </p>
                        </CardBody>
@@ -1814,7 +1826,7 @@ voluven() {
                     ? <div className="action1">
 
                         <div className="actions-buttons">
-                            <Button className={this.state.tourniquetClicked?"clicked":null} onClick={() => this.torniquete3()}>{t('simulation.tourniquet')}</Button>
+                            <Button className={this.state.tourniquetClicked?"clicked":null} onClick={() => this.tourniquet()}>{t('simulation.tourniquet')}</Button>
                             <Button className={this.state.pressureClicked?"clicked":null} onClick={() => this.pressure()}>{t('simulation.pressure')}</Button>
                             <Button className={this.state.hemostaticClicked?"clicked":null} onClick={() => this.hemostatic()}>{t('simulation.hemostatic')}</Button>
                             <Button className={this.state.paniClicked?"clicked":null} onClick={() => this.pani()}>{t('simulation.pani')}</Button>
@@ -1912,7 +1924,7 @@ voluven() {
                         <div className="actions-buttons">
                             <Button className={this.state.cervicalcontrolClicked?"clicked":null} onClick={() => this.cervicalcontrol()}>{t('simulation.cervicalcontrol')}</Button>
                             <Button className={this.state.collarinClicked?"clicked":null} onClick={() => this.collarin()}>Collarín Cervical</Button>
-                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt5()}>{t('simulation.belt')}</Button>
+                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
                             
                          </div>
 

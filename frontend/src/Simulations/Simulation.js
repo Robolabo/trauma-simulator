@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Alert from 'react-bootstrap/Alert'
+import { Alert } from 'reactstrap';
 import axios from 'axios';
 import Nav from '../Menu/Nav'
 import Timer from '../Simulations/Components/Timer'
@@ -119,6 +119,7 @@ var actionsType4 = []
 export default class LoginForm extends Component {
     constructor(props){
       super(props);
+      this.information=[]
       this.timeSim=1;
       this.state = {
         sex: 0,
@@ -142,7 +143,7 @@ export default class LoginForm extends Component {
         start: false,
         confirm: true,
         alert: null,
-        show:true,
+        showingAlert:true,
         header:null,
         content: null,
         num:0,
@@ -1185,15 +1186,14 @@ export default class LoginForm extends Component {
     
     sendInformation(variant, msg){  
 
-
-        var alertMsg =  <Alert id="alert" variant={variant} show={this.state.show}>
+      const closeAlert = () => this.toogle()
+        var alertMsg =  <Alert id="alert" color={variant} isOpen={true} toggle={closeAlert}>
                                 {msg}
                         </Alert>
 
         this.setState({
             alert: alertMsg
         });
-
     }
 
     sendModal(id, type, header, content){
@@ -1210,13 +1210,10 @@ export default class LoginForm extends Component {
 
 
     toogle() {
-
-        setTimeout(() => {
-          this.setState({
-            showingAlert: false,
-            alert: null
-          });
-        }, 4000);
+      this.setState({
+        showingAlert: false,
+        alert: null
+      });
     }
 
     finish(){
@@ -1273,7 +1270,9 @@ export default class LoginForm extends Component {
             >
             </Nav>
             <Messages alert = {this.state.alert}
-                    toogle = {() => this.toogle()}/>
+                    toogle = {() => this.toogle()}
+                    information = {this.information}
+            />
             <div className="timer">
                 <Timer time = {this.state.time}
                     start = {this.state.start}
@@ -1301,6 +1300,7 @@ export default class LoginForm extends Component {
                         start = {this.state.start}
                         startClick = {() => this.start()}
                         finish = {this.state.finish}
+                        finish_interconsultations= {() => this.finish()}//paso la rutina al fichero actions
                         id = {this.props.location.state.id}
                         simulationId = {this.props.match.params.id}
                         timeSim = {this.state.timeSim}
@@ -1316,6 +1316,7 @@ export default class LoginForm extends Component {
                         rxPelvis={this.state.rxPelvis}
                         actionsType4={actionsType4}
                         simultaneousActions = {(parameter, duration, tFin, value, finalValue, type) => this.simultaneousActions(parameter, duration, tFin, value, finalValue, type)}
+                        information = {this.information}
                 />
                 <Graphic 
                         diastolicPressure = {this.state.diastolicPressure}
