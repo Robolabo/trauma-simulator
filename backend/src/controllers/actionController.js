@@ -3,7 +3,6 @@ var sequelize = require ('../model/database')
 const { QueryTypes } = require('sequelize');
 
 controller.getMsg = async (req, res) => {
-  console.log("QUERY",req.query.age)
   const data = await sequelize.query(
     `Select distinct message, photo, time from actions where actionName = '${req.query.actionName}' and 
     ((bloodLossMin != -1 and ${req.query.bloodLoss} > bloodLossMin and ${req.query.bloodLoss} < bloodLossMax) or 
@@ -33,7 +32,6 @@ controller.getMsg = async (req, res) => {
     return error;
 
   })
-  console.log(data)
   res.json({ success: true, data: data });
 }
 

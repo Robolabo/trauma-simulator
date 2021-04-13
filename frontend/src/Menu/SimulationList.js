@@ -17,9 +17,11 @@ class SimulationList extends React.Component  {
       isTrainer: this.props.location.state.isTrainer,
       alert: false,
       redirect: false,
-      id: this.props.location.state.id
+      id: this.props.location.state.id,
+      refresh: true
     }
   }
+  
  //crea las simulaciones de prueba
   handleRandomCreate(){
     var arrSimulations = [];
@@ -194,15 +196,12 @@ class SimulationList extends React.Component  {
       
         arrSimulations.forEach(dataPost => {
           // Envio al backend y se genera en la base de datos si todo va bien
-          console.log("ARRAYS", dataPost)
           axios.post(baseUrl, dataPost)
             .then(response => {
-              console.log(response)
               if (response.data.success === true) {
                 //Una vez se hayan creado las simulaciones, las obtengo para mostrarlas por pantalla
                 axios.get(baseGetUrl, request)
                   .then(res => {
-                    console.log("DAAA", res)
                     const data = res.data.data;
                     if (data) {
                       this.setState({ listSimulation: data });
@@ -232,6 +231,122 @@ class SimulationList extends React.Component  {
          //this.setState({ listSimulation: arrSimulations });
      
 }
+
+createCases(){
+  const baseUrlCreate = "http://localhost:8080/simulation/create"
+  const baseGetUrl = "http://localhost:8080/simulation/listTrainer/"+this.props.location.state.id
+
+  var datapost1 = {
+    trainerId: 1,
+    traineeId: this.props.location.state.id,
+    sex: 0,
+    age: 25,
+    weight: 90, 
+    partBody: "rightLeg", 
+    bloodLoss: 100,
+    sistolicPressure: 141,
+    diastolicPressure: 89,
+    heartRate: 110,
+    breathingRate: 26,
+    urineOutput: 10, 
+    saturation: 98, 
+    mentalStatus: "normal", 
+    phase: "prehospitalaria",
+    temperature: 34,
+    time: 30,
+    rxPelvis:"2"
+  }
+
+  var datapost2 = {
+    trainerId: 1,
+    traineeId: this.props.location.state.id,
+    sex: 0,
+    age: 25,
+    weight: 90, 
+    partBody: "rightLeg", 
+    bloodLoss: 100,
+    sistolicPressure: 141,
+    diastolicPressure: 89,
+    heartRate: 110,
+    breathingRate: 26,
+    urineOutput: 10, 
+    saturation: 98, 
+    mentalStatus: "normal", 
+    phase: "hospitalaria",
+    temperature: 34,
+    time: 30,
+    rxPelvis:"1"
+  }
+
+  var datapost3 = {
+    trainerId: 1,
+    traineeId: this.props.location.state.id,
+    sex: 0,
+    age: 25,
+    weight: 90, 
+    partBody: "rightLeg", 
+    bloodLoss: 100,
+    sistolicPressure: 141,
+    diastolicPressure: 89,
+    heartRate: 110,
+    breathingRate: 26,
+    urineOutput: 10, 
+    saturation: 98, 
+    mentalStatus: "normal", 
+    phase: "prehospitalaria",
+    temperature: 34,
+    time: 30,
+    rxPelvis:"2"
+  }
+
+  var datapost4 = {
+    trainerId: 1,
+    traineeId: this.props.location.state.id,
+    sex: 0,
+    age: 25,
+    weight: 90, 
+    partBody: "rightLeg", 
+    bloodLoss: 100,
+    sistolicPressure: 141,
+    diastolicPressure: 89,
+    heartRate: 110,
+    breathingRate: 26,
+    urineOutput: 10, 
+    saturation: 98, 
+    mentalStatus: "normal", 
+    phase: "hospitalaria",
+    temperature: 34,
+    time: 30,
+    rxPelvis:"1"
+  }
+
+  const exam = []
+  var data
+  exam.push(datapost1)
+  exam.push(datapost2)
+  exam.push(datapost3)
+  exam.push(datapost4)
+  exam.map((datapost)=> {
+  axios.post(baseUrlCreate,datapost)
+  .then(response=>{
+    if (response.data.success===true) {
+      axios.get(baseGetUrl)
+      .then(res => {
+        data = res.data.data;
+        this.setState({ listSimulation:data });
+      })
+      .catch(error => {
+        alert("Error 34 " + error);
+      })
+    }
+    else {
+      alert(response.data.message)
+    }
+  })
+         
+  })
+  return data
+}
   componentDidMount(){
     if (this.state.isTrainer) {
       axios.get("http://localhost:8080/simulation/listTrainer/"+this.props.location.state.id)
@@ -244,49 +359,25 @@ class SimulationList extends React.Component  {
       })
     } else {
       if (this.props.location.state.trainerList) {
-        
-         this.handleRandomCreate();
-
-    } else {
-      axios.get("http://localhost:8080/simulation/listTrainee/"+this.props.location.state.id)
-      .then(res => {
-        const data = res.data.data;
-        this.setState({ listSimulation:data });
-      })
-      .catch(error => {
-        alert(error)
-      })
-    }
-  }
-}
-
-  componentDidUpdate(){
-    if (this.state.isTrainer) {
-      axios.get("http://localhost:8080/simulation/listTrainer/"+this.state.id)
-      .then(res => {
-        const data = res.data.data;
-        this.setState({ listSimulation:data });
-      })
-      .catch(error => {
-        alert(error)
-      })
-    } else {
-      if (this.props.location.state.trainerList) {
-       
         this.handleRandomCreate();
-
     } else {
-      axios.get("http://localhost:8080/simulation/listTrainee/"+this.props.location.state.id)
-      .then(res => {
-        const data = res.data.data;
-        this.setState({ listSimulation:data });
-      })
-      .catch(error => {
-        alert(error)
-      })
+        axios.get("http://localhost:8080/simulation/listTrainer/"+this.props.location.state.id)
+        .then(res => {
+          var data = res.data.data;
+          if (data.length === 0){
+            data = this.createCases()
+            window.location.reload()
+          }
+          this.setState({ listSimulation:data });
+        })
+        .catch(error => {
+          alert(error)
+        })
     }
   }
+
 }
+
 
   alert(type, msg) {
     return(
@@ -366,6 +457,11 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
     const { t } = this.props
     if (this.state.listSimulation) {
     return this.state.listSimulation.map((data)=>{
+      if(this.props.location.state.trainerList === undefined && (data === this.state.listSimulation[2] ||
+        data === this.state.listSimulation[3]) && (this.state.listSimulation[0].inform === null || 
+          this.state.listSimulation[1].inform === null)){
+           return null
+         }
       return(
         <tr>
           <th></th>

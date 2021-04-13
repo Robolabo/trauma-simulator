@@ -169,7 +169,6 @@ class NewSimulation extends Component {
     handleChange5 = selectedOption => {
        
         this.setState({ phase: selectedOption.value });
-        console.log(selectedOption.value)
         if(selectedOption.value==="hospitalaria"){
             this.setState({ showrx: true });
         

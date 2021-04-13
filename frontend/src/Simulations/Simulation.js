@@ -166,7 +166,6 @@ export default class LoginForm extends Component {
         .then(res=>{
             if (res.data.success) {
                 const data = res.data.data[0]
-                console.log("DATOS DEVUELTOS",data.rxPelvis)
                 //añadir constantes del caso clínico creado
                 this.setState({
                     sex: data.sex,
@@ -262,16 +261,6 @@ export default class LoginForm extends Component {
             urineOutput: UO,
             saturation: SO
         })
-      //Comprobaciones
-      if(this.state.timeSim === 135 || this.state.timeSim === 136){
-        console.log("Fin acción")
-      }
-      if(this.state.timeSim === 300){
-        console.log("Cambio a la segunda fase")
-      }
-      if(this.state.timeSim === 315 || this.state.timeSim === 316){
-        console.log("Fin de los 5 min")
-      }   
     }
 
     transitionValues(interval){
@@ -1198,7 +1187,6 @@ export default class LoginForm extends Component {
     }
 
     sendModal(id, type, header, content){
-        console.log("PARAMETROSS",id, type, header, content)
         this.setState(({ num }) => ({
             header: header,
             content: content,

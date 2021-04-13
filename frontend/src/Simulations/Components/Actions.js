@@ -161,7 +161,8 @@ class Actions extends Component {
                     state: { id: this.props.id,
                             isTrainer: false,
                             trainerList:this.props.trainerList,
-                            data: this.props.data}
+                            data: this.props.data,
+                            refresh: "refresh"}
                 }} />
 
         }
@@ -170,7 +171,6 @@ class Actions extends Component {
 
     
     fillInformation(msg,content){
-        console.log(msg, content);
         //Añadir acción a la base de datos
         const baseUrl = "http://localhost:8080/inform/addAction"
         // parametros de datos post
@@ -337,7 +337,6 @@ class Actions extends Component {
     }
 
     getMsg(variant, action){
-        console.log("EDAD",this.props.age)
         const url = "http://localhost:8080/action/getMsg"
         axios.get(url, {
             params: {
@@ -1005,7 +1004,6 @@ class Actions extends Component {
         });
         this.props.change("breathingRate", -10,30,1,10)
         this.props.change("saturation", 96,30,2,10)
-        console.log(this.avatar)
         this.getMsg("info","oxygenate")
         switch(this.avatar) {
             case naked:
@@ -1107,7 +1105,6 @@ class Actions extends Component {
                     this.fillrx()
                     
             }
-            console.log("CONTENT RADIOGRAFIA",content,rx)
                 
                 //this.getMsg("info","rx")
                 //this.props.sendModal(0, rx, "Rx Pelvis", content)
@@ -1692,9 +1689,9 @@ voluven() {
                 {this.props.phase === "hospitalaria" ? 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                   
-                    <Button className={this.state.anamnesisClicked?"clicked":null} onClick={() => { this.handleChange(1) }}>Anamnesis</Button>&nbsp;
-                    <Button className={this.state.viaClicked?"clicked":null} onClick={() => { this.handleChange(2) }}>Vía aérea y ventilación</Button>&nbsp;
-                    <Button className={this.state.circulacionClicked?"clicked":null} onClick={() => { this.handleChange(3) }}>Circulación/Hemorragias Externas</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.anamnesisClicked?"clicked":null} onClick={() => { this.handleChange(1) }}>Anamnesis</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.viaClicked?"clicked":null} onClick={() => { this.handleChange(2) }}>Vía aérea y ventilación</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.circulacionClicked?"clicked":null} onClick={() => { this.handleChange(3) }}>Circulación/Hemorragias Externas</Button>&nbsp;
                     
 
                 
@@ -1703,9 +1700,9 @@ voluven() {
                 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 
-                <Button className={this.state.anamnesis2Clicked?"clicked":null} onClick={() => { this.handleChange(8) }}>Anamnesis</Button>&nbsp;
-                <Button className={this.state.via2Clicked?"clicked":null} onClick={() => { this.handleChange(9) }}>Vía aérea y ventilación</Button>&nbsp;
-                <Button className={this.state.circulacion2Clicked?"clicked":null}onClick={() => { this.handleChange(10) }}>Circulación/Hemorragias Externas</Button>&nbsp;
+                <Button disabled={!this.props.start} className={this.state.anamnesis2Clicked?"clicked":null} onClick={() => { this.handleChange(8) }}>Anamnesis</Button>&nbsp;
+                <Button disabled={!this.props.start} className={this.state.via2Clicked?"clicked":null} onClick={() => { this.handleChange(9) }}>Vía aérea y ventilación</Button>&nbsp;
+                <Button disabled={!this.props.start} className={this.state.circulacion2Clicked?"clicked":null}onClick={() => { this.handleChange(10) }}>Circulación/Hemorragias Externas</Button>&nbsp;
             </div>
                 }
 
@@ -1713,10 +1710,10 @@ voluven() {
 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'10px'}}>
                     
-                    <Button className={this.state.posicionClicked?"clicked":null} onClick={() => { this.handleChange(4) }}>Exposición/Otros</Button>&nbsp;
-                    <Button className={this.state.farmacosClicked?"clicked":null} onClick={() => { this.handleChange(5) }}>Fármacos y fluidoterapia</Button>&nbsp;
-                    <Button className={this.state.pruebasClicked?"clicked":null} onClick={() => { this.handleChange(6) }}>Pruebas Complementarias</Button>&nbsp;
-                    <Button className={this.state.inmovilizacionClicked?"clicked":null} onClick={() => { this.handleChange(7) }}>Inmovilización</Button>
+                    <Button disabled={!this.props.start} className={this.state.posicionClicked?"clicked":null} onClick={() => { this.handleChange(4) }}>Exposición/Otros</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.farmacosClicked?"clicked":null} onClick={() => { this.handleChange(5) }}>Fármacos y fluidoterapia</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.pruebasClicked?"clicked":null} onClick={() => { this.handleChange(6) }}>Pruebas Complementarias</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.inmovilizacionClicked?"clicked":null} onClick={() => { this.handleChange(7) }}>Inmovilización</Button>
 
                     
                 </div>
@@ -1725,10 +1722,10 @@ voluven() {
                  
 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'10px'}}>
-                    <Button className={this.state.posicion2Clicked?"clicked":null} onClick={() => { this.handleChange(11) }}>Exposición/Otros</Button>&nbsp;
-                    <Button className={this.state.farmacos2Clicked?"clicked":null} onClick={() => { this.handleChange(12) }}>Fármacos y fluidoterapia</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.posicion2Clicked?"clicked":null} onClick={() => { this.handleChange(11) }}>Exposición/Otros</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.farmacos2Clicked?"clicked":null} onClick={() => { this.handleChange(12) }}>Fármacos y fluidoterapia</Button>&nbsp;
                     {/*<Button className={this.state.pruebas2Clicked?"clicked":null} onClick={() => { this.handleChange(13) }}>Pruebas Complementarias</Button>&nbsp;*/}
-                    <Button className={this.state.inmovilizacion2Clicked?"clicked":null} onClick={() => { this.handleChange(14) }}>Inmovilización</Button>
+                    <Button disabled={!this.props.start} className={this.state.inmovilizacion2Clicked?"clicked":null} onClick={() => { this.handleChange(14) }}>Inmovilización</Button>
 
                  
                 
