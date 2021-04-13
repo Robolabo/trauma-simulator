@@ -55,7 +55,7 @@ class SimulationList extends React.Component  {
             sex: 0,
             age: 33,
             weight: 80,
-            partBody: "Pierna derecha",
+            partBody: "rightLeg",
             bloodLoss: 100,
             sistolicPressure: 141,
             diastolicPressure: 89,
@@ -78,7 +78,7 @@ class SimulationList extends React.Component  {
           sex: 0,
           age: 33,
           weight: 80,
-          partBody: "Pierna derecha",
+          partBody: "rightLeg",
           bloodLoss: 100,
           sistolicPressure: 141,
           diastolicPressure: 89,
@@ -101,7 +101,7 @@ class SimulationList extends React.Component  {
             sex: 0,
             age: 50,
             weight: 90, 
-            partBody: "Ambas piernas", 
+            partBody: "bothLeg", 
             bloodLoss: 100,
             sistolicPressure: 141,
             diastolicPressure: 89,
@@ -123,7 +123,7 @@ class SimulationList extends React.Component  {
           sex: 0,
           age: 50,
           weight: 90, 
-          partBody: "Ambas piernas", 
+          partBody: "bothLeg", 
           bloodLoss: 100,
           sistolicPressure: 141,
           diastolicPressure: 89,
@@ -146,7 +146,7 @@ class SimulationList extends React.Component  {
             sex: 0,
             age: 82,
             weight: 80,
-            partBody: "Pierna izquierda",
+            partBody: "leftLeg",
             bloodLoss: 100, 
             sistolicPressure: 141,
             diastolicPressure: 91,
@@ -168,7 +168,7 @@ class SimulationList extends React.Component  {
               sex: 0,
               age: 82,
               weight: 80,
-              partBody: "Pierna izquierda",
+              partBody: "leftLeg",
               bloodLoss: 100, 
               sistolicPressure: 141,
               diastolicPressure: 91,
@@ -296,6 +296,35 @@ class SimulationList extends React.Component  {
     );
 }
 
+getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE 
+  var returnValue;
+  switch(partBody){
+      case 'pelvis':
+          returnValue = 'new-simulation.pelvis'
+          break;
+      case 'rightArm':
+          returnValue = 'new-simulation.right-a'
+          break;
+      case 'leftArm':
+          returnValue = 'new-simulation.left-a'
+          break;
+      case 'rightLeg':
+          returnValue = 'new-simulation.right-l'
+          break;
+
+      case 'bothLeg':
+            returnValue = 'new-simulation.both-l'
+            break;
+      case 'leftLeg':
+      default:
+          returnValue = 'new-simulation.left-l'
+          break;
+      
+  }
+  return returnValue; 
+
+}
+
   render(){
     const { t } = this.props
     return (
@@ -348,7 +377,7 @@ class SimulationList extends React.Component  {
           
           <th>{(data.sex === 0) ? t('new-simulation.male') : t('new-simulation.female')}</th>
           <td>{data.age}</td>
-          <td>{data.partBody}</td>
+          <td>{t(this.getPartBody(data.partBody))}</td>
           <td>{data.time}</td>
           <td>
             {data.inform !== null ?

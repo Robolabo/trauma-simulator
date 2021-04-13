@@ -982,7 +982,7 @@ module.exports = {
       {
         actionId: 37,
         actionName: 'ventilation',
-        message: 'Se administra oxigeno al paciente.',
+        message: 'Se administra oxígeno al paciente.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1150,7 +1150,7 @@ module.exports = {
       {
         actionId: 43,
         actionName: 'mattress',
-        message: 'Se coloca colchón de vacio.',
+        message: 'Se coloca colchón de vacío.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1488,7 +1488,7 @@ module.exports = {
       {
         actionId: 55,
         actionName: 'pupils',
-        message: 'La respuesta al estimulo luminoso es lenta.',
+        message: 'La respuesta al estímulo luminoso es lenta.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1516,7 +1516,7 @@ module.exports = {
       {
         actionId: 56,
         actionName: 'pupils',
-        message: 'El paciente responde adecuadamente a estimulos luminosos .',
+        message: 'El paciente responde adecuadamente a estímulos luminosos .',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1544,7 +1544,7 @@ module.exports = {
       {
         actionId: 57,
         actionName: 'pupils',
-        message: 'El paciente no responde a estimulos luminosos .',
+        message: 'El paciente no responde a estímulos luminosos .',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2620,7 +2620,7 @@ module.exports = {
       {
         actionId: 96,
         actionName: 'disease',
-        message: 'No, aunque por la edad tengo la tensión algo alta y problemas de azucar.',
+        message: 'No, aunque por la edad tengo la tensión algo alta y problemas de azúcar.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
