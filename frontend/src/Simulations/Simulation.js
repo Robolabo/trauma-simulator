@@ -1283,6 +1283,7 @@ export default class LoginForm extends Component {
                         start = {this.state.start}
                         startClick = {() => this.start()}
                         finish = {this.state.finish}
+                        finish_interconsultations= {() => this.finish()}//paso la rutina al fichero actions
                         id = {this.props.location.state.id}
                         simulationId = {this.props.match.params.id}
                         timeSim = {this.state.timeSim}
