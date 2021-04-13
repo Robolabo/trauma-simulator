@@ -996,6 +996,7 @@ export default class LoginForm extends Component {
           }
           eval(parameter+"Value = valueTot")
           eval(parameter+"Actions.sort((a, b) => a.finalTime-b.finalTime);")
+          if(eval(parameter+"Actions[0].duration") === 'ventilacionBolsa'){break;}
           eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           break; 
         //Eliminar acciones del array de acciones de una constante vital        
