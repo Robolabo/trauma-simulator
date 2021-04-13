@@ -82,10 +82,10 @@ class Graphic extends Component {
                         {this.props.sistolicPressure.toFixed(0)}/{this.props.diastolicPressure.toFixed(0)} mmHg
                         <Button><img src={pressure} alt="pres" width="30px" height="30px"></img></Button>
                     </div>
-                    <div className="constants-items">
+                    {/*<div className="constants-items">
                         {this.props.urineOutput.toFixed(0)} mL/min
                         <Button><img src={urine} alt="urine" width="30px" height="30px"></img></Button>
-                    </div>
+                        </div>*/}
                     {this.props.fordward  ?
                         <div className="clock">
                             <Button onClick={() => this.toogleCrono()}>
