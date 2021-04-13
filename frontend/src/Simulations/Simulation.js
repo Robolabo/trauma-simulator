@@ -23,11 +23,17 @@ var saturationValue = -0.4
 var newSO = 0
 var sistolicPressureValue = -1.5
 var newSP = 0
+//var bloodLossValue = 0
+//var bloodPressureValue = 0
+//var urineOutputValue = 0
 var heartRateBlock = false
 var diastolicPressureBlock = false
 var sistolicPressureBlock = false
 var saturationBlock = false
 var breathingRateBlock = false
+//var bloodLossBlock = false 
+//var bloodPressureBlock = false
+//var urineOutputBlock = false
 
 
 var breathConstant = [{x: (0.25), y: 500},{x: (0.5), y: 125},{x: 1, y: 0}]
@@ -72,22 +78,34 @@ var saturationFinalTime
 var breathingRateFinalTime
 var sistolicPressureFinalTime
 var diastolicPressureFinalTime
+//var bloodLossFinalTime
+//var bloodPressureFinalTime
+//var urineOutputFinalTime
 var heartRateFinalValue
 var saturationFinalValue
 var breathingRateFinalValue
 var sistolicPressureFinalValue
 var diastolicPressureFinalValue
+//var bloodLossFinalValue
+//var bloodPressureFinalValue
+//var urineOutputFinalValue
 
 var heartRateN = 0
 var saturationN = 0
 var breathingRateN = 0
 var sistolicPressureN = 0
 var diastolicPressureN = 0
+//var bloodLossN = 0
+//var bloodPressureN = 0
+//var urineOutputN = 0
 var heartRateActions = []
 var breathingRateActions = []
 var diastolicPressureActions  = []
 var sistolicPressureActions = []
 var saturationActions = []
+//var bloodLossActions = []
+//var bloodPressureActions = []
+//var urineOutputActions = []
 var valueTot = 0
 
 var heartRateFactorMultiplicativo = 1
