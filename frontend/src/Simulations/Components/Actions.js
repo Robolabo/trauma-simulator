@@ -539,8 +539,13 @@ class Actions extends Component {
         this.setState({
             ventilationClicked:true
         });
-        
-        this.props.change("saturation", 100,40,2,10)
+        this.props.actionsType4.forEach(action => {//cambio tipo4
+            if (action ==="ventilacionBolsa"){
+                this.props.simultaneousActions("saturation","ventilacionBolsa",1800,-6,-1,4)
+                this.props.actionsType4.splice(this.props.actionsType4.indexOf(action),1)
+            }
+        })
+        this.props.change("saturation", 100, 40, 2, 10)
         this.getMsg("info","ventilation")
         this.fillInformation("Ventilación con bolsa autoinflable")
 
@@ -745,8 +750,7 @@ class Actions extends Component {
         this.setState({
             SIRClicked:true
         });
-        
-        //this.props.change("saturation", -0.1,ACCION,4,30) ¿?????????? 
+        this.props.change("saturation", -6, "ventilacionBolsa", 4, 30)
         this.getMsg("info","SIR")
         this.fillInformation("SIR")
     }
