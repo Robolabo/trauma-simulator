@@ -246,13 +246,17 @@ export default class LoginForm extends Component {
         diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue  : (-1.25 * diastolicPressureFactorMultiplicativo)
       }
       // Se obtiene el valor actual de cada constante y se le suma la variación.
-        let HR = this.state.heartRate + (heartRateValue/60)
-        let SP = this.state.sistolicPressure + (sistolicPressureValue/60)
-        let DP = this.state.diastolicPressure + (diastolicPressureValue/60)
-        let BR = this.state.breathingRate + (breathingRateValue/60)
+        let newHR = this.state.heartRate + (heartRateValue/60)
+        let HR = (50 <= newHR <= 160) ? newHR : this.state.heartRate
+        let newSP = this.state.sistolicPressure + (sistolicPressureValue/60)
+        let SP = (60 <= newSP <= 190) ? newSP : this.state.sistolicPressure
+        let newDP = this.state.diastolicPressure + (diastolicPressureValue/60)
+        let DP = (30 <= newDP <= 90) ? newDP : this.state.diastolicPressure
+        let newBR = this.state.breathingRate + (breathingRateValue/60)
+        let BR = (0 <= newBR <= 60) ? newBR : this.state.breathingRate
         let UO = this.state.urineOutput + (urineOutputValue/60)
         let newSO = this.state.saturation + (saturationValue/60)
-        let SO = (newSO < 100 ) ? newSO : this.state.saturation
+        let SO = (70 <= newSO <= 100 ) ? newSO : this.state.saturation
         // Se actualiza el estado con los nuevos valores.
         this.setState({
             heartRate: HR,
