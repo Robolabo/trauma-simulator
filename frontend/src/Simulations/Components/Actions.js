@@ -991,8 +991,9 @@ class Actions extends Component {
         
         this.getMsg("info","interconsultations")
         this.fillInformation("Solicitud de ineterconsultas a otras especialidades")
-        //Esto es para que se finalice la simualación pasados 10 segundos
-        setTimeout(()=>{this.props.finish_interconsultations();}, 10000)
+        //Esto es para que se finalice la simualación pasados 0,5 segundos ( el tiempo se pone en milisegundos)
+        setTimeout(()=>{this.props.finish_interconsultations();}, 500)
+
         
     }
 
