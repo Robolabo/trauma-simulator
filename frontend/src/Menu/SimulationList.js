@@ -8,6 +8,7 @@ import Inform from '../Information/Document'
 import { Redirect } from "react-router-dom"
 import { Alert } from 'reactstrap';
 //import { each } from 'jquery';
+var finish = false
 
 class SimulationList extends React.Component  {
   constructor(props){
@@ -361,7 +362,7 @@ createCases(){
       if (this.props.location.state.trainerList) {
         this.handleRandomCreate();
     } else {
-        axios.get("http://localhost:8080/simulation/listTrainer/"+this.props.location.state.id)
+        axios.get("http://localhost:8080/simulation/listTrainee/"+this.props.location.state.id)
         .then(res => {
           var data = res.data.data;
           if (data.length === 0){
@@ -380,6 +381,10 @@ createCases(){
 
 
   alert(type, msg) {
+    if(type !=="success"){
+      window.location.reload()
+      finish = true
+    }
     return(
         <Alert color={type} isOpen={this.state.alert} toggle={() => this.setState({alert:false, redirect:true})}>
             {msg}
@@ -442,7 +447,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
             {this.loadFillData()}
           </tbody>
         </table>
-        {this.state.redirect && !this.state.alert ? <Redirect to={{
+        {((this.state.redirect && !this.state.alert) ||finish) ? <Redirect to={{
                                                         pathname: '/listSimulation',
                                                         state: { id: this.state.id,
                                                                   isTrainer: this.state.isTrainer }
@@ -476,7 +481,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
           <td>{t(this.getPartBody(data.partBody))}</td>
           <td>{data.time}</td>
           <td>
-            {data.inform !== null ?
+            {(data.inform) !== null ?
                 this.props.location.state.trainerList ===true?
                     <Link className="btn btn-outline-info " 
                     to={{
