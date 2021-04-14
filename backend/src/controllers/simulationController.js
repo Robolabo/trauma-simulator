@@ -36,7 +36,6 @@ controller.create = async (req,res) => {
   // data
   const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
             saturation, mentalStatus, time, traineeId, trainerId, phase, rxPelvis } = req.body;
-  console.log("BODCRE",req.body) 
   // create
   const data = await Simulation.create({
     sex: sex,
@@ -102,7 +101,6 @@ controller.getTestData = async (req, res) => {
   .catch(error =>{
     return error;
   })
-  console.log(data)
   res.json({ success: true, data: data });
 }
 

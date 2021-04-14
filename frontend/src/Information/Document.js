@@ -21,7 +21,6 @@ export default class Document extends Component {
         .then(res=>{
             if (res.data.success) {
                 const data = res.data.data[0]
-                console.log(data)
                 if(data.inform){
                     var decoder = new TextDecoder('utf8');
                     var fileCode = btoa(decoder.decode(Buffer.from(data.inform.data)));

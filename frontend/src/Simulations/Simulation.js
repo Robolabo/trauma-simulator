@@ -166,7 +166,6 @@ export default class LoginForm extends Component {
         .then(res=>{
             if (res.data.success) {
                 const data = res.data.data[0]
-                console.log("DATOS DEVUELTOS",data.rxPelvis)
                 //añadir constantes del caso clínico creado
                 this.setState({
                     sex: data.sex,
@@ -246,13 +245,17 @@ export default class LoginForm extends Component {
         diastolicPressureValue = diastolicPressureBlock ? diastolicPressureValue  : (-1.25 * diastolicPressureFactorMultiplicativo)
       }
       // Se obtiene el valor actual de cada constante y se le suma la variación.
-        let HR = this.state.heartRate + (heartRateValue/60)
-        let SP = this.state.sistolicPressure + (sistolicPressureValue/60)
-        let DP = this.state.diastolicPressure + (diastolicPressureValue/60)
-        let BR = this.state.breathingRate + (breathingRateValue/60)
+        let newHR = this.state.heartRate + (heartRateValue/60)
+        let HR = (50 <= newHR <= 160) ? newHR : this.state.heartRate
+        let newSP = this.state.sistolicPressure + (sistolicPressureValue/60)
+        let SP = (60 <= newSP <= 190) ? newSP : this.state.sistolicPressure
+        let newDP = this.state.diastolicPressure + (diastolicPressureValue/60)
+        let DP = (30 <= newDP <= 90) ? newDP : this.state.diastolicPressure
+        let newBR = this.state.breathingRate + (breathingRateValue/60)
+        let BR = (0 <= newBR <= 60) ? newBR : this.state.breathingRate
         let UO = this.state.urineOutput + (urineOutputValue/60)
         let newSO = this.state.saturation + (saturationValue/60)
-        let SO = (newSO < 100 ) ? newSO : this.state.saturation
+        let SO = (70 <= newSO <= 100 ) ? newSO : this.state.saturation
         // Se actualiza el estado con los nuevos valores.
         this.setState({
             heartRate: HR,
@@ -262,16 +265,6 @@ export default class LoginForm extends Component {
             urineOutput: UO,
             saturation: SO
         })
-      //Comprobaciones
-      if(this.state.timeSim === 135 || this.state.timeSim === 136){
-        console.log("Fin acción")
-      }
-      if(this.state.timeSim === 300){
-        console.log("Cambio a la segunda fase")
-      }
-      if(this.state.timeSim === 315 || this.state.timeSim === 316){
-        console.log("Fin de los 5 min")
-      }   
     }
 
     transitionValues(interval){
@@ -1007,6 +1000,7 @@ export default class LoginForm extends Component {
           }
           eval(parameter+"Value = valueTot")
           eval(parameter+"Actions.sort((a, b) => a.finalTime-b.finalTime);")
+          if(eval(parameter+"Actions[0].duration") === 'ventilacionBolsa'){break;}
           eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           break; 
         //Eliminar acciones del array de acciones de una constante vital        
@@ -1194,11 +1188,9 @@ export default class LoginForm extends Component {
         this.setState({
             alert: alertMsg
         });
-
     }
 
     sendModal(id, type, header, content){
-        console.log("PARAMETROSS",id, type, header, content)
         this.setState(({ num }) => ({
             header: header,
             content: content,

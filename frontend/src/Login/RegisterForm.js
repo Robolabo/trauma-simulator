@@ -208,7 +208,6 @@ class RegisterForm extends React.Component {
                         </div>
                     </div>
                 </div>
-                {console.log(window.innerWidth + "x" + window.innerHeight)}
             </div>           
         );
     }
