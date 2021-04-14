@@ -1871,7 +1871,7 @@ voluven() {
                 {this.state.actionPage === 12
                     ? <div className="action1">
                         <div className="actions-buttons">
-                            <Button className={this.state.SIRClicked?"clicked":null} onClick={() => this.SIR()}>{t('simulation.SIR')}</Button>
+                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
                             <Button className={this.state.midazolamClicked?"clicked":null} onClick={() => this.midazolam()}>{t('simulation.midazolam')}</Button>
                             <Button className={this.state.tranexamicoClicked?"clicked":null} onClick={() => this.tranexamico()}>{t('simulation.tranexamico')}</Button>
                             <Button className={this.state.noradrenalinaClicked?"clicked":null} onClick={() => this.noradrenalina()}>{t('simulation.noradrenalina')}</Button>
@@ -1886,13 +1886,12 @@ voluven() {
                             
                          </div>
 
-                         <div className="actions-buttons">
-                            
-                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
+                        {/*} <div className="actions-buttons">
+                            <Button className={this.state.SIRClicked?"clicked":null} onClick={() => this.SIR()}>{t('simulation.SIR')}</Button>
                             <Button className="btn-hidden"></Button>
                             <Button className="btn-hidden"></Button>
                             <Button className="btn-hidden"></Button>
-                         </div>
+                </div>*/}
                          
                           
 
@@ -2107,7 +2106,8 @@ voluven() {
                          <Button className={this.state.cristaloidesClicked?"clicked":null} onClick={() => this.cristaloides()}>Cristaloides</Button>*/}
 
                          <div className="actions-buttons">
-                            <Button className={this.state.SIRClicked?"clicked":null} onClick={() => this.SIR()}>{t('simulation.SIR')}</Button>
+                            {/*<Button className={this.state.SIRClicked?"clicked":null} onClick={() => this.SIR()}>{t('simulation.SIR')}</Button>*/}
+                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
                             <Button className={this.state.midazolamClicked?"clicked":null} onClick={() => this.midazolam()}>{t('simulation.midazolam')}</Button>
                             <Button className={this.state.tranexamicoClicked?"clicked":null} onClick={() => this.tranexamico()}>{t('simulation.tranexamico')}</Button>
                             <Button className={this.state.noradrenalinaClicked?"clicked":null} onClick={() => this.noradrenalina()}>{t('simulation.noradrenalina')}</Button>
@@ -2124,8 +2124,8 @@ voluven() {
 
                          <div className="actions-buttons">
                             
-                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
                             <Button className={this.state.massivetransfusionClicked?"clicked":null} onClick={() => this.massivetransfusion()}>{t('simulation.massivetransfusion')}</Button>
+                            <Button className="btn-hidden"></Button>
                             <Button className="btn-hidden"></Button>
                             <Button className="btn-hidden"></Button>
                          </div>
