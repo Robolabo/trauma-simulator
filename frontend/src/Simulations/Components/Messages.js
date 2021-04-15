@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, UncontrolledPopover, PopoverHeader, PopoverBody, Table } from 'reactstrap';
+import { Button, UncontrolledPopover, PopoverBody, Table } from 'reactstrap';
 import '../simulation.css'
 import historial from '../../assets/historial.png'
 

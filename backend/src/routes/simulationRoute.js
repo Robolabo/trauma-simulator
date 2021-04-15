@@ -15,6 +15,7 @@ router.get('/get/:id',simulationController.get);
 router.get('/getTestData/:id',simulationController.getTestData);
 router.post('/update/:id', simulationController.update);
 router.post('/delete',simulationController.delete);
+router.post('/deleteSimulations', simulationController.deleteAllByUser)
 
 
 module.exports = router;

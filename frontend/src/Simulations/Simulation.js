@@ -1,3 +1,4 @@
+/* eslint no-eval: 0 */
 import React, { Component } from 'react'
 import { Alert } from 'reactstrap';
 import axios from 'axios';
@@ -114,6 +115,8 @@ var breathingRateFactorMultiplicativo = 1
 var sistolicPressureFactorMultiplicativo = 1
 var diastolicPressureFactorMultiplicativo = 1
 var actionsType4 = []
+var blockAdvance = false
+var blockAdvanceN = 0
 
 
 export default class LoginForm extends Component {
@@ -674,7 +677,7 @@ export default class LoginForm extends Component {
                         }
                       }
                     }
-                    else if(i!=0){
+                    else if(i!==0){
                       for(i = i-1 ; i<(eval(element.parameter+"Actions.length")); i++){
                         eval(element.parameter+"Actions.splice(i,1);")
                           eval(element.parameter+"N -= 1")
@@ -700,7 +703,7 @@ export default class LoginForm extends Component {
                         }
                       }
                     }
-                    else if(i!=0){
+                    else if(i!==0){
                       for(i = i-1 ; i<(eval(element.parameter+"Actions.length")); i++){
                         eval(element.parameter+"Actions.splice(i,1);")
                           eval(element.parameter+"N -= 1")
@@ -746,7 +749,7 @@ export default class LoginForm extends Component {
                         }
                       }
                     }
-                    else if(i!=0){
+                    else if(i!==0){
                       for(i = i-1 ; i<(eval(element.parameter+"Actions.length")); i++){
                         eval(element.parameter+"Actions.splice(i,1);")
                           eval(element.parameter+"N -= 1")
@@ -771,7 +774,7 @@ export default class LoginForm extends Component {
                         }
                       }
                     }
-                    else if(i!=0){
+                    else if(i!==0){
                       for(i = i-1 ; i<(eval(element.parameter+"Actions.length")); i++){
                         eval(element.parameter+"Actions.splice(i,1);")
                           eval(element.parameter+"N -= 1")
@@ -796,7 +799,7 @@ export default class LoginForm extends Component {
               else if(valueTot === 2){ 
                 valueTot = eval(element.parameter+"Actions[i].value") }
               else{
-                for(var i = 0; i<(eval(element.parameter+"Actions.length")); i++){
+                for(let i = 0; i<(eval(element.parameter+"Actions.length")); i++){
                     valueTot += eval(element.parameter+"Actions[i].value")
                   }
               }
@@ -1001,7 +1004,7 @@ export default class LoginForm extends Component {
           eval(parameter+"Value = valueTot")
           eval(parameter+"Actions.sort((a, b) => a.finalTime-b.finalTime);")
           if(eval(parameter+"Actions[0].duration") === 'ventilacionBolsa'){break;}
-          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
+          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue.bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           break; 
         //Eliminar acciones del array de acciones de una constante vital        
         case 0: 
@@ -1009,7 +1012,7 @@ export default class LoginForm extends Component {
           eval(parameter + "N -= 1")
           if(eval(parameter + "N") > 0){
             eval(parameter+"Block = true")
-            for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+            for(let i = 0; i<(eval(parameter+"Actions.length")); i++){
               if(eval(parameter + "N") === 1 && eval(parameter+"Actions[i].finalValue") !== 0 && eval(parameter+"Actions[i].finalValue") !== -1 && eval(parameter+"Actions[i].value")!== 0 ){
                 eval(parameter+"Block = false")
                 break;
@@ -1023,7 +1026,7 @@ export default class LoginForm extends Component {
             }
             eval(parameter+"Value = valueTot")
             eval(parameter+"Actions.sort((a, b) => a.finalTime -b.finalTime);")
-            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
+            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue.bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           }
           else{
             eval(parameter+"Block = false")
@@ -1036,12 +1039,12 @@ export default class LoginForm extends Component {
           eval(parameter+"Actions[0].duration = "+duration)
           eval(parameter+"Actions[0].finalTime = "+tFin)
           eval(parameter+"Actions[0].value = "+value)
-          for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+          for(let i = 0; i<(eval(parameter+"Actions.length")); i++){
             valueTot += eval(parameter+"Actions[i].value")
           }
           eval(parameter+"Value = valueTot")
           eval(parameter+"Actions.sort((a, b) => a.finalTime-b.finalTime);")
-          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
+          eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue.bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
         break;
 
         case 4:
@@ -1050,7 +1053,7 @@ export default class LoginForm extends Component {
           eval(parameter + "N -= 1")
           if(eval(parameter + "N") > 0){
             eval(parameter+"Block = true")
-            for(var i = 0; i<(eval(parameter+"Actions.length")); i++){
+            for(let i = 0; i<(eval(parameter+"Actions.length")); i++){
               if(eval(parameter + "N") === 1 && eval(parameter+"Actions[i].finalValue") !== 0 && eval(parameter+"Actions[i].finalValue") !== -1 && eval(parameter+"Actions[i].value")!== 0 ){
                 eval(parameter+"Block = false")
                 break;
@@ -1064,21 +1067,27 @@ export default class LoginForm extends Component {
             }
             eval(parameter+"Value = valueTot")
             eval(parameter+"Actions.sort((a, b) => a.finalTime -b.finalTime);")
-            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
+            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue.bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           }
           else{
             eval(parameter+"Block = false")
             eval(parameter+"Actions.splice(0, "+parameter+"Actions.length)")
           }
         break;
+
+        default:
+          break;
         }    
     }
 
-
     change(parameter,value, time, type, latency){
+      blockAdvanceN += 1
+      blockAdvance = true
       this.changeAction = setTimeout(this.changeAux.bind(this,parameter,value, time, type), (latency * 1000))
     }
     changeAux(parameter,value, duration, type) {
+      blockAdvanceN -= 1
+      blockAdvance = (blockAdvanceN < 1) ? false : true
       if (typeof duration === 'string'){
         eval(parameter + "FinalTime = 1800")
       } else{
@@ -1237,6 +1246,11 @@ export default class LoginForm extends Component {
             testUrine: testUrine,
             testSaturation: testSaturation
         }
+        if(this.state.timeSim === 18004){
+          console.log(heartRateN,saturationN,breathingRateN,sistolicPressureN,diastolicPressureN,
+            heartRateActions,breathingRateActions,diastolicPressureActions,sistolicPressureActions,
+            saturationActions)
+        }
     }
 
     render() {
@@ -1335,6 +1349,7 @@ export default class LoginForm extends Component {
                         sex = {this.state.sex}
                         phase = {this.state.phase}
                         trainerList={this.props.location.state.trainerList}
+                        blockAdvance ={blockAdvance}
                 />
 
             </div>

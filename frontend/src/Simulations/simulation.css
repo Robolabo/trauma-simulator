@@ -197,7 +197,6 @@ h1{font-size: 2rem;}
 
 .clock p{
     color: #6c757d;
-    font-size: xx-large
 }
 
 .via{
@@ -217,6 +216,12 @@ h1{font-size: 2rem;}
 }
 .popover-hist{
     margin: 4px;
+}
+.text-chrono1{
+    font-size: large;
+}
+.text-chrono2{
+    font-size: xx-large
 }
 
 

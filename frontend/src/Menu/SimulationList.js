@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Inform from '../Information/Document'
+import Info from '../Information/Info';
 import { Redirect } from "react-router-dom"
 import { Alert } from 'reactstrap';
 //import { each } from 'jquery';
@@ -19,8 +19,7 @@ class SimulationList extends React.Component  {
       alert: false,
       redirect: false,
       id: this.props.location.state.id,
-      refresh: true
-    }
+      refresh: false    }
   }
   
  //crea las simulaciones de prueba
@@ -234,119 +233,149 @@ class SimulationList extends React.Component  {
 }
 
 createCases(){
+  var request = {
+    params: {
+      idTrainer: 1,
+      idTrainee: this.props.location.state.id
+    }
+  }
   const baseUrlCreate = "http://localhost:8080/simulation/create"
-  const baseGetUrl = "http://localhost:8080/simulation/listTrainer/"+this.props.location.state.id
-
-  var datapost1 = {
-    trainerId: 1,
-    traineeId: this.props.location.state.id,
-    sex: 0,
-    age: 25,
-    weight: 90, 
-    partBody: "rightLeg", 
-    bloodLoss: 100,
-    sistolicPressure: 141,
-    diastolicPressure: 89,
-    heartRate: 110,
-    breathingRate: 26,
-    urineOutput: 10, 
-    saturation: 98, 
-    mentalStatus: "normal", 
-    phase: "prehospitalaria",
-    temperature: 34,
-    time: 30,
-    rxPelvis:"2"
-  }
-
-  var datapost2 = {
-    trainerId: 1,
-    traineeId: this.props.location.state.id,
-    sex: 0,
-    age: 25,
-    weight: 90, 
-    partBody: "rightLeg", 
-    bloodLoss: 100,
-    sistolicPressure: 141,
-    diastolicPressure: 89,
-    heartRate: 110,
-    breathingRate: 26,
-    urineOutput: 10, 
-    saturation: 98, 
-    mentalStatus: "normal", 
-    phase: "hospitalaria",
-    temperature: 34,
-    time: 30,
-    rxPelvis:"1"
-  }
-
-  var datapost3 = {
-    trainerId: 1,
-    traineeId: this.props.location.state.id,
-    sex: 0,
-    age: 25,
-    weight: 90, 
-    partBody: "rightLeg", 
-    bloodLoss: 100,
-    sistolicPressure: 141,
-    diastolicPressure: 89,
-    heartRate: 110,
-    breathingRate: 26,
-    urineOutput: 10, 
-    saturation: 98, 
-    mentalStatus: "normal", 
-    phase: "prehospitalaria",
-    temperature: 34,
-    time: 30,
-    rxPelvis:"2"
-  }
-
-  var datapost4 = {
-    trainerId: 1,
-    traineeId: this.props.location.state.id,
-    sex: 0,
-    age: 25,
-    weight: 90, 
-    partBody: "rightLeg", 
-    bloodLoss: 100,
-    sistolicPressure: 141,
-    diastolicPressure: 89,
-    heartRate: 110,
-    breathingRate: 26,
-    urineOutput: 10, 
-    saturation: 98, 
-    mentalStatus: "normal", 
-    phase: "hospitalaria",
-    temperature: 34,
-    time: 30,
-    rxPelvis:"1"
-  }
-
-  const exam = []
-  var data
-  exam.push(datapost1)
-  exam.push(datapost2)
-  exam.push(datapost3)
-  exam.push(datapost4)
-  exam.map((datapost)=> {
-  axios.post(baseUrlCreate,datapost)
-  .then(response=>{
-    if (response.data.success===true) {
-      axios.get(baseGetUrl)
-      .then(res => {
-        data = res.data.data;
+  const baseGetUrl = "http://localhost:8080/simulation/listTraineeAndTrainer/"
+  axios.get(baseGetUrl,request)
+  .then(res => {
+    const data = res.data.data;
+    //si data tiene contenido esq tengo simulaciones ya creadas
+    if (data.length>0) {
+        this.filterData(data)
         this.setState({ listSimulation:data });
-      })
-      .catch(error => {
-        alert("Error 34 " + error);
+    } else {
+      var datapost1 = {
+        trainerId: 1,
+        traineeId: this.props.location.state.id,
+        sex: 0,
+        age: 21,
+        weight: 90, 
+        partBody: "rightLeg", 
+        bloodLoss: 100,
+        sistolicPressure: 141,
+        diastolicPressure: 89,
+        heartRate: 110,
+        breathingRate: 26,
+        urineOutput: 10, 
+        saturation: 98, 
+        mentalStatus: "normal", 
+        phase: "prehospitalaria",
+        temperature: 34,
+        time: 30,
+        rxPelvis:null
+      }
+
+      var datapost2 = {
+        trainerId: 1,
+        traineeId: this.props.location.state.id,
+        sex: 0,
+        age: 22,
+        weight: 90, 
+        partBody: "rightLeg", 
+        bloodLoss: 100,
+        sistolicPressure: 141,
+        diastolicPressure: 89,
+        heartRate: 110,
+        breathingRate: 26,
+        urineOutput: 10, 
+        saturation: 98, 
+        mentalStatus: "normal", 
+        phase: "hospitalaria",
+        temperature: 34,
+        time: 30,
+        rxPelvis:"1"
+      }
+
+      var datapost3 = {
+        trainerId: 1,
+        traineeId: this.props.location.state.id,
+        sex: 0,
+        age: 23,
+        weight: 90, 
+        partBody: "rightLeg", 
+        bloodLoss: 100,
+        sistolicPressure: 141,
+        diastolicPressure: 89,
+        heartRate: 110,
+        breathingRate: 26,
+        urineOutput: 10, 
+        saturation: 98, 
+        mentalStatus: "normal", 
+        phase: "prehospitalaria",
+        temperature: 34,
+        time: 30,
+        rxPelvis:null
+      }
+
+      var datapost4 = {
+        trainerId: 1,
+        traineeId: this.props.location.state.id,
+        sex: 0,
+        age: 24,
+        weight: 90, 
+        partBody: "rightLeg", 
+        bloodLoss: 100,
+        sistolicPressure: 141,
+        diastolicPressure: 89,
+        heartRate: 110,
+        breathingRate: 26,
+        urineOutput: 10, 
+        saturation: 98, 
+        mentalStatus: "normal", 
+        phase: "hospitalaria",
+        temperature: 34,
+        time: 30,
+        rxPelvis:"1"
+      }
+      var exam = []
+      exam.push(datapost1)
+      exam.push(datapost2)
+      exam.push(datapost3)
+      exam.push(datapost4)
+      exam.forEach(dataPost => {
+        // Envio al backend y se genera en la base de datos si todo va bien
+        axios.post(baseUrlCreate, dataPost)
+          .then(response => {
+            if (response.data.success === true) {
+              //Una vez se hayan creado las simulaciones, las obtengo para mostrarlas por pantalla
+              axios.get(baseGetUrl, request)
+                .then(res => {
+                  const data = res.data.data;
+                  if (data) {
+                    this.filterData(data)
+                    this.setState({ listSimulation: data });
+                  }
+                }).catch(error => {
+                  alert("Error 34 " + error);
+                })
+            }
+            else {
+              alert(response.data.message)
+            }
+          })
+          .catch(error => {
+            alert("Error 34 " + error)
+          })
       })
     }
-    else {
-      alert(response.data.message)
-    }
   })
-         
-  })
-  return data
+}
+
+filterData(data){
+  data.sort((a,b) => a.rxPelvis - b.rxPelvis)
+  if(data[0].inform === null || data[2].inform === null){
+    data.splice(1,1)
+    data.splice(2,1)
+  } else{
+    data.splice(0,1)
+    data.splice(1,1)
+  }
+  
 }
   componentDidMount(){
     if (this.state.isTrainer) {
@@ -361,32 +390,36 @@ createCases(){
     } else {
       if (this.props.location.state.trainerList) {
         this.handleRandomCreate();
-    } else {
-        axios.get("http://localhost:8080/simulation/listTrainee/"+this.props.location.state.id)
-        .then(res => {
-          var data = res.data.data;
-          if (data.length === 0){
-            data = this.createCases()
-            window.location.reload()
-          }
-          this.setState({ listSimulation:data });
-        })
-        .catch(error => {
-          alert(error)
-        })
+      }else {
+        this.createCases();
+      }
     }
-  }
 
 }
 
+  deleteSimulations(id){
+    const baseUrl = "http://localhost:8080/simulation/deleteSimulations"    // parameter data post
+    // network
+    var ok = false
+    axios.post(baseUrl,{
+      id: id
+    })
+    .then(response =>{
+      if (response.data.success) {
+        ok = true
+        console.log("OK")
+      }
+    })
+    .catch ( error => {
+      alert("Error 325 " + error)
+    })
 
+    return ok
+  }
   alert(type, msg) {
-    if(type !=="success"){
-      window.location.reload()
-      finish = true
-    }
+    console.log("gola")
     return(
-        <Alert color={type} isOpen={this.state.alert} toggle={() => this.setState({alert:false, redirect:true})}>
+        <Alert color={type} isOpen={this.state.alert} toggle={() => this.setState({alert:false, redirect:true, refresh:true})}>
             {msg}
         </Alert>
     );
@@ -439,8 +472,8 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
               <th scope="col">{t('list-simulation.age')}</th>
               <th scope="col">{t('list-simulation.trauma')}</th>
               <th scope="col">{t('list-simulation.time')}</th>
-              <th scope="col">{t('list-simulation.action')}</th>
               <th scope="col">Informe</th>
+              <th scope="col">{t('list-simulation.action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -462,54 +495,31 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
     const { t } = this.props
     if (this.state.listSimulation) {
     return this.state.listSimulation.map((data)=>{
-      if(this.props.location.state.trainerList === undefined && (data === this.state.listSimulation[2] ||
-        data === this.state.listSimulation[3]) && (this.state.listSimulation[0].inform === null || 
-          this.state.listSimulation[1].inform === null)){
-           return null
-         }
       return(
-        <tr>
+        <tr key="ha">
           <th></th>
           {this.state.isTrainer
           ? <td>{data.trainee.name} {data.trainee.surname}</td>
           :data.phase==="prehospitalaria"?
 
-           <td>Pre Hospitalaria </td>: <td>Hospitalaria</td>}
+          <td>Pre Hospitalaria </td>: <td>Hospitalaria</td>}
           
           <th>{(data.sex === 0) ? t('new-simulation.male') : t('new-simulation.female')}</th>
           <td>{data.age}</td>
           <td>{t(this.getPartBody(data.partBody))}</td>
           <td>{data.time}</td>
-          <td>
-            {(data.inform) !== null ?
-                this.props.location.state.trainerList ===true?
-                    <Link className="btn btn-outline-info " 
-                    to={{
-                        pathname: "/simulation/"+data.simulationId,
-                        state: { id: this.props.location.state.id,
-                          trainerList:this.props.location.state.trainerList},
-                        
-                    }} >Volver a entrar
-                    </Link> :
-                    <p>Simulación Finalizada</p>
-             
-             :
-             
-          this.state.isTrainer 
-            ? 
-                <Link className="btn btn-outline-danger" to={"/listSimulation/"} onClick={()=>this.sendDelete(data.simulationId)}> {t('list-simulation.delete')} </Link>
-             
-            : <Link className="btn btn-outline-info " 
-            to={{
-                pathname: "/simulation/"+data.simulationId,
-                state: { id: this.props.location.state.id,
-                  trainerList:this.props.location.state.trainerList},
-                
-            }} >{t('list-simulation.enter')}
-            </Link>}
-          </td>
           <td><Inform simulationId = {data.simulationId}
-                      surname = {data.trainee.surname}/> </td>
+                      surname = {data.trainee.surname}/> 
+          </td>
+          <td>
+          <Info simulationId = {data.simulationId}
+                  trainerList = {this.props.location.state.trainerList}
+                  id ={this.props.location.state.id}
+                  isTrainer = {this.state.isTrainer}
+                  sendDelete ={this.sendDelete()}
+          />
+          </td>
+          
         </tr>
       )
     });

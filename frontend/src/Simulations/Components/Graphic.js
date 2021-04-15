@@ -8,7 +8,7 @@ import '../simulation.css'
 import heart from '../../assets/heart.png'
 import saturation from '../../assets/saturation.png'
 import pressure from '../../assets/pressure.png'
-import urine from '../../assets/urine.png'
+//import urine from '../../assets/urine.png'
 import breath from '../../assets/breathing.png'
 import fordward from '../../assets/fordward.png'
 import fordward1 from '../../assets/fordward1.png'
@@ -88,14 +88,15 @@ class Graphic extends Component {
                         </div>*/}
                     {this.props.fordward  ?
                         <div className="clock">
-                            <Button onClick={() => this.toogleCrono()}>
+                            <Button disabled={this.props.blockAdvance} onClick={() => this.toogleCrono()}>
                                 
                                 <div className ="fordward">
                                     <img src={fordward} alt="fordward" width ="50px" height="50px"/>
                                     <img src={fordward1} alt="fordward" width ="30px" height="30px"/> 
                                 </div>
                             </Button>
-                            <p>5 Min</p>
+                            {this.props.blockAdvance ? <p className ="text-chrono1">Espere unos segundos, en breve podrá adelantar el tiempo</p>:
+                            <p className ="text-chrono2">5 Min</p>}
                         </div>
                     : null
                     }

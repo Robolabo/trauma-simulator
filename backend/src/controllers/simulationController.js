@@ -136,6 +136,16 @@ controller.delete = async (req, res) => {
   res.json({success:true,deleted:del,message:"Deleted successful"});
 }
 
+controller.deleteAllByUser = async (req, res) => {
+  // parameter post
+  const { id } = req.body;
+  // delete sequelize
+  const del = await Simulation.destroy({
+    where: { traineeId: id}
+  })
+  res.json({success:true,deleted:del,message:"Deleted successful"});
+}
+
 controller.list = async (req, res) => {
 
   const data = await Simulation.findAll({

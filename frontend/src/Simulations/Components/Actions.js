@@ -1388,6 +1388,7 @@ class Actions extends Component {
                 returnValue = 'new-simulation.both-l'
                 break;
             case 'leftLeg':
+                break;
                 
             default:
                 returnValue = 'new-simulation.left-l'
