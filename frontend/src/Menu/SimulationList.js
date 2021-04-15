@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Inform from '../Information/Document'
-import Info from '../Information/Info';
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom"
 import { Alert } from 'reactstrap';
 //import { each } from 'jquery';
@@ -417,7 +417,6 @@ filterData(data){
     return ok
   }
   alert(type, msg) {
-    console.log("gola")
     return(
         <Alert color={type} isOpen={this.state.alert} toggle={() => this.setState({alert:false, redirect:true, refresh:true})}>
             {msg}
@@ -512,12 +511,32 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
                       surname = {data.trainee.surname}/> 
           </td>
           <td>
-          <Info simulationId = {data.simulationId}
-                  trainerList = {this.props.location.state.trainerList}
-                  id ={this.props.location.state.id}
-                  isTrainer = {this.state.isTrainer}
-                  sendDelete ={this.sendDelete()}
-          />
+            {(data.inform) !== null ?
+                this.props.location.state.trainerList ===true?
+                    <Link className="btn btn-outline-info " 
+                    to={{
+                        pathname: "/simulation/"+data.simulationId,
+                        state: { id: this.props.location.state.id,
+                          trainerList:this.props.location.state.trainerList},
+                        
+                    }} >Volver a entrar
+                    </Link> :
+                    <p>Simulación Finalizada</p>
+             
+             :
+             
+          this.state.isTrainer 
+            ? 
+                <Link className="btn btn-outline-danger" to={"/listSimulation/"} onClick={()=>this.sendDelete(data.simulationId)}> {t('list-simulation.delete')} </Link>
+             
+            : <Link className="btn btn-outline-info " 
+            to={{
+                pathname: "/simulation/"+data.simulationId,
+                state: { id: this.props.location.state.id,
+                  trainerList:this.props.location.state.trainerList},
+                
+            }} >{t('list-simulation.enter')}
+            </Link>}
           </td>
           
         </tr>
