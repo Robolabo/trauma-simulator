@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './RegisterForm.css'
 import { Link } from "react-router-dom"
 import axios from 'axios';
@@ -37,6 +37,9 @@ class RegisterForm extends React.Component {
         this.toogleTrainee = this.toogleTrainee.bind(this);
         
     }
+
+   
+
     
     handleInputChange(event) {
         const target = event.target;
@@ -49,6 +52,47 @@ class RegisterForm extends React.Component {
       }
 
     handleSubmit(event) {
+        let  nombre = /^[a-zA-ZÀ-ÿ\s]{1,40}$/; // Letras y espacios, pueden llevar acentos
+        /* Passwords must be 
+            - At least 6 characters long, max length anything
+            - Include at least 1 lowercase letter
+            - 1 capital letter
+            - 1 number
+            - 1 special character => !@#$%^&*
+            */
+        let  password= /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/ 
+        let  email= /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+        if(nombre.test(this.state.campName)){
+            console.log('input correcto')
+        }
+        else{
+            alert("El nombre solo puede contener letras y espacios")
+        }
+        if(nombre.test(this.state.campSurname)){
+            console.log('input correcto')
+        }
+        else{
+            alert("El apellido solo puede contener letras y espacios")
+        }
+        if(password.test(this.state.campPassword)){
+            console.log('input correcto')
+        }
+        else{
+            alert("La contraseña tiene que contener mínimo 6 caracteres, al menos una minúscula, una mayúscula, un número y un caracter especial( !@#$%^&* )")
+        }
+        if(email.test(this.state.campEmail)){
+            console.log('input correcto')
+        }
+        else{
+            alert("El correo electrónico debe ser válido")
+        }
+        if(nombre.test(this.state.campWorkplace)){
+            console.log('input correcto')
+        }
+        else{
+            alert("El lugar de trabajo solo puede contener letras y espacios")
+        }
+
         if (this.state.campName==="") {
             alert("Introduce your name")
         }
@@ -70,8 +114,10 @@ class RegisterForm extends React.Component {
         else if(this.state.campPassword !== this.state.campConfirm){
             alert("The passwords must be the same")
         }
-
         else {
+
+
+
             var baseUrl = ""
             if (this.state.trainer) {
                 baseUrl = "http://localhost:8080/trainer/create"
