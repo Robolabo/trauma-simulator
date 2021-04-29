@@ -727,7 +727,12 @@ export default class LoginForm extends Component {
                     }
                   }
                 } else {
-                  if (eval(element.parameter+"Actions[i].value") === 0){ 
+                  if (actionsType4.length > 0 && eval(element.parameter+"Actions[i].duration") === "ventilacionBolsa"){
+                    this.addConstant(element.parameter, time*60)
+                    eval(element.parameter+"V = "+element.parameter+"Value")
+                    break;
+                  }
+                  else if (eval(element.parameter+"Actions[i].value") === 0){ 
                     valueTot = 1
                     this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime - "+timeAction)))
                     if(i<(eval(element.parameter+"Actions.length +1"))){
