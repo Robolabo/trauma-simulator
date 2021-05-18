@@ -1,7 +1,10 @@
 
 import React, { Component } from 'react'
 import './Dashboard.css'
+import { Link } from "react-router-dom"
 import { Collapse, Badge, Modal, ModalHeader } from 'reactstrap'
+import { useHistory } from "react-router-dom";
+//import { removeUserSession } from "../Utils/Common";
 
 import {
     Carousel,
@@ -10,6 +13,7 @@ import {
     CarouselIndicators,
     CarouselCaption
   } from 'reactstrap';
+import { removeUserSession } from '../Utils/Common';
 
 var rx = [];
 var eco = [];
@@ -34,6 +38,11 @@ export default class Nav extends Component {
             num: 0
         }
         this.toogle = this.toogle.bind(this)
+    }
+    
+   handleLogout() {
+      //this.props.history.push('../')
+      removeUserSession();
     }
     
      
@@ -162,8 +171,6 @@ export default class Nav extends Component {
         this.setModal(true)
     }
 
-    
-
     render() {
         var slides = item.map((item) => {
             return (
@@ -233,8 +240,12 @@ export default class Nav extends Component {
                         <li className="list-group-item list-group-item-action"  >Configuración</li>
                     </div>  
                 </Collapse>
-                        
+                <input type="button" value="Logout" onClick={() => this.handleLogout()}/>
+
             </div>
         )
     }
 }
+
+
+//<a href="../"><button>Logout</button></a>

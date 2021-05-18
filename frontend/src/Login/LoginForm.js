@@ -8,6 +8,7 @@ import axios from 'axios'
 import sha256 from 'js-sha256'
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
+import { setUserSession } from '../Utils/Common';
 
 var isTrainer = false
 
@@ -52,7 +53,7 @@ class LoginForm extends React.Component {
             this.setRedirect()
           }
           else{
-            alert("User or Password are incorrect")
+            alert("Password is incorrect")
             this.setState({
               password: ''
             });
@@ -71,6 +72,7 @@ class LoginForm extends React.Component {
               isTrainer = false
 
               if(password === sha256(this.state.password)){
+                setUserSession(response.data.token, response.data.email)
                 this.setRedirect()
               }
               else{

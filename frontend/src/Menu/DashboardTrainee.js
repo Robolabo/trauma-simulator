@@ -10,7 +10,16 @@ class DashboardTrainee extends Component {
         const { t } = this.props;
         return (
             <div>
-                <Nav></Nav>
+                <Nav>
+                <Link to={{
+                                    pathname: '../',
+                                    state: { id: this.props.location.state.id,
+                                             isTrainer: false  }
+                                }}>
+                            <Button>{t('dashboard.exam-simulation')}</Button>
+                        
+                        </Link>
+                </Nav>
                 <div className= "principal">
                     <div className="training">
                         <Link to={{
