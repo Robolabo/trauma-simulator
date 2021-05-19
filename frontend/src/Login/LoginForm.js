@@ -72,7 +72,7 @@ class LoginForm extends React.Component {
               isTrainer = false
 
               if(password === sha256(this.state.password)){
-                setUserSession(response.data.token, response.data.email)
+                setUserSession(res.data.token, res.data.email)
                 this.setRedirect()
               }
               else{

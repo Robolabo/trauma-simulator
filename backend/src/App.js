@@ -1,4 +1,4 @@
-var Utils = require('../utils');
+var Utils = require('./utils');
 require('dotenv').config();
 
 const express = require('express');
