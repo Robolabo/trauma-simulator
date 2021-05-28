@@ -4,7 +4,7 @@ import './Dashboard.css'
 import { Link } from "react-router-dom"
 import { Collapse, Badge, Modal, ModalHeader } from 'reactstrap'
 import { useHistory } from "react-router-dom";
-//import { removeUserSession } from "../Utils/Common";
+import { withRouter } from "react-router-dom";
 
 import {
     Carousel,
@@ -20,7 +20,7 @@ var eco = [];
 var tac = [] ;
 var analisis = [];
 var item = rx;
-
+//const history = useHistory();
 
 export default class Nav extends Component {
 
@@ -40,10 +40,20 @@ export default class Nav extends Component {
         this.toogle = this.toogle.bind(this)
     }
     
-   handleLogout() {
-      //this.props.history.push('../')
-      removeUserSession();
-    }
+    handleLogout = () => {
+        removeUserSession();
+    
+        //browserHistory.push('/');
+       // this.props.history.push(login)
+    };
+
+//    handleLogout() {
+//       //history.push('../')
+      
+//        return <Redirect to={{
+//          pathname: '../',
+//         }} />
+//     }
     
      
 
@@ -240,12 +250,13 @@ export default class Nav extends Component {
                         <li className="list-group-item list-group-item-action"  >Configuración</li>
                     </div>  
                 </Collapse>
-                <input type="button" value="Logout" onClick={() => this.handleLogout()}/>
+                <Link type="button"  to="/" onClick={() => this.handleLogout()}>Logout</Link><br/>
+               
 
             </div>
         )
     }
 }
-
+ /*<input type="button" value="Logout" onClick={() => this.handleLogout()}/>*/
 
 //<a href="../"><button>Logout</button></a>
