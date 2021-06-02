@@ -135,6 +135,36 @@ class NewSimulation extends Component {
         } else {
             alert("Select the name of the trainee")
         }
+        if(this.state.age >100 || this.state.age< 0){
+            this.setState({ alert: false});
+            alert("Selecciona una edad comprendida entre 0 y 100 años")
+            
+        }
+        if(this.state.sistolicPressure > 190 || this.state.sistolicPressure < 60){
+            this.setState({ alert: false});
+            alert("Selecciona una presión sistólica (TAS) comprendida entre 60 y 190 (mmHg)")
+           
+        }
+        if(this.state.diastolicPressure > 90 || this.state.diastolicPressure < 30){
+            this.setState({ alert: false});
+            alert("Selecciona una presión diastólica (TAD) comprendida entre 30 y 90 (mmHg)")
+            
+        }
+        if(this.state.heartRate > 160 || this.state.heartRate < 50){
+            this.setState({ alert: false});
+            alert("Selecciona una frecuencia cardiaca comprendida entre 50 y 160 (lat/min)")
+            
+        }
+        if(this.state.breathingRate > 60 || this.state.breathingRate < 0){
+            this.setState({ alert: false});
+            alert("Selecciona una frecuencia respiratoria comprendida entre 0 y 60 (resp/min)")
+        }
+        if(this.state.saturation > 100 || this.state.saturation < 70){
+            this.setState({ alert: false});
+            alert("Selecciona una saturación de oxígeno comprendida entre 70 y 100 (%)")
+        }
+
+
      
         
         event.preventDefault();

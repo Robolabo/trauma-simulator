@@ -12,9 +12,28 @@ var Trainer = sequelize.define('trainer', {
     autoIncrement: true,
     unique: true
   },
-  name: Sequelize.STRING,
-  surname: Sequelize.STRING,
-  email: Sequelize.STRING,
+  name: {
+    type: Sequelize.STRING, 
+    allowNull: false,
+    validate:{
+      is: /^[a-zA-ZÀ-ÿ\s]{1,40}$/i
+    }
+  },
+  surname: {
+    type: Sequelize.STRING, 
+    allowNull: false,
+    validate:{
+      is: /^[a-zA-ZÀ-ÿ\s]{1,40}$/i
+    }
+  },
+  email: {
+    type: Sequelize.STRING, 
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true
+    }
+  },
   password: Sequelize.STRING,
   roleId: {
     type: Sequelize.INTEGER,
