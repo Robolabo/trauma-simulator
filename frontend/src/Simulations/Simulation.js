@@ -158,10 +158,13 @@ export default class LoginForm extends Component {
         fordward: true,
         deadModal: false,
         phase: "",
-        rxPelvis:""
+        rxPelvis:"",
+        
       }
+      
     }
-
+    
+    
     componentDidMount(){
         let simulationId = this.props.match.params.id;
         const url = baseUrl+"/simulation/get/"+simulationId

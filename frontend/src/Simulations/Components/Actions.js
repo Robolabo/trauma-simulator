@@ -35,6 +35,11 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import jsPDF from 'jspdf'
 import analisis from '../../assets/analisis.jpg'
+import capnografo from '../../assets/Capnografo.png'
+import BolsaAutoinflable from '../../assets/Ventilacion_bolsa.png'
+
+const mp3Audio= require("../../assets/Sibilancia.mp3");//Me aseguro de que esta el fichero mp3
+
 
 
 //var this.avatar = naked
@@ -60,14 +65,25 @@ class Actions extends Component {
           ecoType:"",
           tacModal:false,
           tacType:"",
-          info:true
+          info:true,
+          play:false,
+          capnografoModal:false,
+          img_autoinflable:false// para determinar si saca la imagen o no 
     
     
           
         }
         this.handleChange = this.handleChange.bind(this)
+        this.audio=new Audio(mp3Audio) //Creo el audio
     }
-
+    //Para que el audio no empiece arrancado en ningun momento 
+    componentDidMount() {
+        this.audio.addEventListener('ended', () => this.setState({ play: false }));
+      }
+      //Para que el audio se pare cuando se cierra la pagina
+      componentWillUnmount() {
+        this.audio.removeEventListener('ended', () => this.setState({ play: false }));  
+      }
 
     generatePDF(){
         if(this.props.finish){
@@ -336,6 +352,10 @@ class Actions extends Component {
         this.setState({tacModal: next});
     }
 
+    setCapnografoModal(next){
+        this.setState({capnografoModal: next});
+    }
+
     getMsg(variant, action){
         const url = "http://localhost:8080/action/getMsg"
         axios.get(url, {
@@ -486,10 +506,24 @@ class Actions extends Component {
 
     }
 
+    //audio para el botón auscultación
+    //Función que va a determinar cuando se va a ejecutar el audio 
+    
+    activatePlay = ()=> {
+        //Cuando pulso el boton, play se pone con el valor contrario al que tiene
+        this.setState({ play: !this.state.play }, () => {
+            this.state.play ? this.audio.play() : this.audio.pause();//Si es true se ejecuta la primera parte, si es false la segunda 
+          });
+  
+      }
+
+      
+
     auscultation() {
         this.setState({
             auscultationClicked:true
         });
+        this.activatePlay()
         this.getMsg("info","auscultation")
         this.fillInformation("Auscultación")
 
@@ -531,12 +565,14 @@ class Actions extends Component {
         });
         this.getMsg("info","capnographer")
         this.fillInformation("Capnógrafo")
+        this.setCapnografoModal(true)
 
     }
 
     ventilation(){
         this.setState({
-            ventilationClicked:true
+            ventilationClicked:true,
+            img_autoinflable:true
         });
         this.props.actionsType4.forEach(action => {//cambio tipo4
             if (action ==="ventilacionBolsa"){
@@ -1615,11 +1651,31 @@ voluven() {
         const closeEco = <button className="close" onClick={() => this.setEcoModal(false)}>&times;</button>
         const closeTac = <button className="close" onClick={() => this.setTacModal(false)}>&times;</button>
         const closeInfo = <button className="close" onClick={() => this.setState({info : false})}>&times;</button>
+        const closeCapnografo = <button className="close" onClick={() => this.setCapnografoModal(false)}>&times;</button>
         return (
             <div className="actions">
+                 
+                <div className="avatar">
                 
-                <img className="avatar" alt="avatar" src={this.avatar} height="189px" width="485px" margin-top="0px" />
+               <img  alt="avatar" src={this.avatar} height="189px" width="485px" margin-top="0px" />
+                {this.props.phase === "hospitalaria" ? 
+                
+                <img id= "img_bolsa_autoinflable_h" className = "position_absolute" alt="Not found" src={BolsaAutoinflable}  hidden={this.state.img_autoinflable ?  '': 'hidden'}/>
+                
+                :
+                
+                <img id= "img_bolsa_autoinflable" className = "position_absolute" alt="Not found" src={BolsaAutoinflable}  hidden={this.state.img_autoinflable ?  '': 'hidden'}/>
+                
+    }
+                </div>
+    
+        
+               
+               
+               
 
+                
+                
                 <div className="timer">
                     {!this.props.start 
                     ? <Button onClick={()=>this.props.startClick()}>{t('simulation.start')}</Button>
@@ -1635,6 +1691,17 @@ voluven() {
                     <img onClick= {() => this.handleChange(this.state.actionPage - 1)} id="arrowUp" alt="arrow" src={arrow_up}/>
                 </div>
                 }*/}
+
+                <Modal isOpen={this.state.capnografoModal} className = "Modal_capnografo"> 
+                    <ModalHeader  close={closeCapnografo}>Curva de capnografía y EtC02:</ModalHeader>
+                    <Card>
+                        <CardBody>
+                        <img className="capnografo" alt="capnografo" src={capnografo} height="199px" width="465px" />
+                        </CardBody>
+                    </Card>
+                </Modal>
+
+
 
                 <Modal isOpen={this.state.rxModal} >
                     <ModalHeader  close={closeRx}>Selecciona el tipo de radiografía:</ModalHeader>
@@ -1884,7 +1951,7 @@ voluven() {
                             
                          </div>
 
-                        {/*} <div className="actions-buttons">
+                        {/*} <div className="actions-buttons"> // comentado botón SIR 
                             <Button className={this.state.SIRClicked?"clicked":null} onClick={() => this.SIR()}>{t('simulation.SIR')}</Button>
                             <Button className="btn-hidden"></Button>
                             <Button className="btn-hidden"></Button>
