@@ -8,7 +8,40 @@
 
 .avatar {
     align-self: center;
+    
 }
+
+.position_absolute{
+    position:absolute; /*me permite jugar con la posicion de las imagenes*/
+    
+    
+    z-index: 1;
+
+}
+
+/*Modifica la posición de la imagen sobre el maniquí en la fase prehospitalaria*/
+#img_bolsa_autoinflable{
+    top : 163px;
+    left: 147px;
+    height:108px;
+    width:70px; 
+    margin-top:0px;
+}
+
+/*Modifica la posición de la imagen sobre el maniquí en la fase hospitalaria*/
+#img_bolsa_autoinflable_h{
+    top : 165px;
+    left: 170px;
+    height:105px;
+    width:70px; 
+    margin-top:0px;
+}
+
+
+
+
+
+
 
 .graphic {
     width: 100%;
@@ -109,6 +142,12 @@ h1{font-size: 2rem;}
 
  .clicked:focus, .clicked{
     background-color: rgb(42, 42, 44);
+
+}
+
+.Modal_capnografo{
+    width: 1500px!important;
+    
 
 }
 
