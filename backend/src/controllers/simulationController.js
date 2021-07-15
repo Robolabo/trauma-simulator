@@ -32,6 +32,7 @@ controller.list = async (req, res) => {
   res.json({success : true, data : data});
 
 }
+//create
 controller.create = async (req,res) => {
   // data
   const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
@@ -72,7 +73,7 @@ controller.create = async (req,res) => {
     data: data
   });
 }
-
+//read
 controller.get = async (req,res) => {
   const { id } = req.params;
   const data = await Simulation.findAll({
@@ -103,7 +104,7 @@ controller.getTestData = async (req, res) => {
   })
   res.json({ success: true, data: data });
 }
-
+//update
 controller.update = async (req,res) => {
   // parameter get id
   const { id } = req.params;
@@ -125,7 +126,7 @@ controller.update = async (req,res) => {
   }) 
   res.json({success:true, data:data, message:"El informe está disponible"});
 }
-
+//delete
 controller.delete = async (req, res) => {
   // parameter post
   const { id } = req.body;

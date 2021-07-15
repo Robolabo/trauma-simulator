@@ -10,7 +10,7 @@ router.post('/create',traineeController.create);
 router.get('/get/:id',traineeController.get);
 router.post('/update/:id', traineeController.update);
 router.post('/delete',traineeController.delete);
-router.get('/login/:email', traineeController.login)
+router.get('/login/:email', traineeController.login);
 
 
 module.exports = router;

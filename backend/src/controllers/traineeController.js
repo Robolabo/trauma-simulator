@@ -1,7 +1,8 @@
 const controller = {}
 var Trainee = require('../model/Trainee');
 var Role = require('../model/Role');
-var sequelize = require ('../model/database')
+var sequelize = require ('../model/database');
+var Utils = require('../utils');
 const { QueryTypes } = require('sequelize');
 
 
@@ -123,8 +124,17 @@ controller.login = async (req,res) => {
   .catch(error =>{
     return error;
   })
-
-  res.json({ success: true, data: data });
+  console.log ('1 antes token');
+  const userData = req.body
+  console.log ('user data: '+userData);
+  // generate token
+  const token = Utils.generateToken(userData);
+  console.log(token)
+  // get basic user details
+  const userObj = Utils.getCleanUser(userData);
+  // return the token along with user details
+  return res.json({ success: true, data: data, user: userObj, token });
+  //res.json({ success: true, data: data });
 }
   
 

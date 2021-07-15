@@ -1,6 +1,7 @@
 const controller = {}
 var sequelize = require ('../model/database')
 const { QueryTypes } = require('sequelize');
+const Action = require('../model/actions');
 
 controller.getMsg = async (req, res) => {
   const data = await sequelize.query(
@@ -33,6 +34,120 @@ controller.getMsg = async (req, res) => {
 
   })
   res.json({ success: true, data: data });
+}
+
+//create
+controller.create = async (req,res) => {
+  // data
+  const { actionName, message, photo, bloodLossMin, bloodLossMax, sistolicPressureMin, sistolicPressureMax, diastolicPressureMin, diastolicPressureMax, heartRateMin, heartRateMax, breathingRateMin, breathingRateMax, urineOutputMin, urineOutputMax, saturationMin, saturationMax, temperatureMin, temperatureMax, partBody, mentalStatus, time, age} = req.body;
+  // create
+  const data = await Action.create({
+    actionName: actionName,
+    message: message,
+    photo: photo,
+    bloodLossMin: bloodLossMin,
+    bloodLossMax: bloodLossMax,
+    sistolicPressureMin: sistolicPressureMin,
+    sistolicPressureMax: sistolicPressureMax,
+    diastolicPressureMin: diastolicPressureMin,
+    diastolicPressureMax: diastolicPressureMax,
+    heartRateMin: heartRateMin,
+    heartRateMax: heartRateMax,
+    breathingRateMin:  breathingRateMin,
+    breathingRateMax: breathingRateMax,
+    urineOutputMin: urineOutputMin,
+    urineOutputMax: urineOutputMax,
+    saturationMin: saturationMin,
+    saturationMax: saturationMax,
+    temperatureMin: temperatureMin,
+    temperatureMax: temperatureMax,
+    partBody: partBody,
+    mentalStatus: mentalStatus,
+    time: time,
+    age: age
+
+  })
+  .then(function(data){
+    return data;
+  })
+  .catch(error =>{
+    console.log("Errorazo "+error)
+    return error;
+  })
+  res.status(200).json({
+    success: true,
+    message:"Guardo exitosamente",
+    data: data
+  });
+}
+
+// read 
+controller.get = async (req,res) => {
+  const { id } = req.params;
+  const data = await Action.findAll({
+      where: { actionId: id }
+  })
+  .then(function(data){
+    return data;
+  })
+  .catch(error =>{
+    return error;
+  })
+  res.json({ success: true, data: data });
+}
+
+//update
+controller.update = async (req,res) => {
+  // parameter get id
+  const { id } = req.params;
+  // parameter POST
+  const {actionName, message, photo, bloodLossMin, bloodLossMax, sistolicPressureMin, sistolicPressureMax, diastolicPressureMin, diastolicPressureMax, heartRateMin, heartRateMax, breathingRateMin, breathingRateMax, urineOutputMin, urineOutputMax, saturationMin, saturationMax, temperatureMin, temperatureMax, partBody, mentalStatus, time, age} = req.body;
+  // Update data
+  const data = await Action.update({
+    actionName: actionName,
+    message: message,
+    photo: photo,
+    bloodLossMin: bloodLossMin,
+    bloodLossMax: bloodLossMax,
+    sistolicPressureMin: sistolicPressureMin,
+    sistolicPressureMax: sistolicPressureMax,
+    diastolicPressureMin: diastolicPressureMin,
+    diastolicPressureMax: diastolicPressureMax,
+    heartRateMin: heartRateMin,
+    heartRateMax: heartRateMax,
+    breathingRateMin:  breathingRateMin,
+    breathingRateMax: breathingRateMax,
+    urineOutputMin: urineOutputMin,
+    urineOutputMax: urineOutputMax,
+    saturationMin: saturationMin,
+    saturationMax: saturationMax,
+    temperatureMin: temperatureMin,
+    temperatureMax: temperatureMax,
+    partBody: partBody,
+    mentalStatus: mentalStatus,
+    time: time,
+    age: age
+  },
+  {
+    where: { actionId: id}
+  })
+  .then( function(data){
+    return data;
+  })
+  .catch(error => {
+    return error;
+  }) 
+  res.json({success:true, data:data, message:"Updated successful"});
+}
+//delete
+controller.delete = async (req, res) => {
+  // parameter post
+  const { id } = req.body;
+  // delete sequelize
+  const del = await Action.destroy({
+    where: { actionId: id}
+  })
+  res.json({success:true,deleted:del,message:"Deleted successful"});
 }
 
 module.exports = controller;

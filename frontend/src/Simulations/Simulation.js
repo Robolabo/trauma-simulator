@@ -730,7 +730,12 @@ export default class LoginForm extends Component {
                     }
                   }
                 } else {
-                  if (eval(element.parameter+"Actions[i].value") === 0){ 
+                  if (actionsType4.length > 0 && eval(element.parameter+"Actions[i].duration") === "ventilacionBolsa"){
+                    this.addConstant(element.parameter, time*60)
+                    eval(element.parameter+"V = "+element.parameter+"Value")
+                    break;
+                  }
+                  else if (eval(element.parameter+"Actions[i].value") === 0){ 
                     valueTot = 1
                     this.addConstant(element.parameter, (eval(element.parameter+"Actions[i].finalTime - "+timeAction)))
                     if(i<(eval(element.parameter+"Actions.length +1"))){
@@ -1046,8 +1051,13 @@ export default class LoginForm extends Component {
               valueTot = valueTot* factor
             }
             eval(parameter+"Value = valueTot")
+            if (eval(parameter+"Actions.length") === 0){
+              eval(parameter + "N = 0 ") 
+              eval(parameter+"Block = false")
+              break;
+            }
             eval(parameter+"Actions.sort((a, b) => a.finalTime -b.finalTime);")
-            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue.bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
+            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+", "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           }
           else{
             eval(parameter+"Block = false")

@@ -12,10 +12,34 @@ var Trainee = sequelize.define('trainee', {
     autoIncrement: true,
     unique: true
   },
-  name: Sequelize.STRING,
-  surname: Sequelize.STRING,
-  email: Sequelize.STRING,
-  password: Sequelize.STRING,
+  name: {
+    type: Sequelize.STRING, 
+    allowNull: false,
+    validate:{
+      is: /^[a-zA-ZÀ-ÿ\s]{1,40}$/i
+    }
+  },
+  surname:  {
+    type: Sequelize.STRING, 
+    allowNull: false,
+    validate:{
+      is: /^[a-zA-ZÀ-ÿ\s]{1,40}$/i
+    }
+  },
+  email:  {
+    type: Sequelize.STRING, 
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true
+    }
+  },
+  password:  {
+    type: Sequelize.STRING, 
+    allowNull: false,
+    validate:{
+     len: [6,250]
+  }},
   roleId: {
     type: Sequelize.INTEGER,
     // This is a reference to another model
