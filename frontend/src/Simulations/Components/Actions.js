@@ -14,12 +14,20 @@ import mascManta from '../../assets/mac+manta.png'
 import collMascManta from '../../assets/coll+masc+manta.png'
 import manta from '../../assets/manta.png'
 import collManta from '../../assets/coll+manta.png'
-import arrow_down from '../../assets/arrow-down.png'
-import arrow_up from '../../assets/arrow-up.png'
-import arrow_up_disabled from '../../assets/arrow-up-disabled.png'
-import arrow_down_disabled from '../../assets/arrow-down-disabled.png'
+// eslint-disable-next-line
+//import arrow_down from '../../assets/arrow-down.png'
+//import arrow_up from '../../assets/arrow-up.png'
+//import arrow_up_disabled from '../../assets/arrow-up-disabled.png'
+// eslint-disable-next-line
+//import arrow_down_disabled from '../../assets/arrow-down-disabled.png'
 import rxTorax from '../../assets/rxTorax.png'
-import rxPelvis from '../../assets/rxPelvis.png'
+import rxPelvis1_1 from '../../assets/Rx11.jpg'
+import rxPelvis1_2 from '../../assets/Rx12.jpg'
+import rxPelvis2_1 from '../../assets/Rx21.jpg'
+import rxPelvis2_2 from '../../assets/Rx22.jpg'
+import rxPelvis3_1 from '../../assets/Rx31.jpg'
+import rxPelvis3_2 from '../../assets/Rx32.jpg'
+import rxPelvis4_1 from '../../assets/Rx41.jpg'
 import ecoAbd from '../../assets/ecoAbd.png'
 import tacAbdPelv from '../../assets/tacAbdPelv.png'
 import { withTranslation } from 'react-i18next';
@@ -27,33 +35,55 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import jsPDF from 'jspdf'
 import analisis from '../../assets/analisis.jpg'
+import capnografo from '../../assets/Capnografo.png'
+import BolsaAutoinflable from '../../assets/Ventilacion_bolsa.png'
+
+const mp3Audio= require("../../assets/Sibilancia.mp3");//Me aseguro de que esta el fichero mp3
 
 
-var avatar = naked
+
+//var this.avatar = naked
 var content;
 
 var rx = []
 var eco = []
 var tac = []
 var ana = []
-var information= []
+//var information= []
+
 
 class Actions extends Component {
 
     constructor(props){
         super(props);
+        this.avatar=naked;
         this.state = {
-          actionPage:1,
+          actionPage:0,
           rxModal: false,
           rxType:"",
           ecoModal: false,
           ecoType:"",
           tacModal:false,
-          tacType:""
+          tacType:"",
+          info:true,
+          play:false,
+          capnografoModal:false,
+          img_autoinflable:false// para determinar si saca la imagen o no 
+    
+    
+          
         }
         this.handleChange = this.handleChange.bind(this)
+        this.audio=new Audio(mp3Audio) //Creo el audio
     }
-
+    //Para que el audio no empiece arrancado en ningun momento 
+    componentDidMount() {
+        this.audio.addEventListener('ended', () => this.setState({ play: false }));
+      }
+      //Para que el audio se pare cuando se cierra la pagina
+      componentWillUnmount() {
+        this.audio.removeEventListener('ended', () => this.setState({ play: false }));  
+      }
 
     generatePDF(){
         if(this.props.finish){
@@ -87,7 +117,7 @@ class Actions extends Component {
                 doc.text(75, 50, `${Math.trunc((this.props.timeSim-1)/60)} minutos ${(this.props.timeSim-1)%60} segundos`)
                 doc.text(58, 55, `${this.props.data.time} minutos`)
                 doc.text(89, 60, `${this.props.data.heartRate} puls/min, ${this.props.data.breathingRate} resp/min, ${this.props.data.sistolicPressure} mmHg, ${this.props.data.diastolicPressure} mmHg, ${this.props.data.saturation} SatO2`)
-                doc.text(89, 65, `${this.props.data.urineOutput} mL/min, 200 mL, ${this.props.data.temperature} °C`)
+                //doc.text(89, 65, `${this.props.data.urineOutput} mL/min, 200 mL, ${this.props.data.temperature} °C`)
 
                 //Simulation
                 doc.setFontSize(14)
@@ -101,7 +131,7 @@ class Actions extends Component {
                 //content
                 doc.setFontSize(12)
                 //acciones
-                information.forEach(e => {
+                this.props.information.forEach(e => {
                     doc.rect(24, i, 2, 2, 'F');
                     doc.text(30, j, `Tiempo ${e.min}:${(e.seg < 10 ? '0'+e.seg : e.seg)}`)
                     doc.setFontType('bold')
@@ -109,7 +139,7 @@ class Actions extends Component {
                     doc.setFontType('normal')
                     i += 5
                     j += 5
-                    doc.text(30, j,`${e.constants[0]} puls/min, ${e.constants[1]} resp/min, ${e.constants[2]} mmHg, ${e.constants[3]} mmHg, ${e.constants[4]} % SatO2, ${e.constants[5]} mL/min, ${e.constants[6]} mL, ${e.constants[7]} °C`)
+                    doc.text(30, j,`${e.constants[0]} puls/min, ${e.constants[1]} resp/min, ${e.constants[2]} mmHg, ${e.constants[3]} mmHg, ${e.constants[4]} % SatO2`)
                     i += 7
                     j += 7
                     if(i === 270 || i > 270){
@@ -146,7 +176,9 @@ class Actions extends Component {
                     pathname: '/listSimulation',
                     state: { id: this.props.id,
                             isTrainer: false,
-                            data: this.props.data}
+                            trainerList:this.props.trainerList,
+                            data: this.props.data,
+                            refresh: "refresh"}
                 }} />
 
         }
@@ -155,15 +187,39 @@ class Actions extends Component {
 
     
     fillInformation(msg,content){
+        //Añadir acción a la base de datos
+        const baseUrl = "http://localhost:8080/inform/addAction"
+        // parametros de datos post
+        const datapost = {
+            simulationId: this.props.simulationId, message: msg, 
+            minute: Math.trunc((this.props.timeSim-1)/60), second: (this.props.timeSim-1)%60,
+            heartRate: Math.round(this.props.heartRate), breathingRate: Math.round(this.props.breathingRate),
+            sistolicPressure: Math.round(this.props.sistolicPressure),
+            diastolicPressure: Math.round(this.props.diastolicPressure),
+            saturation: Math.round(this.props.saturation), urineOutput:Math.round(this.props.urineOutput), 
+            bloodLoss: Math.round(this.props.bloodLoss), temperature: Math.round(this.props.temperature)
+        }
+    
+        axios.post(baseUrl,datapost)
+        .then(response=>{
+            if (response.data.success!==true) {
+                alert("Error")
+            }
+            })
+        .catch(error=>{
+            alert("Error 34 "+error)
+        })
+
         if(content){
-            information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
+            this.props.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
                 msg: msg, constants:[Math.round(this.props.heartRate),Math.round(this.props.breathingRate),
                 Math.round(this.props.sistolicPressure),Math.round(this.props.diastolicPressure),
                 Math.round(this.props.saturation),Math.round(this.props.urineOutput), 
                 Math.round(this.props.bloodLoss),Math.round(this.props.temperature)],
                 attach: content})
         }else{
-            information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
+            
+            this.props.information.push({min: Math.trunc((this.props.timeSim-1)/60), seg: (this.props.timeSim-1)%60,
                 msg: msg, constants:[Math.round(this.props.heartRate),Math.round(this.props.breathingRate),
                     Math.round(this.props.sistolicPressure),Math.round(this.props.diastolicPressure),
                     Math.round(this.props.saturation),Math.round(this.props.urineOutput), 
@@ -174,10 +230,115 @@ class Actions extends Component {
     }
 
     handleChange(num){
+        
         this.setState({
-            actionPage: num
+            actionPage: num,
+            anamnesisClicked:false,
+            viaClicked:false,
+            circulacionClicked :false,
+            posicionClicked:false,
+            farmacosClicked:false,
+            pruebasClicked:false,
+            inmovilizacionClicked:false,
+            anamnesis2Clicked:false,
+            via2Clicked:false,
+            circulacion2Clicked:false,
+            posicion2Clicked:false,
+            farmacos2Clicked:false,
+            pruebas2Clicked:false,
+            inmovilizacion2Clicked:false
         });
+    
+    switch(num){
+      case(1):
+      this.setState({
+        anamnesisClicked:true
+    });
+      break
+
+      case(2):
+      this.setState({
+        viaClicked:true
+    });
+      break
+
+      case(3):
+      this.setState({
+        circulacionClicked:true
+    });
+      break
+
+      case(4):
+      this.setState({
+        posicionClicked:true
+    });
+      break
+
+      case(5):
+      this.setState({
+        farmacosClicked:true
+    });
+      break
+
+      case(6):
+      this.setState({
+        pruebasClicked:true
+    });
+      break
+
+      case(7):
+      this.setState({
+        inmovilizacionClicked:true
+    });
+      break
+
+      case(8):
+      this.setState({
+        anamnesis2Clicked:true
+    });
+      break
+
+      case(9):
+      this.setState({
+        via2Clicked:true
+    });
+      break
+
+      case(10):
+      this.setState({
+        circulacion2Clicked:true
+    });
+      break
+
+      case(11):
+      this.setState({
+        posicion2Clicked:true
+    });
+      break
+      case(12):
+      this.setState({
+        farmacos2Clicked:true
+    });
+      break
+      case(13):
+      this.setState({
+        pruebas2Clicked:true
+    });
+      break
+      case(14):
+      this.setState({
+        inmovilizacion2Clicked:true
+    });
+      break
+
+      default:
+                break;
+
     }
+    
+    }
+
+    
 
     setRxModal(next){
         this.setState({rxModal: next});
@@ -191,9 +352,12 @@ class Actions extends Component {
         this.setState({tacModal: next});
     }
 
-    getMsg(variant, action){
+    setCapnografoModal(next){
+        this.setState({capnografoModal: next});
+    }
 
-        const url = "http://138.100.21.252:5000/action/getMsg"
+    getMsg(variant, action){
+        const url = "http://localhost:8080/action/getMsg"
         axios.get(url, {
             params: {
                 actionName: action,
@@ -206,14 +370,16 @@ class Actions extends Component {
                 saturation: this.props.saturation,
                 temperature: this.props.temperature,
                 partBody: this.props.partBody,
-                mentalStatus: this.props.mentalStatus
+                mentalStatus: this.props.mentalStatus,
+                age:this.props.age
+                //añadir edad 
             }
           })
         .then(res => {
             if (res.data.success) {
                 const data = res.data.data
                 this.props.send(variant,data[0].message)
-                this.props.toogleCrono(data[0].time)
+                //this.props.toogleCrono(data[0].time)
             }
             else {
             alert("Error web service")
@@ -238,34 +404,44 @@ class Actions extends Component {
     }
     
     inspection() {
+        this.setState({
+            inspectionClicked:true
+        });
         this.getMsg("info","inspection")
         this.fillInformation("Inspección vía aérea")
     }
 
     dialog() {
+        this.setState({
+            dialogClicked:true
+        });
         this.getMsg("info","dialog")
+        this.fillInformation("Diálogo")
     }
 
     collarin() {
+        this.setState({
+            collarinClicked:true
+        });
         this.getMsg("info","collarin", 0)
-        switch(avatar) {
+        switch(this.avatar) {
             case naked:
-                avatar = coll
+                this.avatar = coll
                 break;
             case masc:
-                avatar = collMasc
+                this.avatar = collMasc
                 break;
             case manta:
-                avatar = collManta
+                this.avatar = collManta
                 break;
             case cint:
-                avatar = collCint
+                this.avatar = collCint
                 break;
             case mascCint:
-                avatar = collMascCint
+                this.avatar = collMascCint
                 break;
             case mascManta:
-                avatar = collMascManta
+                this.avatar = collMascManta
                 break;
             default:
                 break;
@@ -274,46 +450,616 @@ class Actions extends Component {
     }
 
     clean() {
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        //this.props.change("urineOutput", -0.5)
-        this.props.change("saturation", 0.5)
+        this.setState({
+            cleanClicked:true
+        });
+        
+        this.props.change("saturation", 120,0,1,10)
         this.getMsg("info","clean")
         setTimeout(() => {
             this.props.send("success","La vía aéra se encuentra limpia.")
         }, 8000)
-        this.fillInformation("Limpiar vía aérea")
-                
+        this.fillInformation("Limpiar vía aérea")                   
     }
 
-    oxygenate() {
-        //this.props.change("heartRate", 0)
-        //this.props.change("bloodPressure", 0)
-        //this.props.change("breathingRate", 0)
-        //this.props.change("urineOutput", 0)
+    laparotomy() {
+        this.setState({
+            laparotomyClicked:true
+        });
+
+        this.props.change("heartRate", -0.5)
+        //this.props.change("bloodLoss", 0.5)
+        //this.props.change("breathingRate", -0.5)
+        //this.props.change("urineOutput", -0.5) 
         this.props.change("saturation", 0.5)
-        console.log(avatar)
+        this.getMsg("info","laparotomy")
+        this.fillInformation("Laparotomía")
+
+    }
+
+    thoracotomy() {
+        this.setState({
+            thoracotomyClicked:true
+        });
+
+        this.props.change("heartRate", -0.5)
+        //this.props.change("bloodLoss", 0.5)
+        //this.props.change("bloodPressure", 0.5)
+        this.props.change("breathingRate", -0.5)
+        //this.props.change("urineOutput", -0.5) 
+        this.props.change("saturation", 0.5)
+        this.getMsg("info","thoracotomy")
+        this.fillInformation("Toracotomía")
+
+    }
+
+    tourniquet() {
+        this.setState({
+            tourniquetClicked:true
+        });
+
+        
+        this.props.change("diastolicPressure", -0.8,300,3,15)
+        this.props.change("sistolicPressure", -0.8,300,3,15)
+        this.getMsg("info","tourniquet")
+        this.fillInformation("Torniquete")
+
+    }
+
+    //audio para el botón auscultación
+    //Función que va a determinar cuando se va a ejecutar el audio 
+    
+    activatePlay = ()=> {
+        //Cuando pulso el boton, play se pone con el valor contrario al que tiene
+        this.setState({ play: !this.state.play }, () => {
+            this.state.play ? this.audio.play() : this.audio.pause();//Si es true se ejecuta la primera parte, si es false la segunda 
+          });
+  
+      }
+
+      
+
+    auscultation() {
+        this.setState({
+            auscultationClicked:true
+        });
+        this.activatePlay()
+        this.getMsg("info","auscultation")
+        this.fillInformation("Auscultación")
+
+    }
+
+    pulseoximeter() {
+        this.setState({
+            pulseoximeterClicked:true
+        });
+        this.getMsg("info","pulseoximeter")
+        this.fillInformation("Pulsioxímetro")
+
+    }
+
+    oropharyngealcannula(){
+        this.setState({
+            oropharyngealcannulaClicked:true
+        });
+        this.getMsg("info","oropharyngealcannula")
+        this.fillInformation("Cánula orofaríngea")
+
+    }
+
+    nasalglasses(){
+        this.setState({
+            nasalglassesClicked:true
+        });
+       
+        this.props.change("breathingRate", -1.5,120,1,10)
+        this.props.change("saturation", 2.5,120,6,10)
+        this.getMsg("info","nasalglasses")
+        this.fillInformation("Oxigenoterapia con gafas nasales")
+
+    }
+
+    capnographer(){
+        this.setState({
+            capnographerClicked:true
+        });
+        this.getMsg("info","capnographer")
+        this.fillInformation("Capnógrafo")
+        this.setCapnografoModal(true)
+
+    }
+
+    ventilation(){
+        this.setState({
+            ventilationClicked:true,
+            img_autoinflable:true
+        });
+        this.props.actionsType4.forEach(action => {//cambio tipo4
+            if (action ==="ventilacionBolsa"){
+                this.props.simultaneousActions("saturation","ventilacionBolsa",1800,-6,-1,4)
+                this.props.actionsType4.splice(this.props.actionsType4.indexOf(action),1)
+            }
+        })
+        this.props.change("saturation", 100, 40, 2, 10)
+        this.getMsg("info","ventilation")
+        this.fillInformation("Ventilación con bolsa autoinflable")
+
+    }
+
+    occlusivedressing(){
+        this.setState({
+            occlusivedressingClicked:true
+        });
+        this.getMsg("info","occlusivedressing")
+        this.fillInformation("Apósito oclusivo")
+
+    }
+
+    thoracentesis(){
+        this.setState({
+            thoracentesisClicked:true
+        });
+       
+        this.getMsg("info","thoracentesis")
+        this.fillInformation("Toracocentesis con aguja")
+
+    }
+
+    chestdrainage(){
+        this.setState({
+            chestdrainageClicked:true
+        });
+       
+        this.getMsg("info","chestdrainage")
+        this.fillInformation("Drenaje torácico")
+    }
+
+    ferule(){ // PONER FOTO
+        this.setState({
+            feruleClicked:true
+        });
+        this.getMsg("info","ferule")
+        this.fillInformation("Férula de vacio")
+    }
+
+    cervicalcontrol(){
+        this.setState({
+            cervicalcontrolClicked:true
+        });
+        this.getMsg("info","cervicalcontrol")
+        this.fillInformation("Control cervical manual")
+    }
+
+    mattress(){ //PONER FOTO 
+        this.setState({
+            mattressClicked:true
+        });
+        this.getMsg("info","mattress")
+        this.fillInformation("Colchón de vacio")
+    }
+
+    venous(){
+        this.setState({
+            venousClicked:true
+        });
+        
+        this.getMsg("info","venous")
+        this.fillInformation("Gasometría venosa")
+    }
+
+    arterial(){
+        this.setState({
+            arterialClicked:true
+        });
+        
+        this.getMsg("info","arterial")
+        this.fillInformation("Gasometría arterial")
+    }
+
+    crossmatch(){
+        this.setState({
+            crossmatchClicked:true
+        });
+        this.getMsg("info","crossmatch")
+        this.fillInformation("Pruebas cruzadas")
+    }
+
+    pressure(){
+        this.setState({
+            pressureClicked:true
+        });
+        
+        this.props.change("diastolicPressure", -0.8,180,3,0)
+        this.props.change("sistolicPressure", -0.8,180,3,0)
+        this.getMsg("info","pressure")
+        this.fillInformation("Presión directa")
+    }
+
+    hemostatic(){
+        this.setState({
+            hemostaticClicked:true
+        });
+        
+        this.props.change("diastolicPressure", -0.8,180,3,10)
+        this.props.change("sistolicPressure", -0.8,180,3,10)
+        this.getMsg("info","hemostatic")
+        this.fillInformation("Agente hemostático")
+    }
+
+    vvp(){
+        this.setState({
+            vvpClicked:true
+        });
+       
+        this.getMsg("info","vvp")
+        this.fillInformation("Canalización VVP")
+    }
+
+    io(){
+        this.setState({
+            ioClicked:true
+        });
+        
+        this.getMsg("info","io")
+        this.fillInformation("Canalización IO")
+    }
+
+
+    pani(){
+        this.setState({
+            paniClicked:true
+        });
+        this.getMsg("info","pani")
+        this.fillInformation("PANI Digital")
+    }
+
+    derivations(){
+        this.setState({
+            derivationsClicked:true
+        });
+        
+        this.getMsg("info","derivations")
+        this.fillInformation("6 Derivaciones")
+    }
+
+    ECGderivations(){
+        this.setState({
+            ECGderivationsClicked:true
+        });
+        
+        this.getMsg("info","ECGderivations")
+        this.fillInformation("ECG 12 Derivaciones")
+    }
+
+    pupils(){
+        this.setState({
+            pupilsClicked:true
+        });
+        this.getMsg("info","pupils")
+        this.fillInformation("Exploración pupilar")
+    }
+
+    nerves(){
+        this.setState({
+            nervesClicked:true
+        });
+        this.props.change("heartRate", -0.5)
+        //this.props.change("bloodLoss", 0.5)
+        //this.props.change("bloodPressure", 0.5)
+        this.props.change("breathingRate", -0.5)
+        //this.props.change("urineOutput", -0.5) 
+        this.props.change("saturation", 0.5)
+        
+        this.getMsg("info","nerves")
+        this.fillInformation("Exploración nervios craneales")
+    }
+
+    extremities(){
+        this.setState({
+            extremitiesClicked:true
+        });
+        this.getMsg("info","extremities")
+        this.fillInformation("Exploración en extremidades")
+    }
+
+    bladder(){
+        this.setState({
+            bladderClicked:true
+        });
+        
+        
+        this.getMsg("info","bladder")
+        this.fillInformation("Sondaje vesical")
+    }
+
+    nasogastric(){
+        this.setState({
+            nasogastricClicked:true
+        });
+        
+        this.getMsg("info","nasogastric")
+        this.fillInformation("Sondaje nasogástrico")
+    }
+
+    SIR(){
+        this.setState({
+            SIRClicked:true
+        });
+        this.props.change("saturation", -6, "ventilacionBolsa", 4, 30)
+        this.getMsg("info","SIR")
+        this.fillInformation("SIR")
+    }
+
+    fentanilo(){
+        this.setState({
+            fentaniloClicked:true
+        });
+        
+        this.getMsg("info","fentanilo")
+        this.fillInformation("Fentanilo 50mcg IV")
+    }
+
+    midazolam(){
+        this.setState({
+            midazolamClicked:true
+        });
+        
+        this.props.change("saturation",-3,60,1,20)
+        this.getMsg("info","midazolam")
+        this.fillInformation("Midazolam 2mg IV")
+    }
+
+    tranexamico(){
+        this.setState({
+            tranexamicoClicked:true
+        });
+        
+        this.getMsg("info","tranexamico")
+        this.fillInformation("Ácido Tranexámico 1g IV")
+    }
+
+    noradrenalina(){
+        this.setState({
+            noradrenalinaClicked:true
+        });
+        
+        this.props.change("diastolicPressure", 65,20,2,45)
+        this.props.change("sistolicPressure", 110,20,2,45)
+        this.getMsg("info","noradrenalina")
+        this.fillInformation("Noradrenalina IV")
+    }
+
+    SSF(){
+        this.setState({
+            SSFClicked:true
+        });
+        this.props.change("diastolicPressure", 0.25,1200,1,20)
+        this.props.change("sistolicPressure", 0.65,1200,1,20)
+        this.getMsg("info","SSF")
+        this.fillInformation("SSF 20ml/kg en 10 minutos")
+    }
+
+    SSF500(){
+        this.setState({
+            SSF500Clicked:true
+        });
+        
+        this.getMsg("info","SSF500")
+        this.fillInformation("SSF 500ml mantenimiento")
+    }
+
+    voluven(){
+        this.setState({
+            voluvenClicked:true
+        });
+        
+        this.props.change("diastolicPressure", 0.7693,780,1,20)
+        this.props.change("sistolicPressure", 1.1539,780,1,20)
+        this.getMsg("info","voluven")
+        this.fillInformation("Voluven 250ml IV")
+    }
+
+    sg(){
+        this.setState({
+            sgClicked:true
+        });
+        this.props.change("heartRate", -0.5)
+        //this.props.change("bloodLoss", 0.5)
+        this.getMsg("info","sg")
+        this.fillInformation("SG 5% mantenimiento")
+    }
+
+    inr(){
+        this.setState({
+            inrClicked:true
+        });
+        
+        this.getMsg("info","inr")
+        this.fillInformation("INR")
+    }
+
+    glicemia(){
+        this.setState({
+            glicemiaClicked:true
+        });
+        this.props.change("heartRate", -0.5)
+        //this.props.change("bloodLoss", 0.5)
+        this.getMsg("info","glicemia")
+        this.fillInformation("Glucemia capilar")
+    }
+    
+    name(){
+        this.setState({
+            nameClicked:true
+        });
+        
+        this.getMsg("info","name")
+        this.fillInformation("¿Cómo te llamas?")
+    }
+
+    age(){
+        this.setState({
+            ageClicked:true
+        });
+        
+        this.getMsg("info","age")
+        this.fillInformation("¿Qué edad tienes?")
+    }
+
+    allergy(){
+        this.setState({
+            allergyClicked:true
+        });
+        
+        this.getMsg("info","allergy")
+        this.fillInformation("¿Tienes alguna alergia?")
+    }
+
+    disease(){
+        this.setState({
+            diseaseClicked:true
+        });
+        
+        this.getMsg("info","disease")
+        this.fillInformation("¿Tienes alguna enfermedad importante?")
+    }
+
+    medication(){
+        this.setState({
+            medicationClicked:true
+        });
+        
+        this.getMsg("info","medication")
+        this.fillInformation("¿Tomas alguna medicación?")
+    }
+
+    place(){
+        this.setState({
+            placeClicked:true
+        });
+        
+        this.getMsg("info","place")
+        this.fillInformation("¿Sabes dónde estás?")
+    }
+
+    happen(){
+        this.setState({
+            happenClicked:true
+        });
+        
+        this.getMsg("info","happen")
+        this.fillInformation("¿Sabes que ha pasado?")
+    }
+
+    pain(){
+        this.setState({
+            painClicked:true
+        });
+        
+        this.getMsg("info","pain")
+        this.fillInformation("¿Dónde te duele?")
+    }
+
+    breathe(){
+        this.setState({
+            breatheClicked:true
+        });
+        
+        this.getMsg("info","breathe")
+        this.fillInformation("¿Te cuesta respirar?")
+    }
+
+    movement(){
+        this.setState({
+            movementClicked:true
+        });
+        
+        this.getMsg("info","movement")
+        this.fillInformation("¿Puedes mover las piernas y los brazos? ¿Sientes cómo te toco?")
+    }
+
+    feel(){
+        this.setState({
+            feelClicked:true
+        });
+        
+        this.getMsg("info","feel")
+        this.fillInformation("¿Sientes cómo te toco?")
+    }
+
+    mecanicventilation(){
+        this.setState({
+            mecanicventilationClicked:true
+        });
+        this.props.change("breathingRate",12,30,2,20)
+        this.props.change("saturation",100,30,2,20)
+        this.getMsg("info","mecanicventilation")
+        this.fillInformation("Conexión a ventilación mecánica")
+    }
+
+
+    clothes(){
+        this.setState({
+            clothesClicked:true
+        });
+        
+        this.getMsg("info","clothes")
+        this.fillInformation("Retirada de ropa")
+    }
+
+    massivetransfusion(){
+        this.setState({
+            massivetransfusionClicked:true
+        });
+        this.props.change("diastolicPressure", 1.6,300,1,20)
+        this.props.change("sistolicPressure", 3,300,1,20)
+        this.getMsg("info","massivetransfusion")
+        this.fillInformation("Protocolo de transfusión masiva")
+    }
+    
+    interconsultations(){
+        this.setState({
+            interconsultationsClicked:true
+        });
+        //Lamo a finalizar
+        
+        
+        this.getMsg("info","interconsultations")
+        this.fillInformation("Solicitud de ineterconsultas a otras especialidades")
+        //Esto es para que se finalice la simualación pasados 0,5 segundos ( el tiempo se pone en milisegundos)
+        setTimeout(()=>{this.props.finish_interconsultations();}, 500)
+
+        
+    }
+
+
+
+    oxygenate() {
+        
+        this.setState({
+            oxygenateClicked:true
+        });
+        this.props.change("breathingRate", -10,30,1,10)
+        this.props.change("saturation", 96,30,2,10)
         this.getMsg("info","oxygenate")
-        switch(avatar) {
+        switch(this.avatar) {
             case naked:
-                avatar = masc
+                this.avatar = masc
                 break;
             case coll:
-                avatar = collMasc
+                this.avatar = collMasc
                 break;
             case manta:
-                avatar = mascManta
+                this.avatar = mascManta
                 break;
             case cint:
-                avatar = mascCint
+                this.avatar = mascCint
                 break;
             case collCint:
-                avatar = collMascCint
+                this.avatar = collMascCint
                 break;
             case collManta:
-                avatar = collMascManta
+                this.avatar = collMascManta
                 break;
             default:
                 break;
@@ -322,14 +1068,23 @@ class Actions extends Component {
     }
 
     rx(){
+        this.setState({
+            rxClicked:true
+        });
         this.setRxModal(true)
     }
 
     eco(){
+        this.setState({
+            ecoClicked:true
+        });
         this.setEcoModal(true)
     }
 
     tac(){
+        this.setState({
+            tacClicked:true
+        });
         this.setTacModal(true)
     }
 
@@ -343,16 +1098,66 @@ class Actions extends Component {
                 this.fillInformation("Rx Tórax",content)
                 break;
             case "pelvis":
-                content = rxPelvis
-                this.getMsg("info","rx")
-                this.props.sendModal(0, rx, "Rx Pelvis", content)
-                this.fillInformation("Rx Pelvis",content)
+                content=""
+                rx=[]
+                
+                switch(this.props.rxPelvis){
+                case "1":
+                    content=rxPelvis1_1
+                    
+                    rx.push({
+                        src: rxPelvis1_2,  
+                        altText: "rx pelvis",
+                        caption: "rx pelvis"
+                    })
+                    this.fillrx()
+                       break;
+
+                case "2":
+                    content=rxPelvis2_1
+                    
+                    rx.push({
+                        src: rxPelvis2_2,  
+                        altText: "rx pelvis",
+                        caption: "rx pelvis"
+                    })
+                    this.fillrx()
+                       break;
+                case "3":
+                    content=rxPelvis3_1
+                    
+                    rx.push({
+                        src: rxPelvis3_2,  
+                        altText: "rx pelvis",
+                        caption: "rx pelvis"
+                    })
+                    this.fillrx()
+                       break;
+                case "4":
+                    content=rxPelvis4_1
+                    this.fillrx()
+                       break;
+                default:
+                    content=rxPelvis1_1
+                    this.fillrx()
+                    
+            }
+                
+                //this.getMsg("info","rx")
+                //this.props.sendModal(0, rx, "Rx Pelvis", content)
+                //this.fillInformation("Rx Pelvis",content)
                 break;
             default:
                 break;
+
         }
     }
-
+    fillrx(){
+        this.getMsg("info","rx")
+                this.props.sendModal(0, rx, "Rx Pelvis", content)
+                this.fillInformation("Rx Pelvis",content)
+    }
+    
     ecoType(next){
         this.setEcoModal(false)
         switch(next){
@@ -386,31 +1191,34 @@ class Actions extends Component {
     }
 
     manta(){
+        this.setState({
+            mantaClicked:true
+        });
         this.getMsg("info","manta")
-        switch(avatar) {
+        switch(this.avatar) {
             case naked:
-                avatar = manta
+                this.avatar = manta
                 break;
             case coll:
-                avatar = collManta
+                this.avatar = collManta
                 break;
             case masc:
-                avatar = mascManta
+                this.avatar = mascManta
                 break;
             case cint:
-                avatar = manta
+                this.avatar = manta
                 break;
             case collCint:
-                avatar = collManta
+                this.avatar = collManta
                 break;
             case mascCint:
-                avatar = mascManta
+                this.avatar = mascManta
                 break;
             case collMasc:
-                avatar = collMascManta
+                this.avatar = collMascManta
                 break;
             case collMascCint:
-                avatar = collMascManta
+                this.avatar = collMascManta
                 break;
             default:
                 break;
@@ -419,10 +1227,17 @@ class Actions extends Component {
     } 
     
     glasgow(){
+        this.setState({
+            glasgowClicked:true
+        });
         this.getMsg("info","glasgow")
+        this.fillInformation("Nivel de consciencia")
     }
 
     analisis(){
+        this.setState({
+            analisisClicked:true
+        });
         content = analisis
         this.getMsg("info","analisis")
         this.props.sendModal(2, ana, "", content)
@@ -430,21 +1245,26 @@ class Actions extends Component {
     }
 
     intubate() {
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", -0.5)
-        this.props.change("bloodPressure", -0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", -0.5)
-        this.props.change("saturation", 0.5)
+        this.setState({
+            intubateClicked:true
+        });
+        
+        this.getMsg("info","intubate")
+        this.props.change("heartRate", -0.5, 0, 1)
+        //this.props.change("bloodLoss", -0., 0, 1)
+        //this.props.change("bloodPressure", -0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        //this.props.change("urineOutput", -0.5, 0, 1)
+        this.props.change("saturation", 0.5, 0, 1)
         this.fillInformation("Intubación")
     }
 
     analgesics() {
         this.getMsg("info","analgesics")
         //this.props.change("heartRate", 0)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
+        //this.props.change("bloodLoss", 0.5, 0, 1)
+        //this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
         //this.props.change("urineOutput", 0)
         //this.props.change("saturation", 0)
         this.fillInformation("Suministrar analgésicos")
@@ -452,59 +1272,59 @@ class Actions extends Component {
 
     fluids() {
         //this.props.change("heartRate", 0)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
+        //this.props.change("bloodLoss", 0.5)
+        //this.props.change("bloodPressure", 0.5)
         //this.props.change("breathingRate", 0)
-        this.props.change("urineOutput", 0.5)
+        //this.props.change("urineOutput", 0.5)
         //this.props.change("saturation", 0)
         this.fillInformation("Suministrar fluidos")
     }
 
     pelvic_belt() {
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        //this.props.change("breathingRate", 0)
-        //this.props.change("urineOutput", 0)
-        this.props.change("saturation", 0.5)
+        this.setState({
+            pelvic_beltClicked:true
+        });
+        
+        this.props.change("diastolicPressure", 0.5,0,5,50)
+        this.props.change("sistolicPressure", 0.5,0,5,50)
         this.getMsg("info","belt")
         this.fillInformation("Cinturón pélvico")
 
-        switch(avatar) {
+        switch(this.avatar) {
             case naked:
-                avatar = cint
+                this.avatar = cint
                 break;
             case coll:
-                avatar = collCint
+                this.avatar = collCint
                 break;
             case masc:
-                avatar = mascCint
+                this.avatar = mascCint
                 break;
             case manta:
-                avatar = cint
+                this.avatar = cint
                 setTimeout(() => {
-                    avatar = manta
+                    this.avatar = manta
                   }, 2000);
                 break;
             case collManta:
-                avatar = collCint
+                this.avatar = collCint
                 setTimeout(() => {
-                    avatar = collManta
+                    this.avatar = collManta
                   }, 2000);
                 break;
             case mascManta:
-                avatar = mascCint
+                this.avatar = mascCint
                 setTimeout(() => {
-                    avatar = mascManta
+                    this.avatar = mascManta
                   }, 2000);
                 break;
             case collMasc:
-                avatar = collMascCint
+                this.avatar = collMascCint
                 break;
             case collMascManta:
-                avatar = collMascCint
+                this.avatar = collMascCint
                 setTimeout(() => {
-                    avatar = collMascManta
+                    this.avatar = collMascManta
                   }, 2000);
                 break;
             default:
@@ -513,65 +1333,356 @@ class Actions extends Component {
     }
 
     transfusion() {
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", 0.5)
-        this.props.change("saturation", 0.5)
+        this.setState({
+            transfusionClicked:true
+        });
+        this.props.change("heartRate", -0.5, 0, 1)
+        //this.props.change("bloodLoss", 0.5, 0, 1)
+        //this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        //this.props.change("urineOutput", 0.5, 0, 1)
+        this.props.change("saturation", 0.5, 0, 1)
         this.getMsg("info","transfusion")
         this.fillInformation("Transfusión sanguínea")
     }
 
     hot_liquids(){
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
+        this.props.change("heartRate", -0.5, 0, 1)
+        //this.props.change("bloodLoss", 0.5, 0, 1)
+        //this.props.change("bloodPressure", 0.5, 0, 1)
         //this.props.change("breathingRate", 0)
-        this.props.change("urineOutput", 0.5)
+        //this.props.change("urineOutput", 0.5, 0, 1)
         //this.props.change("saturation", 0)
         this.getMsg("info","liquids")
         this.fillInformation("Suministrar líquidos calientes")
     }
 
     surgery() {
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
+        this.setState({
+            surgeryClicked:true
+        });
+        this.props.change("heartRate", -0.5, 0, 1)
+        //this.props.change("bloodLoss", 0.5, 0, 1)
+        //this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
         //this.props.change("urineOutput", -0.5)
-        this.props.change("saturation", 0.5)
+        this.props.change("saturation", 0.5, 0, 1)
         this.getMsg("info","surgery")
         this.fillInformation("Cirugía")
     }
 
     cristaloides() {
-        this.props.change("heartRate", -0.5)
-        this.props.change("bloodLoss", 0.5)
-        this.props.change("bloodPressure", 0.5)
-        this.props.change("breathingRate", -0.5)
-        this.props.change("urineOutput", 0.5)
-        this.props.change("saturation", 0)
+        this.setState({
+            cristaloidesClicked:true
+        });
+        this.props.change("heartRate", -0.5, 0, 1)
+        //this.props.change("bloodLoss", 0.5, 0, 1)
+        //this.props.change("bloodPressure", 0.5, 0, 1)
+        this.props.change("breathingRate", -0.5, 0, 1)
+        //this.props.change("urineOutput", 0.5, 0, 1)
+        this.props.change("saturation", 0, 0, 1)
         this.getMsg("info","cristaloides")
         this.fillInformation("Suministrar cristaloides")
     }
+
+    getMentalState(mentalStatus){
+        var returnValue;
+        switch(mentalStatus){
+            case 'anxious':
+                returnValue = 'new-simulation.anxious'
+                break;
+            case 'confused':           
+                returnValue = 'new-simulation.confused'
+                break; 
+            case 'lethargic':           
+                returnValue = 'new-simulation.lethargic'
+                break;     
+            default:
+                returnValue = 'new-simulation.normal'
+                break;         
+                
+        }
+        return returnValue;
+    }
+    getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE 
+        var returnValue;
+        switch(partBody){
+            case 'pelvis':
+                returnValue = 'new-simulation.pelvis'
+                break;
+            case 'rightArm':
+                returnValue = 'new-simulation.right-a'
+                break;
+            case 'leftArm':
+                returnValue = 'new-simulation.left-a'
+                break;
+            case 'rightLeg':
+                returnValue = 'new-simulation.right-l'
+                break;
+
+            case 'bothLeg':
+                returnValue = 'new-simulation.both-l'
+                break;
+            case 'leftLeg':
+                break;
+                
+            default:
+                returnValue = 'new-simulation.left-l'
+                break;
+            
+        }
+        return returnValue; 
+
+    }
+    
+    oxygenateGN1() {
+        this.props.change("breathingRate", -1.5, 200, 1, 10) 
+        this.fillInformation("Gafas nasales")
+    }
+
+    oxygenateGN6() {
+        this.props.change("saturation", 2.5, 120, 6, 10)
+        this.fillInformation("Gafas nasales")
+    }
+
+    ventilacionBolsa2() {
+        this.props.actionsType4.forEach(action => {//cambio tipo4
+            if (action ==="ventilacionBolsa"){
+                this.props.simultaneousActions("saturation","ventilacionBolsa",1800,-6,-1,4)
+                this.props.actionsType4.splice(this.props.actionsType4.indexOf(action),1)
+            }
+        })
+        this.props.change("saturation", 100, 40, 2, 10)
+        this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
+    }
+
+    torniquete3() {
+
+        this.props.change("sistolicPressure", -0.8, 300, 3, 15)
+        //this.props.change("diastolicPressure", -0.8, 300, 3, 15)
+        this.fillInformation("Torniquete")
+    }
+
+    medicacionIntubacion4() {
+        this.props.change("saturation", -6, "ventilacionBolsa", 4, 30) ///////////falta la accion
+        this.fillInformation("Medicación administrada")
+    }
+
+    pelvic_belt5() {
+        this.props.change("sistolicPressure", 0.5, 0, 5, 50)
+       // this.props.change("diastolicPressure", 0.5, 0, 5, 50)
+        this.fillInformation("Cinturón pélvico colocado")
+    
+    }
+    
+
+    /*
+//VALORES CALCULADOS PARA LA TABLA DE LA VERSION 2
+//METODO change(parameter, value, tiempo, mantiene, latencia)
+
+//        value [puntos/minuto], tiempo[segundos], latencia[segundos]
+
+
+
+aspirador() {
+
+    this.props.change("saturation", 120, 0, 1, 10)
+    this.fillInformation("Aspirando vía aerea")
+}
+
+oxygenateGN() {
+
+    this.props.change("saturation", 2.5, 120, 6, 10)
+    this.props.change("breathingRate", -1.5, 120, 1, 10) 
+    this.fillInformation("Gafas nasales")
+}
+
+oxygenateMasc() {
+
+    this.props.change("saturation", 96, 30, 2, 10)
+    this.props.change("breathingRate", -10, 30, 1, 10) 
+    this.fillInformation("Mascarilla oxígeno")
+}
+
+ ventilacionBolsa() {
+
+    this.props.change("saturation", 100, 40, 2, 10)
+    this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
+}
+
+torniquete() {
+
+    this.props.change("sistolicPressure", -0.8, 300, 3, 15)
+    this.props.change("diastolicPressure", -0.8, 300, 3, 15)
+    this.fillInformation("Torniquete")
+}
+
+pelvic_belt() {
+    this.props.change("sistolicPressure", 0.5, 0, 5, 50)
+    this.props.change("diastolicPressure", 0.5, 0, 5, 50)
+    this.fillInformation("Cinturón pélvico colocado")
+
+}
+
+medicacionIntubacion() {
+
+    this.props.change("saturation", -0.1, 10, 4, 30) ///////////falta la accion
+    this.fillInformation("Medicación administrada")
+}
+
+
+midazolam() {
+
+    this.props.change("saturation", -3, 60, 1, 20)
+    this.fillInformation("Midazolam administrado")
+}
+noradrenalina() {
+
+    this.props.change("sistolicPressure", 110, 20, 2, 45)
+    this.props.change("diastolicPressure", 65, 20, 2, 45)
+    this.fillInformation("Se inicia perfusuión de noradrenalina")
+}
+
+ssf20() {
+
+    this.props.change("sistolicPressure", 0.65, 1200, 1, 20)
+    this.props.change("diastolicPressure", 0.25, 1200, 1, 20)
+    this.fillInformation("Bolo SSF administrado")
+}
+
+voluven() {
+
+    this.props.change("sistolicPressure", 1.1539, 780, 1, 20)
+    this.props.change("diastolicPressure", 0.7693, 780, 1, 20)
+    this.fillInformation("Inicio Voluvén 250 ml")
+}
+
+
+*/
+
+
+    /*
+//VALORES CALCULADOS PARA LA TABLA DE LA VERSION 2
+//METODO change(parameter, value, tiempo, mantiene, latencia)
+
+//        value [puntos/minuto], tiempo[segundos], latencia[segundos]
+
+
+
+aspirador() {
+
+    this.props.change("saturation", 120, 0, 1, 10)
+    this.fillInformation("Aspirando vía aerea")
+}
+
+oxygenateGN() {
+
+    this.props.change("saturation", 2.5, 120, 6, 10)
+    this.props.change("breathingRate", -1.5, 120, 1, 10) 
+    this.fillInformation("Gafas nasales")
+}
+
+oxygenateMasc() {
+
+    this.props.change("saturation", 96, 30, 2, 10)
+    this.props.change("breathingRate", -10, 30, 1, 10) 
+    this.fillInformation("Mascarilla oxígeno")
+}
+
+ ventilacionBolsa() {
+
+    this.props.change("saturation", 100, 40, 2, 10)
+    this.fillInformation("Ventilación con bolsa autoinflabe - IOT")
+}
+
+torniquete() {
+
+    this.props.change("sistolicPressure", -0.8, 300, 3, 15)
+    this.props.change("diastolicPressure", -0.8, 300, 3, 15)
+    this.fillInformation("Torniquete")
+}
+
+pelvic_belt() {
+    this.props.change("sistolicPressure", 0.5, 0, 5, 50)
+    this.props.change("diastolicPressure", 0.5, 0, 5, 50)
+    this.fillInformation("Cinturón pélvico colocado")
+
+}
+
+medicacionIntubacion() {
+
+    this.props.change("saturation", -0.1, 10, 4, 30) ///////////falta la accion
+    this.fillInformation("Medicación administrada")
+}
+
+
+midazolam() {
+
+    this.props.change("saturation", -3, 60, 1, 20)
+    this.fillInformation("Midazolam administrado")
+}
+noradrenalina() {
+
+    this.props.change("sistolicPressure", 110, 20, 2, 45)
+    this.props.change("diastolicPressure", 65, 20, 2, 45)
+    this.fillInformation("Se inicia perfusuión de noradrenalina")
+}
+
+ssf20() {
+
+    this.props.change("sistolicPressure", 0.65, 1200, 1, 20)
+    this.props.change("diastolicPressure", 0.25, 1200, 1, 20)
+    this.fillInformation("Bolo SSF administrado")
+}
+
+voluven() {
+
+    this.props.change("sistolicPressure", 1.1539, 780, 1, 20)
+    this.props.change("diastolicPressure", 0.7693, 780, 1, 20)
+    this.fillInformation("Inicio Voluvén 250 ml")
+}
+
+
+*/
 
     render() {
         const { t } = this.props
         const closeRx = <button className="close" onClick={() => this.setRxModal(false)}>&times;</button>
         const closeEco = <button className="close" onClick={() => this.setEcoModal(false)}>&times;</button>
         const closeTac = <button className="close" onClick={() => this.setTacModal(false)}>&times;</button>
+        const closeInfo = <button className="close" onClick={() => this.setState({info : false})}>&times;</button>
+        const closeCapnografo = <button className="close" onClick={() => this.setCapnografoModal(false)}>&times;</button>
         return (
             <div className="actions">
+                 
+                <div className="avatar">
                 
-                <img className="avatar" alt="avatar" src={avatar} height="190px" width="485px" />
+               <img  alt="avatar" src={this.avatar} height="189px" width="485px" margin-top="0px" />
+                {this.props.phase === "hospitalaria" ? 
+                
+                <img id= "img_bolsa_autoinflable_h" className = "position_absolute" alt="Not found" src={BolsaAutoinflable}  hidden={this.state.img_autoinflable ?  '': 'hidden'}/>
+                
+                :
+                
+                <img id= "img_bolsa_autoinflable" className = "position_absolute" alt="Not found" src={BolsaAutoinflable}  hidden={this.state.img_autoinflable ?  '': 'hidden'}/>
+                
+    }
+                </div>
+    
+        
+               
+               
+               
 
+                
+                
                 <div className="timer">
                     {!this.props.start 
                     ? <Button onClick={()=>this.props.startClick()}>{t('simulation.start')}</Button>
                     : null}
                 </div>
-                
+
+                {/*
                 {this.state.actionPage === 1 
                 ? <div className="actions-buttons">
                     <img id="arrowUp" alt="arrow" src={arrow_up_disabled}/>
@@ -579,7 +1690,18 @@ class Actions extends Component {
                 : <div className="actions-buttons">
                     <img onClick= {() => this.handleChange(this.state.actionPage - 1)} id="arrowUp" alt="arrow" src={arrow_up}/>
                 </div>
-                }
+                }*/}
+
+                <Modal isOpen={this.state.capnografoModal} className = "Modal_capnografo"> 
+                    <ModalHeader  close={closeCapnografo}>Curva de capnografía y EtC02:</ModalHeader>
+                    <Card>
+                        <CardBody>
+                        <img className="capnografo" alt="capnografo" src={capnografo} height="199px" width="465px" />
+                        </CardBody>
+                    </Card>
+                </Modal>
+
+
 
                 <Modal isOpen={this.state.rxModal} >
                     <ModalHeader  close={closeRx}>Selecciona el tipo de radiografía:</ModalHeader>
@@ -587,7 +1709,7 @@ class Actions extends Component {
                         <CardBody>
                             <Input type="select" name="select" onChange={(event) => this.handleRx(event)} >
                                 <option defaultValue></option>
-                                <option value="torax">Tórax</option>
+                                {/*<option value="torax">Tórax</option>*/}
                                 <option value="pelvis">Pelvis</option>
                             </Input>
                             <Button className="buttonModal" onClick= {() => this.rxType(this.state.rxType)}>Solicitar RX</Button>
@@ -618,31 +1740,585 @@ class Actions extends Component {
                         </CardBody>
                     </Card>
                 </Modal> 
+                <Modal isOpen={this.state.info} >
+                   <ModalHeader  close={closeInfo}>Información del paciente:</ModalHeader>
+                   <card>
+                       <CardBody>
+                           <p>{this.props.sex === 0 ? 'Varón' : 'Mujer'} de {this.props.age} años con traumatismo en {t(this.getPartBody(this.props.partBody)).toLowerCase()}, presión sistólica de {this.props.sistolicPressure}mmHg y presión diastólica de {this.props.diastolicPressure}mmHg. Posee {this.props.heartRate} latidos por minuto, una frecuencia respiratoria de {this.props.breathingRate} respiraciones/min y la saturación de oxígeno en sangre es del {this.props.saturation}%. Estado mental {t(this.getMentalState(this.props.mentalStatus))}
+
+                           </p>
+                       </CardBody>
+        
+                   </card>
+                </Modal>
                 
-                {this.state.actionPage === 1 
-                ? <div className="action1">
+                <div
+
+                className="actions-bloques">
+                {this.props.phase === "hospitalaria" ? 
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                  
+                    <Button disabled={!this.props.start} className={this.state.anamnesisClicked?"clicked":null} onClick={() => { this.handleChange(1) }}>Anamnesis</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.viaClicked?"clicked":null} onClick={() => { this.handleChange(2) }}>Vía aérea y ventilación</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.circulacionClicked?"clicked":null} onClick={() => { this.handleChange(3) }}>Circulación/Hemorragias Externas</Button>&nbsp;
+                    
+
+                
+                </div>
+                :
+                
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                
+                <Button disabled={!this.props.start} className={this.state.anamnesis2Clicked?"clicked":null} onClick={() => { this.handleChange(8) }}>Anamnesis</Button>&nbsp;
+                <Button disabled={!this.props.start} className={this.state.via2Clicked?"clicked":null} onClick={() => { this.handleChange(9) }}>Vía aérea y ventilación</Button>&nbsp;
+                <Button disabled={!this.props.start} className={this.state.circulacion2Clicked?"clicked":null}onClick={() => { this.handleChange(10) }}>Circulación/Hemorragias Externas</Button>&nbsp;
+            </div>
+                }
+
+                {this.props.phase === "hospitalaria" ?
+
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'10px'}}>
+                    
+                    <Button disabled={!this.props.start} className={this.state.posicionClicked?"clicked":null} onClick={() => { this.handleChange(4) }}>Exposición/Otros</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.farmacosClicked?"clicked":null} onClick={() => { this.handleChange(5) }}>Fármacos y fluidoterapia</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.pruebasClicked?"clicked":null} onClick={() => { this.handleChange(6) }}>Pruebas Complementarias</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.inmovilizacionClicked?"clicked":null} onClick={() => { this.handleChange(7) }}>Inmovilización</Button>
+
+                    
+                </div>
+                :
+                
+                 
+
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'10px'}}>
+                    <Button disabled={!this.props.start} className={this.state.posicion2Clicked?"clicked":null} onClick={() => { this.handleChange(11) }}>Exposición/Otros</Button>&nbsp;
+                    <Button disabled={!this.props.start} className={this.state.farmacos2Clicked?"clicked":null} onClick={() => { this.handleChange(12) }}>Fármacos y fluidoterapia</Button>&nbsp;
+                    {/*<Button className={this.state.pruebas2Clicked?"clicked":null} onClick={() => { this.handleChange(13) }}>Pruebas Complementarias</Button>&nbsp;*/}
+                    <Button disabled={!this.props.start} className={this.state.inmovilizacion2Clicked?"clicked":null} onClick={() => { this.handleChange(14) }}>Inmovilización</Button>
+
+                 
+                
+                </div>
+               }
+
+</div>
+
+
+                 {this.state.actionPage === 8
+                    ? <div className="action1">
+
+                        <div className="actions-buttons">
+
+                        <Button className={this.state.nameClicked?"clicked":null} onClick={() => this.name()}>{t('simulation.name')}</Button>
+                        <Button className={this.state.ageClicked?"clicked":null} onClick={() => this.age()}>{t('simulation.age')}</Button>
+                        <Button className={this.state.allergyClicked?"clicked":null} onClick={() => this.allergy()}>{t('simulation.allergy')}</Button>
+                        <Button className={this.state.diseaseClicked?"clicked":null} onClick={() => this.disease()}>{t('simulation.disease')}</Button>
+                            
+                         
+                            {/*
+                            <Button className={this.state.dialogClicked?"clicked":null} onClick={() => this.dialog()}>Diálogo</Button>
+                            <Button onClick={() => this.analisis()}>Análisis</Button>
+                            <Button onClick={() => this.rx()}>RX</Button>
+                            <Button onClick={() => this.eco()}>Ecografía</Button>
+                            <Button onClick={() => this.tac()}>TAC</Button>*/}
+
+                        </div>
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.medicationClicked?"clicked":null} onClick={() => this.medication()}>{t('simulation.medication')}</Button>
+                            <Button className={this.state.placeClicked?"clicked":null} onClick={() => this.place()}>{t('simulation.place')}</Button>
+                            <Button className={this.state.happenClicked?"clicked":null} onClick={() => this.happen()}>{t('simulation.happen')}</Button>
+                            <Button className={this.state.painClicked?"clicked":null} onClick={() => this.pain()}>{t('simulation.pain')}</Button>
+
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.breatheClicked?"clicked":null} onClick={() => this.breathe()}>{t('simulation.breathe')}</Button>
+                            <Button className={this.state.movementClicked?"clicked":null} onClick={() => this.movement()}>{t('simulation.movement')}</Button>
+                            <Button className={this.state.feelClicked?"clicked":null} onClick={() => this.feel()}>{t('simulation.feel')}</Button>
+                            <Button className="btn-hidden"></Button>
+                         </div>
+
+
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 9
+                    ? <div className="action1">
+
+                        <div className="actions-buttons">
+                            {/*<Button className={`via ${this.state.inspectionClicked ?"clicked":null}`} onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>*/}
+                            <Button className={this.state.mecanicventilationClicked?"clicked":null} onClick={() => this.mecanicventilation()}>{t('simulation.mecanicventilation')}</Button>
+                            <Button className={this.state.cleanClicked?"clicked":null} onClick={() => this.clean()}>{t('simulation.clean')}</Button>
+                            <Button className={this.state.oxygenateClicked?"clicked":null} onClick={() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
+                            <Button className={this.state.intubateClicked?"clicked":null} onClick={() => this.intubate()}>{t('simulation.intubate')}</Button>
+
+                            
+
+                        </div>
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.auscultationClicked?"clicked":null} onClick={() => this.auscultation()}>{t('simulation.auscultation')}</Button>
+                            <Button className={this.state.pulseoximeterClicked?"clicked":null} onClick={() => this.pulseoximeter()}>{t('simulation.pulseoximeter')}</Button>
+                            <Button className={this.state.oropharyngealcannulaClicked?"clicked":null} onClick={() => this.oropharyngealcannula()}>{t('simulation.oropharyngealcannula')}</Button>
+                            <Button className={this.state.nasalglassesClicked?"clicked":null} onClick={() => this.nasalglasses()}>{t('simulation.nasalglasses')}</Button>
+
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.capnographerClicked?"clicked":null} onClick={() => this.capnographer()}>{t('simulation.capnographer')}</Button>
+                            <Button className={this.state.ventilationClicked?"clicked":null} onClick={() => this.ventilation()}>{t('simulation.ventilation')}</Button>
+                            <Button className={this.state.occlusivedressingClicked?"clicked":null} onClick={() => this.occlusivedressing()}>{t('simulation.occlusivedressing')}</Button>
+                            <Button className={this.state.thoracentesisClicked?"clicked":null}onClick={() => this.thoracentesis()}>{t('simulation.thoracentesis')}</Button>
+
+                            
+
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.chestdrainageClicked?"clicked":null} onClick={() => this.chestdrainage()}>{t('simulation.chestdrainage')}</Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                            
+
+                         </div>
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 10
+                    ? <div className="action1">
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.tourniquetClicked?"clicked":null} onClick={() => this.tourniquet()}>{t('simulation.tourniquet')}</Button>
+                            <Button className={this.state.pressureClicked?"clicked":null} onClick={() => this.pressure()}>{t('simulation.pressure')}</Button>
+                            <Button className={this.state.hemostaticClicked?"clicked":null} onClick={() => this.hemostatic()}>{t('simulation.hemostatic')}</Button>
+                            <Button className={this.state.paniClicked?"clicked":null} onClick={() => this.pani()}>{t('simulation.pani')}</Button>
+                            
+                         </div>
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.vvpClicked?"clicked":null} onClick={() => this.vvp()}>{t('simulation.vvp')}</Button>
+                            <Button className={this.state.ioClicked?"clicked":null} onClick={() => this.io()}>{t('simulation.io')}</Button>
+                            <Button className={this.state.derivationsClicked?"clicked":null} onClick={() => this.derivations()}>{t('simulation.derivations')}</Button>
+                            <Button className={this.state.ECGderivationsClicked?"clicked":null} onClick={() => this.ECGderivations()}>{t('simulation.ECGderivations')}</Button>
+                        </div>
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 11
+                    ? <div className="action1">
+                        
+                        {/*<div className="actions-buttons">
+                            
+                            <Button className={this.state.pupilsClicked?"clicked":null} onClick={() => this.pupils()}>{t('simulation.pupils')}</Button>
+                            <Button className={this.state.extremitiesClicked?"clicked":null} onClick={() => this.extremities()}>{t('simulation.extremities')}</Button>
+                            <Button className={this.state.nervesClicked?"clicked":null} onClick={() => this.nerves()}>{t('simulation.nerves')}</Button>
+                            <Button className={this.state.glasgowClicked?"clicked":null} onClick={() => this.glasgow()}>Nivel Consciencia</Button>
+                            
+                        
+                </div>*/}
+
+                          <div className="actions-buttons">
+                            <Button className={this.state.bladderClicked?"clicked":null} onClick={() => this.bladder()}>{t('simulation.bladder')}</Button>
+                            <Button className={this.state.nasogastricClicked?"clicked":null} onClick={() => this.nasogastric()}>{t('simulation.nasogastric')}</Button>
+                            <Button className={this.state.mantaClicked?"clicked":null} onClick={() => this.manta()}>Manta Térmica</Button>
+                            <Button className={this.state.clothesClicked?"clicked":null} onClick={() => this.clothes()}>{t('simulation.clothes')}</Button>
+                          </div>
+
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 12
+                    ? <div className="action1">
+                        <div className="actions-buttons">
+                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
+                            <Button className={this.state.midazolamClicked?"clicked":null} onClick={() => this.midazolam()}>{t('simulation.midazolam')}</Button>
+                            <Button className={this.state.tranexamicoClicked?"clicked":null} onClick={() => this.tranexamico()}>{t('simulation.tranexamico')}</Button>
+                            <Button className={this.state.noradrenalinaClicked?"clicked":null} onClick={() => this.noradrenalina()}>{t('simulation.noradrenalina')}</Button>
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.fentaniloClicked?"clicked":null} onClick={() => this.fentanilo()}>{t('simulation.fentanilo')}</Button>
+                            <Button className={this.state.SSFClicked?"clicked":null} onClick={() => this.SSF()}>{t('simulation.SSF')}</Button>
+                            <Button className={this.state.SSF500Clicked?"clicked":null} onClick={() => this.SSF500()}>{t('simulation.SSF500')}</Button>
+                            <Button className={this.state.voluvenClicked?"clicked":null} onClick={() => this.voluven()}>{t('simulation.voluven')}</Button>
+                            {/*<Button onClick={() => this.cristaloides()}>Cristaloides</Button>*/}
+                            
+                         </div>
+
+                        {/*} <div className="actions-buttons"> // comentado botón SIR 
+                            <Button className={this.state.SIRClicked?"clicked":null} onClick={() => this.SIR()}>{t('simulation.SIR')}</Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                </div>*/}
+                         
+                          
+
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 13
+                    ? <div className="action1">
+                        
+
+                         <div className="actions-buttons">
+
+                            <Button className={this.state.venousClicked?"clicked":null} onClick={() => this.venous()}>{t('simulation.venous')}</Button>
+                            <Button className={this.state.arterialClicked?"clicked":null} onClick={() => this.arterial()}>{t('simulation.arterial')}</Button>
+                            <Button className={this.state.inrClicked?"clicked":null} onClick={() => this.inr()}>{t('simulation.inr')}</Button>
+                            <Button className={this.state.glicemiaClicked?"clicked":null} onClick={() => this.glicemia()}>{t('simulation.glicemia')}</Button>
+                            
+                         </div>
+
+
+
+        
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 14
+                    ? <div className="action1">
+                        <div className="actions-buttons">
+                            <Button className={this.state.cervicalcontrolClicked?"clicked":null} onClick={() => this.cervicalcontrol()}>{t('simulation.cervicalcontrol')}</Button>
+                            <Button className={this.state.collarinClicked?"clicked":null} onClick={() => this.collarin()}>Collarín Cervical</Button>
+                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
+                            
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.feruleClicked?"clicked":null} onClick={() => this.ferule()}>{t('simulation.ferule')}</Button>
+                            <Button className={this.state.mattressClicked?"clicked":null} onClick={() => this.mattress()}>{t('simulation.mattress')}</Button>
+                            <Button className="btn-hidden"></Button>
+                         </div>
+
+
+                    </div>
+                    : null
+                }
+
+                 
+                
+
+                {/*
+
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Button onClick={() => { this.handleChange(1) }}>Anamnesis</Button>&nbsp;
+                    <Button onClick={() => { this.handleChange(2) }}>Vía aérea y ventilación</Button>&nbsp;
+                    <Button onClick={() => { this.handleChange(3) }}>Circulación/Hemorragias Externas</Button>&nbsp;
+                    
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin:'20px'}}>
+                    <Button onClick={() => { this.handleChange(4) }}>Posición/Otros</Button>&nbsp;
+                    <Button onClick={() => { this.handleChange(5) }}>Fármacos y fluidoterapia</Button>&nbsp;
+                    <Button onClick={() => { this.handleChange(6) }}>Pruebas Complementarias</Button>&nbsp;
+                    <Button onClick={() => { this.handleChange(7) }}>Inmovilización</Button>
+
+
+                </div>
+
+                */}
+
+
+
+
+                {this.state.actionPage === 1
+                    ? <div className="action1">
+                        <div className="actions-buttons">
+                           {/**<Button onClick={() => this.clean()}>{t('simulation.clean')}</Button> 
+                            <Button onClick={() => this.analgesics()}>{t('simulation.analgesics')}</Button>
+                            <Button className={this.state.dialogClicked?"clicked":null} onClick={() => this.dialog()}>Diálogo</Button>*/}
+                        <Button className={this.state.nameClicked?"clicked":null} onClick={() => this.name()}>{t('simulation.name')}</Button>
+                        <Button className={this.state.ageClicked?"clicked":null} onClick={() => this.age()}>{t('simulation.age')}</Button>
+                        <Button className={this.state.allergyClicked?"clicked":null} onClick={() => this.allergy()}>{t('simulation.allergy')}</Button>
+                        <Button className={this.state.diseaseClicked?"clicked":null} onClick={() => this.disease()}>{t('simulation.disease')}</Button>
+                            
+                            
+                        </div>
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.medicationClicked?"clicked":null} onClick={() => this.medication()}>{t('simulation.medication')}</Button>
+                            <Button className={this.state.placeClicked?"clicked":null} onClick={() => this.place()}>{t('simulation.place')}</Button>
+                            <Button className={this.state.happenClicked?"clicked":null} onClick={() => this.happen()}>{t('simulation.happen')}</Button>
+                            <Button className={this.state.painClicked?"clicked":null} onClick={() => this.pain()}>{t('simulation.pain')}</Button>
+
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.breatheClicked?"clicked":null} onClick={() => this.breathe()}>{t('simulation.breathe')}</Button>
+                            <Button className={this.state.movementClicked?"clicked":null} onClick={() => this.movement()}>{t('simulation.movement')}</Button>
+                            <Button className={this.state.feelClicked?"clicked":null} onClick={() => this.feel()}>{t('simulation.feel')}</Button>
+                            <Button className="btn-hidden"></Button>
+                         </div>
+
+                        
+
+                    </div>
+                    : null
+                }
+
+
+                {this.state.actionPage === 2
+                    ? <div className="action1">
+
+                        <div className="actions-buttons">
+                            {/*<Button className={`via ${this.state.inspectionClicked ?"clicked":null}`} onClick={() => this.inspection()}>Inspeccionar vía aérea</Button>*/}
+                            <Button className={this.state.mecanicventilationClicked?"clicked":null} onClick={() => this.mecanicventilation()}>{t('simulation.mecanicventilation')}</Button>
+                            <Button className={this.state.cleanClicked?"clicked":null} onClick={() => this.clean()}>{t('simulation.clean')}</Button>
+                            <Button className={this.state.oxygenateClicked?"clicked":null} onClick={() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
+                            <Button className={this.state.intubateClicked?"clicked":null} onClick={() => this.intubate()}>{t('simulation.intubate')}</Button>
+
+                            
+
+                        </div>
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.auscultationClicked?"clicked":null} onClick={() => this.auscultation()}>{t('simulation.auscultation')}</Button>
+                            <Button className={this.state.pulseoximeterClicked?"clicked":null} onClick={() => this.pulseoximeter()}>{t('simulation.pulseoximeter')}</Button>
+                            <Button className={this.state.oropharyngealcannulaClicked?"clicked":null} onClick={() => this.oropharyngealcannula()}>{t('simulation.oropharyngealcannula')}</Button>
+                            <Button className={this.state.nasalglassesClicked?"clicked":null} onClick={() => this.nasalglasses()}>{t('simulation.nasalglasses')}</Button>
+
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.capnographerClicked?"clicked":null} onClick={() => this.capnographer()}>{t('simulation.capnographer')}</Button>
+                            <Button className={this.state.ventilationClicked?"clicked":null} onClick={() => this.ventilation()}>{t('simulation.ventilation')}</Button>
+                            <Button className={this.state.occlusivedressingClicked?"clicked":null} onClick={() => this.occlusivedressing()}>{t('simulation.occlusivedressing')}</Button>
+                            <Button className={this.state.thoracentesisClicked?"clicked":null} onClick={() => this.thoracentesis()}>{t('simulation.thoracentesis')}</Button>
+
+                            
+
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.chestdrainageClicked?"clicked":null} onClick={() => this.chestdrainage()}>{t('simulation.chestdrainage')}</Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+
+                         </div>
+
+
+
+
+                    </div>
+                    : null
+                }
+
+
+                {this.state.actionPage === 3
+                    ? <div className="action1">
+                        <div className="actions-buttons">
+                            <Button className={this.state.tourniquetClicked?"clicked":null} onClick={() => this.tourniquet()}>{t('simulation.tourniquet')}</Button>
+                            <Button className={this.state.pressureClicked?"clicked":null} onClick={() => this.pressure()}>{t('simulation.pressure')}</Button>
+                            <Button className={this.state.hemostaticClicked?"clicked":null} onClick={() => this.hemostatic()}>{t('simulation.hemostatic')}</Button>
+                            <Button className={this.state.paniClicked?"clicked":null} onClick={() => this.pani()}>{t('simulation.pani')}</Button>
+                            
+                         </div>
+
+                        <div className="actions-buttons">
+                            <Button className={this.state.vvpClicked?"clicked":null} onClick={() => this.vvp()}>{t('simulation.vvp')}</Button>
+                            <Button className={this.state.ioClicked?"clicked":null} onClick={() => this.io()}>{t('simulation.io')}</Button>
+                            <Button className={this.state.derivationsClicked?"clicked":null} onClick={() => this.derivations()}>{t('simulation.derivations')}</Button>
+                            <Button className={this.state.ECGderivationsClicked?"clicked":null} onClick={() => this.ECGderivations()}>{t('simulation.ECGderivations')}</Button>
+                        </div>
+
+
+
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 4
+                    ? <div className="action1">
+                        {/*<div className="actions-buttons">
+                            
+                            <Button className={this.state.pupilsClicked?"clicked":null} onClick={() => this.pupils()}>{t('simulation.pupils')}</Button>
+                            <Button className={this.state.extremitiesClicked?"clicked":null} onClick={() => this.extremities()}>{t('simulation.extremities')}</Button>
+                            <Button className={this.state.nervesClicked?"clicked":null} onClick={() => this.nerves()}>{t('simulation.nerves')}</Button>
+                            <Button className={this.state.glasgowClicked?"clicked":null} onClick={() => this.glasgow()}>Nivel Consciencia</Button>
+                            
+                        
+                </div>*/}
+
+                          <div className="actions-buttons">
+                            <Button className={this.state.bladderClicked?"clicked":null} onClick={() => this.bladder()}>{t('simulation.bladder')}</Button>
+                            <Button className={this.state.nasogastricClicked?"clicked":null} onClick={() => this.nasogastric()}>{t('simulation.nasogastric')}</Button>
+                            <Button className={this.state.mantaClicked?"clicked":null} onClick={() => this.manta()}>Manta Térmica</Button>
+                            <Button className={this.state.clothesClicked?"clicked":null} onClick={() => this.clothes()}>{t('simulation.clothes')}</Button>
+                          </div>
+
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 5
+                    ? <div className="action1">
+                       {/* <div className="actions-buttons">
+                            <Button onClick={() => this.analgesics()}>{t('simulation.analgesics')}</Button>
+                            <Button onClick={() => this.hot_liquids()}>{t('simulation.liquids')}</Button>
+                            <Button onClick={() => this.cristaloides()}>Cristaloides</Button>
+                         </div>
+                         // ACCIONES QUE QUITO PQ FERNANDO NO LAS HA PUESTO :
+                         <Button className={this.state.cristaloidesClicked?"clicked":null} onClick={() => this.cristaloides()}>Cristaloides</Button>*/}
+
+                         <div className="actions-buttons">
+                            {/*<Button className={this.state.SIRClicked?"clicked":null} onClick={() => this.SIR()}>{t('simulation.SIR')}</Button>*/}
+                            <Button className={this.state.sgClicked?"clicked":null} onClick={() => this.sg()}>{t('simulation.sg')}</Button>
+                            <Button className={this.state.midazolamClicked?"clicked":null} onClick={() => this.midazolam()}>{t('simulation.midazolam')}</Button>
+                            <Button className={this.state.tranexamicoClicked?"clicked":null} onClick={() => this.tranexamico()}>{t('simulation.tranexamico')}</Button>
+                            <Button className={this.state.noradrenalinaClicked?"clicked":null} onClick={() => this.noradrenalina()}>{t('simulation.noradrenalina')}</Button>
+                         </div>
+
+                         <div className="actions-buttons">
+                            <Button className={this.state.fentaniloClicked?"clicked":null} onClick={() => this.fentanilo()}>{t('simulation.fentanilo')}</Button>
+                            <Button className={this.state.SSFClicked?"clicked":null} onClick={() => this.SSF()}>{t('simulation.SSF')}</Button>
+                            <Button className={this.state.SSF500Clicked?"clicked":null} onClick={() => this.SSF500()}>{t('simulation.SSF500')}</Button>
+                            <Button className={this.state.voluvenClicked?"clicked":null} onClick={() => this.voluven()}>{t('simulation.voluven')}</Button>
+                            
+                            
+                         </div>
+
+                         <div className="actions-buttons">
+                            
+                            <Button className={this.state.massivetransfusionClicked?"clicked":null} onClick={() => this.massivetransfusion()}>{t('simulation.massivetransfusion')}</Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                            <Button className="btn-hidden"></Button>
+                         </div>
+
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 6
+                    ? <div className="action1">
+                        {/*<div className="actions-buttons">
+                            <Button className={this.state.analisisClicked?"clicked":null} onClick={() => this.analisis()}>Análitica de sangre</Button>
+                            <Button className={this.state.rxClicked?"clicked":null} onClick={() => this.rx()}>Rx Pelvis</Button>
+                            <Button className={this.state.tacClicked?"clicked":null} onClick={() => this.tac()}>TAC</Button>
+                            <Button className={this.state.ecoClicked?"clicked":null} onClick={() => this.eco()}>Ecografía</Button>
+                    
+                </div>*/}
+
+                        <div className="actions-buttons">
+                        <Button className="btn-hidden"></Button>
+                        <Button className={this.state.interconsultationsClicked?"clicked":null} onClick={() => this.interconsultations()}>{t('simulation.interconsultations')}</Button>
+                        <Button className={this.state.rxClicked?"clicked":null} onClick={() => this.rx()}>Rx Pelvis</Button>
+                         <Button className="btn-hidden"></Button>
+                        </div>
+
+                        {/*<div className="actions-buttons">
+
+                            <Button className={this.state.surgeryClicked?"clicked":null} onClick={() => this.surgery()}>{t('simulation.surgery')}</Button>
+                            <Button className={this.state.laparotomyClicked?"clicked":null} onClick={() => this.laparotomy()}>{t('simulation.laparotomy')}</Button>
+                            <Button className={this.state.thoracotomyClicked?"clicked":null} onClick={() => this.thoracotomy()}>{t('simulation.thoracotomy')}</Button>
+                           <Button className={this.state.transfusionClicked?"clicked":null} onClick={() => this.transfusion()}>{t('simulation.transfusion')}</Button>
+                            
+                         </div>*/}
+
+
+                         {/*<div className="actions-buttons">
+
+                            <Button className={this.state.venousClicked?"clicked":null} onClick={() => this.venous()}>{t('simulation.venous')}</Button>
+                            <Button className={this.state.arterialClicked?"clicked":null} onClick={() => this.arterial()}>{t('simulation.arterial')}</Button>
+                            <Button className={this.state.crossmatchClicked?"clicked":null} onClick={() => this.crossmatch()}>{t('simulation.crossmatch')}</Button>
+                            <Button className="btn-hidden"></Button>
+                        </div>*/}
+
+
+
+        
+                    </div>
+                    : null
+                }
+
+                {this.state.actionPage === 7
+                    ? <div className="action1">
+                        <div className="actions-buttons">
+                            <Button className="btn-hidden"></Button>
+                            <Button className={this.state.cervicalcontrolClicked?"clicked":null} onClick={() => this.cervicalcontrol()}>{t('simulation.cervicalcontrol')}</Button>
+                            <Button className={this.state.collarinClicked?"clicked":null} onClick={() => this.collarin()}>Collarín Cervical</Button>
+                            <Button className="btn-hidden"></Button>
+                            
+                         </div>
+
+                         {/*<div className="actions-buttons">
+                            <Button onClick={() => this.ferule()}>{t('simulation.ferule')}</Button>
+                            <Button onClick={() => this.mattress()}>{t('simulation.mattress')}</Button>
+                            <Button className={this.state.pelvic_beltClicked?"clicked":null} onClick={() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
+                </div>*/}
+
+
+                    </div>
+                    : null
+                }
+
+
+
+
+                {/*
+                {this.state.actionPage === 1 ACCIONES CON LOS ENCABEZADOS 
+                 ?<div className="action1">
+                     <h2>Examen Físico y Monitorización</h2>
+                     
                     <div className="actions-buttons">
                         <Button onClick = {() => this.clean()}>{t('simulation.clean')}</Button>
-                        <Button onClick = {() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
-                        <Button onClick = {() => this.intubate()}>{t('simulation.intubate')}</Button>
-                    </div>
-
-                    <div className="actions-buttons">
+                        <Button onClick = {() => this.glasgow()}>Nivel Consciencia</Button>
+                        <Button onClick = {() => this.dialog()}>Diálogo</Button>
                         <Button onClick = {() => this.analgesics()}>{t('simulation.analgesics')}</Button>
-                        <Button onClick = {() => this.analisis()}>Análisis</Button>
-                        <Button onClick = {() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
+                     
                     </div>
 
                     <div className="actions-buttons">
-                        <Button onClick = {() => this.hot_liquids()}>{t('simulation.liquids')}</Button>
-                        <Button onClick = {() => this.transfusion()}>{t('simulation.transfusion')}</Button>
-                        <Button onClick = {() => this.surgery()}>{t('simulation.surgery')}</Button>
+                        <Button onClick = {() => this.pelvic_belt()}>{t('simulation.belt')}</Button>
+                        <Button onClick = {() => this.oxygenate()}>{t('simulation.oxygenate')}</Button>
+                        <Button onClick = {() => this.manta()}>Manta Térmica</Button>
+                        <Button onClick = {() => this.collarin()}>Collarín Cervical</Button>
                     </div>
+                    <div className="actions-buttons">
+                        <Button className="via" onClick = {() => this.inspection()}>Inspeccionar vía aérea</Button>
+                        <Button onClick = {() => this.hot_liquids()}>{t('simulation.liquids')}</Button>
+                        <Button onClick = {() => this.cristaloides()}>Cristaloides</Button>
+                        <Button onClick = {() => this.transfusion()}>{t('simulation.transfusion')}</Button>
+                    </div>
+
+                    
+                    <h2>Pruebas Complementarias</h2>
+                    
+                    <div className="actions-buttons">
+                        <Button onClick = {() => this.analisis()}>Análisis</Button>
+                        <Button onClick = {() => this.rx()}>RX</Button>
+                        <Button onClick = {() => this.eco()}>Ecografía</Button>
+                        <Button onClick = {() => this.tac()}>TAC</Button>
+                        
+                    
+                    </div>
+                    <h2>Intervenciones</h2>
+                    
+                    <div className="actions-buttons">
+                        <Button onClick = {() => this.intubate()}>{t('simulation.intubate')}</Button>
+                        <Button onClick = {() => this.surgery()}>{t('simulation.surgery')}</Button>
+                        <Button onClick = {() => this.laparotomy()}>{t('simulation.laparotomy')}</Button>
+                        <Button onClick = {() => this.thoracotomy()}>{t('simulation.thoracotomy')}</Button>
+                        
+                        
+                    </div>
+                    
                 </div>
                 : null
                 }
+            */}
 
-                {this.state.actionPage === 2 
+               {/**this.state.actionPage === 2 ESTO ES LO DE LAS FLECHAS DE LUIS
                 ? <div className="action1">
                     <div className="actions-buttons">
                         <Button className="via" onClick = {() => this.inspection()}>Inspeccionar vía aérea</Button>
@@ -662,16 +2338,16 @@ class Actions extends Component {
                         <Button onClick = {() => this.tac()}>TAC</Button>
                     </div>
                 </div>
-                : null}
+               : null**/}
                 
-                {this.state.actionPage === 2 ?
+                {/**this.state.actionPage === 2 ? ESTO TB ES LO DE LAS FLCHAS DE LUIS 
                 <div className="actions-buttons">
                     <img id="arrowDown" alt="arrow" src={arrow_down_disabled}/>
                 </div>
                 : <div className="actions-buttons">
                     <img onClick= {() => this.handleChange(this.state.actionPage + 1)} id="arrowDown" alt="arrow" src={arrow_down}/>
                 </div>
-                }
+                **/}
                 {this.generatePDF()}
             </div>
         )

@@ -8,7 +8,40 @@
 
 .avatar {
     align-self: center;
+    
 }
+
+.position_absolute{
+    position:absolute; /*me permite jugar con la posicion de las imagenes*/
+    
+    
+    z-index: 1;
+
+}
+
+/*Modifica la posición de la imagen sobre el maniquí en la fase prehospitalaria*/
+#img_bolsa_autoinflable{
+    top : 163px;
+    left: 147px;
+    height:108px;
+    width:70px; 
+    margin-top:0px;
+}
+
+/*Modifica la posición de la imagen sobre el maniquí en la fase hospitalaria*/
+#img_bolsa_autoinflable_h{
+    top : 165px;
+    left: 170px;
+    height:105px;
+    width:70px; 
+    margin-top:0px;
+}
+
+
+
+
+
+
 
 .graphic {
     width: 100%;
@@ -52,8 +85,12 @@
     display: flex;
     flex: 9;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    
 }
+
+h1{font-size: 2rem;}
+
 
 .actions-buttons {
     display: flex;
@@ -62,13 +99,62 @@
 }
 
 .actions-buttons button {
-    width: 145px;
-    height: 40px;
-    margin-top: 2pc;
+    width: 158px;
+    height: 46px;
+    margin-top: 1pc;
+    white-space:pre-wrap;
+    font-size: 12.4px;
+    background-color: #9aa0a7;
+    
+    
 }
 
+.actions-bloques button{
+    width: 195px;
+    height: 52px;
+    
+    white-space:pre-wrap;
+    font-size: 15.5px;
+    margin-left: 0px;
+    background-color: #6c757d;
+
+}
+.actions-buttons button.clicked{
+    background:#212529;
+}
+
+.actions-bloques button.clicked{
+    background:#030303;
+}
+.btn-hidden {
+    visibility:hidden;
+}
+
+.actions-buttons button:hover {
+    background: rgb(45, 45, 51);
+    color: white
+}
+
+.actions-bloques button:hover {
+    background: #030303;
+    color: white
+}
+
+ .clicked:focus, .clicked{
+    background-color: rgb(42, 42, 44);
+
+}
+
+.Modal_capnografo{
+    width: 1500px!important;
+    
+
+}
+
+
+
 .actions-buttons img {
-    width: 35px;
+    width: 20px;
     height: 35px;
     margin-top: 0pc;
 }
@@ -150,7 +236,6 @@
 
 .clock p{
     color: #6c757d;
-    font-size: xx-large
 }
 
 .via{
@@ -162,6 +247,20 @@
 .test{
     display: flex;
     justify-content: center;
+}
+
+.actions-info{
+    overflow-y: scroll;
+    height: 25vh;
+}
+.popover-hist{
+    margin: 4px;
+}
+.text-chrono1{
+    font-size: large;
+}
+.text-chrono2{
+    font-size: xx-large
 }
 
 

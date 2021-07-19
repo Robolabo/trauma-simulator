@@ -3,88 +3,51 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(
-      'actions',
+      'informs',
       {
-        actionId:{
+        actId:{
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           unique: true,
           unique: "compositeKey"
       },
-        actionName: {
-          type: Sequelize.STRING
+        simulationId: {
+          type: Sequelize.INTEGER
       },
         message: {
           type: Sequelize.STRING
       },
-        photo: {
-          type: Sequelize.BOOLEAN
-      },
-        bloodLossMin: {
+        bloodLoss: {
           type: Sequelize.DOUBLE
       } ,
-       bloodLossMax: {
+        sistolicPressure: {
           type: Sequelize.DOUBLE
       },
-        sistolicPressureMin: {
+        diastolicPressure: {
           type: Sequelize.DOUBLE
       },
-        sistolicPressureMax: {
+        heartRate: {
           type: Sequelize.DOUBLE
       },
-        diastolicPressureMin: {
-          type: Sequelize.DOUBLE
-      } ,
-        diastolicPressureMax: {
+        breathingRate: {
           type: Sequelize.DOUBLE
       },
-        heartRateMin: {
+        urineOutput: {
           type: Sequelize.DOUBLE
       },
-        heartRateMax: {
+        saturation: {
           type: Sequelize.DOUBLE
       },
-        breathingRateMin: {
+        temperature: {
           type: Sequelize.DOUBLE
       },
-        breathingRateMax: {
-          type: Sequelize.DOUBLE
-      },
-        urineOutputMin: {
-          type: Sequelize.DOUBLE
-      },
-        urineOutputMax: {
-          type: Sequelize.DOUBLE
-      },
-        saturationMin: {
-          type: Sequelize.DOUBLE
-      },
-        saturationMax: {
-          type: Sequelize.DOUBLE
-      },
-        temperatureMin: {
-          type: Sequelize.DOUBLE
-      },
-        temperatureMax: {
-          type: Sequelize.DOUBLE
-      },
-        partBody: {
-          type: Sequelize.STRING
-      },
-        mentalStatus: {
-          type: Sequelize.STRING
-      },
-       time: {
+       minute: {
          type: Sequelize.INTEGER
       },
-
-      age: {
+      second: {
         type: Sequelize.INTEGER
      }
-
-
-
       },
       {
         sync: { force: true}
@@ -100,7 +63,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('actions');
+    return queryInterface.dropTable('informs');
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

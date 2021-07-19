@@ -25,7 +25,10 @@
 
     "dashboard": {
         "new-simulation": "Nueva Simulación",
-        "access-simulation": "Mis Simulaciones"
+        "access-simulation": "Mis Simulaciones",
+        "training-simulation": "Entrenamiento",
+        "exam-simulation": "Examen"
+
     },
 
     "new-simulation": {
@@ -35,6 +38,7 @@
         "sex": "Sexo:",
         "age": "Edad:",
         "body": "Parte del cuerpo afectada:",
+        "rxPelvis":"Seleccione radiografía de pelvis",
         "bloodLoss": "Pérdida sanguínea",
         "s-pressure": "Presión sistólica (mmHg)",
         "d-pressure": "Presión diastólica (mmHg)",
@@ -53,10 +57,11 @@
         "left-a": "Brazo izquierdo",
         "right-l": "Pierna derecha",
         "left-l": "Pierna izquierda",
-        "anxious": "Ansiedad",
-        "confused": "Confuso",
-        "lethargic": "Letárgico",
-        "normal": "Normal",
+        "both-l":"Ambas piernas",
+        "anxious": "ansiedad",
+        "confused": "confuso",
+        "lethargic": "letárgico",
+        "normal": "normal",
         "students": "Estudiantes..."
     },
 
@@ -65,7 +70,7 @@
         "trainer": "Instructor",
         "sex": "Sexo",
         "age": "Edad",
-        "trauma": "Trauma",
+        "trauma": "Parte afectada",
         "time": "Tiempo",
         "action": "Acción",
         "enter": "Entrar",
@@ -76,9 +81,9 @@
         "initial-text": "CLICK START!",
         "time": "Tiempo restante:",
         "start": "Start",
-        "clean": "Limpiar vía aérea",
-        "oxygenate": "Oxigenar",
-        "intubate": "Intubar",
+        "clean": "Aspirador",
+        "oxygenate": "Mascarilla con reservorio",
+        "intubate": "Intubación orotraqueal",
         "analgesics": "Analgésicos",
         "fluids": "Fluidos",
         "belt": "Cinturón pélvico",
@@ -87,7 +92,68 @@
         "surgery": "Cirugía",
         "reset": "Reset",
         "breath-unit": "resp/min",
-        "heart-unit": "lat/min"
+        "heart-unit": "lat/min",
+        "laparotomy": "Laparotomía",
+        "thoracotomy": "Toracotomía",
+        "tourniquet" : "Torniquete",
+        "auscultation" : "Auscultación",
+        "pulseoximeter" : "Pulsioxímetro",
+        "oropharyngealcannula" : "Cánula orofaríngea",
+        "nasalglasses" : "Oxigenoterapia con gafas nasales",
+        "capnographer" : "Capnógrafo",
+        "ventilation" : "Ventilación con bolsa autoinfable",
+        "occlusivedressing" : "Apósito oclusivo",
+        "thoracentesis" : "Toracocentesis con aguja",
+        "chestdrainage" : "Drenaje torácico",
+        "ferule" : "Férula de vacío",
+        "cervicalcontrol" : "Control crevical manual",
+        "mattress" : "Colchón de vacío",
+        "venous" : "Gasometría venosa",
+        "arterial" : "Gasometría arterial",
+        "crossmatch" : "Pruebas cruzadas",
+        "pressure" : "Presión directa",
+        "hemostatic" : "Agente hemostático",
+        "vvp" : "Canalización VVP",
+        "io" : "Canalización IO",
+        "pani" : "PANI Digital",
+        "derivations" : "Monitorización 4 parches",
+        "ECGderivations" : " ECG 12 Derivaciones",
+        "pupils" : "Exploración pupilar",
+        "nerves" : "Exploración nervios craneales",
+        "extremities" : "Exploración en extremidades",
+        "bladder" : "Sondaje vesical",
+        "nasogastric" : "Sondaje nasogástrico",
+        "SIR" : "SIR",
+        "fentanilo" : "Fentanilo 50mcg IV",
+        "midazolam" : "Midazolam 2mg IV",
+        "tranexamico": "Ácido Tranexámico 1g IV",
+        "noradrenalina" : "Noradrenalina IV",
+        "SSF" : "SSF 20ml/kg en 10 minutos",
+        "SSF500":"SSF 500ml mantenimiento",
+        "voluven" : "Voluvén 250ml IV",
+        "sg" : "SG 5% mantenimiento",
+        "inr" : "INR",
+        "glicemia" : "Glucemia capilar",
+        "name":"¿Cómo te llamas?",
+        "age":"¿Qué edad tienes?",
+        "allergy":"¿Tienes alguna alergia?",
+        "disease":"¿Tienes alguna enfermedad?",
+        "medication":"¿Tomas alguna medicación?",
+        "place":"¿Sabes dónde estás?",
+        "happen":"¿Sabes que ha pasado?",
+        "pain":"¿Dónde te duele?",
+        "breathe":"¿Te cuesta respirar?",
+        "movement":"¿Puedes mover las piernas y los brazos? ",
+        "feel": "¿Sientes cómo te toco?",
+        "mecanicventilation":"Conexión a ventilación mecánica",
+        "clothes":"Retirada de ropa",
+        "massivetransfusion":"Protocolo de transfusión masiva",
+        "interconsultations":"Interconsultas a otras especialidades"
+
+
+
+
+    
     }
 
 }

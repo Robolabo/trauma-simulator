@@ -31,7 +31,8 @@ var Action = sequelize.define('action', {
     temperatureMax: Sequelize.DOUBLE,
     partBody: Sequelize.STRING,
     mentalStatus: Sequelize.STRING,
-    time: Sequelize.INTEGER  
+    time: Sequelize.INTEGER,
+    age:Sequelize.INTEGER
 },
 {
 	 timestamps: false,

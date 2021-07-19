@@ -4,7 +4,7 @@ var sequelize = require ('../model/database')
 var Trainer = require('../model/Trainer')
 var Trainee = require('../model/Trainee')
 const { QueryTypes } = require('sequelize');
-
+const { Op } = require("sequelize");
 controller.testdata = async ( req, res) => {
   
   const response = await sequelize.sync().then(function() {
@@ -32,11 +32,11 @@ controller.list = async (req, res) => {
   res.json({success : true, data : data});
 
 }
+//create
 controller.create = async (req,res) => {
   // data
   const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
-            saturation, mentalStatus, time, traineeId, trainerId } = req.body;
-    
+            saturation, mentalStatus, time, traineeId, trainerId, phase, rxPelvis } = req.body;
   // create
   const data = await Simulation.create({
     sex: sex,
@@ -54,7 +54,10 @@ controller.create = async (req,res) => {
     mentalStatus: mentalStatus,
     time: time,
     traineeId: traineeId,
-    trainerId: trainerId
+    trainerId: trainerId,
+    phase: phase,
+    rxPelvis: rxPelvis
+
   })
   .then(function(data){
     return data;
@@ -70,7 +73,7 @@ controller.create = async (req,res) => {
     data: data
   });
 }
-
+//read
 controller.get = async (req,res) => {
   const { id } = req.params;
   const data = await Simulation.findAll({
@@ -99,10 +102,9 @@ controller.getTestData = async (req, res) => {
   .catch(error =>{
     return error;
   })
-  console.log(data)
   res.json({ success: true, data: data });
 }
-
+//update
 controller.update = async (req,res) => {
   // parameter get id
   const { id } = req.params;
@@ -124,13 +126,23 @@ controller.update = async (req,res) => {
   }) 
   res.json({success:true, data:data, message:"El informe está disponible"});
 }
-
+//delete
 controller.delete = async (req, res) => {
   // parameter post
   const { id } = req.body;
   // delete sequelize
   const del = await Simulation.destroy({
     where: { simulationId: id}
+  })
+  res.json({success:true,deleted:del,message:"Deleted successful"});
+}
+
+controller.deleteAllByUser = async (req, res) => {
+  // parameter post
+  const { id } = req.body;
+  // delete sequelize
+  const del = await Simulation.destroy({
+    where: { traineeId: id}
   })
   res.json({success:true,deleted:del,message:"Deleted successful"});
 }
@@ -175,10 +187,35 @@ controller.listByTraineeId = async (req, res) => {
   const data = await Simulation.findAll({
     include: [ { model: Trainer, as: 'trainer' },
                { model: Trainee, as: 'trainee' } ],
-    where: { traineeId: id}
+    where: { traineeId: id, trainerId : {
+      [Op.ne] : 2
+  }}
   })
   .then(function(data){
     return data;
+  })
+  .catch(error => {
+    return error;
+  }); 
+
+  res.json({success : true, data : data});
+
+}
+//Devolver las simulaciones con el entrenador train
+//Cambiar nombre 
+controller.listByTraineeAndTrainer = async (req, res) => {
+  const { idTrainer,idTrainee } = req.query;
+
+  const data = await Simulation.findAll({
+    include: [ { model: Trainer, as: 'trainer' },
+               { model: Trainee, as: 'trainee' } ],
+    where: {  trainerId: idTrainer, traineeId:idTrainee }
+  })
+    .then(function (data) {
+      if (data)
+        return data;
+      else
+        return {error:"Not foaaund"}
   })
   .catch(error => {
     return error;

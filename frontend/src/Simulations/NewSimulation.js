@@ -33,12 +33,17 @@ class NewSimulation extends Component {
             saturation: 0.0,
             temperature: 0.0,
             mentalStatus: "",
+            phase:"",
             time: 0,
             redirect: false,
-            alert: false
+            alert: false,
+            rxPelvis:"",
+            showrx:false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+
     
     componentDidMount(){
 
@@ -75,6 +80,7 @@ class NewSimulation extends Component {
                 saturation: default_config.saturation,
                 temperature: default_config.temperature,
                 mentalStatus: default_config.mentalStatus,
+                phase: default_config.phase,
                 time: default_config.time
             })
 
@@ -105,8 +111,10 @@ class NewSimulation extends Component {
             urineOutput: this.state.urineOutput,
             saturation: this.state.saturation,
             mentalStatus: this.state.mentalStatus,
+            phase: this.state.phase,
             temperature: this.state.temperature,
-            time: this.state.time
+            time: this.state.time,
+            rxPelvis:this.state.rxPelvis
         }
 
         if (this.state.traineeId !== 0) {
@@ -127,6 +135,36 @@ class NewSimulation extends Component {
         } else {
             alert("Select the name of the trainee")
         }
+        if(this.state.age >100 || this.state.age< 0){
+            this.setState({ alert: false});
+            alert("Selecciona una edad comprendida entre 0 y 100 años")
+            
+        }
+        if(this.state.sistolicPressure > 190 || this.state.sistolicPressure < 60){
+            this.setState({ alert: false});
+            alert("Selecciona una presión sistólica (TAS) comprendida entre 60 y 190 (mmHg)")
+           
+        }
+        if(this.state.diastolicPressure > 90 || this.state.diastolicPressure < 30){
+            this.setState({ alert: false});
+            alert("Selecciona una presión diastólica (TAD) comprendida entre 30 y 90 (mmHg)")
+            
+        }
+        if(this.state.heartRate > 160 || this.state.heartRate < 50){
+            this.setState({ alert: false});
+            alert("Selecciona una frecuencia cardiaca comprendida entre 50 y 160 (lat/min)")
+            
+        }
+        if(this.state.breathingRate > 60 || this.state.breathingRate < 0){
+            this.setState({ alert: false});
+            alert("Selecciona una frecuencia respiratoria comprendida entre 0 y 60 (resp/min)")
+        }
+        if(this.state.saturation > 100 || this.state.saturation < 70){
+            this.setState({ alert: false});
+            alert("Selecciona una saturación de oxígeno comprendida entre 70 y 100 (%)")
+        }
+
+
      
         
         event.preventDefault();
@@ -158,6 +196,26 @@ class NewSimulation extends Component {
         this.setState({ sex: Number(value.target.value) });
     };
 
+    handleChange5 = selectedOption => {
+       
+        this.setState({ phase: selectedOption.value });
+        if(selectedOption.value==="hospitalaria"){
+            this.setState({ showrx: true });
+        
+        }
+
+        else{
+
+            this.setState({ showrx: false });
+        }
+        
+    };
+
+    handleChangerxPelvis = selectedOption => {
+       
+        this.setState({ rxPelvis: selectedOption.value });
+    };
+
     render() {
         const { t } = this.props
         const optionsMentalStatus = [
@@ -166,13 +224,30 @@ class NewSimulation extends Component {
             { value: 'lethargic', label: t('new-simulation.lethargic') },
             { value: 'normal', label: t('new-simulation.normal')}
           ];
+          // Creación de opciones para la fase
+          const optionsPhase = [
+            { value: 'prehospitalaria', label: 'Pre Hospitalaria' },
+            { value: 'hospitalaria', label: 'Hospitalaria' }
+            
+          ];
         
           const optionsPartBody = [
             { value: 'pelvis', label: t('new-simulation.pelvis')},
             { value: 'rightArm', label: t('new-simulation.right-a') },
             { value: 'leftArm', label: t('new-simulation.left-a') },
             { value: 'rightLeg', label: t('new-simulation.right-l') },
-            { value: 'leftLeg', label: t('new-simulation.left-l')}
+            { value: 'leftLeg', label: t('new-simulation.left-l')},
+            { value: 'bothLeg', label: t('new-simulation.both-l')}
+            
+
+          ];
+         // Creación de opciones para las radiografías de pelvis 
+          const optionsrxPelvis = [
+            { value: '1', label: "Radiografía Caso 1"},
+            { value: '2', label: "Radiografía Caso 2" },
+            { value: '3', label: "Radiografía Caso 3" },
+            { value: '4', label: "Radiografía Caso 4" },
+            
           ];
         return (
             <div>
@@ -183,6 +258,19 @@ class NewSimulation extends Component {
                 <form className="configuration" onSubmit={this.handleSubmit}>
                     <table className="table-constants">
                         <tbody>
+                        <tr>
+                                
+                                <td><b>Fase</b></td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        
+                                        onChange={this.handleChange5}
+                                        options={optionsPhase}
+                                    />
+                                </td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 
                                 <td><b>{t('new-simulation.trainee-text')}</b></td>
@@ -194,7 +282,19 @@ class NewSimulation extends Component {
                                         options={optionsTrainees}
                                     />
                                 </td>
-                                <td></td>
+                                {this.state.showrx === true &&
+                                <>
+      
+                                 <td>{t('new-simulation.rxPelvis')}</td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        onChange={this.handleChangerxPelvis}
+                                        options={optionsrxPelvis}
+                                        value={optionsrxPelvis.filter(option => option.value === this.state.rxPelvis)}
+                                    />
+                                </td> </> }
+
                             </tr>
                             <tr>
                                 <td>{t('new-simulation.sex')}</td>
@@ -226,6 +326,7 @@ class NewSimulation extends Component {
                                         value={optionsPartBody.filter(option => option.value === this.state.partBody)}
                                     />
                                 </td>    
+                               
                                 <td>{t('new-simulation.status')}</td>
                                 <td>
                                     <Select
@@ -268,7 +369,7 @@ class NewSimulation extends Component {
                                             }
                                         }}
                                         axis="x"
-                                        xmax= {85}
+                                        xmax= {90}
                                         xmin= {35}
                                         x={this.state.diastolicPressure}
                                         onChange={({ x }) => this.setState({ diastolicPressure: x })}

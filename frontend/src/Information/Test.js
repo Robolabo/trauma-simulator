@@ -33,7 +33,6 @@ export default class Test extends Component {
                 const dataJSON = res.data.data[0]
                 //añadir constantes del caso clínico creado
                 //
-                console.log(dataJSON)
                 const data = JSON.parse(dataJSON.testData.toString())
                 this.setState({
                     testHeartRate: data.testHeartRate,
@@ -43,7 +42,6 @@ export default class Test extends Component {
                     testUrine: data.testUrine,
                     testSaturation: data.testSaturation
                 })
-                console.log(data.testHeartRate)
             }
             else {
             alert("Error web service")

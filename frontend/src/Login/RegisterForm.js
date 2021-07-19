@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './RegisterForm.css'
 import { Link } from "react-router-dom"
 import axios from 'axios';
@@ -11,22 +11,35 @@ class RegisterForm extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            //campName: "",
+            //campSurname:"",
+            //campPassword:"",
+            //campConfirm:"",
+            //campEmail:"",
+            //campWorkplace:"",
+            //selectRole:0,
+            //trainer: true,
+            //trainee: false
+            trainer: false,
+            trainee: true,
             campName: "",
             campSurname:"",
             campPassword:"",
             campConfirm:"",
             campEmail:"",
             campWorkplace:"",
-            selectRole:0,
-            trainer: true,
-            trainee: false
+            selectRole:0
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toogleTrainer = this.toogleTrainer.bind(this);
         this.toogleTrainee = this.toogleTrainee.bind(this);
+        
     }
+
+   
+
     
     handleInputChange(event) {
         const target = event.target;
@@ -39,6 +52,47 @@ class RegisterForm extends React.Component {
       }
 
     handleSubmit(event) {
+        let  nombre = /^[a-zA-ZÀ-ÿ\s]{1,40}$/; // Letras y espacios, pueden llevar acentos
+        /* Passwords must be 
+            - At least 6 characters long, max length anything
+            - Include at least 1 lowercase letter
+            - 1 capital letter
+            - 1 number
+            - 1 special character => !@#$%^&*
+            */
+        let  password= /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/ 
+        let  email= /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+        if(nombre.test(this.state.campName)){
+            console.log('input correcto')
+        }
+        else{
+            alert("El nombre solo puede contener letras y espacios")
+        }
+        if(nombre.test(this.state.campSurname)){
+            console.log('input correcto')
+        }
+        else{
+            alert("El apellido solo puede contener letras y espacios")
+        }
+        if(password.test(this.state.campPassword)){
+            console.log('input correcto')
+        }
+        else{
+            alert("La contraseña tiene que contener mínimo 6 caracteres, al menos una minúscula, una mayúscula, un número y un caracter especial( !@#$%^&* )")
+        }
+        if(email.test(this.state.campEmail)){
+            console.log('input correcto')
+        }
+        else{
+            alert("El correo electrónico debe ser válido")
+        }
+        if(nombre.test(this.state.campWorkplace)){
+            console.log('input correcto')
+        }
+        else{
+            alert("El lugar de trabajo solo puede contener letras y espacios")
+        }
+
         if (this.state.campName==="") {
             alert("Introduce your name")
         }
@@ -60,8 +114,10 @@ class RegisterForm extends React.Component {
         else if(this.state.campPassword !== this.state.campConfirm){
             alert("The passwords must be the same")
         }
-
         else {
+
+
+
             var baseUrl = ""
             if (this.state.trainer) {
                 baseUrl = "http://138.100.21.252:5000/trainer/create"
@@ -126,11 +182,12 @@ class RegisterForm extends React.Component {
             campWorkplace:"",
             selectRole:0
           });
-
+          
           var tab_trainer = document.getElementById("trainer-tab")
           var tab_trainee = document.getElementById("trainee-tab")
           tab_trainee.className= "nav-link active"
           tab_trainer.className="nav-link"
+          
     }
 
     render() {
@@ -145,11 +202,11 @@ class RegisterForm extends React.Component {
                     </div>
                     <div className="col-md-9 register-right">
                         <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                            <li className="nav-item">
+                            {/*<li className="nav-item">
                                 <Link className="nav-link active" id="trainer-tab" data-toggle="tab" to="#" role="tab" aria-controls="home" aria-selected="false" onClick={this.toogleTrainer}>{t('list-simulation.trainer')}</Link>
-                            </li>
+        </li>*/}
                             <li className="nav-item">
-                                <Link className="nav-link" id="trainee-tab" data-toggle="tab"  to="#" role="tab" aria-controls="profile" aria-selected="false" onClick={this.toogleTrainee}>{t('list-simulation.trainee')}</Link>
+                                <Link className="nav-link" id="trainee-tab" data-toggle="tab"  to="#" role="tab" aria-controls="profile" aria-selected="false" /*onClick={this.toogleTrainee}*/>{t('list-simulation.trainee')}</Link>
                             </li>
                         </ul>
                         <div className="tab-content" id="myTabContent">
@@ -197,7 +254,6 @@ class RegisterForm extends React.Component {
                         </div>
                     </div>
                 </div>
-                {console.log(window.innerWidth + "x" + window.innerHeight)}
             </div>           
         );
     }

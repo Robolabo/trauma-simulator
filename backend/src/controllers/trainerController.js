@@ -32,6 +32,7 @@ controller.list = async (req, res) => {
   res.json({success : true, data : data});
 
 }
+//create
 controller.create = async (req,res) => {
   // data
   const { name, surname, password, email, workplace, roleId } = req.body;
@@ -58,7 +59,7 @@ controller.create = async (req,res) => {
     data: data
   });
 }
-
+//read
 controller.get = async (req,res) => {
   const { id } = req.params;
   const data = await Trainer.findAll({
@@ -73,7 +74,7 @@ controller.get = async (req,res) => {
   })
   res.json({ success: true, data: data });
 }
-
+//update
 controller.update = async (req,res) => {
   // parameter get id
   const { id } = req.params;
@@ -99,7 +100,7 @@ controller.update = async (req,res) => {
   }) 
   res.json({success:true, data:data, message:"Updated successful"});
 }
-
+//delete
 controller.delete = async (req, res) => {
   // parameter post
   const { id } = req.body;

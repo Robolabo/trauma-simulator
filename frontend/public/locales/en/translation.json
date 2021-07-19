@@ -22,10 +22,13 @@
         "login": "Login",
         "welcome": "Welcome"
     },
-
+    
     "dashboard": {
         "new-simulation": "New Simulation",
-        "access-simulation": "Access Existing Simulation"
+        "access-simulation": "Access Existing Simulation",
+        "training-simulation": "training",
+        "exam-simulation": "Exam"
+        
     },
 
     "new-simulation": {
@@ -35,6 +38,7 @@
         "sex": "Sex:",
         "age": "Age:",
         "body": "Part of the body affected:",
+        "rxPelvis":"Select pelvis radiography",
         "bloodLoss": "Blood Loss:",
         "s-pressure": "Systolic Pressure (mmHg)",
         "d-pressure": "Diastolic Pressure (mmHg)",
@@ -87,7 +91,67 @@
         "surgery": "Surgery",
         "reset": "Reset",
         "breath-unit": "bpm",
-        "heart-unit": "bpm"
+        "heart-unit": "bpm",
+        "laparotomy": "laparotomy",
+        "thoracotomy": "thoracotomy",
+        "tourniquet" : "tourniquet",
+        "auscultation" : "auscultation",
+        "pulseoximeter" : "pulseoximeter",
+        "oropharyngealcannula" : "oropharyngealcannula",
+        "nasalglasses" : "nasalglasses",
+        "capnographer" : "capnographer",
+        "ventilation" : "ventilation",
+        "occlusivedressing" : "occlusivedressing",
+        "thoracentesis" : "thoracentesis",
+        "chestdrainage" : "chestdrainage",
+        "ferule" : "ferule",
+        "cervicalcontrol" : "cervicalcontrol",
+        "mattress" : "mattress",
+        "venous" : "venous",
+        "arterial" : "arterial",
+        "crossmatch" : "crossmatch",
+        "pressure" : "pressure",
+        "hemostatic" : "hemostatic",
+        "vvp" : "vvp",
+        "io" : "io",
+        "pani" : "pani",
+        "derivations" : "derivations",
+        "ECGderivations" : "ECGderivations",
+        "pupils" : "pupils",
+        "nerves" : "nerves",
+        "extremities" : "extremities",
+        "bladder" : "bladder",
+        "nasogastric" : "nasogastric",
+        "SIR" : "SIR",
+        "fentanilo" : "fentanilo 50mcg IV",
+        "midazolam" : "midazolam 2mg IV",
+        "tranexamico": "tranexamico 1g IV",
+        "noradrenalina" : "noradrenalina IV",
+        "SSF" : "SSF 20ml/kg en 10 minutos",
+        "SSF500":"SSF 500ml mantenimiento",
+        "voluven" : "voluven 250ml IV",
+        "sg" : "sg 5% mantenimiento",
+        "inr" : "inr",
+        "glicemia" : "glicemia",
+        "name":"¿What is your name?",
+        "age":"¿How old are you?",
+        "allergy":"¿Do you have any allergies?",
+        "disease":"¿Do you have any important disease?",
+        "medication":"¿Do you take any medication?",
+        "place":"¿Where you are?",
+        "happen":"¿What happened?",
+        "pain":"¿Where does it hurt?",
+        "breathe":"¿Can you breathe?",
+        "movement":"¿Can you move limbs?",
+        "feel": "¿Do you feel how i touch you?",
+        "mecanicventilation":"Conexión a ventilación mecánica",
+        "clothes":"Clothing retire",
+        "massivetransfusion":"Protocol massive transfusion",
+        "interconsultations":" Interconsultations to other specialties"
+
+
+
+    
     }
 
 }
