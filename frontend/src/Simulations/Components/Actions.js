@@ -524,7 +524,7 @@ class Actions extends Component {
             auscultationClicked:true
         });
         this.activatePlay()
-        this.getMsg("info","auscultation")
+        //this.getMsg("info","auscultation")
         this.fillInformation("Auscultación")
 
     }
@@ -1695,7 +1695,7 @@ voluven() {
                     <ModalHeader  close={closeCapnografo}>Curva de capnografía y EtC02:</ModalHeader>
                     <Card>
                         <CardBody>
-                        <img className="capnografo" alt="capnografo" src={capnografo} height="199px" width="465px" />
+                        <img className="capnografo" alt="capnografo" src={capnografo} height="370px" width="465px" />
                         </CardBody>
                     </Card>
                 </Modal>
