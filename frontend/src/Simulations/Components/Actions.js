@@ -423,7 +423,7 @@ class Actions extends Component {
         this.setState({
             collarinClicked:true
         });
-        this.getMsg("info","collarin", 0)
+        this.getMsg("info","Collarín cervical", 0)
         switch(this.avatar) {
             case naked:
                 this.avatar = coll
@@ -455,7 +455,7 @@ class Actions extends Component {
         });
         
         this.props.change("saturation", 120,0,1,10)
-        this.getMsg("info","clean")
+        this.getMsg("info","Limpiar vía aérea")
         setTimeout(() => {
             this.props.send("success","La vía aéra se encuentra limpia.")
         }, 8000)
@@ -501,7 +501,7 @@ class Actions extends Component {
         
         this.props.change("diastolicPressure", -0.8,300,3,15)
         this.props.change("sistolicPressure", -0.8,300,3,15)
-        this.getMsg("info","tourniquet")
+        this.getMsg("info","Torniquete")
         this.fillInformation("Torniquete")
 
     }
@@ -524,7 +524,7 @@ class Actions extends Component {
             auscultationClicked:true
         });
         this.activatePlay()
-        //this.getMsg("info","auscultation")
+        //this.getMsg("info","Auscultación")
         this.fillInformation("Auscultación")
 
     }
@@ -533,7 +533,7 @@ class Actions extends Component {
         this.setState({
             pulseoximeterClicked:true
         });
-        this.getMsg("info","pulseoximeter")
+        this.getMsg("info","Pulsioxímetro")
         this.fillInformation("Pulsioxímetro")
 
     }
@@ -542,7 +542,7 @@ class Actions extends Component {
         this.setState({
             oropharyngealcannulaClicked:true
         });
-        this.getMsg("info","oropharyngealcannula")
+        this.getMsg("info","Cánula orofaríngea")
         this.fillInformation("Cánula orofaríngea")
 
     }
@@ -554,7 +554,7 @@ class Actions extends Component {
        
         this.props.change("breathingRate", -1.5,120,1,10)
         this.props.change("saturation", 2.5,120,6,10)
-        this.getMsg("info","nasalglasses")
+        this.getMsg("info","Oxigenoterapia con gafas nasales")
         this.fillInformation("Oxigenoterapia con gafas nasales")
 
     }
@@ -563,7 +563,7 @@ class Actions extends Component {
         this.setState({
             capnographerClicked:true
         });
-        this.getMsg("info","capnographer")
+        this.getMsg("info","Capnógrafo")
         this.fillInformation("Capnógrafo")
         this.setCapnografoModal(true)
 
@@ -581,7 +581,7 @@ class Actions extends Component {
             }
         })
         this.props.change("saturation", 100, 40, 2, 10)
-        this.getMsg("info","ventilation")
+        this.getMsg("info","Ventilación con bolsa autoinflable")
         this.fillInformation("Ventilación con bolsa autoinflable")
 
     }
@@ -590,7 +590,7 @@ class Actions extends Component {
         this.setState({
             occlusivedressingClicked:true
         });
-        this.getMsg("info","occlusivedressing")
+        this.getMsg("info","Apósito oclusivo")
         this.fillInformation("Apósito oclusivo")
 
     }
@@ -600,7 +600,7 @@ class Actions extends Component {
             thoracentesisClicked:true
         });
        
-        this.getMsg("info","thoracentesis")
+        this.getMsg("info","Toracocentesis con aguja")
         this.fillInformation("Toracocentesis con aguja")
 
     }
@@ -610,7 +610,7 @@ class Actions extends Component {
             chestdrainageClicked:true
         });
        
-        this.getMsg("info","chestdrainage")
+        this.getMsg("info","Drenaje Torácico")
         this.fillInformation("Drenaje torácico")
     }
 
@@ -618,7 +618,7 @@ class Actions extends Component {
         this.setState({
             feruleClicked:true
         });
-        this.getMsg("info","ferule")
+        this.getMsg("info","Férula de vacío")
         this.fillInformation("Férula de vacio")
     }
 
@@ -626,7 +626,7 @@ class Actions extends Component {
         this.setState({
             cervicalcontrolClicked:true
         });
-        this.getMsg("info","cervicalcontrol")
+        this.getMsg("info","Control cervical manual")
         this.fillInformation("Control cervical manual")
     }
 
@@ -634,7 +634,7 @@ class Actions extends Component {
         this.setState({
             mattressClicked:true
         });
-        this.getMsg("info","mattress")
+        this.getMsg("info","Colchón de vacío")
         this.fillInformation("Colchón de vacio")
     }
 
@@ -671,7 +671,7 @@ class Actions extends Component {
         
         this.props.change("diastolicPressure", -0.8,180,3,0)
         this.props.change("sistolicPressure", -0.8,180,3,0)
-        this.getMsg("info","pressure")
+        this.getMsg("info","Presión directa")
         this.fillInformation("Presión directa")
     }
 
@@ -682,7 +682,7 @@ class Actions extends Component {
         
         this.props.change("diastolicPressure", -0.8,180,3,10)
         this.props.change("sistolicPressure", -0.8,180,3,10)
-        this.getMsg("info","hemostatic")
+        this.getMsg("info","Agente hemostático")
         this.fillInformation("Agente hemostático")
     }
 
@@ -691,7 +691,7 @@ class Actions extends Component {
             vvpClicked:true
         });
        
-        this.getMsg("info","vvp")
+        this.getMsg("info","Canalización VVP")
         this.fillInformation("Canalización VVP")
     }
 
@@ -700,7 +700,7 @@ class Actions extends Component {
             ioClicked:true
         });
         
-        this.getMsg("info","io")
+        this.getMsg("info","Canalización IO")
         this.fillInformation("Canalización IO")
     }
 
@@ -709,7 +709,7 @@ class Actions extends Component {
         this.setState({
             paniClicked:true
         });
-        this.getMsg("info","pani")
+        this.getMsg("info","PANI digital")
         this.fillInformation("PANI Digital")
     }
 
@@ -718,7 +718,7 @@ class Actions extends Component {
             derivationsClicked:true
         });
         
-        this.getMsg("info","derivations")
+        this.getMsg("info","6 Derivaciones")
         this.fillInformation("6 Derivaciones")
     }
 
@@ -727,7 +727,7 @@ class Actions extends Component {
             ECGderivationsClicked:true
         });
         
-        this.getMsg("info","ECGderivations")
+        this.getMsg("info","ECG 12 Derivaciones")
         this.fillInformation("ECG 12 Derivaciones")
     }
 
@@ -768,7 +768,7 @@ class Actions extends Component {
         });
         
         
-        this.getMsg("info","bladder")
+        this.getMsg("info","Sondaje vesical")
         this.fillInformation("Sondaje vesical")
     }
 
@@ -777,7 +777,7 @@ class Actions extends Component {
             nasogastricClicked:true
         });
         
-        this.getMsg("info","nasogastric")
+        this.getMsg("info","Sondaje nasogástrico")
         this.fillInformation("Sondaje nasogástrico")
     }
 
@@ -795,7 +795,7 @@ class Actions extends Component {
             fentaniloClicked:true
         });
         
-        this.getMsg("info","fentanilo")
+        this.getMsg("info","Fentanilo 50mcg IV")
         this.fillInformation("Fentanilo 50mcg IV")
     }
 
@@ -805,7 +805,7 @@ class Actions extends Component {
         });
         
         this.props.change("saturation",-3,60,1,20)
-        this.getMsg("info","midazolam")
+        this.getMsg("info","Midazolam 2mg IV")
         this.fillInformation("Midazolam 2mg IV")
     }
 
@@ -814,7 +814,7 @@ class Actions extends Component {
             tranexamicoClicked:true
         });
         
-        this.getMsg("info","tranexamico")
+        this.getMsg("info","Ácido Tranexámico 1g IV")
         this.fillInformation("Ácido Tranexámico 1g IV")
     }
 
@@ -825,7 +825,7 @@ class Actions extends Component {
         
         this.props.change("diastolicPressure", 65,20,2,45)
         this.props.change("sistolicPressure", 110,20,2,45)
-        this.getMsg("info","noradrenalina")
+        this.getMsg("info","Noradrenalina IV")
         this.fillInformation("Noradrenalina IV")
     }
 
@@ -835,7 +835,7 @@ class Actions extends Component {
         });
         this.props.change("diastolicPressure", 0.25,1200,1,20)
         this.props.change("sistolicPressure", 0.65,1200,1,20)
-        this.getMsg("info","SSF")
+        this.getMsg("info","SSF 20ml/kg en 10 minutos")
         this.fillInformation("SSF 20ml/kg en 10 minutos")
     }
 
@@ -844,7 +844,7 @@ class Actions extends Component {
             SSF500Clicked:true
         });
         
-        this.getMsg("info","SSF500")
+        this.getMsg("info","SSF 500ml mantenimiento")
         this.fillInformation("SSF 500ml mantenimiento")
     }
 
@@ -855,7 +855,7 @@ class Actions extends Component {
         
         this.props.change("diastolicPressure", 0.7693,780,1,20)
         this.props.change("sistolicPressure", 1.1539,780,1,20)
-        this.getMsg("info","voluven")
+        this.getMsg("info","Voluven 250ml IV")
         this.fillInformation("Voluven 250ml IV")
     }
 
@@ -865,7 +865,7 @@ class Actions extends Component {
         });
         this.props.change("heartRate", -0.5)
         //this.props.change("bloodLoss", 0.5)
-        this.getMsg("info","sg")
+        this.getMsg("info","SG 5% mantenimiento")
         this.fillInformation("SG 5% mantenimiento")
     }
 
@@ -893,7 +893,7 @@ class Actions extends Component {
             nameClicked:true
         });
         
-        this.getMsg("info","name")
+        this.getMsg("info","¿Cómo te llamas?")
         this.fillInformation("¿Cómo te llamas?")
     }
 
@@ -902,7 +902,7 @@ class Actions extends Component {
             ageClicked:true
         });
         
-        this.getMsg("info","age")
+        this.getMsg("info","¿Qué edad tienes?")
         this.fillInformation("¿Qué edad tienes?")
     }
 
@@ -911,7 +911,7 @@ class Actions extends Component {
             allergyClicked:true
         });
         
-        this.getMsg("info","allergy")
+        this.getMsg("info","¿Tienes alguna alergia?")
         this.fillInformation("¿Tienes alguna alergia?")
     }
 
@@ -920,7 +920,7 @@ class Actions extends Component {
             diseaseClicked:true
         });
         
-        this.getMsg("info","disease")
+        this.getMsg("info","¿Tienes alguna enfermedad importante?")
         this.fillInformation("¿Tienes alguna enfermedad importante?")
     }
 
@@ -929,7 +929,7 @@ class Actions extends Component {
             medicationClicked:true
         });
         
-        this.getMsg("info","medication")
+        this.getMsg("info","¿Tomas alguna medicación?")
         this.fillInformation("¿Tomas alguna medicación?")
     }
 
@@ -938,7 +938,7 @@ class Actions extends Component {
             placeClicked:true
         });
         
-        this.getMsg("info","place")
+        this.getMsg("info","¿Sabes dónde estás?")
         this.fillInformation("¿Sabes dónde estás?")
     }
 
@@ -947,7 +947,7 @@ class Actions extends Component {
             happenClicked:true
         });
         
-        this.getMsg("info","happen")
+        this.getMsg("info","¿Sabes que ha pasado?")
         this.fillInformation("¿Sabes que ha pasado?")
     }
 
@@ -956,7 +956,7 @@ class Actions extends Component {
             painClicked:true
         });
         
-        this.getMsg("info","pain")
+        this.getMsg("info","¿Dónde te duele?")
         this.fillInformation("¿Dónde te duele?")
     }
 
@@ -965,7 +965,7 @@ class Actions extends Component {
             breatheClicked:true
         });
         
-        this.getMsg("info","breathe")
+        this.getMsg("info","¿Te cuesta respirar?")
         this.fillInformation("¿Te cuesta respirar?")
     }
 
@@ -974,8 +974,8 @@ class Actions extends Component {
             movementClicked:true
         });
         
-        this.getMsg("info","movement")
-        this.fillInformation("¿Puedes mover las piernas y los brazos? ¿Sientes cómo te toco?")
+        this.getMsg("info","¿Puedes mover las piernas y los brazos?")
+        this.fillInformation("¿Puedes mover las piernas y los brazos?")
     }
 
     feel(){
@@ -983,7 +983,7 @@ class Actions extends Component {
             feelClicked:true
         });
         
-        this.getMsg("info","feel")
+        this.getMsg("info","¿Sientes cómo te toco?")
         this.fillInformation("¿Sientes cómo te toco?")
     }
 
@@ -993,7 +993,7 @@ class Actions extends Component {
         });
         this.props.change("breathingRate",12,30,2,20)
         this.props.change("saturation",100,30,2,20)
-        this.getMsg("info","mecanicventilation")
+        this.getMsg("info","Conexión a ventilación mecánica")
         this.fillInformation("Conexión a ventilación mecánica")
     }
 
@@ -1003,7 +1003,7 @@ class Actions extends Component {
             clothesClicked:true
         });
         
-        this.getMsg("info","clothes")
+        this.getMsg("info","Retirada de ropa")
         this.fillInformation("Retirada de ropa")
     }
 
@@ -1013,7 +1013,7 @@ class Actions extends Component {
         });
         this.props.change("diastolicPressure", 1.6,300,1,20)
         this.props.change("sistolicPressure", 3,300,1,20)
-        this.getMsg("info","massivetransfusion")
+        this.getMsg("info","Protocolo de transfusión masiva")
         this.fillInformation("Protocolo de transfusión masiva")
     }
     
@@ -1024,7 +1024,7 @@ class Actions extends Component {
         //Lamo a finalizar
         
         
-        this.getMsg("info","interconsultations")
+        this.getMsg("info","Solicitud de ineterconsultas a otras especialidades")
         this.fillInformation("Solicitud de ineterconsultas a otras especialidades")
         //Esto es para que se finalice la simualación pasados 0,5 segundos ( el tiempo se pone en milisegundos)
         setTimeout(()=>{this.props.finish_interconsultations();}, 500)
@@ -1041,7 +1041,7 @@ class Actions extends Component {
         });
         this.props.change("breathingRate", -10,30,1,10)
         this.props.change("saturation", 96,30,2,10)
-        this.getMsg("info","oxygenate")
+        this.getMsg("info","Mascarilla oxígeno")
         switch(this.avatar) {
             case naked:
                 this.avatar = masc
@@ -1093,7 +1093,7 @@ class Actions extends Component {
         switch(next){
             case "torax":
                 content = rxTorax
-                this.getMsg("info","rx")
+                this.getMsg("info","Rx Pelvis")
                 this.props.sendModal(0, rx, "Rx Tórax", content)
                 this.fillInformation("Rx Tórax",content)
                 break;
@@ -1153,7 +1153,7 @@ class Actions extends Component {
         }
     }
     fillrx(){
-        this.getMsg("info","rx")
+        this.getMsg("info","Rx Pelvis")
                 this.props.sendModal(0, rx, "Rx Pelvis", content)
                 this.fillInformation("Rx Pelvis",content)
     }
@@ -1287,7 +1287,7 @@ class Actions extends Component {
         
         this.props.change("diastolicPressure", 0.5,0,5,50)
         this.props.change("sistolicPressure", 0.5,0,5,50)
-        this.getMsg("info","belt")
+        this.getMsg("info","Cinturón pélvico")
         this.fillInformation("Cinturón pélvico")
 
         switch(this.avatar) {
