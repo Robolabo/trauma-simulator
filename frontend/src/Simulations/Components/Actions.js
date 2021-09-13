@@ -369,6 +369,7 @@ class Actions extends Component {
                 urineOutput: this.props.urineOutput,
                 saturation: this.props.saturation,
                 temperature: this.props.temperature,
+                traumaType: this.props.traumaType,
                 partBody: this.props.partBody,
                 mentalStatus: this.props.mentalStatus,
                 age:this.props.age
@@ -498,9 +499,10 @@ class Actions extends Component {
             tourniquetClicked:true
         });
 
-        
-        this.props.change("diastolicPressure", -0.8,300,3,15)
-        this.props.change("sistolicPressure", -0.8,300,3,15)
+        if(this.props.traumaType === "inferior"){
+            this.props.change("diastolicPressure", -0.8,300,3,15)
+            this.props.change("sistolicPressure", -0.8,300,3,15)
+        }
         this.getMsg("info","tourniquet")
         this.fillInformation("Torniquete")
 
@@ -669,8 +671,10 @@ class Actions extends Component {
             pressureClicked:true
         });
         
-        this.props.change("diastolicPressure", -0.8,180,3,0)
-        this.props.change("sistolicPressure", -0.8,180,3,0)
+        if(this.props.traumaType === "inferior"){
+            this.props.change("diastolicPressure", -0.8,180,3,0)
+            this.props.change("sistolicPressure", -0.8,180,3,0)
+        }
         this.getMsg("info","pressure")
         this.fillInformation("Presión directa")
     }
@@ -679,9 +683,11 @@ class Actions extends Component {
         this.setState({
             hemostaticClicked:true
         });
-        
-        this.props.change("diastolicPressure", -0.8,180,3,10)
-        this.props.change("sistolicPressure", -0.8,180,3,10)
+    
+        if(this.props.traumaType === "inferior"){
+            this.props.change("diastolicPressure", -0.8,180,3,10)
+            this.props.change("sistolicPressure", -0.8,180,3,10)
+        }
         this.getMsg("info","hemostatic")
         this.fillInformation("Agente hemostático")
     }
@@ -1284,9 +1290,10 @@ class Actions extends Component {
         this.setState({
             pelvic_beltClicked:true
         });
-        
-        this.props.change("diastolicPressure", 0.5,0,5,50)
-        this.props.change("sistolicPressure", 0.5,0,5,50)
+        if(this.props.traumaType === "pelvico"){
+            this.props.change("diastolicPressure", 0.5,0,5,50)
+            this.props.change("sistolicPressure", 0.5,0,5,50)
+        }
         this.getMsg("info","belt")
         this.fillInformation("Cinturón pélvico")
 

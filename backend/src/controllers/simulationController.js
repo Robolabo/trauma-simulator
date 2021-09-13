@@ -35,13 +35,14 @@ controller.list = async (req, res) => {
 //create
 controller.create = async (req,res) => {
   // data
-  const { sex, age, weight, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
+  const { sex, age, weight, traumaType, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
             saturation, mentalStatus, time, traineeId, trainerId, phase, rxPelvis } = req.body;
   // create
   const data = await Simulation.create({
     sex: sex,
     age: age,
     weight: weight,
+    traumaType: traumaType,
     partBody: partBody,
     bloodLoss: bloodLoss,
     sistolicPressure: sistolicPressure,

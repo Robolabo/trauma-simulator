@@ -4,6 +4,7 @@
         "sex": 0,
         "age": 40,
         "weight": 75.0,
+        "traumaType": "pelvico",
         "partBody": "pelvis",
         "bloodLoss": 200,
         "sistolicPressure": 141,

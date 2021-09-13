@@ -23,6 +23,7 @@ class NewSimulation extends Component {
             sex: 0,
             age: 0,
             weight: 0.0,
+            traumaType:"",
             partBody: "",
             bloodLoss: 0.0,
             sistolicPressure: 0.0,
@@ -70,6 +71,7 @@ class NewSimulation extends Component {
                 sex: default_config.sex,
                 age: default_config.age,
                 weight: default_config.weight,
+                traumaType: default_config.traumaType,
                 partBody: default_config.partBody,
                 bloodLoss: default_config.bloodLoss,
                 diastolicPressure: default_config.diastolicPressure,
@@ -102,6 +104,7 @@ class NewSimulation extends Component {
             sex: this.state.sex,
             age: this.state.age,
             weight: this.state.weight,
+            traumaType: this.state.traumaType,
             partBody: this.state.partBody,
             bloodLoss: this.state.bloodLoss,
             sistolicPressure: this.state.sistolicPressure,
@@ -182,6 +185,10 @@ class NewSimulation extends Component {
     handleChange = selectedOption => {
         this.setState({ partBody: selectedOption.value });
       };
+    
+    handleChange0 = selectedOption => {
+    this.setState({ traumaType: selectedOption.value });
+    };
 
     handleChange1 = selectedOption => {
     this.setState({ mentalStatus: selectedOption.value });
@@ -224,6 +231,11 @@ class NewSimulation extends Component {
             { value: 'lethargic', label: t('new-simulation.lethargic') },
             { value: 'normal', label: t('new-simulation.normal')}
           ];
+        
+        const optionsTraumaType = [
+            { value: 'pelvico', label: 'Pélvico' },
+            { value: 'inferior', label: 'Inferior' }
+        ];
           // Creación de opciones para la fase
           const optionsPhase = [
             { value: 'prehospitalaria', label: 'Pre Hospitalaria' },
@@ -269,7 +281,15 @@ class NewSimulation extends Component {
                                         options={optionsPhase}
                                     />
                                 </td>
-                                <td></td>
+                                <td>Tipo de Trauma</td>
+                                <td>
+                                    <Select
+                                        className="selector"
+                                        onChange={this.handleChange0}
+                                        options={optionsTraumaType}
+                                        value={optionsTraumaType.filter(option => option.value === this.state.traumaType)}
+                                    />
+                                </td>  
                             </tr>
                             <tr>
                                 

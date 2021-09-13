@@ -1,6 +1,7 @@
 /* eslint no-eval: 0 */
 import React, { Component } from 'react'
 import { Alert } from 'reactstrap';
+import { createBrowserHistory } from "history";
 import axios from 'axios';
 import Nav from '../Menu/Nav'
 import Timer from '../Simulations/Components/Timer'
@@ -128,6 +129,7 @@ export default class LoginForm extends Component {
         sex: 0,
         age: 0,
         weight: 0.0,
+        traumaType:"",
         partBody: "",
         sistolicPressure: 0,
         diastolicPressure: 0.0,
@@ -166,6 +168,21 @@ export default class LoginForm extends Component {
     
     
     componentDidMount(){
+
+      const { history } = this.props;
+
+    history.listen((newLocation, action) => {
+      if (action === "PUSH") {
+      } else {
+        // Send user back if they try to navigate back
+        history.go(1);
+        console.log("hola")
+        this.setState({
+          finish: true
+        })
+
+      }
+    });
         let simulationId = this.props.match.params.id;
         const url = baseUrl+"/simulation/get/"+simulationId
         axios.get(url)
@@ -177,6 +194,7 @@ export default class LoginForm extends Component {
                     sex: data.sex,
                     age: data.age,
                     weight: data.weight,
+                    traumaType: data.traumaType,
                     partBody: data.partBody,
                     bloodLoss: data.bloodLoss,
                     sistolicPressure: data.sistolicPressure,
@@ -216,7 +234,6 @@ export default class LoginForm extends Component {
             this.changeGraphs = setInterval(this.intervalGraphs.bind(this) , 1000)
             //Se actualizan los valores cada segundo
             this.changeConstants = setInterval(this.intervalConstants.bind(this),1000)
-            
         }
     }
 
@@ -1335,6 +1352,7 @@ export default class LoginForm extends Component {
                         saturation = {this.state.saturation}
                         urineOutput = {this.state.urineOutput}
                         breathingRate = {this.state.breathingRate}
+                        traumaType = {this.state.traumaType}
                         partBody = {this.state.partBody}
                         temperature = {this.state.temperature}
                         bloodLoss = {this.state.bloodLoss}

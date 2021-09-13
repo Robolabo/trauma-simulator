@@ -60,61 +60,75 @@ class RegisterForm extends React.Component {
             - 1 number
             - 1 special character => !@#$%^&*
             */
-        let  password= /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/ 
+        let  password= /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])[\w!@#$%^&*]{6,}$/ 
         let  email= /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+        let correct = true;
         if(nombre.test(this.state.campName)){
             console.log('input correcto')
         }
         else{
+            correct = false
             alert("El nombre solo puede contener letras y espacios")
         }
         if(nombre.test(this.state.campSurname)){
             console.log('input correcto')
         }
         else{
+            correct = false
             alert("El apellido solo puede contener letras y espacios")
         }
         if(password.test(this.state.campPassword)){
             console.log('input correcto')
         }
         else{
-            alert("La contraseña tiene que contener mínimo 6 caracteres, al menos una minúscula, una mayúscula, un número y un caracter especial( !@#$%^&* )")
+            correct = false
+            alert("La contraseña tiene que contener mínimo 6 caracteres, al menos una minúscula, una mayúscula y un número.")
         }
         if(email.test(this.state.campEmail)){
             console.log('input correcto')
         }
         else{
+            correct = false
             alert("El correo electrónico debe ser válido")
         }
         if(nombre.test(this.state.campWorkplace)){
             console.log('input correcto')
         }
         else{
+            correct = false
             alert("El lugar de trabajo solo puede contener letras y espacios")
         }
 
         if (this.state.campName==="") {
+            correct = false
             alert("Introduce your name")
         }
         else if (this.state.campSurname==="") {
+            correct = false
             alert("Introduce your surname")
         }
         else if (this.state.campPassword==="") {
+            correct = false
             alert("Introduce a password")
         }
         else if (this.state.campEmail==="") {
+            correct = false
             alert("Introduce your email")
         }
         else if (this.state.campWorkplace==="") {
+            correct = false
             alert("Introduce your workplace")
         }
         else if (this.state.selectRole === 0){
+            correct = false
             alert("Select your role")
         }
         else if(this.state.campPassword !== this.state.campConfirm){
+            correct = false
             alert("The passwords must be the same")
         }
-        else {
+
+        if (correct) {
 
 
 

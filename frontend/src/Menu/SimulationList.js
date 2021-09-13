@@ -57,6 +57,7 @@ class SimulationList extends React.Component  {
             sex: 0,
             age: 33,
             weight: 80,
+            traumaType: "pelvico",
             partBody: "rightLeg",
             bloodLoss: 100,
             sistolicPressure: 141,
@@ -80,6 +81,7 @@ class SimulationList extends React.Component  {
           sex: 0,
           age: 33,
           weight: 80,
+          traumaType: "pelvico",
           partBody: "rightLeg",
           bloodLoss: 100,
           sistolicPressure: 141,
@@ -103,6 +105,7 @@ class SimulationList extends React.Component  {
             sex: 0,
             age: 50,
             weight: 90, 
+            traumaType: "pelvico",
             partBody: "bothLeg", 
             bloodLoss: 100,
             sistolicPressure: 141,
@@ -125,6 +128,7 @@ class SimulationList extends React.Component  {
           sex: 0,
           age: 50,
           weight: 90, 
+          traumaType: "pelvico",
           partBody: "bothLeg", 
           bloodLoss: 100,
           sistolicPressure: 141,
@@ -148,7 +152,8 @@ class SimulationList extends React.Component  {
             sex: 0,
             age: 82,
             weight: 80,
-            partBody: "leftLeg",
+            traumaType: "pelvico",
+            partBody: "pelvis",
             bloodLoss: 100, 
             sistolicPressure: 141,
             diastolicPressure: 91,
@@ -170,6 +175,121 @@ class SimulationList extends React.Component  {
               sex: 0,
               age: 82,
               weight: 80,
+              traumaType: "pelvico",
+              partBody: "pelvis",
+              bloodLoss: 100, 
+              sistolicPressure: 141,
+              diastolicPressure: 91,
+              heartRate: 120,
+              breathingRate: 28,
+              urineOutput: 12,
+              saturation: 95,
+              mentalStatus: "normal",
+              phase: "hospitalaria",
+              temperature: 34,
+              time: 30,
+              rxPelvis:"4"
+              
+              }
+
+            // Caso clínico 9 con fase hospitlaria
+            var datapost7 = {
+              trainerId: 2,
+              traineeId: this.props.location.state.id,
+              sex: 0,
+              age: 33,
+              weight: 80,
+              traumaType: "inferior",
+              partBody: "leftLeg",
+              bloodLoss: 100, 
+              sistolicPressure: 141,
+              diastolicPressure: 89,
+              heartRate: 135,
+              breathingRate: 41,
+              urineOutput: 12,
+              saturation: 90,
+              mentalStatus: "normal",
+              phase: "hospitalaria",
+              temperature: 34,
+              time: 30,
+              rxPelvis:"4"
+              
+              }
+            var datapost8 = {
+              trainerId: 2,
+              traineeId: this.props.location.state.id,
+              sex: 0,
+              age: 33,
+              weight: 80,
+              traumaType: "inferior",
+              partBody: "leftLeg",
+              bloodLoss: 100, 
+              sistolicPressure: 141,
+              diastolicPressure: 89,
+              heartRate: 135,
+              breathingRate: 41,
+              urineOutput: 12,
+              saturation: 90,
+              mentalStatus: "normal",
+              phase: "prehospitalaria",
+              temperature: 34,
+              time: 30,
+              rxPelvis:null
+              
+              }  
+            // Caso clínico 10 con fase hospitlaria
+            var datapost9 = {
+              trainerId: 2,
+              traineeId: this.props.location.state.id,
+              sex: 0,
+              age: 50,
+              weight: 80,
+              traumaType: "inferior",
+              partBody: "leftLeg",
+              bloodLoss: 100, 
+              sistolicPressure: 141,
+              diastolicPressure: 89,
+              heartRate: 120,
+              breathingRate: 28,
+              urineOutput: 12,
+              saturation: 92,
+              mentalStatus: "normal",
+              phase: "hospitalaria",
+              temperature: 34,
+              time: 30,
+              rxPelvis:"4"
+              
+              }
+              var datapost10 = {
+                trainerId: 2,
+                traineeId: this.props.location.state.id,
+                sex: 0,
+                age: 50,
+                weight: 80,
+                traumaType: "inferior",
+                partBody: "leftLeg",
+                bloodLoss: 100, 
+                sistolicPressure: 141,
+                diastolicPressure: 89,
+                heartRate: 120,
+                breathingRate: 28,
+                urineOutput: 12,
+                saturation: 92,
+                mentalStatus: "normal",
+                phase: "prehospitalaria",
+                temperature: 34,
+                time: 30,
+                rxPelvis:null
+                
+                }
+            // Caso clínico 11 con fase hospitlaria
+            var datapost11 = {
+              trainerId: 2,
+              traineeId: this.props.location.state.id,
+              sex: 0,
+              age: 82,
+              weight: 80,
+              traumaType: "inferior",
               partBody: "leftLeg",
               bloodLoss: 100, 
               sistolicPressure: 141,
@@ -185,6 +305,29 @@ class SimulationList extends React.Component  {
               rxPelvis:"4"
               
               }
+              var datapost12 = {
+                trainerId: 2,
+                traineeId: this.props.location.state.id,
+                sex: 0,
+                age: 82,
+                weight: 80,
+                traumaType: "inferior",
+                partBody: "leftLeg",
+                bloodLoss: 100, 
+                sistolicPressure: 141,
+                diastolicPressure: 91,
+                heartRate: 120,
+                breathingRate: 28,
+                urineOutput: 12,
+                saturation: 95,
+                mentalStatus: "normal",
+                phase: "prehospitalaria",
+                temperature: 34,
+                time: 30,
+                rxPelvis: null
+                
+                }
+            
       // Añado cada uno de los datapost creados al array
       arrSimulations.push(datapost1);
       arrSimulations.push(datapost2);
@@ -192,6 +335,12 @@ class SimulationList extends React.Component  {
       arrSimulations.push(datapost4);
       arrSimulations.push(datapost5);
       arrSimulations.push(datapost6);
+      arrSimulations.push(datapost7);
+      arrSimulations.push(datapost8);
+      arrSimulations.push(datapost9);
+      arrSimulations.push(datapost10);
+      arrSimulations.push(datapost11);
+      arrSimulations.push(datapost12);
     
       
         arrSimulations.forEach(dataPost => {
@@ -254,7 +403,8 @@ createCases(){
         traineeId: this.props.location.state.id,
         sex: 0,
         age: 21,
-        weight: 90, 
+        weight: 90,
+        traumaType: "pelvico", 
         partBody: "rightLeg", 
         bloodLoss: 100,
         sistolicPressure: 141,
@@ -275,7 +425,8 @@ createCases(){
         traineeId: this.props.location.state.id,
         sex: 0,
         age: 22,
-        weight: 90, 
+        weight: 90,
+        traumaType: "pelvico", 
         partBody: "rightLeg", 
         bloodLoss: 100,
         sistolicPressure: 141,
@@ -296,7 +447,8 @@ createCases(){
         traineeId: this.props.location.state.id,
         sex: 0,
         age: 23,
-        weight: 90, 
+        weight: 90,
+        traumaType: "pelvico", 
         partBody: "rightLeg", 
         bloodLoss: 100,
         sistolicPressure: 141,
@@ -317,7 +469,8 @@ createCases(){
         traineeId: this.props.location.state.id,
         sex: 0,
         age: 24,
-        weight: 90, 
+        weight: 90,
+        traumaType: "pelvico", 
         partBody: "rightLeg", 
         bloodLoss: 100,
         sistolicPressure: 141,
@@ -332,11 +485,105 @@ createCases(){
         time: 30,
         rxPelvis:"1"
       }
+
+      // Caso clínico 8 con fase hospitlaria
+      var datapost5 = {
+        trainerId: 1,
+        traineeId: this.props.location.state.id,
+        sex: 0,
+        age: 21,
+        weight: 80,
+        traumaType: "inferior",
+        partBody: "leftLeg",
+        bloodLoss: 100, 
+        sistolicPressure: 141,
+        diastolicPressure: 89,
+        heartRate: 110,
+        breathingRate: 26,
+        urineOutput: 12,
+        saturation: 98,
+        mentalStatus: "normal",
+        phase: "prehospitalaria",
+        temperature: 34,
+        time: 30,
+        rxPelvis:null
+        
+        }
+      var datapost6 = {
+        trainerId: 1,
+        traineeId: this.props.location.state.id,
+        sex: 0,
+        age: 22,
+        weight: 80,
+        traumaType: "inferior",
+        partBody: "leftLeg",
+        bloodLoss: 100, 
+        sistolicPressure: 141,
+        diastolicPressure: 89,
+        heartRate: 110,
+        breathingRate: 26,
+        urineOutput: 12,
+        saturation: 98,
+        mentalStatus: "normal",
+        phase: "hospitalaria",
+        temperature: 34,
+        time: 30,
+        rxPelvis:"4"
+        
+        }
+        var datapost7 = {
+          trainerId: 1,
+          traineeId: this.props.location.state.id,
+          sex: 0,
+          age: 23,
+          weight: 80,
+          traumaType: "inferior",
+          partBody: "leftLeg",
+          bloodLoss: 100, 
+          sistolicPressure: 141,
+          diastolicPressure: 89,
+          heartRate: 110,
+          breathingRate: 26,
+          urineOutput: 12,
+          saturation: 98,
+          mentalStatus: "normal",
+          phase: "prehospitalaria",
+          temperature: 34,
+          time: 30,
+          rxPelvis:null
+          
+          }
+        var datapost8 = {
+          trainerId: 1,
+          traineeId: this.props.location.state.id,
+          sex: 0,
+          age: 24,
+          weight: 80,
+          traumaType: "inferior",
+          partBody: "leftLeg",
+          bloodLoss: 100, 
+          sistolicPressure: 141,
+          diastolicPressure: 89,
+          heartRate: 110,
+          breathingRate: 26,
+          urineOutput: 12,
+          saturation: 98,
+          mentalStatus: "normal",
+          phase: "hospitalaria",
+          temperature: 34,
+          time: 30,
+          rxPelvis:"4"
+          
+          }
       var exam = []
       exam.push(datapost1)
       exam.push(datapost2)
       exam.push(datapost3)
       exam.push(datapost4)
+      exam.push(datapost5)
+      exam.push(datapost6)
+      exam.push(datapost7)
+      exam.push(datapost8)
       exam.forEach(dataPost => {
         // Envio al backend y se genera en la base de datos si todo va bien
         axios.post(baseUrlCreate, dataPost)
@@ -367,13 +614,12 @@ createCases(){
 }
 
 filterData(data){
-  data.sort((a,b) => a.rxPelvis - b.rxPelvis)
-  if(data[0].inform === null || data[2].inform === null){
-    data.splice(1,1)
-    data.splice(2,1)
+  data.sort((a,b) => a.age - b.age)
+  if(data[0].inform === null || data[1].inform === null ||
+     data[2].inform === null || data[3].inform === null){
+    data.splice(4,4)
   } else{
-    data.splice(0,1)
-    data.splice(1,1)
+    data.splice(0,4)
   }
   
 }
@@ -382,7 +628,13 @@ filterData(data){
       axios.get("http://localhost:8080/simulation/listTrainer/"+this.props.location.state.id)
       .then(res => {
         const data = res.data.data;
-        this.setState({ listSimulation:data });
+        if (this.props.location.state.trainerList) {
+          this.setState({ listSimulation:data });
+        }else {
+          this.filterData(data)
+          this.setState({ listSimulation:data });
+        }
+        
       })
       .catch(error => {
         alert(error)
@@ -469,6 +721,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
               <th scope="col">{t('list-simulation.sex')}</th>
 
               <th scope="col">{t('list-simulation.age')}</th>
+              <th scope="col">Tipo de Traumatismo</th>
               <th scope="col">{t('list-simulation.trauma')}</th>
               <th scope="col">{t('list-simulation.time')}</th>
               <th scope="col">Informe</th>
@@ -505,6 +758,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
           
           <th>{(data.sex === 0) ? t('new-simulation.male') : t('new-simulation.female')}</th>
           <td>{data.age}</td>
+          <td>{data.traumaType}</td>
           <td>{t(this.getPartBody(data.partBody))}</td>
           <td>{data.time}</td>
           <td><Inform simulationId = {data.simulationId}
