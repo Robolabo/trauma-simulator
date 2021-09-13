@@ -166,7 +166,7 @@ module.exports = {
 
       {
         actionId: 7,
-        actionName: 'oxygenate',
+        actionName: 'Mascarilla oxígeno',
         message: 'Se coloca una mascarilla con oxígeno.',
         photo: true,
         bloodLossMin: -1,
@@ -193,7 +193,7 @@ module.exports = {
 
       {
         actionId: 8,
-        actionName: 'collarin',
+        actionName: 'Collarín cervical',
         message: 'Collarín cervical colocado.',
         photo: true,
         bloodLossMin: -1,
@@ -301,7 +301,7 @@ module.exports = {
 
       {
         actionId: 12,
-        actionName: 'belt',
+        actionName: 'Cinturón pélvico',
         message: 'Cinturón pélvico colocado.',
         photo: true,
         bloodLossMin: -1,
@@ -409,7 +409,7 @@ module.exports = {
 
       {
         actionId: 16,
-        actionName: 'rx',
+        actionName: 'Rx Pelvis',
         message: 'Ya se encuentran disponibles los resultados de placa RX.',
         photo: true,
         bloodLossMin: -1,
@@ -490,7 +490,7 @@ module.exports = {
 
       {
         actionId: 19,
-        actionName: 'clean',
+        actionName: 'Limpiar vía aérea',
         message: 'Aspirando los cuerpos extraños encontrados.',
         photo: false,
         bloodLossMin: -1,
@@ -733,7 +733,7 @@ module.exports = {
 
       {
         actionId: 28,
-        actionName: 'tourniquet',
+        actionName: 'Torniquete',
         message: 'Se coloca un torniquete para detener el sangrado.',
         photo: false,
         bloodLossMin: -1,
@@ -760,7 +760,7 @@ module.exports = {
 
       {
         actionId: 29,
-        actionName: 'auscultation',
+        actionName: 'Auscultación',
         message: 'Se ausculta al paciente observando un murmullo vesicular conservado.',
         photo: false,
         bloodLossMin: -1,
@@ -787,7 +787,7 @@ module.exports = {
 
       {
         actionId: 30,
-        actionName: 'pulseoximeter',
+        actionName: 'Pulsioxímetro',
         message: 'Se mide la saturación de oxígeno en sangre y la frecuencia cardiaca que aparece en la pantalla.',
         photo: false,
         bloodLossMin: -1,
@@ -842,7 +842,7 @@ module.exports = {
 
       {
         actionId: 32,
-        actionName: 'oropharyngealcannula',
+        actionName: 'Cánula orofaríngea',
         message: 'Cánula orofaríngea colocada.',
         photo: false,
         bloodLossMin: -1,
@@ -898,7 +898,7 @@ module.exports = {
 
       {
         actionId: 34,
-        actionName: 'nasalglasses',
+        actionName: 'Oxigenoterapia con gafas nasales',
         message: 'Gafas nasales colocadas.',
         photo: false,
         bloodLossMin: -1,
@@ -925,7 +925,7 @@ module.exports = {
 
       {
         actionId: 35,
-        actionName: 'capnographer',
+        actionName: 'Capnógrafo',
         message: 'Se mide el EtC02 obteniendo un valor de 30-43 mmHg.',
         photo: false,
         bloodLossMin: -1,
@@ -981,7 +981,7 @@ module.exports = {
 
       {
         actionId: 37,
-        actionName: 'ventilation',
+        actionName: 'Ventilación con bolsa autoinflable',
         message: 'Se administra oxígeno al paciente.',
         photo: false,
         bloodLossMin: -1,
@@ -1009,7 +1009,7 @@ module.exports = {
 
       {
         actionId: 38,
-        actionName: 'occlusivedressing',
+        actionName: 'Apósito oclusivo',
         message: 'Se cubre la herida con un apósito para proteger y optimizar la cicatrización.',
         photo: false,
         bloodLossMin: -1,
@@ -1037,7 +1037,7 @@ module.exports = {
 
       {
         actionId: 39,
-        actionName: 'thoracentesis',
+        actionName: 'Toracocentesis con aguja',
         message: 'No se aprecia salida de aire.',
         photo: false,
         bloodLossMin: -1,
@@ -1065,7 +1065,7 @@ module.exports = {
 
       {
         actionId: 40,
-        actionName: 'chestdrainage',
+        actionName: 'Drenaje Torácico',
         message: 'Escaso líquido sanguinolento.',
         photo: false,
         bloodLossMin: -1,
@@ -1093,7 +1093,7 @@ module.exports = {
 
       {
         actionId: 41,
-        actionName: 'ferule',
+        actionName: 'Férula de vacío',
         message: 'Se coloca férula de vacio .',
         photo: false,
         bloodLossMin: -1,
@@ -1121,7 +1121,7 @@ module.exports = {
 
       {
         actionId: 42,
-        actionName: 'cervicalcontrol',
+        actionName: 'Control cervical manual',
         message: 'Se realiza el control cervical manual.',
         photo: false,
         bloodLossMin: -1,
@@ -1149,7 +1149,7 @@ module.exports = {
 
       {
         actionId: 43,
-        actionName: 'mattress',
+        actionName: 'Colchón de vacío',
         message: 'Se coloca colchón de vacío.',
         photo: false,
         bloodLossMin: -1,
@@ -1291,7 +1291,7 @@ module.exports = {
 
       {
         actionId: 48,
-        actionName: 'pressure',
+        actionName: 'Presión directa',
         message: 'Se aplica presión directa para detetener la hemorragia .',
         photo: false,
         bloodLossMin: -1,
@@ -1319,7 +1319,7 @@ module.exports = {
 
       {
         actionId: 49,
-        actionName: 'hemostatic',
+        actionName: 'Agente hemostático',
         message: 'Se acelera el proceso de coagulación sanguínea para controlar la hemorragia.',
         photo: false,
         bloodLossMin: -1,
@@ -1347,7 +1347,7 @@ module.exports = {
 
       {
         actionId: 50,
-        actionName: 'vvp',
+        actionName: 'Canalización VVP',
         message: 'VVP colocada y permeable .',
         photo: false,
         bloodLossMin: -1,
@@ -1375,7 +1375,7 @@ module.exports = {
 
       {
         actionId: 51,
-        actionName: 'io',
+        actionName: 'Canalización IO',
         message: 'Vía intraósea colocada.',
         photo: false,
         bloodLossMin: -1,
@@ -1403,8 +1403,8 @@ module.exports = {
 
       {
         actionId: 52,
-        actionName: 'pani',
-        message: 'PANI digital muestra la tensión del paciente que se puede ver en la pantalla.',
+        actionName: 'PANI digital',
+        message: 'PANI digital muestra la tensión del paciente que aparece en la pantalla.',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1431,7 +1431,7 @@ module.exports = {
 
       {
         actionId: 53,
-        actionName: 'derivations',
+        actionName: '6 Derivaciones',
         message: 'Monitorización del paciente mediante la colocación de 4 electrodos. ECG normal.',
         photo: false,
         bloodLossMin: -1,
@@ -1459,7 +1459,7 @@ module.exports = {
 
       {
         actionId: 54,
-        actionName: 'ECGderivations',
+        actionName: 'ECG 12 Derivaciones',
         message: 'Monitorización del paciente mediante 10 electrodos para obtener 12 derivaciones. ECG normal.',
         photo: false,
         bloodLossMin: -1,
@@ -1683,7 +1683,7 @@ module.exports = {
 
       {
         actionId: 62,
-        actionName: 'bladder',
+        actionName: 'Sondaje vesical',
         message: 'Se realiza sondaje vesical.',
         photo: false,
         bloodLossMin: -1,
@@ -1711,7 +1711,7 @@ module.exports = {
 
       {
         actionId: 63,
-        actionName: 'nasogastric',
+        actionName: 'Sondaje nasogástrico',
         message: 'Se realiza sondaje nasogástrico.',
         photo: false,
         bloodLossMin: -1,
@@ -1767,7 +1767,7 @@ module.exports = {
 
       {
         actionId: 65,
-        actionName: 'fentanilo',
+        actionName: 'Fentanilo 50mcg IV',
         message: 'Fentanilo administrado.',
         photo: false,
         bloodLossMin: -1,
@@ -1795,7 +1795,7 @@ module.exports = {
 
       {
         actionId: 66,
-        actionName: 'midazolam',
+        actionName: 'Midazolam 2mg IV',
         message: 'Midazolam administrado.',
         photo: false,
         bloodLossMin: -1,
@@ -1823,7 +1823,7 @@ module.exports = {
 
       {
         actionId: 67,
-        actionName: 'tranexamico',
+        actionName: 'Ácido Tranexámico 1g IV',
         message: 'Ácido tranexámico administrado.',
         photo: false,
         bloodLossMin: -1,
@@ -1851,7 +1851,7 @@ module.exports = {
 
       {
         actionId: 68,
-        actionName: 'noradrenalina',
+        actionName: 'Noradrenalina IV',
         message: 'Se inicia perfusión de noradrenalina.',
         photo: false,
         bloodLossMin: -1,
@@ -1879,7 +1879,7 @@ module.exports = {
 
       {
         actionId: 69,
-        actionName: 'SSF',
+        actionName: 'SSF 20ml/kg en 10 minutos',
         message: 'Bolo SSF administrado.',
         photo: false,
         bloodLossMin: -1,
@@ -1907,7 +1907,7 @@ module.exports = {
 
       {
         actionId: 70,
-        actionName: 'SSF500',
+        actionName: 'SSF 500ml mantenimiento',
         message: 'Inicio SSF 500 ml.',
         photo: false,
         bloodLossMin: -1,
@@ -1935,7 +1935,7 @@ module.exports = {
 
       {
         actionId: 71,
-        actionName: 'voluven',
+        actionName: 'Voluven 250ml IV',
         message: 'Inicio voluvén 250 ml.',
         photo: false,
         bloodLossMin: -1,
@@ -1963,7 +1963,7 @@ module.exports = {
 
       {
         actionId: 72,
-        actionName: 'sg',
+        actionName: 'SG 5% mantenimiento',
         message: 'Inicio SG 5%.',
         photo: false,
         bloodLossMin: -1,
@@ -2130,7 +2130,7 @@ module.exports = {
 
       {
         actionId: 78,
-        actionName: 'name',
+        actionName: '¿Cómo te llamas?',
         message: 'Antonio.',
         photo: false,
         bloodLossMin: -1,
@@ -2157,7 +2157,7 @@ module.exports = {
 
       {
         actionId: 79,
-        actionName: 'name',
+        actionName: '¿Cómo te llamas?',
         message: 'Javier.',
         photo: false,
         bloodLossMin: -1,
@@ -2184,7 +2184,7 @@ module.exports = {
 
       {
         actionId: 80,
-        actionName: 'name',
+        actionName: '¿Cómo te llamas?',
         message: 'Paco.',
         photo: false,
         bloodLossMin: -1,
@@ -2211,7 +2211,7 @@ module.exports = {
 
       {
         actionId: 81,
-        actionName: 'name',
+        actionName: '¿Cómo te llamas?',
         message: 'Manuel.',
         photo: false,
         bloodLossMin: -1,
@@ -2238,7 +2238,7 @@ module.exports = {
 
       {
         actionId: 82,
-        actionName: 'name',
+        actionName: '¿Cómo te llamas?',
         message: 'Antonio.',
         photo: false,
         bloodLossMin: -1,
@@ -2266,7 +2266,7 @@ module.exports = {
 
       {
         actionId: 83,
-        actionName: 'age',
+        actionName: '¿Qué edad tienes?',
         message: 'Tengo 25 años.',
         photo: false,
         bloodLossMin: -1,
@@ -2293,7 +2293,7 @@ module.exports = {
 
       {
         actionId: 84,
-        actionName: 'age',
+        actionName: '¿Qué edad tienes?',
         message: 'Tengo 33 años.',
         photo: false,
         bloodLossMin: -1,
@@ -2320,7 +2320,7 @@ module.exports = {
 
       {
         actionId: 85,
-        actionName: 'age',
+        actionName: '¿Qué edad tienes?',
         message: 'Tengo 50 años.',
         photo: false,
         bloodLossMin: -1,
@@ -2347,7 +2347,7 @@ module.exports = {
 
       {
         actionId: 86,
-        actionName: 'age',
+        actionName: '¿Qué edad tienes?',
         message: 'Tengo 82 años.',
         photo: false,
         bloodLossMin: -1,
@@ -2374,7 +2374,7 @@ module.exports = {
 
       {
         actionId: 87,
-        actionName: 'age',
+        actionName: '¿Qué edad tienes?',
         message: 'Tengo 25 años.',
         photo: false,
         bloodLossMin: -1,
@@ -2403,7 +2403,7 @@ module.exports = {
 
       {
         actionId: 88,
-        actionName: 'allergy',
+        actionName: '¿Tienes alguna alergia?',
         message: 'A la piel del melocotón.',
         photo: false,
         bloodLossMin: -1,
@@ -2430,7 +2430,7 @@ module.exports = {
 
       {
         actionId: 89,
-        actionName: 'allergy',
+        actionName: '¿Tienes alguna alergia?',
         message: 'A los frutos secos.',
         photo: false,
         bloodLossMin: -1,
@@ -2457,7 +2457,7 @@ module.exports = {
 
       {
         actionId: 90,
-        actionName: 'allergy',
+        actionName: '¿Tienes alguna alergia?',
         message: 'No.',
         photo: false,
         bloodLossMin: -1,
@@ -2484,7 +2484,7 @@ module.exports = {
 
       {
         actionId: 91,
-        actionName: 'allergy',
+        actionName: '¿Tienes alguna alergia?',
         message: 'Sí, al nolotil.',
         photo: false,
         bloodLossMin: -1,
@@ -2511,7 +2511,7 @@ module.exports = {
 
       {
         actionId: 92,
-        actionName: 'allergy',
+        actionName: '¿Tienes alguna alergia?',
         message: 'A la piel del melocotón.',
         photo: false,
         bloodLossMin: -1,
@@ -2538,7 +2538,7 @@ module.exports = {
 
       {
         actionId: 93,
-        actionName: 'disease',
+        actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No.',
         photo: false,
         bloodLossMin: -1,
@@ -2565,7 +2565,7 @@ module.exports = {
 
       {
         actionId: 94,
-        actionName: 'disease',
+        actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No.',
         photo: false,
         bloodLossMin: -1,
@@ -2592,7 +2592,7 @@ module.exports = {
 
       {
         actionId: 95,
-        actionName: 'disease',
+        actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No, aunque tengo trastornos intestinales que me han diagnosticado como colon irritable.',
         photo: false,
         bloodLossMin: -1,
@@ -2619,7 +2619,7 @@ module.exports = {
 
       {
         actionId: 96,
-        actionName: 'disease',
+        actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No, aunque por la edad tengo la tensión algo alta y problemas de azúcar.',
         photo: false,
         bloodLossMin: -1,
@@ -2646,7 +2646,7 @@ module.exports = {
 
       {
         actionId: 97,
-        actionName: 'disease',
+        actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No.',
         photo: false,
         bloodLossMin: -1,
@@ -2673,7 +2673,7 @@ module.exports = {
 
       {
         actionId: 98,
-        actionName: 'medication',
+        actionName: '¿Tomas alguna medicación?',
         message: 'Sí, a veces tomo paracetamol .',
         photo: false,
         bloodLossMin: -1,
@@ -2700,7 +2700,7 @@ module.exports = {
 
       {
         actionId: 99,
-        actionName: 'medication',
+        actionName: '¿Tomas alguna medicación?',
         message: 'Ibuprofeno a veces.',
         photo: false,
         bloodLossMin: -1,
@@ -2727,7 +2727,7 @@ module.exports = {
 
       {
         actionId: 100,
-        actionName: 'medication',
+        actionName: '¿Tomas alguna medicación?',
         message: 'Somníferos en algunas ocasiones, cuando tengo problemas para dormir .',
         photo: false,
         bloodLossMin: -1,
@@ -2754,7 +2754,7 @@ module.exports = {
 
       {
         actionId: 101,
-        actionName: 'medication',
+        actionName: '¿Tomas alguna medicación?',
         message: 'Lisinopril, una pastilla al día.',
         photo: false,
         bloodLossMin: -1,
@@ -2781,7 +2781,7 @@ module.exports = {
 
       {
         actionId: 102,
-        actionName: 'medication',
+        actionName: '¿Tomas alguna medicación?',
         message: 'Sí, a veces tomo paracetamol .',
         photo: false,
         bloodLossMin: -1,
@@ -2809,7 +2809,7 @@ module.exports = {
 
       {
         actionId: 103,
-        actionName: 'place',
+        actionName: '¿Sabes dónde estás?',
         message: 'Sí, estoy en medio de la calle.',
         photo: false,
         bloodLossMin: -1,
@@ -2836,7 +2836,7 @@ module.exports = {
 
       {
         actionId: 104,
-        actionName: 'place',
+        actionName: '¿Sabes dónde estás?',
         message: 'Sí, fuera de la carretera entre unos arbustos.',
         photo: false,
         bloodLossMin: -1,
@@ -2863,7 +2863,7 @@ module.exports = {
 
       {
         actionId: 105,
-        actionName: 'place',
+        actionName: '¿Sabes dónde estás?',
         message: 'Sí, en la obra en la que estoy trabajando.',
         photo: false,
         bloodLossMin: -1,
@@ -2890,7 +2890,7 @@ module.exports = {
 
       {
         actionId: 106,
-        actionName: 'place',
+        actionName: '¿Sabes dónde estás?',
         message: 'Sí, en casa.',
         photo: false,
         bloodLossMin: -1,
@@ -2917,7 +2917,7 @@ module.exports = {
 
       {
         actionId: 107,
-        actionName: 'place',
+        actionName: '¿Sabes dónde estás?',
         message: 'Sí, estoy en medio de la calle.',
         photo: false,
         bloodLossMin: -1,
@@ -2944,7 +2944,7 @@ module.exports = {
 
       {
         actionId: 108,
-        actionName: 'happen',
+        actionName: '¿Sabes que ha pasado?',
         message: 'Estaba esperando en un semáforo en rojo y he sentido un fuerte golpe detrás y me he visto en el suelo. He visto un coche salir acelerando.',
         photo: false,
         bloodLossMin: -1,
@@ -2971,7 +2971,7 @@ module.exports = {
 
       {
         actionId: 109,
-        actionName: 'happen',
+        actionName: '¿Sabes que ha pasado?',
         message: 'Estaba circulando y de repente un coche me dio en el lateral del coche y ya no recuerdo nada hasta verme entre medio de estos arbustos fuera de la carretera.',
         photo: false,
         bloodLossMin: -1,
@@ -2998,7 +2998,7 @@ module.exports = {
 
       {
         actionId: 110,
-        actionName: 'happen',
+        actionName: '¿Sabes que ha pasado?',
         message: 'Estaba trabajando cuando me he tropezado yo solo y me he caído del andamio. No recuerdo el impacto pero sí cómo me he caído.',
         photo: false,
         bloodLossMin: -1,
@@ -3025,7 +3025,7 @@ module.exports = {
 
       {
         actionId: 111,
-        actionName: 'happen',
+        actionName: '¿Sabes que ha pasado?',
         message: 'Iba a cruzar la calle y esa bicicleta me ha atropellado, me he caído al suelo y me he pegado un buen golpe, tanto que no me puedo levantar.',
         photo: false,
         bloodLossMin: -1,
@@ -3052,7 +3052,7 @@ module.exports = {
 
       {
         actionId: 112,
-        actionName: 'happen',
+        actionName: '¿Sabes que ha pasado?',
         message: 'Estaba esperando en un semáforo en rojo y he sentido un fuerte golpe detrás y me he visto en el suelo. He visto un coche salir acelerando.',
         photo: false,
         bloodLossMin: -1,
@@ -3079,7 +3079,7 @@ module.exports = {
 
       {
         actionId: 113,
-        actionName: 'pain',
+        actionName: '¿Dónde te duele?',
         message: 'Me duele mucho la ingle. En cuanto intento mover una pierna me duele. ',
         photo: false,
         bloodLossMin: -1,
@@ -3106,7 +3106,7 @@ module.exports = {
 
       {
         actionId: 114,
-        actionName: 'pain',
+        actionName: '¿Dónde te duele?',
         message: 'Me duele mucho en cuanto intento mover la pierna derecha. ',
         photo: false,
         bloodLossMin: -1,
@@ -3133,7 +3133,7 @@ module.exports = {
 
       {
         actionId: 115,
-        actionName: 'pain',
+        actionName: '¿Dónde te duele?',
         message: 'Me duele mucho en cuanto intento mover cualquiera de las dos piernas.',
         photo: false,
         bloodLossMin: -1,
@@ -3160,7 +3160,7 @@ module.exports = {
 
       {
         actionId: 116,
-        actionName: 'pain',
+        actionName: '¿Dónde te duele?',
         message: 'Me duele mucho en la ingle. ',
         photo: false,
         bloodLossMin: -1,
@@ -3187,7 +3187,7 @@ module.exports = {
 
       {
         actionId: 117,
-        actionName: 'pain',
+        actionName: '¿Dónde te duele?',
         message: 'Me duele mucho la ingle. En cuanto intento mover una pierna me duele. ',
         photo: false,
         bloodLossMin: -1,
@@ -3215,7 +3215,7 @@ module.exports = {
 
       {
         actionId: 118,
-        actionName: 'breathe',
+        actionName: '¿Te cuesta respirar?',
         message: 'No, me duele mucho la ingle.',
         photo: false,
         bloodLossMin: -1,
@@ -3242,7 +3242,7 @@ module.exports = {
 
       {
         actionId: 119,
-        actionName: 'breathe',
+        actionName: '¿Te cuesta respirar?',
         message: 'No, no me cuesta respirar pero me noto muy nervioso y como si el corazón se me saliera del pecho.',
         photo: false,
         bloodLossMin: -1,
@@ -3269,7 +3269,7 @@ module.exports = {
 
       {
         actionId: 120,
-        actionName: 'breathe',
+        actionName: '¿Te cuesta respirar?',
         message: 'No, no me cuesta respirar pero me noto como si estuviera un poco confundido.',
         photo: false,
         bloodLossMin: -1,
@@ -3296,7 +3296,7 @@ module.exports = {
 
       {
         actionId: 121,
-        actionName: 'breathe',
+        actionName: '¿Te cuesta respirar?',
         message: 'No, no me cuesta respirar aunque cuando me dan pinchazos de dolor me cuesta respirar.',
         photo: false,
         bloodLossMin: -1,
@@ -3322,7 +3322,7 @@ module.exports = {
       },
       {
         actionId: 122,
-        actionName: 'breathe',
+        actionName: '¿Te cuesta respirar?',
         message: 'No, me duele mucho la ingle.',
         photo: false,
         bloodLossMin: -1,
@@ -3349,7 +3349,7 @@ module.exports = {
 
       {
         actionId: 123,
-        actionName: 'movement',
+        actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Mueve ambos pies',
         photo: false,
         bloodLossMin: -1,
@@ -3376,7 +3376,7 @@ module.exports = {
 
       {
         actionId: 124,
-        actionName: 'movement',
+        actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Aunque me cueste, creo que puedo mover los dedos de la pierna derecha. ',
         photo: false,
         bloodLossMin: -1,
@@ -3403,7 +3403,7 @@ module.exports = {
 
       {
         actionId: 125,
-        actionName: 'movement',
+        actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Puedo moverme aunque me duele muchísimo y hacia afuera me cuesta mucho también.',
         photo: false,
         bloodLossMin: -1,
@@ -3430,7 +3430,7 @@ module.exports = {
 
       {
         actionId: 126,
-        actionName: 'movement',
+        actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Puedo moverme, aunque me duele muchísimo y sobretodo la pierna izquierda que no puedo apenas moverla.',
         photo: false,
         bloodLossMin: -1,
@@ -3456,7 +3456,7 @@ module.exports = {
       },
       {
         actionId: 127,
-        actionName: 'movement',
+        actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Mueve ambos pies',
         photo: false,
         bloodLossMin: -1,
@@ -3483,7 +3483,7 @@ module.exports = {
 
       {
         actionId: 128,
-        actionName: 'feel',
+        actionName: '¿Sientes cómo te toco?',
         message: 'Sí, te siento',
         photo: false,
         bloodLossMin: -1,
@@ -3510,7 +3510,7 @@ module.exports = {
 
       {
         actionId: 129,
-        actionName: 'mecanicventilation',
+        actionName: 'Conexión a ventilación mecánica',
         message: 'Paciente conectado a ventilación mecánica.',
         photo: false,
         bloodLossMin: -1,
@@ -3537,7 +3537,7 @@ module.exports = {
 
       {
         actionId: 130,
-        actionName: 'clothes',
+        actionName: 'Retirada de ropa',
         message: 'Ropa retirada.',
         photo: false,
         bloodLossMin: -1,
@@ -3564,7 +3564,7 @@ module.exports = {
 
       {
         actionId: 131,
-        actionName: 'massivetransfusion',
+        actionName: 'Protocolo de transfusión masiva',
         message: 'Transfusión de sangre realizada.',
         photo: false,
         bloodLossMin: -1,
@@ -3591,7 +3591,7 @@ module.exports = {
 
       {
         actionId: 132,
-        actionName: 'interconsultations',
+        actionName: 'Solicitud de ineterconsultas a otras especialidades',
         message: 'Consulta a otra especialidad solicitada.',
         photo: false,
         bloodLossMin: -1,
