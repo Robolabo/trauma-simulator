@@ -58,7 +58,7 @@ class SimulationList extends React.Component  {
             age: 33,
             weight: 80,
             traumaType: "pelvico",
-            partBody: "rightLeg",
+            partBody: "pelvis",
             bloodLoss: 100,
             sistolicPressure: 141,
             diastolicPressure: 89,
@@ -82,7 +82,7 @@ class SimulationList extends React.Component  {
           age: 33,
           weight: 80,
           traumaType: "pelvico",
-          partBody: "rightLeg",
+          partBody: "pelvis",
           bloodLoss: 100,
           sistolicPressure: 141,
           diastolicPressure: 89,
@@ -106,7 +106,7 @@ class SimulationList extends React.Component  {
             age: 50,
             weight: 90, 
             traumaType: "pelvico",
-            partBody: "bothLeg", 
+            partBody: "pelvis", 
             bloodLoss: 100,
             sistolicPressure: 141,
             diastolicPressure: 89,
@@ -129,7 +129,7 @@ class SimulationList extends React.Component  {
           age: 50,
           weight: 90, 
           traumaType: "pelvico",
-          partBody: "bothLeg", 
+          partBody: "pelvis", 
           bloodLoss: 100,
           sistolicPressure: 141,
           diastolicPressure: 89,
@@ -212,7 +212,7 @@ class SimulationList extends React.Component  {
               phase: "hospitalaria",
               temperature: 34,
               time: 30,
-              rxPelvis:"4"
+              rxPelvis:"5"
               
               }
             var datapost8 = {
@@ -257,7 +257,7 @@ class SimulationList extends React.Component  {
               phase: "hospitalaria",
               temperature: 34,
               time: 30,
-              rxPelvis:"4"
+              rxPelvis:"5"
               
               }
               var datapost10 = {
@@ -302,7 +302,7 @@ class SimulationList extends React.Component  {
               phase: "hospitalaria",
               temperature: 34,
               time: 30,
-              rxPelvis:"4"
+              rxPelvis:"5"
               
               }
               var datapost12 = {
@@ -405,7 +405,7 @@ createCases(){
         age: 21,
         weight: 90,
         traumaType: "pelvico", 
-        partBody: "rightLeg", 
+        partBody: "pelvis", 
         bloodLoss: 100,
         sistolicPressure: 141,
         diastolicPressure: 89,
@@ -427,7 +427,7 @@ createCases(){
         age: 22,
         weight: 90,
         traumaType: "pelvico", 
-        partBody: "rightLeg", 
+        partBody: "pelvis", 
         bloodLoss: 100,
         sistolicPressure: 141,
         diastolicPressure: 89,
@@ -449,7 +449,7 @@ createCases(){
         age: 23,
         weight: 90,
         traumaType: "pelvico", 
-        partBody: "rightLeg", 
+        partBody: "pelvis", 
         bloodLoss: 100,
         sistolicPressure: 141,
         diastolicPressure: 89,
@@ -471,7 +471,7 @@ createCases(){
         age: 24,
         weight: 90,
         traumaType: "pelvico", 
-        partBody: "rightLeg", 
+        partBody: "pelvis", 
         bloodLoss: 100,
         sistolicPressure: 141,
         diastolicPressure: 89,
@@ -528,7 +528,7 @@ createCases(){
         phase: "hospitalaria",
         temperature: 34,
         time: 30,
-        rxPelvis:"4"
+        rxPelvis:"5"
         
         }
         var datapost7 = {
@@ -572,7 +572,7 @@ createCases(){
           phase: "hospitalaria",
           temperature: 34,
           time: 30,
-          rxPelvis:"4"
+          rxPelvis:"5"
           
           }
       var exam = []
@@ -696,6 +696,9 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
             returnValue = 'new-simulation.both-l'
             break;
       case 'leftLeg':
+        returnValue = 'new-simulation.left-l'
+        break;
+
       default:
           returnValue = 'new-simulation.left-l'
           break;
@@ -758,7 +761,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
           
           <th>{(data.sex === 0) ? t('new-simulation.male') : t('new-simulation.female')}</th>
           <td>{data.age}</td>
-          <td>{data.traumaType}</td>
+          <td>{(data.traumaType === "inferior") ? t('new-simulation.inferior') : t('new-simulation.pelvico')}</td>
           <td>{t(this.getPartBody(data.partBody))}</td>
           <td>{data.time}</td>
           <td><Inform simulationId = {data.simulationId}

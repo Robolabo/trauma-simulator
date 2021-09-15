@@ -28,6 +28,7 @@ import rxPelvis2_2 from '../../assets/Rx22.jpg'
 import rxPelvis3_1 from '../../assets/Rx31.jpg'
 import rxPelvis3_2 from '../../assets/Rx32.jpg'
 import rxPelvis4_1 from '../../assets/Rx41.jpg'
+import rxInferior5 from '../../assets/Rx5.jpg'
 import ecoAbd from '../../assets/ecoAbd.png'
 import tacAbdPelv from '../../assets/tacAbdPelv.png'
 import { withTranslation } from 'react-i18next';
@@ -1103,6 +1104,12 @@ class Actions extends Component {
                 this.props.sendModal(0, rx, "Rx Tórax", content)
                 this.fillInformation("Rx Tórax",content)
                 break;
+            case "inferior":
+                content = rxInferior5
+                this.getMsg("info","Rx Pelvis")
+                this.props.sendModal(0, rx, "Rx Pierna Izquierda", content)
+                this.fillInformation("Rx Pierna Izquierda",content)
+                break;
             case "pelvis":
                 content=""
                 rx=[]
@@ -1143,6 +1150,16 @@ class Actions extends Component {
                     content=rxPelvis4_1
                     this.fillrx()
                        break;
+                case "5":
+                    content=rxInferior5
+                    
+                    rx.push({
+                        src: rxInferior5,  
+                        altText: "rx inferior",
+                        caption: "rx inferior"
+                    })
+                    this.fillrx()
+                        break;
                 default:
                     content=rxPelvis1_1
                     this.fillrx()
@@ -1160,8 +1177,16 @@ class Actions extends Component {
     }
     fillrx(){
         this.getMsg("info","Rx Pelvis")
-                this.props.sendModal(0, rx, "Rx Pelvis", content)
-                this.fillInformation("Rx Pelvis",content)
+        if (this.props.traumaType === "pelvico") {
+            
+            this.props.sendModal(0, rx, "Rx Pelvis", content)
+            this.fillInformation("Rx Pelvis",content)
+
+        }else{
+            this.props.sendModal(0, rx, "Rx Pierna", content)
+            this.fillInformation("Rx Pierna",content)
+        }
+        
     }
     
     ecoType(next){
@@ -1431,6 +1456,7 @@ class Actions extends Component {
                 returnValue = 'new-simulation.both-l'
                 break;
             case 'leftLeg':
+                returnValue = 'new-simulation.left-l'
                 break;
                 
             default:
@@ -1716,7 +1742,7 @@ voluven() {
                         <CardBody>
                             <Input type="select" name="select" onChange={(event) => this.handleRx(event)} >
                                 <option defaultValue></option>
-                                {/*<option value="torax">Tórax</option>*/}
+                                <option value="inferior">Pierna izquierda</option>
                                 <option value="pelvis">Pelvis</option>
                             </Input>
                             <Button className="buttonModal" onClick= {() => this.rxType(this.state.rxType)}>Solicitar RX</Button>

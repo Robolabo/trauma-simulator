@@ -53,6 +53,7 @@
         "male": "Hombre",
         "female": "Mujer",
         "pelvis": "Pelvis",
+        "pelvico": "Pélvico",
         "right-a": "Brazo derecho",
         "left-a": "Brazo izquierdo",
         "right-l": "Pierna derecha",
@@ -62,7 +63,8 @@
         "confused": "confuso",
         "lethargic": "letárgico",
         "normal": "normal",
-        "students": "Estudiantes..."
+        "students": "Estudiantes...",
+        "inferior": "Miembro inferior"
     },
 
     "list-simulation": {
