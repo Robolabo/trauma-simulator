@@ -29,6 +29,9 @@ import rxPelvis3_1 from '../../assets/Rx31.jpg'
 import rxPelvis3_2 from '../../assets/Rx32.jpg'
 import rxPelvis4_1 from '../../assets/Rx41.jpg'
 import rxInferior5 from '../../assets/Rx5.jpg'
+import rxInferior6 from '../../assets/Rx6.jpg'
+import rxInferior7 from '../../assets/Rx7.jpg'
+import rxInferior8 from '../../assets/Rx8.jpg'
 import ecoAbd from '../../assets/ecoAbd.png'
 import tacAbdPelv from '../../assets/tacAbdPelv.png'
 import { withTranslation } from 'react-i18next';
@@ -1105,10 +1108,33 @@ class Actions extends Component {
                 this.fillInformation("Rx Tórax",content)
                 break;
             case "inferior":
-                content = rxInferior5
-                this.getMsg("info","Rx Pelvis")
-                this.props.sendModal(0, rx, "Rx Pierna Izquierda", content)
-                this.fillInformation("Rx Pierna Izquierda",content)
+                content=""
+                rx=[]
+                
+                switch(this.props.rxPelvis){
+                    case "5":
+                        content=rxInferior5
+                        this.fillrx()
+                        break;
+
+                    case "6":
+                        content=rxInferior6
+                        this.fillrx()
+                        break;
+                    case "7":
+                        content=rxInferior7
+                        this.fillrx()
+                        break;
+                    case "8":
+                        content=rxInferior8
+                        this.fillrx()
+                        break;
+
+                    default:
+                        content=rxInferior5
+                        this.fillrx()
+                        
+                }
                 break;
             case "pelvis":
                 content=""
@@ -2245,7 +2271,7 @@ voluven() {
                         <div className="actions-buttons">
                         <Button className="btn-hidden"></Button>
                         <Button className={this.state.interconsultationsClicked?"clicked":null} onClick={() => this.interconsultations()}>{t('simulation.interconsultations')}</Button>
-                        <Button className={this.state.rxClicked?"clicked":null} onClick={() => this.rx()}>Rx Pelvis</Button>
+                        <Button className={this.state.rxClicked?"clicked":null} onClick={() => this.rx()}>Rx</Button>
                          <Button className="btn-hidden"></Button>
                         </div>
 

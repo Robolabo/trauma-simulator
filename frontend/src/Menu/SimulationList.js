@@ -212,7 +212,7 @@ class SimulationList extends React.Component  {
               phase: "hospitalaria",
               temperature: 34,
               time: 30,
-              rxPelvis:"5"
+              rxPelvis:"6"
               
               }
             var datapost8 = {
@@ -257,7 +257,7 @@ class SimulationList extends React.Component  {
               phase: "hospitalaria",
               temperature: 34,
               time: 30,
-              rxPelvis:"5"
+              rxPelvis:"7"
               
               }
               var datapost10 = {
@@ -302,7 +302,7 @@ class SimulationList extends React.Component  {
               phase: "hospitalaria",
               temperature: 34,
               time: 30,
-              rxPelvis:"5"
+              rxPelvis:"8"
               
               }
               var datapost12 = {
