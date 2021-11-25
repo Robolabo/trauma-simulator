@@ -7,6 +7,8 @@ import Inform from '../Information/Document'
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom"
 import { Alert } from 'reactstrap';
+import '../Simulations/simulation.css'
+import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 //import { each } from 'jquery';
 var finish = false
 
@@ -19,7 +21,9 @@ class SimulationList extends React.Component  {
       alert: false,
       redirect: false,
       id: this.props.location.state.id,
-      refresh: false    }
+      refresh: false, 
+      check: true
+    }
   }
   
  //crea las simulaciones de prueba
@@ -613,14 +617,53 @@ createCases(){
   })
 }
 
+checkTrainingCompleted(){
+  var request = {
+    params: {
+      idTrainer: 2,
+      idTrainee: this.props.location.state.id
+    }
+  }
+
+  var check = true
+  const baseGetUrl = "http://localhost:8080/simulation/listTraineeAndTrainer/";
+        
+  axios.get(baseGetUrl,request)
+  .then(res => {
+    
+    const data = res.data.data;
+
+    //si data tiene contenido esq tengo simulaciones ya creadas
+    if (data.length>0) {
+      data.map(data =>{
+        if (data.inform === null){
+          check = false
+        }
+      })
+      this.setState({ check: check });
+    } else{
+      check = false
+      this.setState({ check: check });
+    }
+  })
+} 
+
 filterData(data){
+
   data.sort((a,b) => a.age - b.age)
   if(data[0].inform === null || data[1].inform === null ||
      data[2].inform === null || data[3].inform === null){
-    data.splice(4,4)
+      data.splice(4,4)
   } else{
-    data.splice(0,4)
+    this.checkTrainingCompleted()
+    if(this.state.check === true){
+      data.splice(0,4)
+    }else{
+      data.splice(0,8)
+    }
+      
   }
+  console.log(this.state.check)
   
 }
   componentDidMount(){
@@ -659,7 +702,6 @@ filterData(data){
     .then(response =>{
       if (response.data.success) {
         ok = true
-        console.log("OK")
       }
     })
     .catch ( error => {
@@ -712,7 +754,9 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
     const { t } = this.props
     return (
       <div>
+        {console.log(this.state.check)}
         {this.state.alert ? this.alert("success","El caso clínico ha sido eliminado.") : null}
+        {this.state.check ?
         <table className="table table-hover table-striped">
           <thead className="thead-dark">
             <tr>
@@ -735,6 +779,33 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
             {this.loadFillData()}
           </tbody>
         </table>
+        :
+        <div> 
+          <table className="table table-hover table-striped">
+            <thead className="thead-dark">
+              <tr>
+                <th scope="col"></th>
+                {this.state.isTrainer
+                ? <th scope="col">{t('list-simulation.trainee')}</th>
+                : <th scope="col">Fase</th>}
+                
+                <th scope="col">{t('list-simulation.sex')}</th>
+
+                <th scope="col">{t('list-simulation.age')}</th>
+                <th scope="col">Tipo de Traumatismo</th>
+                <th scope="col">{t('list-simulation.trauma')}</th>
+                <th scope="col">{t('list-simulation.time')}</th>
+                <th scope="col">Informe</th>
+                <th scope="col">{t('list-simulation.action')}</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <div className="messageTraining">
+          Debes terminar los entrenamientos antes de continuar con los exámenes.
+          </div> 
+        </div>}
         {((this.state.redirect && !this.state.alert) ||finish) ? <Redirect to={{
                                                         pathname: '/listSimulation',
                                                         state: { id: this.state.id,

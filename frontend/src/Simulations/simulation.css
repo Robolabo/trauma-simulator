@@ -263,5 +263,11 @@ h1{font-size: 2rem;}
     font-size: xx-large
 }
 
+.messageTraining{
+    text-align: center;
+    font-size: xx-large;
+    padding-top: 2ch;
+}
+
 
 

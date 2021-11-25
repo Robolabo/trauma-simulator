@@ -1768,8 +1768,10 @@ voluven() {
                         <CardBody>
                             <Input type="select" name="select" onChange={(event) => this.handleRx(event)} >
                                 <option defaultValue></option>
-                                <option value="inferior">Pierna izquierda</option>
-                                <option value="pelvis">Pelvis</option>
+                                {this.props.partBody === "pelvis" ?<option value="pelvis">Pelvis</option>:
+                                <option value="inferior">Pierna izquierda</option> }
+                                
+                                
                             </Input>
                             <Button className="buttonModal" onClick= {() => this.rxType(this.state.rxType)}>Solicitar RX</Button>
                         </CardBody>
