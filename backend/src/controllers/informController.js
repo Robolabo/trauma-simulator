@@ -1,4 +1,5 @@
 const controller = {}
+const { QueryTypes } = require('sequelize');
 var Inform = require('../model/Inform')
 var sequelize = require ('../model/database')
 
@@ -96,4 +97,37 @@ controller.create = async (req,res) => {
     })
     res.json({success:true,deleted:del,message:"Deleted successful"});
   }
-  module.exports = controller;
+
+controller.getSimulations = async (req, res) => {
+  var nTrainings = 1
+  const data = await sequelize.query(
+    `select simulations.simulationId, minute, second from informs inner join 
+    simulations ON informs.simulationId= simulations.simulationId where 
+    simulations.trainerId=2 and simulations.traineeId='${req.query.traineeId}'`,
+    { type: QueryTypes.SELECT }
+  )// añadir edad
+  .then(function(data){
+    for(var i=0;i<data.length-1; i++){
+      if(data[i+1].simulationId !== data[i].simulationId){
+        nTrainings++
+      } else{
+        var t1 = data[i+1].minute *60 + data[i+1].second
+        var t2 = data[i].minute *60 + data[i].second
+        if (t1<t2){
+          nTrainings++
+        }
+      }
+      
+    }
+    return nTrainings;
+  })
+  .catch(error =>{
+    console.log("ERRORRR",error)
+    return error;
+
+  })
+  res.json({ success: true, data: nTrainings });
+}
+
+module.exports = controller;
+

@@ -5,5 +5,6 @@ const router = express.Router();
 const informController = require('../controllers/informController')
 
 router.post('/addAction', informController.create);
+router.get('/getSimulations', informController.getSimulations);
 
 module.exports = router;

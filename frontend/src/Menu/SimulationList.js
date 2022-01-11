@@ -22,7 +22,9 @@ class SimulationList extends React.Component  {
       redirect: false,
       id: this.props.location.state.id,
       refresh: false, 
-      check: true
+      check: true,
+      check1:false,
+      nTrainings: 0
     }
   }
   
@@ -617,6 +619,40 @@ createCases(){
   })
 }
 
+getSimulations(traineeId){
+  let nTrainings = 0
+  var check = false
+  const url = "http://localhost:8080/inform/getSimulations"
+  axios.get("http://localhost:8080/inform/getSimulations", {
+      params: {
+          traineeId: traineeId
+          //añadir edad 
+      }
+  })
+  .then(res => {
+      if (res.data.success) {
+          const data = res.data.data
+          console.log(data)
+          if(data > 12){
+            check = false
+          }
+          
+          this.setState({ check: check });
+          nTrainings = data
+          
+      }
+      else {
+      alert("Error web service")
+      }
+  })
+  .catch(error=>{
+      alert("Error server "+error)
+  })
+
+  return nTrainings
+
+}
+
 checkTrainingCompleted(){
   var request = {
     params: {
@@ -626,7 +662,10 @@ checkTrainingCompleted(){
   }
 
   var check = true
+  var check1 
   const baseGetUrl = "http://localhost:8080/simulation/listTraineeAndTrainer/";
+  //this.getSimulations(this.props.location.state.id)
+
         
   axios.get(baseGetUrl,request)
   .then(res => {
@@ -645,6 +684,30 @@ checkTrainingCompleted(){
       check = false
       this.setState({ check: check });
     }
+  })
+
+  axios.get("http://localhost:8080/inform/getSimulations", {
+      params: {
+          traineeId: this.props.location.state.id
+          //añadir edad 
+      }
+  })
+  .then(res => {
+      if (res.data.success) {
+          const data = res.data.data
+          console.log(data)
+          if(data >= 12){
+            check1 = true
+          }
+          
+          this.setState({ check1: check1 });          
+      }
+      else {
+      alert("Error web service")
+      }
+  })
+  .catch(error=>{
+      alert("Error server "+error)
   })
 } 
 
@@ -756,7 +819,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
       <div>
         {console.log(this.state.check)}
         {this.state.alert ? this.alert("success","El caso clínico ha sido eliminado.") : null}
-        {this.state.check ?
+        {(this.state.check || this.state.check1) ?
         <table className="table table-hover table-striped">
           <thead className="thead-dark">
             <tr>
