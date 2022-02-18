@@ -16,4 +16,4 @@ RUN chmod 755 /opt/docker-entrypoint.sh
 
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 
-EXPOSE 5000
+EXPOSE 8080

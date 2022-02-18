@@ -15,6 +15,7 @@ controller.getMsg = async (req, res) => {
     (saturationMin != -1 and ${req.query.saturation} > saturationMin and ${req.query.saturation} < saturationMax) or 
     (temperatureMin != -1 and ${req.query.temperature} > temperatureMin and ${req.query.temperature} < temperatureMax) or 
     (mentalStatus = '${req.query.mentalStatus}' and mentalStatus != '-1') or 
+    (partBody = '${req.query.partBody}' and partBody != '-1') or 
     (age = '${req.query.age}') or
     (bloodLossMin = -1 and sistolicPressureMin = -1 and saturationMin = -1
       and diastolicPressureMin = -1 and heartRateMin = -1 and breathingRateMin = -1 and 

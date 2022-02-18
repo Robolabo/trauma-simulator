@@ -31,6 +31,9 @@ module.exports = {
         partBody: {
           type: Sequelize.STRING
       },
+        traumaType: {
+          type: Sequelize.STRING
+      },
         mentalStatus: {
           type: Sequelize.STRING
       },

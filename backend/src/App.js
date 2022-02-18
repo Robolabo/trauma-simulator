@@ -23,7 +23,7 @@ const actionRouters = require('./routes/actionRoute')
 const informRouters = require('./routes/informRoute')
 
 //Settings
-app.set('port', process.env.PORT || 5000); //puerto por el que se ejecuta la app
+app.set('port', process.env.PORT || 8080); //puerto por el que se ejecuta la app
 
 //Middlewares
 //Funciones que atiende una transaccion HTTP
@@ -111,7 +111,7 @@ app.get('/verifyToken', function (req, res) {
   });
 });
 
-app.listen(app.get('port'),"0.0.0.0",()=>{
+app.listen(app.get('port'),()=>{
   console.log("Start server on port "+app.get('port'))
 })
 

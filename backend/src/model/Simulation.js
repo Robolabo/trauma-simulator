@@ -24,6 +24,7 @@ var Simulation = sequelize.define('simulation', {
         }
       },
     weight: Sequelize.DOUBLE,
+    traumaType: Sequelize.STRING,
     partBody: Sequelize.STRING,
     mentalStatus: Sequelize.STRING,
     bloodLoss: Sequelize.DOUBLE,
@@ -39,7 +40,7 @@ var Simulation = sequelize.define('simulation', {
         type: Sequelize.DOUBLE, 
         allowNull: false,
         validate: {
-          max: 90,
+          max: 95,
           min: 30
         }
       },
