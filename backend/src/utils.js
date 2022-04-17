@@ -18,7 +18,7 @@ function generateToken(user) {
   };
  
   return jwt.sign(u, process.env.JWT_SECRET, {
-    expiresIn: 60 * 60 // 1 hora de sesión
+    expiresIn: 60 // 1 hora de sesión
   });
 }
  

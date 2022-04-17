@@ -2,7 +2,7 @@
 
 echo "Esperando al Backend"
 cd ..
-./usr/wait-for-it.sh backend:8080
+./usr/wait-for-it.sh backend:5000
 
 cd app
 

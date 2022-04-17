@@ -18,7 +18,8 @@ module.exports = {
           type: Sequelize.STRING
       },
         email: {
-          type: Sequelize.STRING
+          type: Sequelize.STRING,
+          unique: true
       },
         password: {
           type: Sequelize.STRING
@@ -30,7 +31,11 @@ module.exports = {
       },
         workplace: {
           type: Sequelize.STRING
-      } 
+      } ,
+        session: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        }
       },
       {
         sync: { force: true}

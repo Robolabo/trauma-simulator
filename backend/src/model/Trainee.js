@@ -48,8 +48,13 @@ var Trainee = sequelize.define('trainee', {
       key: 'id'
     }
   },
+  session: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   workplace: Sequelize.STRING
 },
+
 {
 	 timestamps: false,
 });

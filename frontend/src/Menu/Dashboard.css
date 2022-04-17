@@ -1,0 +1,67 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.principal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;  
+    background-color: rgba(195, 195, 196, 0.753);
+}
+.principal button {
+    margin-bottom: 3pc;
+    width: 400px;
+    height: 100px;
+    font-size: 30px;
+}
+.createSimulation {
+    display: flex;
+    flex-direction: column;
+}
+
+.training {
+    display: flex;
+    flex-direction: column;
+}
+
+.text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+
+}
+
+.item {
+    border-radius: 20px;
+}
+
+#nav{
+    z-index: 4;
+    position: absolute;
+    width: 100%;
+}
+
+#list-example{
+    width: 18%;
+}
+
+.list-group-item{
+    background-color: #EEEEEE;
+}
+
+.list-group-item:hover{
+    background-color: #BBBBBB;
+}
+
+.notification {
+    vertical-align: top;
+}
+
+
+
+
