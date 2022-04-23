@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { withTranslation } from 'react-i18next';
 import Nav from "./Nav"
 import axios from 'axios';
-import { removeUserSession } from '../Utils/Common';
+import { getToken, removeUserSession, setUserSession } from '../Utils/Common';
 
 //Botón de examne: 'dashboard.exam-simulation'
 class DashboardTrainee extends Component {
@@ -21,9 +21,52 @@ class DashboardTrainee extends Component {
           alert("Error server "+error)
         })
         removeUserSession();
-        //browserHistory.push('/');
-       // this.props.history.push(login)
+ 
     };
+
+
+    componentDidMount(){
+        var i = this.props.location.state.id;
+    window.onbeforeunload  = function(e) {
+        axios.get("http://localhost:8080/trainee/logout/"+ i)
+              .then(res => {
+               if(res.data.success){
+                removeUserSession();
+              }
+              
+              })
+              .catch(error=>{
+                alert("Error server "+error)
+              })
+
+        
+        e.returnValue = "message to user";
+        setTimeout(function () { setTimeout(CancelSelected, 1000); }, 100);
+        
+    }
+    
+    function CancelSelected() {
+        
+        axios.get("http://localhost:8080/trainee/log/"+ i)
+        .then(res => {
+         if(res.data.success){
+          getToken();
+          setUserSession();
+          
+          
+        }
+        
+        })
+        .catch(error=>{
+          alert("Error server "+error)
+        })
+
+    }
+    
+
+    }
+    
+ 
  
 
 

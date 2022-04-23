@@ -31,11 +31,16 @@ module.exports = {
       },
         workplace: {
           type: Sequelize.STRING
-      } 
+        } ,
+        session: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        }
       },
       {
         sync: { force: true}
       }
+     
     );
     /*
       Add altering commands here.

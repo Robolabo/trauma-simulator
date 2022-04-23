@@ -9,6 +9,10 @@ import { Button } from 'reactstrap';
 import Select from 'react-select';
 import configuration from '../assets/simulationConfiguration.json'
 import { Alert } from 'reactstrap';
+import { getToken, removeUserSession, setUserSession } from '../Utils/Common';
+import { Link } from "react-router-dom"
+
+
 
 const default_config = configuration.data[0];
 var optionsTrainees= []
@@ -44,9 +48,60 @@ class NewSimulation extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    handleLogout = () => {
+        
+        axios.get("http://localhost:8080/trainer/salir/"+this.props.location.state.email)
+        .then(res => {
+         if(res.data.success){
+         alert("hemos salido")
+        }
+        })
+        .catch(error=>{
+          alert("Error server "+error)
+        })
+        removeUserSession();
+ 
+    };
+
 
     
     componentDidMount(){
+        var i = this.props.location.state.id;
+        window.onbeforeunload  = function(e) {
+            axios.get("http://localhost:8080/trainer/logout/"+ i)
+                  .then(res => {
+                   if(res.data.success){
+                    removeUserSession();
+                  }
+                  
+                  })
+                  .catch(error=>{
+                    alert("Error server "+error)
+                  })
+    
+            
+            e.returnValue = "message to user";
+            setTimeout(function () { setTimeout(CancelSelected, 1000); }, 100);
+            
+        }
+        
+        function CancelSelected() {
+            
+            axios.get("http://localhost:8080/trainer/log/"+ i)
+            .then(res => {
+             if(res.data.success){
+              getToken();
+              setUserSession();
+              alert("Te quedas")
+              
+            }
+            
+            })
+            .catch(error=>{
+              alert("Error server "+error)
+            })
+    
+        }
 
         const urlTrainee = "http://localhost:8080/trainee/list"
         axios.get(urlTrainee)
@@ -92,6 +147,7 @@ class NewSimulation extends Component {
         }
 
         this.setState({ trainerId: this.props.location.state.id });
+        
     }
 
     handleSubmit(event){
@@ -263,6 +319,7 @@ class NewSimulation extends Component {
           ];
         return (
             <div>
+                 <Link type="button"  to="/" onClick={() => this.handleLogout()}>Logout</Link><br/>
                 <Nav></Nav>
                 {this.state.alert ? this.alert("success","El caso clínico ha sido creado correctamente.") : null}
                 <div className="text1"><h1>{t('new-simulation.text-1')}</h1></div>

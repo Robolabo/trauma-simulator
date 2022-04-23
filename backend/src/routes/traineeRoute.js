@@ -15,6 +15,7 @@ router.post('/update/:id', traineeController.update);
 router.get('/session/:email', traineeController.session);
 router.get('/ses/:email', traineeController.ses);
 router.get('/salir/:email', traineeController.salir);
-router.get('/logout', traineeController.logout);
+router.get('/logout/:id', traineeController.logout);
+router.get('/log/:id', traineeController.log);
     
 module.exports = router;

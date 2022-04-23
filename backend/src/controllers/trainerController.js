@@ -127,4 +127,97 @@ controller.login = async (req,res) => {
   res.json({ success: true, data: data });
 }  
 
+
+controller.salir = async (req, res) => {
+
+  try{
+  const as = req.params; 
+  const a = await Trainer.findOne({where:as});
+  console.log(a.session);
+  if (a.session == true) {
+      Trainer.update({
+          session: false
+      }, {
+          where: as
+      })
+      return res.status(200).json({success: true})   
+  
+  }else{
+      return res.status(200).json({success: false})
+  }
+ }catch(error){
+     console.log('Error :' + error)
+ }
+}
+
+controller.session = async (req, res) => {
+  try {
+    const as = req.params;
+    console.log(as);
+    const a = await Trainer.findOne({where: as}); 
+    if(a == null){
+      return res.status(200).json({success: "2"});
+    }
+    else{
+    console.log(a);
+      if (a.session == false) { 
+          return res.status(200).json({success: true});
+      } else { 
+          return res.status(200).json({success: false}); 
+      }
+  }
+  } catch (error) {
+      console.log('Error :' + error);
+
+  } 
+} 
+controller.ses = async (req, res) => {
+  try{
+  const as = req.params; 
+  const a= await Trainer.findOne({where:as});
+  console.log(as);
+  if (a.session == false) {
+      Trainer.update({
+          session: true
+      }, {
+          where: as
+      })
+      return res.status(200).json({success: true})   
+  
+  }else{
+      return res.status(200).json({success: false})
+  }
+ }catch(error){
+     console.log('Error :' + error)
+ }
+}
+
+
+controller.logout = async(req, res) => {
+  const {id} = req.params;
+  
+  console.log("id" +id);
+  Trainer.update({
+      session: false }, {
+          where: {
+              trainerId: id
+          }
+      })
+  return res.status(200).json({success: true}) 
+
+}
+controller.log = async(req, res) => {
+  const {id} = req.params;
+  
+  console.log("id" +id);
+  Trainer.update({
+      session: true }, {
+          where: {
+              trainerId: id
+          }
+      })
+  return res.status(200).json({success: true}) 
+
+}
+
 module.exports = controller;

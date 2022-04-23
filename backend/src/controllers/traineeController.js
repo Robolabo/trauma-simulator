@@ -207,11 +207,27 @@ controller.salir = async (req, res) => {
   }
 
 controller.logout = async(req, res) => {
-    const usuarios = await Trainee.findAll();
-    console.log("Usuarios" +usuarios);
+    const {id} = req.params;
+    
+    console.log("id" +id);
     Trainee.update({
         session: false }, {
-            where: {session: true}
+            where: {
+                traineeId: id
+            }
+        })
+    return res.status(200).json({success: true}) 
+
+}
+controller.log = async(req, res) => {
+    const {id} = req.params;
+    
+    console.log("id" +id);
+    Trainee.update({
+        session: true }, {
+            where: {
+                traineeId: id
+            }
         })
     return res.status(200).json({success: true}) 
 

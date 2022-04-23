@@ -9,7 +9,7 @@ import { Redirect } from "react-router-dom"
 import { Alert } from 'reactstrap';
 import '../Simulations/simulation.css'
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
-import { removeUserSession } from '../Utils/Common';
+import { getToken, removeUserSession, setUserSession } from '../Utils/Common';
 //import { each } from 'jquery';
 var finish = false
 
@@ -31,22 +31,17 @@ class SimulationList extends React.Component  {
   }
 
   handleLogout = () => {
-        
-    axios.get("http://localhost:8080/trainee/salir/"+this.props.location.state.email)
-    .then(res => {
-     if(res.data.success){
-     alert("hemos salido")
- 
-    }
-    })
-    .catch(error=>{
-      alert("Error server "+error)
-    })
-    removeUserSession();
-    //browserHistory.push('/');
-   // this.props.history.push(login)
-};
-  
+    var i = this.props.location.state.id;
+    var train = this.state.isTrainer? "trainer": "trainee";
+    
+      axios.get("http://localhost:8080/"+train+"/logout/"+ i)
+      
+      .catch(error=>{
+        alert("Error server "+error)
+      })
+      removeUserSession();
+}
+
  //crea las simulaciones de prueba
   handleRandomCreate(){
     var arrSimulations = [];
@@ -771,7 +766,47 @@ filterData(data){
         this.createCases();
       }
     }
+    var train = this.state.isTrainer? "trainer": "trainee";
+  
+    var i = this.props.location.state.id;
+    window.onbeforeunload  = function(e) {
+        axios.get("http://localhost:8080/"+train+"/logout/"+ i)
+              .then(res => {
+               if(res.data.success){
+                removeUserSession();
+              }
+              
+              })
+              .catch(error=>{
+                alert("Error server "+error)
+              })
 
+        
+        e.returnValue = "message to user";
+        setTimeout(function () { setTimeout(CancelSelected, 1000); }, 100);
+        
+    
+    
+    function CancelSelected() {
+        
+        axios.get("http://localhost:8080/"+train+"/log/"+ i)
+        .then(res => {
+         if(res.data.success){
+          getToken();
+          setUserSession();
+          
+          
+        }
+        
+        })
+        .catch(error=>{
+          alert("Error server "+error)
+        })
+
+    }
+  }
+  
+  
 }
 
   deleteSimulations(id){

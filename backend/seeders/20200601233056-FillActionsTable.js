@@ -167,7 +167,7 @@ module.exports = {
       {
         actionId: 7,
         actionName: 'Mascarilla oxígeno',
-        message: 'Se coloca una mascarilla con oxígeno.',
+        message: 'Mascarilla oxígeno',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -194,7 +194,7 @@ module.exports = {
       {
         actionId: 8,
         actionName: 'Collarín cervical',
-        message: 'Collarín cervical colocado.',
+        message: 'Collarín cervical',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -248,7 +248,7 @@ module.exports = {
       {
         actionId: 10,
         actionName: 'manta',
-        message: 'Manta térmica colocada.',
+        message: 'Manta térmica',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -302,7 +302,7 @@ module.exports = {
       {
         actionId: 12,
         actionName: 'Cinturón pélvico',
-        message: 'Cinturón pélvico colocado.',
+        message: 'Cinturón pélvico',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -410,7 +410,7 @@ module.exports = {
       {
         actionId: 16,
         actionName: 'Rx Pelvis',
-        message: 'Ya se encuentran disponibles los resultados de placa RX.',
+        message: 'Rx Pelvis',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -491,7 +491,7 @@ module.exports = {
       {
         actionId: 19,
         actionName: 'Limpiar vía aérea',
-        message: 'Aspirando los cuerpos extraños encontrados.',
+        message: 'Limpiar vía aérea',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -653,7 +653,7 @@ module.exports = {
       {
         actionId: 25,
         actionName: 'intubate',
-        message: 'IOT correcta.',
+        message: 'Intubación',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -734,7 +734,7 @@ module.exports = {
       {
         actionId: 28,
         actionName: 'Torniquete',
-        message: 'Se coloca un torniquete para detener el sangrado.',
+        message: 'Torniquete',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -761,7 +761,7 @@ module.exports = {
       {
         actionId: 29,
         actionName: 'Auscultación',
-        message: 'Se ausculta al paciente observando un murmullo vesicular conservado.',
+        message: 'Auscultación',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -788,7 +788,7 @@ module.exports = {
       {
         actionId: 30,
         actionName: 'Pulsioxímetro',
-        message: 'Se mide la saturación de oxígeno en sangre y la frecuencia cardiaca que aparece en la pantalla.',
+        message: 'Pulsioxímetro',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -843,7 +843,7 @@ module.exports = {
       {
         actionId: 32,
         actionName: 'Cánula orofaríngea',
-        message: 'Cánula orofaríngea colocada.',
+        message: 'Cánula orofaríngea',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -899,7 +899,7 @@ module.exports = {
       {
         actionId: 34,
         actionName: 'Oxigenoterapia con gafas nasales',
-        message: 'Gafas nasales colocadas.',
+        message: 'Oxigenoterapia con gafas nasales',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -926,7 +926,7 @@ module.exports = {
       {
         actionId: 35,
         actionName: 'Capnógrafo',
-        message: 'Se mide el EtC02 obteniendo un valor de 30-43 mmHg.',
+        message: 'Capnógrafo',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -982,7 +982,7 @@ module.exports = {
       {
         actionId: 37,
         actionName: 'Ventilación con bolsa autoinflable',
-        message: 'Se administra oxígeno al paciente.',
+        message: 'Ventilación con bolsa autoinflable',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1010,7 +1010,7 @@ module.exports = {
       {
         actionId: 38,
         actionName: 'Apósito oclusivo',
-        message: 'Se cubre la herida con un apósito para proteger y optimizar la cicatrización.',
+        message: 'Apósito oclusivo',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1038,7 +1038,7 @@ module.exports = {
       {
         actionId: 39,
         actionName: 'Toracocentesis con aguja',
-        message: 'No se aprecia salida de aire.',
+        message: 'Toracocentesis con aguja',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1066,7 +1066,7 @@ module.exports = {
       {
         actionId: 40,
         actionName: 'Drenaje Torácico',
-        message: 'Escaso líquido sanguinolento.',
+        message: 'Drenaje Torácico',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1094,7 +1094,7 @@ module.exports = {
       {
         actionId: 41,
         actionName: 'Férula de vacío',
-        message: 'Se coloca férula de vacio .',
+        message: 'Férula de vacío',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1122,7 +1122,7 @@ module.exports = {
       {
         actionId: 42,
         actionName: 'Control cervical manual',
-        message: 'Se realiza el control cervical manual.',
+        message: 'Control cervical manual',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1150,7 +1150,7 @@ module.exports = {
       {
         actionId: 43,
         actionName: 'Colchón de vacío',
-        message: 'Se coloca colchón de vacío.',
+        message: 'Colchón de vacío',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1292,7 +1292,7 @@ module.exports = {
       {
         actionId: 48,
         actionName: 'Presión directa',
-        message: 'Se aplica presión directa para detetener la hemorragia .',
+        message: 'Presión directa',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1320,7 +1320,7 @@ module.exports = {
       {
         actionId: 49,
         actionName: 'Agente hemostático',
-        message: 'Se acelera el proceso de coagulación sanguínea para controlar la hemorragia.',
+        message: 'Agente hemostático',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1348,7 +1348,7 @@ module.exports = {
       {
         actionId: 50,
         actionName: 'Canalización VVP',
-        message: 'VVP colocada y permeable .',
+        message: 'Canalización VVP',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1376,7 +1376,7 @@ module.exports = {
       {
         actionId: 51,
         actionName: 'Canalización IO',
-        message: 'Vía intraósea colocada.',
+        message: 'Canalización IO',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1404,7 +1404,7 @@ module.exports = {
       {
         actionId: 52,
         actionName: 'PANI digital',
-        message: 'PANI digital muestra la tensión del paciente que aparece en la pantalla.',
+        message: 'PANI digital',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1432,7 +1432,7 @@ module.exports = {
       {
         actionId: 53,
         actionName: '6 Derivaciones',
-        message: 'Monitorización del paciente mediante la colocación de 4 electrodos. ECG normal.',
+        message: '6 Derivaciones',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1460,7 +1460,7 @@ module.exports = {
       {
         actionId: 54,
         actionName: 'ECG 12 Derivaciones',
-        message: 'Monitorización del paciente mediante 10 electrodos para obtener 12 derivaciones. ECG normal.',
+        message: 'ECG 12 Derivaciones',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1684,7 +1684,7 @@ module.exports = {
       {
         actionId: 62,
         actionName: 'Sondaje vesical',
-        message: 'Se realiza sondaje vesical.',
+        message: 'Sondaje vesical',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1712,7 +1712,7 @@ module.exports = {
       {
         actionId: 63,
         actionName: 'Sondaje nasogástrico',
-        message: 'Se realiza sondaje nasogástrico.',
+        message: 'Sondaje nasogástrico',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1768,7 +1768,7 @@ module.exports = {
       {
         actionId: 65,
         actionName: 'Fentanilo 50mcg IV',
-        message: 'Fentanilo administrado.',
+        message: 'Fentanilo 50mcg IV',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1796,7 +1796,7 @@ module.exports = {
       {
         actionId: 66,
         actionName: 'Midazolam 2mg IV',
-        message: 'Midazolam administrado.',
+        message: 'Midazolam 2mg IV',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1824,7 +1824,7 @@ module.exports = {
       {
         actionId: 67,
         actionName: 'Ácido Tranexámico 1g IV',
-        message: 'Ácido tranexámico administrado.',
+        message: 'Ácido Tranexámico 1g IV',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1852,7 +1852,7 @@ module.exports = {
       {
         actionId: 68,
         actionName: 'Noradrenalina IV',
-        message: 'Se inicia perfusión de noradrenalina.',
+        message: 'Noradrenalina IV',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1880,7 +1880,7 @@ module.exports = {
       {
         actionId: 69,
         actionName: 'SSF 20ml/kg en 10 minutos',
-        message: 'Bolo SSF administrado.',
+        message: 'SSF 20ml/kg en 10 minutos',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1908,7 +1908,7 @@ module.exports = {
       {
         actionId: 70,
         actionName: 'SSF 500ml mantenimiento',
-        message: 'Inicio SSF 500 ml.',
+        message: 'SSF 500ml mantenimiento',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1936,7 +1936,7 @@ module.exports = {
       {
         actionId: 71,
         actionName: 'Voluven 250ml IV',
-        message: 'Inicio voluvén 250 ml.',
+        message: 'Voluven 250ml IV',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -1964,7 +1964,7 @@ module.exports = {
       {
         actionId: 72,
         actionName: 'SG 5% mantenimiento',
-        message: 'Inicio SG 5%.',
+        message: 'SG 5% mantenimiento',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2131,7 +2131,7 @@ module.exports = {
       {
         actionId: 78,
         actionName: '¿Cómo te llamas?',
-        message: 'Antonio.',
+        message: '¿Cómo te llamas?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2267,7 +2267,7 @@ module.exports = {
       {
         actionId: 83,
         actionName: '¿Qué edad tienes?',
-        message: 'Tengo 25 años.',
+        message: '¿Qué edad tienes?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2404,7 +2404,7 @@ module.exports = {
       {
         actionId: 88,
         actionName: '¿Tienes alguna alergia?',
-        message: 'A la piel del melocotón.',
+        message: '¿Tienes alguna alergia?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2539,7 +2539,7 @@ module.exports = {
       {
         actionId: 93,
         actionName: '¿Tienes alguna enfermedad importante?',
-        message: 'No.',
+        message: '¿Tienes alguna enfermedad importante?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2674,7 +2674,7 @@ module.exports = {
       {
         actionId: 98,
         actionName: '¿Tomas alguna medicación?',
-        message: 'Sí, a veces tomo paracetamol .',
+        message: '¿Tomas alguna medicación?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2810,7 +2810,7 @@ module.exports = {
       {
         actionId: 103,
         actionName: '¿Sabes dónde estás?',
-        message: 'Sí, estoy en medio de la calle.',
+        message: '¿Sabes dónde estás?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -2945,7 +2945,7 @@ module.exports = {
       {
         actionId: 108,
         actionName: '¿Sabes que ha pasado?',
-        message: 'Estaba esperando en un semáforo en rojo y he sentido un fuerte golpe detrás y me he visto en el suelo. He visto un coche salir acelerando.',
+        message: '¿Sabes que ha pasado?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -3080,7 +3080,7 @@ module.exports = {
       {
         actionId: 113,
         actionName: '¿Dónde te duele?',
-        message: 'Me duele mucho la ingle. En cuanto intento mover una pierna me duele. ',
+        message: '¿Dónde te duele?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -3216,7 +3216,7 @@ module.exports = {
       {
         actionId: 118,
         actionName: '¿Te cuesta respirar?',
-        message: 'No, me duele mucho la ingle.',
+        message: '¿Te cuesta respirar?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -3350,7 +3350,7 @@ module.exports = {
       {
         actionId: 123,
         actionName: '¿Puedes mover las piernas y los brazos?',
-        message: 'Mueve ambos pies',
+        message: '¿Puedes mover las piernas y los brazos?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -3484,7 +3484,7 @@ module.exports = {
       {
         actionId: 128,
         actionName: '¿Sientes cómo te toco?',
-        message: 'Sí, te siento',
+        message: '¿Sientes cómo te toco?',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -3511,7 +3511,7 @@ module.exports = {
       {
         actionId: 129,
         actionName: 'Conexión a ventilación mecánica',
-        message: 'Paciente conectado a ventilación mecánica.',
+        message: 'Conexión a ventilación mecánica',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -3538,7 +3538,7 @@ module.exports = {
       {
         actionId: 130,
         actionName: 'Retirada de ropa',
-        message: 'Ropa retirada.',
+        message: 'Retirada de ropa',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -3565,7 +3565,7 @@ module.exports = {
       {
         actionId: 131,
         actionName: 'Protocolo de transfusión masiva',
-        message: 'Transfusión de sangre realizada.',
+        message: 'Protocolo de transfusión masiva',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -3592,7 +3592,7 @@ module.exports = {
       {
         actionId: 132,
         actionName: 'Solicitud de ineterconsultas a otras especialidades',
-        message: 'Consulta a otra especialidad solicitada.',
+        message: 'Solicitud de ineterconsultas a otras especialidades',
         photo: false,
         bloodLossMin: -1,
         bloodLossMax: -1,

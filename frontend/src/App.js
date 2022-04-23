@@ -43,7 +43,7 @@ function App() {
                          
 });*/
 
-window.onbeforeunload = function (e) {
+/*window.onbeforeunload = function (e) {
   var e = e || window.event;
   if (e) {
     axios.get("http://localhost:8080/trainee/logout")
@@ -61,7 +61,7 @@ window.onbeforeunload = function (e) {
       e.returnValue = alert('Estás por cerrar la página, cuidado!');
   }
 }
-
+*/
  
 
   useEffect(() =>{
@@ -109,10 +109,10 @@ window.onbeforeunload = function (e) {
         <PrivateRoute path="/listSimulation" component={ListSimulation}/>
       </Suspense> 
       <Suspense fallback={(<div></div>)}>
-        <Route path="/edit/:trainerId" component={Edit} />
+        <PrivateRoute path="/edit/:trainerId" component={Edit} />
       </Suspense>
       <Suspense fallback={(<div></div>)}>
-        <Route path="/newSimulation" component={NewSimulation} />
+        <PrivateRoute path="/newSimulation" component={NewSimulation} />
       </Suspense>
       <Suspense fallback={(<div></div>)}>
         <PrivateRoute path="/simulation/:id" component={Simulation} />
@@ -126,14 +126,9 @@ window.onbeforeunload = function (e) {
       <Suspense fallback={(<div></div>)}>
         <Route path= "/informe" component={Document}/>
       </Suspense>
-      
-        
-        
-        
-        
-        
-        
-    </Router>
+   
+  </Router>
+
   );
 }
 

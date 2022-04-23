@@ -11,6 +11,11 @@ router.get('/get/:id',trainerController.get);
 router.post('/update/:id', trainerController.update);
 router.post('/delete',trainerController.delete);
 router.get('/login/:email', trainerController.login)
+router.get('/session/:email', trainerController.session);
+router.get('/ses/:email', trainerController.ses);
+router.get('/salir/:email', trainerController.salir);
+router.get('/logout/:id', trainerController.logout);
+router.get('/log/:id', trainerController.log);
 
 
 module.exports = router;

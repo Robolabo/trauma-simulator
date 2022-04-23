@@ -9,6 +9,7 @@ import Graphic from '../Simulations/Components/Graphic'
 import Actions from '../Simulations/Components/Actions'
 import Messages from '../Simulations/Components/Messages'
 import { Modal, ModalHeader, Card, CardBody, Button } from 'reactstrap'
+import { getToken, removeUserSession, setUserSession } from '../Utils/Common';
 import './simulation.css'
 //import { ContinuousColorLegend } from 'react-vis';
 
@@ -170,6 +171,46 @@ export default class LoginForm extends Component {
     componentDidMount(){
 
       const { history } = this.props;
+      var i = this.props.location.state.id;
+      window.onbeforeunload  = function(e) {
+          axios.get("http://localhost:8080/trainee/logout/"+ i)
+                .then(res => {
+                 if(res.data.success){
+                  removeUserSession();
+                }
+                
+                })
+                .catch(error=>{
+                  alert("Error server "+error)
+                })
+  
+          
+          e.returnValue = "message to user";
+          setTimeout(function () { setTimeout(CancelSelected, 1000); }, 100);
+          
+      }
+      
+      function CancelSelected() {
+          
+          axios.get("http://localhost:8080/trainee/log/"+ i)
+          .then(res => {
+           if(res.data.success){
+            getToken();
+            setUserSession();
+            alert("Te quedas")
+            
+          }
+          
+          })
+          .catch(error=>{
+            alert("Error server "+error)
+          })
+  
+      }
+      
+
+
+
 
     history.listen((newLocation, action) => {
       if (action === "PUSH") {
