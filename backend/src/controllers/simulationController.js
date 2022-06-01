@@ -36,7 +36,7 @@ controller.list = async (req, res) => {
 controller.create = async (req,res) => {
   // data
   const { sex, age, weight, traumaType, partBody, bloodLoss, diastolicPressure, sistolicPressure, temperature, heartRate, breathingRate, urineOutput,
-            saturation, mentalStatus, time, traineeId, trainerId, phase, rxPelvis } = req.body;
+            saturation, mentalStatus, time, traineeId, roleId, trainerId, phase, rxPelvis } = req.body;
   // create
   const data = await Simulation.create({
     sex: sex,
@@ -55,6 +55,7 @@ controller.create = async (req,res) => {
     mentalStatus: mentalStatus,
     time: time,
     traineeId: traineeId,
+    roleId: roleId,
     trainerId: trainerId,
     phase: phase,
     rxPelvis: rxPelvis
@@ -205,18 +206,22 @@ controller.listByTraineeId = async (req, res) => {
 //Devolver las simulaciones con el entrenador train
 //Cambiar nombre 
 controller.listByTraineeAndTrainer = async (req, res) => {
-  const { idTrainer,idTrainee } = req.query;
+  const { idTrainer,idTrainee, idrole } = req.query;
 
   const data = await Simulation.findAll({
     include: [ { model: Trainer, as: 'trainer' },
-               { model: Trainee, as: 'trainee' } ],
-    where: {  trainerId: idTrainer, traineeId:idTrainee }
+               { model: Trainee, as: 'trainee' },
+               ],
+    where: {  trainerId: idTrainer, traineeId:idTrainee}
   })
     .then(function (data) {
-      if (data)
-        return data;
+      if (data){
+          if(data.roleId== null){
+          console.log(data.roleId)
+          return data;
+      }}
       else
-        return {error:"Not foaaund"}
+        return {error:"Not found"}
   })
   .catch(error => {
     return error;

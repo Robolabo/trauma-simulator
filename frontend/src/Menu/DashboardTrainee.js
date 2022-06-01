@@ -74,6 +74,9 @@ class DashboardTrainee extends Component {
         const { t } = this.props;
         console.log("Datos1" +this.props.location.state.email)
         console.log("Datos1" +this.props.location.state.id)
+        const s = this.props.location.state.id
+        const i = this.props.location.state.roleId
+        console.log("RoleId" + i)
         return (
             <div>
                 <Link type="button"  to="/" onClick={() => this.handleLogout()}>Logout</Link><br/>
@@ -83,7 +86,9 @@ class DashboardTrainee extends Component {
                                     state: { id: this.props.location.state.id,
                                              isTrainer: false,
                                             email: this.props.location.state.email,
-                                            sesion: this.props.location.state.sesion  }
+                                            sesion: this.props.location.state.sesion,
+                                            roleId: this.props.location.state.roleId
+                                          }
                                 }}>
                             <Button>{t('dashboard.exam-simulation')}</Button>
                             
@@ -96,7 +101,8 @@ class DashboardTrainee extends Component {
                                     state: { id: this.props.location.state.id,
                                              isTrainer: false,
                                              email: this.props.location.state.email,
-                                             sesion: this.props.location.state.sesion  }
+                                             sesion: this.props.location.state.sesion,
+                                             roleId: this.props.location.state.roleId  }
                                 }}>
                             <Button>{t('dashboard.exam-simulation')}</Button>
                         
@@ -109,7 +115,8 @@ class DashboardTrainee extends Component {
                                 trainerList: true,
                                 isTrainer: false,
                                 email: this.props.location.state.email,
-                                sesion: this.props.location.state.sesion
+                                sesion: this.props.location.state.sesion,
+                                roleId: this.props.location.state.roleId 
                             }
                         }}>
                           

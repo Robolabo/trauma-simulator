@@ -1,4 +1,5 @@
 
+import axios from 'axios';
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next';
 
@@ -13,6 +14,8 @@ class Timer extends Component {
           confirmCrono: false
         }
     }
+
+
 
     componentDidUpdate(prevProps, prevState) {
         if(prevProps !== this.props){
@@ -61,6 +64,53 @@ class Timer extends Component {
             this.setState(({ seconds }) => ({
                 seconds: seconds - 1
             }))
+        }
+        if(minutes == 26 && seconds == 0){
+            
+            axios.get("http://localhost:8080/trainee/cuatromin/"+this.props.simulationId+"/"+this.props.traineeId)
+            .then(res => {
+                if(!res.data.success){
+                    if(res.data.aera>0 && res.data.circulacion>0){
+                        alert("4 minutos. Te faltan "+ res.data.aera +" acciones de vía aerea y " + res.data.circulacion +" acciones de circulacion");
+                    }else if(res.data.aera>0){
+                        alert("4 minutos. Te faltan "+ res.data.aera +" acciones de vía aerea");
+                    }else if(res.data.circulacion>0){
+                        alert("4 minutos. Te faltan "+ res.data.circulacion +" acciones de circulacion");
+                    }     
+               }
+               })
+               .catch(error=>{
+                 alert("Error server "+error)
+               })
+        }
+        if(minutes == 25 && seconds == 0){
+            if(this.props.partBody=='pelvis'&& this.props.phase=='hospitalaria'){
+                axios.get("http://localhost:8080/trainee/minPH/"+this.props.simulationId+"/"+this.props.traineeId)
+                .then(res => {
+                    if(!res.data.success){
+                       alert("Menos de 5 minutos. Te faltan "+ res.data.aera +" acciones de vía aerea ," + res.data.circulacion +" acciones de circulacion te faltan, "+ res.data.exposicion +" acciones de exposicion te faltan, "+ res.data.inmovilizacion+ " acciones de inmovilización te faltan "+ res.data.farmacos + " te fataltan fármacos por administrar "+ res.data.pruebas +" pruebas complementarias te faltan por hacer");
+                         
+                   }
+                   })
+            }else if(this.props.partBody=='leftLeg'&& this.props.phase=='hospitalaria'){
+                axios.get("http://localhost:8080/trainee/minLH/"+this.props.simulationId+"/"+this.props.traineeId)
+                .then(res => { 
+                    if(!res.data.success){
+                       alert("Menos de 5 minutos. Te faltan "+ res.data.aera +" acciones de vía aerea ," + res.data.circulacion +" acciones de circulacion te faltan, "+ res.data.exposicion +" acciones de exposicion te faltan, "+ res.data.inmovilizacion+ " acciones de inmovilización te faltan "+ res.data.farmacos + " te fataltan fármacos por administrar "+ res.data.pruebas +" pruebas complementarias te faltan por hacer");
+                         
+                   }
+                   })
+            }else{
+                axios.get("http://localhost:8080/trainee/min/"+this.props.simulationId+"/"+this.props.traineeId)
+                .then(res => { 
+                    if(!res.data.success){
+                       alert("Menos de 5 minutos. Te faltan "+ res.data.aera +" acciones de vía aerea ," + res.data.circulacion +" acciones de circulacion te faltan, "+ res.data.exposicion +" acciones de exposicion te faltan, "+ res.data.inmovilizacion+ " acciones de inmovilización te faltan "+ res.data.farmacos + " te fataltan fármacos por administrar");
+    
+                   }
+                   })
+
+
+            }
         }
         if (minutes < 5) {
             this.props.disableFordward()

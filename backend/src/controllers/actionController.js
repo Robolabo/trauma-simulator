@@ -5,7 +5,7 @@ const Action = require('../model/actions');
 
 controller.getMsg = async (req, res) => {
   const data = await sequelize.query(
-    `Select distinct message, photo, time from actions where actionName = '${req.query.actionName}' and 
+    `Select distinct message, photo, time from actions where actionId = '${req.query.actionId}' and 
     ((bloodLossMin != -1 and ${req.query.bloodLoss} > bloodLossMin and ${req.query.bloodLoss} < bloodLossMax) or 
     (sistolicPressureMin != -1 and ${req.query.sistolicPressure} > sistolicPressureMin and ${req.query.sistolicPressure} < sistolicPressureMax) or 
     (diastolicPressureMin != -1 and ${req.query.diastolicPressure} > diastolicPressureMin and ${req.query.diastolicPressure} < diastolicPressureMax) or 
@@ -16,7 +16,8 @@ controller.getMsg = async (req, res) => {
     (temperatureMin != -1 and ${req.query.temperature} > temperatureMin and ${req.query.temperature} < temperatureMax) or 
     (mentalStatus = '${req.query.mentalStatus}' and mentalStatus != '-1') or 
     (partBody = '${req.query.partBody}' and partBody != '-1') or 
-    (age = '${req.query.age}') or
+    (age = '${req.query.age}') or (phase = '${req.query.phase}' and phase != '-1') or
+    (traumatype = '${req.query.traumatype}' and traumatype != '-1') or 
     (bloodLossMin = -1 and sistolicPressureMin = -1 and saturationMin = -1
       and diastolicPressureMin = -1 and heartRateMin = -1 and breathingRateMin = -1 and 
       urineOutputMin = -1 and saturationMin = -1 and temperatureMin = -1 and mentalStatus = '-1'

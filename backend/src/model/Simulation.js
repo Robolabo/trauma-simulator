@@ -4,6 +4,7 @@ var Sequelize = require('sequelize');
 var sequelize = require('./database');
 var Trainer = require('./Trainer')
 var Trainee = require('./Trainee')
+var Role = require('./Role')
 
 var Simulation = sequelize.define('simulation', {
     simulationId: {
@@ -14,6 +15,7 @@ var Simulation = sequelize.define('simulation', {
     },
     trainerId: Sequelize.INTEGER,
     traineeId: Sequelize.INTEGER,
+    roleId: Sequelize.INTEGER,
     sex: Sequelize.INTEGER,
     age: {
         type: Sequelize.INTEGER, 
@@ -84,6 +86,7 @@ var Simulation = sequelize.define('simulation', {
 });
 
 Simulation.belongsTo(Trainee, {as:'trainee', foreignKey:'traineeId'});
+Trainee.belongsTo(Role);
 Simulation.belongsTo(Trainer, {as:'trainer', foreignKey:'trainerId'});
 
 module.exports = Simulation

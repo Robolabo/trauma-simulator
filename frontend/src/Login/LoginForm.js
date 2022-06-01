@@ -9,7 +9,7 @@ import sha256 from 'js-sha256'
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import { setUserSession } from '../Utils/Common';
-import App from '../App';
+
 
 
 
@@ -21,6 +21,7 @@ class LoginForm extends React.Component {
     this.state = {
         email: "",
         password:"",
+        roleId: 0,
         redirect: false,
         id: 0,
         sesion:0
@@ -53,6 +54,10 @@ handleSubmit(event) {
   const urlTraineef = "http://localhost:8080/trainee/session/"+this.state.email
   const urlTrainees = "http://localhost:8080/trainee/ses/"+this.state.email
   const urlTrainers = "http://localhost:8080/trainer/ses/"+this.state.email
+  
+
+
+
   // network
 
 /*if(this.state.session){*/
@@ -65,9 +70,12 @@ axios.get(urlTrainerf)
       
         const password = res.data.data[0].password
         this.setState({
-          id: res.data.data[0].trainerId
-        })
-        isTrainer = true
+          id: res.data.data[0].trainerId})
+
+        this.setState({
+            roleId: res.data.data[0].roleId})
+
+          isTrainer = true
         if(password === sha256(this.state.password)){
           setUserSession(res.data.data[0].token, res.data.data[0].email)
           this.setRedirect()
@@ -101,9 +109,14 @@ axios.get(urlTrainerf)
       .then(res=>{
         if (res.data.success && res.data.data.length > 0) {
             const password = res.data.data[0].password
+            const roleID = res.data.data[0].roleId
+            const id = res.data.data[0].traineeId
             this.setState({
-              id: res.data.data[0].traineeId
+              id: res.data.data[0].traineeId})
+
+            this.setState ({roleId: roleID
             })
+            console.log("RoleId"+ roleID)            
             isTrainer = false
 
             if(password === sha256(this.state.password)){
@@ -168,14 +181,16 @@ renderRedirect = () => {
     return <Redirect to={{
                           pathname: '/dashboardTrainer',
                           state: { id: this.state.id,
-                          email: this.state.email }
+                          email: this.state.email
+                         }
                       }} />
   } else if (this.state.redirect && !isTrainer) {
     return <Redirect to={{
                           pathname: '/dashboardTrainee',
                           state: { id: this.state.id,
-                          email: this.state.email },
-                          sesion: this.state.sesion
+                          email: this.state.email,
+                          sesion: this.state.sesion,
+                          roleId: this.state.roleId}
                       }} />
   }
 }

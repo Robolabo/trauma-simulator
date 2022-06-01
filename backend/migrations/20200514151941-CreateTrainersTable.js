@@ -25,10 +25,11 @@ module.exports = {
           type: Sequelize.STRING
       } ,
         roleId: {
-          type: Sequelize.INTEGER,
-          unique: "compositeKey",
-          allowNull: false
+         type: Sequelize.INTEGER,
+         unique: "compositeKey",
+         allowNull: false
       },
+
         workplace: {
           type: Sequelize.STRING
         } ,

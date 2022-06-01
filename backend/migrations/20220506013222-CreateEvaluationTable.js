@@ -3,86 +3,70 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(
-      'simulations',
+      'evaluations',
       {
-        simulationId:{
+        id:{
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           unique: true,
           unique: "compositeKey"
       },
-        trainerId: {
-          type: Sequelize.INTEGER,
-          unique: "compositeKey"
-      },
-        traineeId: {
+        traineeId:{
           type: Sequelize.INTEGER
       },
-        roleId:{
-          type: Sequelize.INTEGER
-        },
-        sex: {
+        trainerId:{
           type: Sequelize.INTEGER
       },
-        age: {
+        roleId: {
           type: Sequelize.INTEGER
-      } ,
-       weight: {
-          type: Sequelize.DOUBLE
+
       },
-        partBody: {
+        simulationId: {
+          type: Sequelize.INTEGER
+
+      },
+        phase:{
           type: Sequelize.STRING
       },
-        traumaType: {
-          type: Sequelize.STRING
-      },
-        mentalStatus: {
-          type: Sequelize.STRING
-      },
-        bloodLoss: {
-          type: Sequelize.DOUBLE
-      } ,
-        diastolicPressure: {
-          type: Sequelize.DOUBLE
+        actionId:{
+          type: Sequelize.INTEGER
       },
         sistolicPressure: {
           type: Sequelize.DOUBLE
       },
+
+        diastolicPressure: {
+          type: Sequelize.DOUBLE
+      } ,
+
         heartRate: {
           type: Sequelize.DOUBLE
       },
+
         breathingRate: {
-          type: Sequelize.DOUBLE
-      },
-        urineOutput: {
           type: Sequelize.DOUBLE
       },
         saturation: {
           type: Sequelize.DOUBLE
       },
-        temperature: {
-          type: Sequelize.DOUBLE
-      },
-        time: {
-          type: Sequelize.INTEGER
-      },
-        inform: {
-          type: Sequelize.BLOB
-      },
-        testData: {
-          type: Sequelize.JSON,
-          defaultValue: null
-      },
-        phase: {
+
+        partBody: {
           type: Sequelize.STRING
       },
+        mentalStatus: {
+          type: Sequelize.STRING
+      },
+        minute: {
+          type: Sequelize.INTEGER
+      },
+        second: {
+          type: Sequelize.INTEGER
+      },
 
-      rxPelvis: {
-        type: Sequelize.STRING
-    },
-
-    
+        age: {
+         type: Sequelize.INTEGER
+     }
       },
       {
         sync: { force: true}
@@ -98,7 +82,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('simulations');
+    return queryInterface.dropTable('evaluations');
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

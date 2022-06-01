@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import { Alert } from 'reactstrap';
 import { createBrowserHistory } from "history";
 import axios from 'axios';
-import Nav from '../Menu/Nav'
+import Nav from '../Menu/Nav';
+import { Redirect } from "react-router-dom";
 import Timer from '../Simulations/Components/Timer'
 import Graphic from '../Simulations/Components/Graphic'
 import Actions from '../Simulations/Components/Actions'
@@ -11,6 +12,7 @@ import Messages from '../Simulations/Components/Messages'
 import { Modal, ModalHeader, Card, CardBody, Button } from 'reactstrap'
 import { getToken, removeUserSession, setUserSession } from '../Utils/Common';
 import './simulation.css'
+import SimulationList from '../Menu/SimulationList';
 //import { ContinuousColorLegend } from 'react-vis';
 
 const baseUrl = "http://localhost:8080"
@@ -162,6 +164,10 @@ export default class LoginForm extends Component {
         deadModal: false,
         phase: "",
         rxPelvis:"",
+        traineeId:"",
+        trainerId:"",
+        roleId:1
+        
         
       }
       
@@ -249,7 +255,10 @@ export default class LoginForm extends Component {
                     temperature: data.temperature,
                     phase: data.phase,
                     document: [],
-                    rxPelvis: data.rxPelvis
+                    rxPelvis: data.rxPelvis,
+                    traineeId:data.traineeId,
+                    trainerId: data.trainerId,
+                    roleId: data.roleId
                 })
                 initialData = data
             }
@@ -1118,7 +1127,8 @@ export default class LoginForm extends Component {
               break;
             }
             eval(parameter+"Actions.sort((a, b) => a.finalTime -b.finalTime);")
-            eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue"+".bind(this,"+parameter+", "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
+           console.log("valor"+ breathingRateActions[0])
+           eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue.bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           }
           else{
             eval(parameter+"Block = false")
@@ -1159,6 +1169,7 @@ export default class LoginForm extends Component {
             }
             eval(parameter+"Value = valueTot")
             eval(parameter+"Actions.sort((a, b) => a.finalTime -b.finalTime);")
+            console.log("Valor"+ breathingRateActions[0].parameter)
             eval("this."+parameter+ "Timer = setTimeout(this.unBlockChangeValue.bind(this,"+parameter+"Actions[0].parameter, "+parameter+"Actions[0].finalValue), ("+parameter+"Actions[0].duration)*1000)")
           }
           else{
@@ -1221,7 +1232,7 @@ export default class LoginForm extends Component {
             eval(parameter + "N += 1")
             this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), 0, value, 1)
           }
-          else{
+          else{ 
             eval(parameter + "N += 1")
             this.simultaneousActions(parameter, duration, eval(parameter+"FinalTime"), 0, value, 1)
           }
@@ -1310,12 +1321,78 @@ export default class LoginForm extends Component {
       });
     }
 
+
+
+
     finish(){
         this.setState({
             finish: true
         })
-        clearInterval(this.changeGraphs)
+        const datapost = {
+          simulationId: this.props.match.params.id,
+          traineeId: this.state.traineeId,
+          phase: this.state.phase,
+          partBody:this.state.partBody
+         
+      }
+
+    if( this.state.partBody=='leftLeg' && this.state.phase=='hospitalaria') {
+      axios.get("http://localhost:8080/trainee/evaluacionLH/"+this.props.match.params.id+"/"+this.state.traineeId)
+        .then(res => {
+          
+          alert(res.data)
+         })
+         .catch(error=>{
+           alert("Error server "+error)
+         })
+         clearInterval(this.changeGraphs)
     }
+    else if( this.state.partBody=='leftLeg' && this.state.phase=='prehospitalaria') {
+      axios.get("http://localhost:8080/trainee/evaluacionLP/"+this.props.match.params.id+"/"+this.state.traineeId)
+        .then(res => {
+          
+          alert(res.data)
+         })
+         .catch(error=>{
+           alert("Error server "+error)
+         })
+         clearInterval(this.changeGraphs)
+    }
+    else if( this.state.partBody=='pelvis' && this.state.phase=='hospitalaria') {
+      axios.get("http://localhost:8080/trainee/evaluacionPH/"+this.props.match.params.id+"/"+this.state.traineeId)
+        .then(res => {
+          
+          alert(res.data)
+         })
+         .catch(error=>{
+           alert("Error server "+error)
+         })
+         clearInterval(this.changeGraphs)
+    }
+    else if( this.state.partBody=='pelvis' && this.state.phase=='prehospitalaria') {
+      axios.get("http://localhost:8080/trainee/evaluacionPP/"+this.props.match.params.id+"/"+this.state.traineeId)
+        .then(res => {
+          
+          alert(res.data)
+         })
+         .catch(error=>{
+           alert("Error server "+error)
+         })
+         clearInterval(this.changeGraphs)
+    }
+  }
+    
+      /*  axios.get("http://localhost:8080/trainee/evaluacion", datapost)
+        .then(res => {
+          alert(res.data)
+          
+         
+         })
+         .catch(error=>{
+           alert("Error server "+error)
+         })
+        clearInterval(this.changeGraphs)
+    }*/
 
     disableFordward(){
         this.setState({
@@ -1378,14 +1455,24 @@ export default class LoginForm extends Component {
                     finish = {this.state.finish}
                     crono = {this.state.crono}
                     timeCrono= {this.state.timeCrono}
+                    simulationId = {this.props.match.params.id}
+                    traineeId={this.state.traineeId}
+                    partBody = {this.state.partBody}
+                    phase={this.state.phase}
                     finishAction = {() => this.finish()}
-                    disableFordward = {() => this.disableFordward()} />
+                    disableFordward = {() => this.disableFordward()
+
+
+                    } />
             </div>
             <div className="main">
                 <Actions change = {(first, second, third, fourth, fifth) => this.change(first, second, third, fourth, fifth)}
                         send = {(variant,msg) => this.sendInformation(variant, msg)}
                         sendModal = {(id, type, header,content) => this.sendModal(id, type, header, content)}
                         time = {this.state.time}
+                        trainerId ={this.state.trainerId}
+                        traineeId={this.state.traineeId}
+                        roleId={this.state.roleId}
                         mentalStatus = {this.state.mentalStatus}
                         diastolicPressure = {this.state.diastolicPressure}
                         heartRate = {this.state.heartRate}
@@ -1444,6 +1531,7 @@ export default class LoginForm extends Component {
                         trainerList={this.props.location.state.trainerList}
                         blockAdvance ={blockAdvance}
                 />
+       
 
             </div>
         </div>

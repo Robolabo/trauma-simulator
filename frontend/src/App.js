@@ -26,42 +26,6 @@ function App() {
   
 
 
-/*window.addEventListener("beforeunload", function (e) {
-
-    axios.get("http://localhost:8080/trainee/salir/luis@gmail.com")
-    .then(res => {
-     if(res.data.success){
-     alert("Al recargar la página volveras al login")
-     removeUserSession();
-    }
-    })
-    .catch(error=>{
-      alert("Error server "+error)
-    })
-    
-  
-                         
-});*/
-
-/*window.onbeforeunload = function (e) {
-  var e = e || window.event;
-  if (e) {
-    axios.get("http://localhost:8080/trainee/logout")
-    .then(res => {
-     if(res.data.success){
-    
-      alert("Adios")
-      removeUserSession();
-    }
-    
-    })
-    .catch(error=>{
-      alert("Error server "+error)
-    })
-      e.returnValue = alert('Estás por cerrar la página, cuidado!');
-  }
-}
-*/
  
 
   useEffect(() =>{

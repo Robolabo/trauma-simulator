@@ -62,7 +62,9 @@
         "confused": "confuso",
         "lethargic": "letárgico",
         "normal": "normal",
-        "students": "Estudiantes..."
+        "students": "Estudiantes...",
+        "pelvico":"Pélvico",
+        "inferior":"Miembro inferior"
     },
 
     "list-simulation": {

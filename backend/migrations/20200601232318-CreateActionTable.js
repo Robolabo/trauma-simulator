@@ -5,12 +5,19 @@ module.exports = {
     return queryInterface.createTable(
       'actions',
       {
-        actionId:{
+        Id:{
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           unique: true,
           unique: "compositeKey"
+      },
+      actionId:{
+        type: Sequelize.INTEGER,
+      },
+      subactionId:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
         actionName: {
           type: Sequelize.STRING
@@ -81,7 +88,14 @@ module.exports = {
 
       age: {
         type: Sequelize.INTEGER
-     }
+      },
+      phase: {
+        type: Sequelize.INTEGER
+      },
+      traumatype: {
+        type: Sequelize.INTEGER
+      }
+
 
 
 

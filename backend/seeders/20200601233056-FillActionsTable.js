@@ -4,7 +4,9 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('actions', [
       {
+      
         actionId: 1,
+        subactionId:0,
         actionName: 'inspection',
         message: 'Se han encontrado cuerpos extraños durante la inspección de la vía aérea.',
         photo: false,
@@ -26,12 +28,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 3
       },
 
       {
         actionId: 2,
+        subactionId:0,
         actionName: 'inspection',
         message: 'Se han encontrado cuerpos extraños durante la inspección de la vía aérea.',
         photo: false,
@@ -53,11 +58,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 3
       },
       {
         actionId: 3,
+        subactionId:0,
         actionName: 'inspection',
         message: 'No se han encontrado anomalías durante la inspección de la vía aérea.',
         photo: false,
@@ -79,12 +87,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 3
       },
 
       {
         actionId: 4,
+        subactionId:0,
         actionName: 'dialog',
         message: 'El paciente responde con normalidad al diálogo.',
         photo: false,
@@ -106,12 +117,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'normal',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 5,
+        subactionId:0,
         actionName: 'dialog',
         message: 'El paciente no responde, encontrándose en estado de incosciencia.',
         photo: false,
@@ -133,12 +147,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'lethargic',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 6,
+        subactionId:0,
         actionName: 'dialog',
         message: 'El paciente responde al díalogo, mostrándose confuso, escuchándose ruidos en la respiración.',
         photo: false,
@@ -160,12 +177,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'confused',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 7,
+        subactionId:0,
         actionName: 'Mascarilla oxígeno',
         message: 'Mascarilla oxígeno',
         photo: true,
@@ -187,12 +207,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 2
       },
 
       {
         actionId: 8,
+        subactionId:0,
         actionName: 'Collarín cervical',
         message: 'Collarín cervical',
         photo: true,
@@ -214,12 +237,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 9,
+        subactionId:0,
         actionName: 'cristaloides',
         message: 'Se han sumistrado cristaloides por vía sanguínea.',
         photo: false,
@@ -241,12 +267,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
       },
 
       {
         actionId: 10,
+        subactionId:0,
         actionName: 'manta',
         message: 'Manta térmica',
         photo: true,
@@ -268,12 +297,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 11,
+        subactionId:0,
         actionName: 'liquids',
         message: 'Se han suministrado líquidos calientes para subir la temperatura del paciente.',
         photo: false,
@@ -295,12 +327,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
       },
 
       {
         actionId: 12,
+        subactionId:0,
         actionName: 'Cinturón pélvico',
         message: 'Cinturón pélvico',
         photo: true,
@@ -322,12 +357,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 13,
+        subactionId:0,
         actionName: 'analisis',
         message: 'Ya se encuentran disponibles los resultados del análisis sanguíneo.',
         photo: false,
@@ -349,12 +387,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
       },
 
       {
         actionId: 14,
+        subactionId:0,
         actionName: 'transfusion',
         message: 'Se realiza una transfusión al paciente para aumentar los niveles sanguíneos.',
         photo: false,
@@ -376,12 +417,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
       },
 
       {
         actionId: 15,
+        subactionId:0,
         actionName: 'surgery',
         message: 'Se intervendrá quirurgicamente para fijar definivamente la pelvis.',
         photo: false,
@@ -403,14 +447,17 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 50
       },
 
       {
         actionId: 16,
+        subactionId:0,
         actionName: 'Rx Pelvis',
-        message: 'Rx Pelvis',
+        message: 'Rx',
         photo: true,
         bloodLossMin: -1,
         bloodLossMax: -1,
@@ -430,12 +477,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
       },
 
       {
         actionId: 17,
+        subactionId:0,
         actionName: 'eco',
         message: 'Ya se encuentran disponibles los resultados de la ecografía.',
         photo: true,
@@ -457,12 +507,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
       },
 
       {
         actionId: 18,
+        subactionId:0,
         actionName: 'tac',
         message: 'Ya se encuentran disponibles los resultados de la tomografía.',
         photo: false,
@@ -484,12 +537,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
       },
 
       {
         actionId: 19,
+        subactionId:0,
         actionName: 'Limpiar vía aérea',
         message: 'Limpiar vía aérea',
         photo: false,
@@ -511,12 +567,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 5
       },
 
       {
         actionId: 20,
+        subactionId:0,
         actionName: 'glasgow',
         message: 'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 9 en la escala de Glasgow',
         photo: false,
@@ -538,12 +597,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'confused',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 2
       },
 
       {
         actionId: 21,
+        subactionId:0,
         actionName: 'glasgow',
         message: 'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 15 en la escala de Glasgow',
         photo: false,
@@ -565,12 +627,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'normal',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 2
       },
 
       {
         actionId: 22,
+        subactionId:0,
         actionName: 'glasgow',
         message: 'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 12 en la escala de Glasgow',
         photo: false,
@@ -592,12 +657,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'anxious',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 2
       },
 
       {
         actionId: 23,
+        subactionId:0,
         actionName: 'glasgow',
         message: 'Tras las pruebas realizadas al paciente, el nivel de conciencia se representa con un 4 en la escala de Glasgow',
         photo: false,
@@ -619,12 +687,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'lethargic',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 2
       },
 
       {
         actionId: 24,
+        subactionId:0,
         actionName: 'analgesics',
         message: 'Se han sumistrado analgésicos por vía sanguínea.',
         photo: false,
@@ -646,12 +717,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
       },
 
       {
         actionId: 25,
+        subactionId:0,
         actionName: 'intubate',
         message: 'Intubación',
         photo: true,
@@ -673,12 +747,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 4
       },
 
       {
         actionId: 26,
+        subactionId:0,
         actionName: 'laparotomy',
         message: 'Se procede a explorar el abdomen del paciente.',
         photo: true,
@@ -700,12 +777,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 50
       },
 
       {
         actionId: 27,
+        subactionId:0,
         actionName: 'thoracotomy',
         message: 'Se procede a abrir la pared torácica del paciente.',
         photo: true,
@@ -727,12 +807,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 50
       },
 
       {
         actionId: 28,
+        subactionId:0,
         actionName: 'Torniquete',
         message: 'Torniquete',
         photo: false,
@@ -754,12 +837,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
       },
 
       {
         actionId: 29,
+        subactionId:0,
         actionName: 'Auscultación',
         message: 'Auscultación',
         photo: false,
@@ -781,12 +867,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
       },
 
       {
         actionId: 30,
+        subactionId:0,
         actionName: 'Pulsioxímetro',
         message: 'Pulsioxímetro',
         photo: false,
@@ -808,12 +897,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
       },
 
       {/*{
         actionId: 31,
+        subactionId:0,
         actionName: 'pulseoximeter',
         message: 'La saturación de oxígeno en sangre es baja, presentando hipoxemia.',
         photo: false,
@@ -835,6 +927,9 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
+        
         age:-1, 
 			 time: 20
       }*/},
@@ -842,6 +937,7 @@ module.exports = {
 
       {
         actionId: 32,
+        subactionId:0,
         actionName: 'Cánula orofaríngea',
         message: 'Cánula orofaríngea',
         photo: false,
@@ -863,12 +959,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 3
       },
 
       {/*{
         actionId: 33,
+        subactionId:0,
         actionName: 'oropharyngealcannula',
         message: 'Reflejo nauseoso y vómitos por colocación de cánula orofaríngea.',
         photo: false,
@@ -890,6 +989,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age:-1, 
 			 time: 3
       },*/},
@@ -898,6 +999,7 @@ module.exports = {
 
       {
         actionId: 34,
+        subactionId:0,
         actionName: 'Oxigenoterapia con gafas nasales',
         message: 'Oxigenoterapia con gafas nasales',
         photo: false,
@@ -919,12 +1021,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
       },
 
       {
         actionId: 35,
+        subactionId:0,
         actionName: 'Capnógrafo',
         message: 'Capnógrafo',
         photo: false,
@@ -946,12 +1051,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
       },
 
       {/*{
         actionId: 36,
+        subactionId:0,
         actionName: 'capnographer',
         message: 'La concentración de dioxido de carbono es elevada, presentando hipercapnia.',
         photo: false,
@@ -973,6 +1081,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+         phase: '-1',
+        traumatype: '-1',
         age:-1, 
 			 time: 30
       },*/},
@@ -981,6 +1091,7 @@ module.exports = {
 
       {
         actionId: 37,
+        subactionId:0,
         actionName: 'Ventilación con bolsa autoinflable',
         message: 'Ventilación con bolsa autoinflable',
         photo: false,
@@ -1002,6 +1113,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1009,6 +1122,7 @@ module.exports = {
 
       {
         actionId: 38,
+        subactionId:0,
         actionName: 'Apósito oclusivo',
         message: 'Apósito oclusivo',
         photo: false,
@@ -1030,6 +1144,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1037,6 +1153,7 @@ module.exports = {
 
       {
         actionId: 39,
+        subactionId:0,
         actionName: 'Toracocentesis con aguja',
         message: 'Toracocentesis con aguja',
         photo: false,
@@ -1058,6 +1175,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1065,6 +1184,7 @@ module.exports = {
 
       {
         actionId: 40,
+        subactionId:0,
         actionName: 'Drenaje Torácico',
         message: 'Drenaje Torácico',
         photo: false,
@@ -1086,6 +1206,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1093,6 +1215,7 @@ module.exports = {
 
       {
         actionId: 41,
+        subactionId:0,
         actionName: 'Férula de vacío',
         message: 'Férula de vacío',
         photo: false,
@@ -1114,6 +1237,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1121,6 +1246,7 @@ module.exports = {
 
       {
         actionId: 42,
+        subactionId:0,
         actionName: 'Control cervical manual',
         message: 'Control cervical manual',
         photo: false,
@@ -1142,6 +1268,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
 
@@ -1149,6 +1277,7 @@ module.exports = {
 
       {
         actionId: 43,
+        subactionId:0,
         actionName: 'Colchón de vacío',
         message: 'Colchón de vacío',
         photo: false,
@@ -1170,6 +1299,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1177,6 +1308,7 @@ module.exports = {
 
       {
         actionId: 44,
+        subactionId:0,
         actionName: 'venous',
         message: 'Se lleva a cabo una gasometría venosa.',
         photo: false,
@@ -1198,6 +1330,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1205,6 +1339,7 @@ module.exports = {
 
       {
         actionId: 45,
+        subactionId:0,
         actionName: 'arterial',
         message: 'Se lleva a cabo una gasometría arterial.',
         photo: false,
@@ -1226,6 +1361,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1233,6 +1370,7 @@ module.exports = {
 
       {
         actionId: 46,
+        subactionId:0,
         actionName: 'crossmatch',
         message: 'Prueba cruzada compatible, se puede proceder a realizar una transfusión .',
         photo: false,
@@ -1254,6 +1392,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 3
 
@@ -1261,6 +1401,7 @@ module.exports = {
 
       {
         actionId: 47,
+        subactionId:0,
         actionName: 'crossmatch',
         message: 'Prueba cruzada incompatible, no se puede realizar una transfusión.',
         photo: false,
@@ -1282,6 +1423,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 3
 
@@ -1291,6 +1434,7 @@ module.exports = {
 
       {
         actionId: 48,
+        subactionId:0,
         actionName: 'Presión directa',
         message: 'Presión directa',
         photo: false,
@@ -1312,6 +1456,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
 
@@ -1319,6 +1465,7 @@ module.exports = {
 
       {
         actionId: 49,
+        subactionId:0,
         actionName: 'Agente hemostático',
         message: 'Agente hemostático',
         photo: false,
@@ -1340,6 +1487,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1347,6 +1496,7 @@ module.exports = {
 
       {
         actionId: 50,
+        subactionId:0,
         actionName: 'Canalización VVP',
         message: 'Canalización VVP',
         photo: false,
@@ -1368,6 +1518,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 40
 
@@ -1375,6 +1527,7 @@ module.exports = {
 
       {
         actionId: 51,
+        subactionId:0,
         actionName: 'Canalización IO',
         message: 'Canalización IO',
         photo: false,
@@ -1396,6 +1549,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 40
 
@@ -1403,6 +1558,7 @@ module.exports = {
 
       {
         actionId: 52,
+        subactionId:0,
         actionName: 'PANI digital',
         message: 'PANI digital',
         photo: false,
@@ -1424,6 +1580,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 40
 
@@ -1431,6 +1589,7 @@ module.exports = {
 
       {
         actionId: 53,
+        subactionId:0,
         actionName: '6 Derivaciones',
         message: '6 Derivaciones',
         photo: false,
@@ -1452,6 +1611,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 40
 
@@ -1459,6 +1620,7 @@ module.exports = {
 
       {
         actionId: 54,
+        subactionId:0,
         actionName: 'ECG 12 Derivaciones',
         message: 'ECG 12 Derivaciones',
         photo: false,
@@ -1480,6 +1642,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 40
 
@@ -1487,6 +1651,7 @@ module.exports = {
 
       {
         actionId: 55,
+        subactionId:0,
         actionName: 'pupils',
         message: 'La respuesta al estímulo luminoso es lenta.',
         photo: false,
@@ -1508,6 +1673,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'confused',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
 
@@ -1515,6 +1682,7 @@ module.exports = {
 
       {
         actionId: 56,
+        subactionId:0,
         actionName: 'pupils',
         message: 'El paciente responde adecuadamente a estímulos luminosos .',
         photo: false,
@@ -1536,6 +1704,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'normal',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
 
@@ -1543,6 +1713,7 @@ module.exports = {
 
       {
         actionId: 57,
+        subactionId:0,
         actionName: 'pupils',
         message: 'El paciente no responde a estímulos luminosos .',
         photo: false,
@@ -1564,6 +1735,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'lethargic',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
 
@@ -1571,6 +1744,7 @@ module.exports = {
 
       {
         actionId: 58,
+        subactionId:0,
         actionName: 'pupils',
         message: 'El tamaño de la pupila es anormal.',
         photo: false,
@@ -1592,6 +1766,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'anxious',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
 
@@ -1599,6 +1775,7 @@ module.exports = {
 
       {
         actionId: 59,
+        subactionId:0,
         actionName: 'nerves',
         message: 'Se realiza una exploración de los nervios craneales .',
         photo: false,
@@ -1620,6 +1797,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1627,6 +1806,7 @@ module.exports = {
 
       {
         actionId: 60,
+        subactionId:0,
         actionName: 'extremities',
         message: 'La fuerza y la sensibilidad que el paciente presenta en las extremidades es adecuada.',
         photo: false,
@@ -1648,6 +1828,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1655,6 +1837,7 @@ module.exports = {
 
       {
         actionId: 61,
+        subactionId:0,
         actionName: 'extremities',
         message: 'La fuerza y la sensibilidad que el paciente presenta en las extremidades no es adecuada .',
         photo: false,
@@ -1676,6 +1859,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1683,6 +1868,7 @@ module.exports = {
 
       {
         actionId: 62,
+        subactionId:0,
         actionName: 'Sondaje vesical',
         message: 'Sondaje vesical',
         photo: false,
@@ -1704,6 +1890,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1711,6 +1899,7 @@ module.exports = {
 
       {
         actionId: 63,
+        subactionId:0,
         actionName: 'Sondaje nasogástrico',
         message: 'Sondaje nasogástrico',
         photo: false,
@@ -1732,6 +1921,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 30
 
@@ -1739,6 +1930,7 @@ module.exports = {
 
       {
         actionId: 64,
+        subactionId:0,
         actionName: 'SIR',
         message: 'Medicación administrada.',
         photo: false,
@@ -1760,6 +1952,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1767,6 +1961,7 @@ module.exports = {
 
       {
         actionId: 65,
+        subactionId:0,
         actionName: 'Fentanilo 50mcg IV',
         message: 'Fentanilo 50mcg IV',
         photo: false,
@@ -1788,6 +1983,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1795,6 +1992,7 @@ module.exports = {
 
       {
         actionId: 66,
+        subactionId:0,
         actionName: 'Midazolam 2mg IV',
         message: 'Midazolam 2mg IV',
         photo: false,
@@ -1816,6 +2014,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1823,6 +2023,7 @@ module.exports = {
 
       {
         actionId: 67,
+        subactionId:0,
         actionName: 'Ácido Tranexámico 1g IV',
         message: 'Ácido Tranexámico 1g IV',
         photo: false,
@@ -1844,6 +2045,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1851,6 +2054,7 @@ module.exports = {
 
       {
         actionId: 68,
+        subactionId:0,
         actionName: 'Noradrenalina IV',
         message: 'Noradrenalina IV',
         photo: false,
@@ -1872,6 +2076,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1879,6 +2085,7 @@ module.exports = {
 
       {
         actionId: 69,
+        subactionId:0,
         actionName: 'SSF 20ml/kg en 10 minutos',
         message: 'SSF 20ml/kg en 10 minutos',
         photo: false,
@@ -1900,6 +2107,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1907,6 +2116,7 @@ module.exports = {
 
       {
         actionId: 70,
+        subactionId:0,
         actionName: 'SSF 500ml mantenimiento',
         message: 'SSF 500ml mantenimiento',
         photo: false,
@@ -1928,6 +2138,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1935,6 +2147,7 @@ module.exports = {
 
       {
         actionId: 71,
+        subactionId:0,
         actionName: 'Voluven 250ml IV',
         message: 'Voluven 250ml IV',
         photo: false,
@@ -1956,6 +2169,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1963,6 +2178,7 @@ module.exports = {
 
       {
         actionId: 72,
+        subactionId:0,
         actionName: 'SG 5% mantenimiento',
         message: 'SG 5% mantenimiento',
         photo: false,
@@ -1984,6 +2200,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 20
 
@@ -1991,6 +2209,7 @@ module.exports = {
 
       {
         actionId: 73,
+        subactionId:0,
         actionName: 'inr',
         message: 'El valor de INR es adecuado.',
         photo: false,
@@ -2012,6 +2231,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 2
 
@@ -2019,6 +2240,7 @@ module.exports = {
 
       {
         actionId: 74,
+        subactionId:0,
         actionName: 'inr',
         message: 'El valor de INR es bajo.',
         photo: false,
@@ -2040,6 +2262,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 2
 
@@ -2047,6 +2271,7 @@ module.exports = {
 
       {
         actionId: 75,
+        subactionId:0,
         actionName: 'inr',
         message: 'El valor de INR es elevado.',
         photo: false,
@@ -2068,6 +2293,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 2
 
@@ -2075,6 +2302,7 @@ module.exports = {
 
       {
         actionId: 76,
+        subactionId:0,
         actionName: 'glicemia',
         message: 'Los niveles de azucar en sangre son correctos.',
         photo: false,
@@ -2096,6 +2324,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 10
 
@@ -2103,6 +2333,7 @@ module.exports = {
 
       {
         actionId: 77,
+        subactionId:0,
         actionName: 'dialog',
         message: 'El paciente no responde al díalogo, encontrándose en estado de ansiedad.',
         photo: false,
@@ -2124,12 +2355,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: 'anxious',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 78,
+        subactionId:0,
         actionName: '¿Cómo te llamas?',
         message: '¿Cómo te llamas?',
         photo: false,
@@ -2151,12 +2385,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 79,
+        actionId: 78,
+        subactionId:1,
         actionName: '¿Cómo te llamas?',
         message: 'Javier.',
         photo: false,
@@ -2178,12 +2415,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 80,
+        actionId: 78,
+        subactionId:2,
         actionName: '¿Cómo te llamas?',
         message: 'Paco.',
         photo: false,
@@ -2205,12 +2445,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 81,
+        actionId: 78,
+        subactionId:3,
         actionName: '¿Cómo te llamas?',
         message: 'Manuel.',
         photo: false,
@@ -2232,12 +2475,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
-        actionId: 82,
+        actionId: 78,
+        subactionId:4,
         actionName: '¿Cómo te llamas?',
         message: 'Antonio.',
         photo: false,
@@ -2259,6 +2505,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
@@ -2266,6 +2514,7 @@ module.exports = {
 
       {
         actionId: 83,
+        subactionId:0,
         actionName: '¿Qué edad tienes?',
         message: '¿Qué edad tienes?',
         photo: false,
@@ -2287,12 +2536,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 84,
+        actionId: 83,
+        subactionId:1,
         actionName: '¿Qué edad tienes?',
         message: 'Tengo 33 años.',
         photo: false,
@@ -2314,12 +2566,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 85,
+        actionId: 83,
+        subactionId:2,
         actionName: '¿Qué edad tienes?',
         message: 'Tengo 50 años.',
         photo: false,
@@ -2341,12 +2596,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 86,
+        actionId: 83,
+        subactionId:3,
         actionName: '¿Qué edad tienes?',
         message: 'Tengo 82 años.',
         photo: false,
@@ -2368,12 +2626,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
-        actionId: 87,
+        actionId: 83,
+        subactionId:4,
         actionName: '¿Qué edad tienes?',
         message: 'Tengo 25 años.',
         photo: false,
@@ -2395,6 +2656,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
@@ -2403,6 +2666,7 @@ module.exports = {
 
       {
         actionId: 88,
+        subactionId:0,
         actionName: '¿Tienes alguna alergia?',
         message: '¿Tienes alguna alergia?',
         photo: false,
@@ -2424,12 +2688,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 89,
+        actionId: 88,
+        subactionId:1,
         actionName: '¿Tienes alguna alergia?',
         message: 'A los frutos secos.',
         photo: false,
@@ -2451,12 +2718,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 90,
+        actionId: 88,
+        subactionId:2,
         actionName: '¿Tienes alguna alergia?',
         message: 'No.',
         photo: false,
@@ -2478,12 +2748,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 91,
+        actionId: 88,
+        subactionId:3,
         actionName: '¿Tienes alguna alergia?',
         message: 'Sí, al nolotil.',
         photo: false,
@@ -2505,12 +2778,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
-        actionId: 92,
+        actionId: 88,
+        subactionId:4,
         actionName: '¿Tienes alguna alergia?',
         message: 'A la piel del melocotón.',
         photo: false,
@@ -2532,12 +2808,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 93,
+        subactionId:0,
         actionName: '¿Tienes alguna enfermedad importante?',
         message: '¿Tienes alguna enfermedad importante?',
         photo: false,
@@ -2559,12 +2838,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 94,
+        actionId: 93,
+        subactionId:1,
         actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No.',
         photo: false,
@@ -2586,12 +2868,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 95,
+        actionId: 93,
+        subactionId:2,
         actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No, aunque tengo trastornos intestinales que me han diagnosticado como colon irritable.',
         photo: false,
@@ -2613,12 +2898,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 96,
+        actionId: 93,
+        subactionId:3,
         actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No, aunque por la edad tengo la tensión algo alta y problemas de azúcar.',
         photo: false,
@@ -2640,12 +2928,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
-        actionId: 97,
+        actionId: 93,
+        subactionId:4,
         actionName: '¿Tienes alguna enfermedad importante?',
         message: 'No.',
         photo: false,
@@ -2667,12 +2958,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 98,
+        subactionId:0,
         actionName: '¿Tomas alguna medicación?',
         message: '¿Tomas alguna medicación?',
         photo: false,
@@ -2694,12 +2988,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 99,
+        actionId: 98,
+        subactionId:1,
         actionName: '¿Tomas alguna medicación?',
         message: 'Ibuprofeno a veces.',
         photo: false,
@@ -2721,12 +3018,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 100,
+        actionId: 98,
+        subactionId:2,
         actionName: '¿Tomas alguna medicación?',
         message: 'Somníferos en algunas ocasiones, cuando tengo problemas para dormir .',
         photo: false,
@@ -2748,12 +3048,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 101,
+        actionId: 98,
+        subactionId:3,
         actionName: '¿Tomas alguna medicación?',
         message: 'Lisinopril, una pastilla al día.',
         photo: false,
@@ -2775,12 +3078,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
-        actionId: 102,
+        actionId: 98,
+        subactionId:4,
         actionName: '¿Tomas alguna medicación?',
         message: 'Sí, a veces tomo paracetamol .',
         photo: false,
@@ -2802,6 +3108,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
@@ -2809,6 +3117,7 @@ module.exports = {
 
       {
         actionId: 103,
+        subactionId:0,
         actionName: '¿Sabes dónde estás?',
         message: '¿Sabes dónde estás?',
         photo: false,
@@ -2830,12 +3139,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 104,
+        actionId: 103,
+        subactionId:1,
         actionName: '¿Sabes dónde estás?',
         message: 'Sí, fuera de la carretera entre unos arbustos.',
         photo: false,
@@ -2857,12 +3169,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 105,
+        actionId: 103,
+        subactionId:2,
         actionName: '¿Sabes dónde estás?',
         message: 'Sí, en la obra en la que estoy trabajando.',
         photo: false,
@@ -2884,12 +3199,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 106,
+        actionId: 103,
+        subactionId:3,
         actionName: '¿Sabes dónde estás?',
         message: 'Sí, en casa.',
         photo: false,
@@ -2911,12 +3229,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
-        actionId: 107,
+        actionId: 103,
+        subactionId:4,
         actionName: '¿Sabes dónde estás?',
         message: 'Sí, estoy en medio de la calle.',
         photo: false,
@@ -2938,12 +3259,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 108,
+        subactionId:0,
         actionName: '¿Sabes que ha pasado?',
         message: '¿Sabes que ha pasado?',
         photo: false,
@@ -2965,12 +3289,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 109,
+        actionId: 108,
+        subactionId:1,
         actionName: '¿Sabes que ha pasado?',
         message: 'Estaba circulando y de repente un coche me dio en el lateral del coche y ya no recuerdo nada hasta verme entre medio de estos arbustos fuera de la carretera.',
         photo: false,
@@ -2992,12 +3319,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 110,
+        actionId: 108,
+        subactionId:2,
         actionName: '¿Sabes que ha pasado?',
         message: 'Estaba trabajando cuando me he tropezado yo solo y me he caído del andamio. No recuerdo el impacto pero sí cómo me he caído.',
         photo: false,
@@ -3019,12 +3349,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 111,
+        actionId: 108,
+        subactionId:3,
         actionName: '¿Sabes que ha pasado?',
         message: 'Iba a cruzar la calle y esa bicicleta me ha atropellado, me he caído al suelo y me he pegado un buen golpe, tanto que no me puedo levantar.',
         photo: false,
@@ -3046,12 +3379,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
-        actionId: 112,
+        actionId: 108,
+        subactionId:4,
         actionName: '¿Sabes que ha pasado?',
         message: 'Estaba esperando en un semáforo en rojo y he sentido un fuerte golpe detrás y me he visto en el suelo. He visto un coche salir acelerando.',
         photo: false,
@@ -3073,12 +3409,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 113,
+        subactionId:0,
         actionName: '¿Dónde te duele?',
         message: '¿Dónde te duele?',
         photo: false,
@@ -3100,12 +3439,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 114,
+        actionId: 113,
+        subactionId:1,
         actionName: '¿Dónde te duele?',
         message: 'Me duele mucho en cuanto intento mover la pierna derecha. ',
         photo: false,
@@ -3127,12 +3469,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 115,
+        actionId: 113,
+        subactionId:2,
         actionName: '¿Dónde te duele?',
         message: 'Me duele mucho en cuanto intento mover cualquiera de las dos piernas.',
         photo: false,
@@ -3154,12 +3499,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 116,
+        actionId: 113,
+        subactionId:3,
         actionName: '¿Dónde te duele?',
         message: 'Me duele mucho en la ingle. ',
         photo: false,
@@ -3181,12 +3529,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
-        actionId: 117,
+        actionId: 113,
+        subactionId:4,
         actionName: '¿Dónde te duele?',
         message: 'Me duele mucho la ingle. En cuanto intento mover una pierna me duele. ',
         photo: false,
@@ -3208,6 +3559,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
@@ -3215,6 +3568,7 @@ module.exports = {
 
       {
         actionId: 118,
+        subactionId:0,
         actionName: '¿Te cuesta respirar?',
         message: '¿Te cuesta respirar?',
         photo: false,
@@ -3236,12 +3590,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1 
       },
 
       {
-        actionId: 119,
+        actionId: 118,
+        subactionId:1,
         actionName: '¿Te cuesta respirar?',
         message: 'No, no me cuesta respirar pero me noto muy nervioso y como si el corazón se me saliera del pecho.',
         photo: false,
@@ -3263,12 +3620,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 120,
+        actionId: 118,
+        subactionId:2,
         actionName: '¿Te cuesta respirar?',
         message: 'No, no me cuesta respirar pero me noto como si estuviera un poco confundido.',
         photo: false,
@@ -3290,12 +3650,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 121,
+        actionId: 118,
+        subactionId:3,
         actionName: '¿Te cuesta respirar?',
         message: 'No, no me cuesta respirar aunque cuando me dan pinchazos de dolor me cuesta respirar.',
         photo: false,
@@ -3317,11 +3680,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
       {
-        actionId: 122,
+        actionId: 118,
+        subactionId:4,
         actionName: '¿Te cuesta respirar?',
         message: 'No, me duele mucho la ingle.',
         photo: false,
@@ -3343,12 +3709,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1 
       },
 
       {
         actionId: 123,
+        subactionId:0,
         actionName: '¿Puedes mover las piernas y los brazos?',
         message: '¿Puedes mover las piernas y los brazos?',
         photo: false,
@@ -3370,12 +3739,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
-        actionId: 124,
+        actionId: 123,
+        subactionId:1,
         actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Aunque me cueste, creo que puedo mover los dedos de la pierna derecha. ',
         photo: false,
@@ -3397,12 +3769,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
-        actionId: 125,
+        actionId: 123,
+        subactionId:2,
         actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Puedo moverme aunque me duele muchísimo y hacia afuera me cuesta mucho también.',
         photo: false,
@@ -3424,12 +3799,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'pelvis',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
-        actionId: 126,
+        actionId: 123,
+        subactionId:3,
         actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Puedo moverme, aunque me duele muchísimo y sobretodo la pierna izquierda que no puedo apenas moverla.',
         photo: false,
@@ -3451,11 +3829,14 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
       {
-        actionId: 127,
+        actionId: 123,
+        subactionId:4,
         actionName: '¿Puedes mover las piernas y los brazos?',
         message: 'Mueve ambos pies',
         photo: false,
@@ -3477,12 +3858,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 128,
+        subactionId:0,
         actionName: '¿Sientes cómo te toco?',
         message: '¿Sientes cómo te toco?',
         photo: false,
@@ -3504,12 +3888,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 129,
+        subactionId:0,
         actionName: 'Conexión a ventilación mecánica',
         message: 'Conexión a ventilación mecánica',
         photo: false,
@@ -3531,12 +3918,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 130,
+        subactionId:0,
         actionName: 'Retirada de ropa',
         message: 'Retirada de ropa',
         photo: false,
@@ -3558,12 +3948,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 131,
+        subactionId:0,
         actionName: 'Protocolo de transfusión masiva',
         message: 'Protocolo de transfusión masiva',
         photo: false,
@@ -3585,12 +3978,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
 
       {
         actionId: 132,
+        subactionId:0,
         actionName: 'Solicitud de ineterconsultas a otras especialidades',
         message: 'Solicitud de ineterconsultas a otras especialidades',
         photo: false,
@@ -3612,6 +4008,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: '-1',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: -1,
         time: 1
       },
@@ -3619,6 +4017,7 @@ module.exports = {
 
       {
         actionId: 133,
+        subactionId:0,
         actionName: '¿Sabes dónde estás?',
         message: 'Sí, en la calle.',
         photo: false,
@@ -3640,6 +4039,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
@@ -3647,6 +4048,7 @@ module.exports = {
 
       {
         actionId: 134,
+        subactionId:0,
         actionName: '¿Sabes dónde estás?',
         message: 'Sí, en el coche.',
         photo: false,
@@ -3668,12 +4070,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
         actionId: 135,
+        subactionId:0,
         actionName: '¿Sabes que ha pasado?',
         message: 'Estaba conduciendo y de repente recuerdo que me dormía pero no recuerdo nada más.',
         photo: false,
@@ -3695,12 +4100,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
         actionId: 136,
+        subactionId:0,
         actionName: '¿Dónde te duele?',
         message: 'Me duele muchísimo la pierna izquierda y la cabeza. ',
         photo: false,
@@ -3722,6 +4130,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
@@ -3729,6 +4139,7 @@ module.exports = {
 
       {
         actionId: 137,
+        subactionId:0,
         actionName: '¿Te cuesta respirar?',
         message: 'No, lo que más me duele es la pierna, como si me quemara.',
         photo: false,
@@ -3750,12 +4161,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1 
       },
 
       {
         actionId: 138,
+        subactionId:0,
         actionName: '¿Sientes cómo te toco?',
         message: 'Sí, si te siento',
         photo: false,
@@ -3777,12 +4191,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
 
       {
         actionId: 139,
+        subactionId:0,
         actionName: ' ¿Puedes mover las piernas y los brazos?',
         message: 'Sí, si te siento',
         photo: false,
@@ -3804,6 +4221,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 25,
         time: 1
       },
@@ -3811,6 +4230,7 @@ module.exports = {
 
       {
         actionId: 140,
+        subactionId:0,
         actionName: '¿Sabes dónde estás?',
         message: 'Sí, fuera de la carretera en el coche.',
         photo: false,
@@ -3832,12 +4252,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
         actionId: 141,
+        subactionId:0,
         actionName: '¿Sabes que ha pasado?',
         message: 'Estaba circulando y de repente un coche me dio en el lateral del coche y ya no recuerdo nada hasta verme fuera de la carretera.',
         photo: false,
@@ -3859,12 +4282,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
         actionId: 142,
+        subactionId:0,
         actionName: '¿Dónde te duele?',
         message: 'Me duele mucho en cuanto intento moverme. ',
         photo: false,
@@ -3886,12 +4312,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
         actionId: 144,
+        subactionId:0,
         actionName: '¿Sientes cómo te toco?',
         message: 'Sí, si te siento y aunque me cueste',
         photo: false,
@@ -3913,12 +4342,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
         actionId: 145,
+        subactionId:0,
         actionName: ' ¿Puedes mover las piernas y los brazos?',
         message: 'Sí, si te siento y aunque me cueste',
         photo: false,
@@ -3940,12 +4372,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 33,
         time: 1
       },
 
       {
         actionId: 146,
+        subactionId:0,
         actionName: '¿Sabes que ha pasado?',
         message: 'Estaba trabajando cuando me he tropezado yo solo y me he caído del andamio. No recuerdo el impacto pero sí cómo me he caído y un dolor muy muy fuerte en la pierna.',
         photo: false,
@@ -3967,12 +4402,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
         actionId: 147,
+        subactionId:0,
         actionName: '¿Dónde te duele?',
         message: 'Me duele muchísimo en cuanto intento moverme. ',
         photo: false,
@@ -3994,12 +4432,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
         actionId: 148,
+        subactionId:0,
         actionName: '¿Sientes cómo te toco?',
         message: 'Sí, si te siento.',
         photo: false,
@@ -4021,12 +4462,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
 
       {
         actionId: 149,
+        subactionId:0,
         actionName: ' ¿Puedes mover las piernas y los brazos?',
         message: 'Sí, si te siento',
         photo: false,
@@ -4048,6 +4492,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 50,
         time: 1
       },
@@ -4055,6 +4501,7 @@ module.exports = {
 
       {
         actionId: 150,
+        subactionId:0,
         actionName: '¿Sabes dónde estás?',
         message: 'Sí, en la calle.',
         photo: false,
@@ -4076,12 +4523,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
         actionId: 151,
+        subactionId:0,
         actionName: '¿Sabes que ha pasado?',
         message: 'Iba a cruzar la calle, me he caído y me han atropellado, no me puedo mover me duele mucho.',
         photo: false,
@@ -4103,12 +4553,15 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       },
 
       {
         actionId: 152,
+        subactionId:0,
         actionName: '¿Dónde te duele?',
         message: 'Me duele mucho la pierna izquierda. ',
         photo: false,
@@ -4130,6 +4583,8 @@ module.exports = {
         temperatureMax: -1,
         partBody: 'leftLeg',
         mentalStatus: '-1',
+        phase: '-1',
+        traumatype: '-1',
         age: 82,
         time: 1
       }

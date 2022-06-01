@@ -40,6 +40,7 @@ controller.create = async (req,res) => {
       data: data
     });
   }
+
   //read
   controller.get = async (req,res) => {
     const { id } = req.params;
@@ -128,6 +129,7 @@ controller.getSimulations = async (req, res) => {
   })
   res.json({ success: true, data: nTrainings });
 }
+
 
 module.exports = controller;
 

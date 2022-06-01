@@ -82,7 +82,8 @@ class DashboardTrainer extends Component {
                         <Link to={{
                                     pathname: '/newSimulation',
                                     state: { id: this.state.id,
-                                    email: this.props.location.state.email}
+                                    email: this.props.location.state.email,
+                                    roleId:this.props.location.state.roleId}
                                 }}>
                             <Button>{t('dashboard.new-simulation')}</Button>
                         </Link>
@@ -91,7 +92,8 @@ class DashboardTrainer extends Component {
                         <Link to={{
                                     pathname: '/listSimulation',
                                     state: { id: this.state.id,
-                                             isTrainer: true  }
+                                             isTrainer: true
+                                              }
                                 }}>
                             <Button>{t('dashboard.access-simulation')}</Button>
                         </Link>

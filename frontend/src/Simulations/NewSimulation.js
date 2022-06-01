@@ -24,6 +24,7 @@ class NewSimulation extends Component {
         this.state = {
             trainerId: 0,
             traineeId:0,
+            roleId: 0,
             sex: 0,
             age: 0,
             weight: 0.0,
@@ -157,6 +158,7 @@ class NewSimulation extends Component {
         const datapost = {
             trainerId: this.state.trainerId,
             traineeId: this.state.traineeId,
+            roleId: this.state.ageroleId,
             sex: this.state.sex,
             age: this.state.age,
             weight: this.state.weight,

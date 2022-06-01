@@ -4,11 +4,17 @@ var Sequelize = require('sequelize');
 var sequelize = require('./database');
 
 var Action = sequelize.define('action', {
-    actionId: {
+    Id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         unique: true
+    },
+    actionId:Sequelize.INTEGER,
+
+    subactionId:{
+        type:Sequelize.INTEGER,
+        defaultValue: 0
     },
     actionName: Sequelize.STRING,
     message: Sequelize.STRING,
@@ -31,6 +37,8 @@ var Action = sequelize.define('action', {
     temperatureMax: Sequelize.DOUBLE,
     partBody: Sequelize.STRING,
     mentalStatus: Sequelize.STRING,
+    phase: Sequelize.STRING,
+    traumatype: Sequelize.STRING,
     time: Sequelize.INTEGER,
     age:Sequelize.INTEGER
 },

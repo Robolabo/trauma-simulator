@@ -19,6 +19,7 @@ class SimulationList extends React.Component  {
     this.state = {
       listSimulation:[],
       isTrainer: this.props.location.state.isTrainer,
+      roleId:this.props.location.state.roleId,
       alert: false,
       redirect: false,
       id: this.props.location.state.id,
@@ -27,9 +28,12 @@ class SimulationList extends React.Component  {
       check1:false,
       nTrainings: 0,
       
+      
     }
   }
 
+
+  
   handleLogout = () => {
     var i = this.props.location.state.id;
     var train = this.state.isTrainer? "trainer": "trainee";
@@ -49,7 +53,8 @@ class SimulationList extends React.Component  {
   var request = {
     params: {
       idTrainer: 2,
-       idTrainee: this.props.location.state.id
+       idTrainee: this.props.location.state.id,
+       roleId: this.props.location.state.roleId
     }
   }
        //const baseGetURL = "http://localhost:8080/simulation/listByTraineeAndTrainer";
@@ -74,6 +79,7 @@ class SimulationList extends React.Component  {
         var datapost1 = {
             trainerId: 2,
             traineeId: this.props.location.state.id,
+            roleId: this.props.location.state.roleId,
             sex: 0,
             age: 33,
             weight: 80,
@@ -98,6 +104,7 @@ class SimulationList extends React.Component  {
         var datapost2 = {
           trainerId: 2,
           traineeId: this.props.location.state.id,
+          roleId: this.props.location.state.roleId,
           sex: 0,
           age: 33,
           weight: 80,
@@ -122,6 +129,7 @@ class SimulationList extends React.Component  {
          var datapost3 = {
             trainerId: 2,
             traineeId: this.props.location.state.id,
+            roleId: this.props.location.state.roleId,
             sex: 0,
             age: 50,
             weight: 90, 
@@ -145,6 +153,7 @@ class SimulationList extends React.Component  {
          var datapost4 = {
           trainerId: 2,
           traineeId: this.props.location.state.id,
+          roleId: this.props.location.state.roleId,
           sex: 0,
           age: 50,
           weight: 90, 
@@ -169,6 +178,7 @@ class SimulationList extends React.Component  {
           var datapost5 = {
             trainerId: 2,
             traineeId: this.props.location.state.id,
+            roleId: this.props.location.state.roleId,
             sex: 0,
             age: 82,
             weight: 80,
@@ -192,6 +202,7 @@ class SimulationList extends React.Component  {
             var datapost6 = {
               trainerId: 2,
               traineeId: this.props.location.state.id,
+              roleId: this.props.location.state.roleId,
               sex: 0,
               age: 82,
               weight: 80,
@@ -216,6 +227,7 @@ class SimulationList extends React.Component  {
             var datapost7 = {
               trainerId: 2,
               traineeId: this.props.location.state.id,
+              roleId: this.props.location.state.roleId,
               sex: 0,
               age: 33,
               weight: 80,
@@ -238,6 +250,7 @@ class SimulationList extends React.Component  {
             var datapost8 = {
               trainerId: 2,
               traineeId: this.props.location.state.id,
+              roleId: this.props.location.state.roleId,
               sex: 0,
               age: 33,
               weight: 80,
@@ -261,6 +274,7 @@ class SimulationList extends React.Component  {
             var datapost9 = {
               trainerId: 2,
               traineeId: this.props.location.state.id,
+              roleId: this.props.location.state.roleId,
               sex: 0,
               age: 50,
               weight: 80,
@@ -283,6 +297,7 @@ class SimulationList extends React.Component  {
               var datapost10 = {
                 trainerId: 2,
                 traineeId: this.props.location.state.id,
+                roleId: this.props.location.state.roleId,
                 sex: 0,
                 age: 50,
                 weight: 80,
@@ -306,6 +321,7 @@ class SimulationList extends React.Component  {
             var datapost11 = {
               trainerId: 2,
               traineeId: this.props.location.state.id,
+              roleId: this.props.location.state.roleId,
               sex: 0,
               age: 82,
               weight: 80,
@@ -328,6 +344,7 @@ class SimulationList extends React.Component  {
               var datapost12 = {
                 trainerId: 2,
                 traineeId: this.props.location.state.id,
+                roleId: this.props.location.state.roleId,
                 sex: 0,
                 age: 82,
                 weight: 80,
@@ -361,7 +378,7 @@ class SimulationList extends React.Component  {
       arrSimulations.push(datapost10);
       arrSimulations.push(datapost11);
       arrSimulations.push(datapost12);
-    
+      console.log("RoleId1" + this.props.location.state.roleId)
       
         arrSimulations.forEach(dataPost => {
           // Envio al backend y se genera en la base de datos si todo va bien
@@ -381,6 +398,7 @@ class SimulationList extends React.Component  {
               }
               else {
                 alert(response.data.message)
+                
               }
             })
             .catch(error => {
@@ -405,7 +423,9 @@ createCases(){
   var request = {
     params: {
       idTrainer: 1,
-      idTrainee: this.props.location.state.id
+      idTrainee: this.props.location.state.id,
+      roleId: this.props.location.state.roleId
+      
     }
   }
   const baseUrlCreate = "http://localhost:8080/simulation/create"
@@ -421,6 +441,7 @@ createCases(){
       var datapost1 = {
         trainerId: 1,
         traineeId: this.props.location.state.id,
+        roleId: this.props.location.state.roleId,
         sex: 0,
         age: 21,
         weight: 90,
@@ -443,6 +464,7 @@ createCases(){
       var datapost2 = {
         trainerId: 1,
         traineeId: this.props.location.state.id,
+        roleId: this.props.location.state.roleId,
         sex: 0,
         age: 22,
         weight: 90,
@@ -465,6 +487,7 @@ createCases(){
       var datapost3 = {
         trainerId: 1,
         traineeId: this.props.location.state.id,
+        roleId: this.props.location.state.roleId,
         sex: 0,
         age: 23,
         weight: 90,
@@ -487,6 +510,7 @@ createCases(){
       var datapost4 = {
         trainerId: 1,
         traineeId: this.props.location.state.id,
+        roleId: this.props.location.state.roleId,
         sex: 0,
         age: 24,
         weight: 90,
@@ -510,6 +534,7 @@ createCases(){
       var datapost5 = {
         trainerId: 1,
         traineeId: this.props.location.state.id,
+        roleId: this.props.location.state.roleId,
         sex: 0,
         age: 21,
         weight: 80,
@@ -532,6 +557,7 @@ createCases(){
       var datapost6 = {
         trainerId: 1,
         traineeId: this.props.location.state.id,
+        roleId: this.props.location.state.roleId,
         sex: 0,
         age: 22,
         weight: 80,
@@ -554,6 +580,7 @@ createCases(){
         var datapost7 = {
           trainerId: 1,
           traineeId: this.props.location.state.id,
+          roleId: this.props.location.state.roleId,
           sex: 0,
           age: 23,
           weight: 80,
@@ -576,6 +603,7 @@ createCases(){
         var datapost8 = {
           trainerId: 1,
           traineeId: this.props.location.state.id,
+          roleId: this.props.location.state.roleId,
           sex: 0,
           age: 24,
           weight: 80,
@@ -837,6 +865,7 @@ filterData(data){
 
 getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE 
   var returnValue;
+
   switch(partBody){
       case 'pelvis':
           returnValue = 'new-simulation.pelvis'
@@ -970,7 +999,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
                         state: { id: this.props.location.state.id,
                           trainerList:this.props.location.state.trainerList},
                         
-                    }} >Volver a entrar
+                    }} > Entrar
                     </Link> :
                     <p>Simulación Finalizada</p>
              

@@ -45,7 +45,7 @@ module.exports = {
        minute: {
          type: Sequelize.INTEGER
       },
-      second: {
+       second: {
         type: Sequelize.INTEGER
      }
       },
