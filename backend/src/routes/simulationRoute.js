@@ -7,6 +7,7 @@ const simulationController = require('../controllers/simulationController')
 router.get('/list',simulationController.list );
 router.get('/listTrainer/:id',simulationController.listByTrainerId);
 router.get('/listTrainee/:id',simulationController.listByTraineeId);
+router.get('/listo/:id',simulationController.listo);
 // Añado una nueva ruta
 router.get('/listTraineeAndTrainer',simulationController.listByTraineeAndTrainer);
 router.get('/createData', simulationController.testdata)

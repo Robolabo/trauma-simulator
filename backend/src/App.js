@@ -22,6 +22,7 @@ const traineeRouters = require('./routes/traineeRoute')
 const actionRouters = require('./routes/actionRoute')
 const informRouters = require('./routes/informRoute')
 const evaluationRouters = require('./routes/evaluationRoute')
+const resultsRouters = require('./routes/resultsRoute')
 
 //Settings
 app.set('port', process.env.PORT || 8080); //puerto por el que se ejecuta la app
@@ -54,6 +55,7 @@ app.use('/trainee', traineeRouters)
 app.use('/action', actionRouters)
 app.use('/inform', informRouters)
 app.use('/evaluation', evaluationRouters)
+app.use('/results', resultsRouters)
 
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.

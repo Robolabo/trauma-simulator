@@ -48,7 +48,7 @@ export default class Nav extends Component {
         axios.get("http://localhost:8080/trainee/salir/"+this.props.location)
         .then(res => {
          if(res.data.success){
-         alert("hemos salido")
+        
         }
         })
         .catch(error=>{

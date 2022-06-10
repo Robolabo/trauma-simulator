@@ -1,9 +1,10 @@
 const controller = {}
 var Trainee = require('../model/Trainee');
+const Evaluation = require('../model/Evaluation');
 var Role = require('../model/Role');
 var sequelize = require('../model/database');
 var Utils = require('../utils');
-const {QueryTypes, where} = require('sequelize');
+const {QueryTypes, where, and} = require('sequelize');
 const Sequelize = require("sequelize");
 
 
@@ -191,53 +192,29 @@ controller.cuatromin = async (req, res) => {
     
   }
 
-  controller.delete = async (req, res) => {
-    const { simulationId, traineeId} = req.params;
-     //await sequelize.query(`SET SQL_SAFE_UPDATES = 0`)
-    /* sequelize.query(`DELETE FROM evaluations WHERE traineeId="${traineeId}" AND simulationId="${simulationId}"`,{ type: sequelize.QueryTypes.DELETE})
-     .then(function() {
-        res.status(200);
-        res.json({
-          "success": 1,
-          "message": "Deleted"
-        });
-      })
-      .catch( function(err) {
-        res.status(404);
-        res.send({
-          "success" : 0,
-          "message" : err.message
-        });
-      });*/
+  controller.borrar = async (req, res) => {
+    const {traineeId} = req.params;
+    console.log("id"+traineeId)
+    
+       
+      const del = await Evaluation.destroy({
+        where: {traineeId: traineeId }})
+      
+  
+      res.json({success:true,message:"Deleted successful"});
+
 
     
-   
-
-    
+     
 
   }
 
-/*  var primary_key = keys[0].Column_name;
-      sequelize.query("DELETE FROM `"+TABLE_PREFIX+req.params.table+"` WHERE `"+ primary_key +"` = "+mysql_clean(req.params.id), { type: sequelize.QueryTypes.DELETE})
-      .then(function() {
-        res.status(200);
-        res.json({
-          "success": 1,
-          "message": "Deleted"
-        });
-      })
-      .catch( function(err) {
-        res.status(404);
-        res.send({
-          "success" : 0,
-          "message" : err.message
-        });
-      });*/
     
    
 
   controller.min = async (req, res) => {
     const { simulationId, traineeId} = req.params;
+
     const data = await sequelize.query(`select actionId from evaluations where traineeId="${traineeId}" && simulationId="${simulationId}"`,{ type: QueryTypes.SELECT})
     .then(function(data){
       return data;
@@ -253,19 +230,16 @@ controller.cuatromin = async (req, res) => {
     
     data.forEach(function(elemento) {
         min.forEach(function(secuencia){
-            if(secuencia == elemento.actionId){
-                console.log("Secuencia " + secuencia)
-                console.log("BBDD " + elemento.actionId)
-                
+            if(secuencia == elemento.actionId){                
                 var indice = faltan.indexOf(secuencia)
-                console.log("indice " + indice)
                 faltan.splice(indice,1)
-                console.log("Faltan "+faltan)
+                
             }
             
         })
 
     })
+    
     
     let aerea=0;
     let circulacion=0;
@@ -438,28 +412,7 @@ controller.cuatromin = async (req, res) => {
         secuencia[indice]=elemento.actionId;
         })   
     console.log(secuencia);
-    
- 
-  /*  const { spawn } = require('child_process'); 
-    const pyProg = spawn('py', ['./evaluation_lh.py']);
-    // mi_script.py sería el script adaptado
-    // arg1, arg2, ... serían todos los argumentos que se necesiten pasar al
-    // script.              
-    console.log("hola"); 
-    
-    pyProg.stdout.on('data', function(data) { 
-          // Aqui haríamos lo que quisiesemos con la información que devuelve  
-          // el script. La información estará recogida en el objeto data.
-        console.log("Hola2");
 
-         //data.toString();
-         x=data.toString()
-        console.log("Dato "+ data);
-        console.log("Dato3 "+ x);
-        return res.send(data);
-        
-   });*/
-   
  let storeLines = [];
    let storeErrors = []
     new Promise(function (success, nosuccess) {
@@ -471,12 +424,10 @@ controller.cuatromin = async (req, res) => {
          // store errors occurred
         pyprog.stdout.on('data', function (data) {
             storeLines.push(data);
-            console.log("Data2 "+storeLines)
-           // x = String.fromCharCode(...storeLines)
-           
-            //return res.json({ success: true})
-           // return res.send(data)
-            return res.send(data)
+            array = data.toString().split('\r\n');
+            console.log(array)
+            return res.json({success:true, matches: array[0], swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
+           // return res.send(array)
         });
 
         pyprog.stderr.on('data', (data) => {
@@ -487,7 +438,7 @@ controller.cuatromin = async (req, res) => {
             // if we have errors will reject the promise and we'll catch it later
             if (storeErrors.length) {
                // nosuccess(new Error(Buffer.concat(storeErrors).toString()));
-               return res.send("Vacio")
+               return res.json({success:false})
                 
             } else {
                 success(storeLines);
@@ -521,26 +472,7 @@ controller.cuatromin = async (req, res) => {
         })   
     console.log(secuencia);
     
- 
-  /*  const { spawn } = require('child_process'); 
-    const pyProg = spawn('py', ['./evaluation_lh.py']);
-    // mi_script.py sería el script adaptado
-    // arg1, arg2, ... serían todos los argumentos que se necesiten pasar al
-    // script.              
-    console.log("hola"); 
-    
-    pyProg.stdout.on('data', function(data) { 
-          // Aqui haríamos lo que quisiesemos con la información que devuelve  
-          // el script. La información estará recogida en el objeto data.
-        console.log("Hola2");
 
-         //data.toString();
-         x=data.toString()
-        console.log("Dato "+ data);
-        console.log("Dato3 "+ x);
-        return res.send(data);
-        
-   });*/
    
  let storeLines = [];
    let storeErrors = []
@@ -554,11 +486,8 @@ controller.cuatromin = async (req, res) => {
         pyprog.stdout.on('data', function (data) {
             storeLines.push(data);
             console.log("Data2 "+storeLines)
-           // x = String.fromCharCode(...storeLines)
-           
-            //return res.json({ success: true})
-           // return res.send(data)
-            return res.send(data)
+           array = data.toString().split('\r\n');
+           return res.json({success:true, matches: array[0], swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
         });
 
         pyprog.stderr.on('data', (data) => {
@@ -569,7 +498,7 @@ controller.cuatromin = async (req, res) => {
             // if we have errors will reject the promise and we'll catch it later
             if (storeErrors.length) {
                // nosuccess(new Error(Buffer.concat(storeErrors).toString()));
-               return res.send("Vacio")
+               return res.json({success:false})
             } else {
                 success(storeLines);
             }
@@ -584,7 +513,9 @@ controller.cuatromin = async (req, res) => {
   controller.evaluacionPH = async (req, res) => {
     //const { simulationId, traineeId, phase, partbody} = req.body;
     const { simulationId, traineeId} = req.params;
-    const data = await sequelize.query(`select actionId from evaluations where traineeId="${traineeId}" && simulationId="${simulationId}"`,{ type: QueryTypes.SELECT})
+    const data = await sequelize.query(`select actionId from evaluations where traineeId="${traineeId}" && simulationId="${simulationId}" `,{ type: QueryTypes.SELECT})
+    
+    
     .then(function(data){
   
       return data;
@@ -602,26 +533,6 @@ controller.cuatromin = async (req, res) => {
         })   
     console.log(secuencia);
     
- 
-  /*  const { spawn } = require('child_process'); 
-    const pyProg = spawn('py', ['./evaluation_lh.py']);
-    // mi_script.py sería el script adaptado
-    // arg1, arg2, ... serían todos los argumentos que se necesiten pasar al
-    // script.              
-    console.log("hola"); 
-    
-    pyProg.stdout.on('data', function(data) { 
-          // Aqui haríamos lo que quisiesemos con la información que devuelve  
-          // el script. La información estará recogida en el objeto data.
-        console.log("Hola2");
-
-         //data.toString();
-         x=data.toString()
-        console.log("Dato "+ data);
-        console.log("Dato3 "+ x);
-        return res.send(data);
-        
-   });*/
    
  let storeLines = [];
    let storeErrors = []
@@ -639,7 +550,9 @@ controller.cuatromin = async (req, res) => {
            
             //return res.json({ success: true})
            // return res.send(data)
-            return res.send(data)
+           array = data.toString().split('\r\n');
+           console.log(array.length)
+           return res.json({success:true, matches: Number(array[0]), swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
         });
 
         pyprog.stderr.on('data', (data) => {
@@ -650,7 +563,7 @@ controller.cuatromin = async (req, res) => {
             // if we have errors will reject the promise and we'll catch it later
             if (storeErrors.length) {
                // nosuccess(new Error(Buffer.concat(storeErrors).toString()));
-               return res.send("Vacio")
+               return res.json({success:false})
             } else {
                 success(storeLines);
             }
@@ -681,27 +594,6 @@ controller.cuatromin = async (req, res) => {
         secuencia[indice]=elemento.actionId;
         })   
     console.log(secuencia);
-    
- 
-  /*  const { spawn } = require('child_process'); 
-    const pyProg = spawn('py', ['./evaluation_lh.py']);
-    // mi_script.py sería el script adaptado
-    // arg1, arg2, ... serían todos los argumentos que se necesiten pasar al
-    // script.              
-    console.log("hola"); 
-    
-    pyProg.stdout.on('data', function(data) { 
-          // Aqui haríamos lo que quisiesemos con la información que devuelve  
-          // el script. La información estará recogida en el objeto data.
-        console.log("Hola2");
-
-         //data.toString();
-         x=data.toString()
-        console.log("Dato "+ data);
-        console.log("Dato3 "+ x);
-        return res.send(data);
-        
-   });*/
    
  let storeLines = [];
    let storeErrors = []
@@ -719,7 +611,9 @@ controller.cuatromin = async (req, res) => {
            
             //return res.json({ success: true})
            // return res.send(data)
-            return res.send(data)
+           array = data.toString().split('\r\n');
+           console.log(array)
+           return res.json({success:true, matches: array[0], swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
         });
 
         pyprog.stderr.on('data', (data) => {
@@ -730,17 +624,32 @@ controller.cuatromin = async (req, res) => {
             // if we have errors will reject the promise and we'll catch it later
             if (storeErrors.length) {
                // nosuccess(new Error(Buffer.concat(storeErrors).toString()));
-               return res.send("Vacio")
+               return res.json({success:false})
             } else {
                 success(storeLines);
             }
         })
     })
+}
 
-    
-    
-    
-  }
+    controller.results = async (req, res) => {
+        //const { simulationId, traineeId, phase, partbody} = req.body;
+        const { simulationId, traineeId} = req.params;
+        const data = await sequelize.query(`select matches,swap,contr,gasp,mismatches,GA,Diag,Subseq,Preci,Recall,Specificity,Accuracy,F1, Nota from results where traineeId="${traineeId}" && simulationId="${simulationId}" order by id DESC`,{ type: QueryTypes.SELECT})
+        
+       
+        
+        .then(function(data){
+      
+            return res.json({success:true, data: data})
+      
+        }).catch(error =>{
+          console.log("ERRORRR",error)
+          return error;
+      
+        })
+    }
+
 
 controller.session = async (req, res) => {
     try {

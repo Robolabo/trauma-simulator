@@ -4,15 +4,13 @@ import { withTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Inform from '../Information/Document'
-import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom"
+import { Link,Redirect } from "react-router-dom";
 import { Alert } from 'reactstrap';
 import '../Simulations/simulation.css'
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import { getToken, removeUserSession, setUserSession } from '../Utils/Common';
 //import { each } from 'jquery';
 var finish = false
-
 class SimulationList extends React.Component  {
   constructor(props){
     super(props);
@@ -20,6 +18,8 @@ class SimulationList extends React.Component  {
       listSimulation:[],
       isTrainer: this.props.location.state.isTrainer,
       roleId:this.props.location.state.roleId,
+      traineeId:this.props.location.state.traineeId,
+      simulationId:this.props.location.state.simulationId,
       alert: false,
       redirect: false,
       id: this.props.location.state.id,
@@ -27,6 +27,22 @@ class SimulationList extends React.Component  {
       check: true,
       check1:false,
       nTrainings: 0,
+      matches: "",
+      swap:"",
+      contr: "",
+      gasp: "",
+      mismatches:"",
+      GA:"",
+      Diag:"",
+      Subseq:"",
+      Precision:"",
+      Recall:"",
+      Specificity:"",
+      Accuracy:"",
+      F1:"",
+      Nota:"",
+      listo:false
+
       
       
     }
@@ -896,6 +912,11 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
 
 }
 
+
+
+
+
+
   render(){
     const { t } = this.props
   
@@ -921,7 +942,10 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
               <th scope="col">{t('list-simulation.trauma')}</th>
               <th scope="col">{t('list-simulation.time')}</th>
               <th scope="col">Informe</th>
+              <th scope="col">Evaluación</th>
               <th scope="col">{t('list-simulation.action')}</th>
+              
+              
             </tr>
           </thead>
           <tbody>
@@ -958,7 +982,11 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
         {((this.state.redirect && !this.state.alert) ||finish) ? <Redirect to={{
                                                         pathname: '/listSimulation',
                                                         state: { id: this.state.id,
-                                                                  isTrainer: this.state.isTrainer }
+                                                                  isTrainer: this.state.isTrainer,
+                                                                  simulationId:0,
+                                                                  trainerId:0,
+                                                                  partBody:"",
+                                                                  phase:"" }
                                                     }}/>
                                     : null}
       </div>
@@ -987,11 +1015,28 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
           <td>{(data.traumaType === "inferior") ? t('new-simulation.inferior') : t('new-simulation.pelvico')}</td>
           <td>{t(this.getPartBody(data.partBody))}</td>
           <td>{data.time}</td>
+          {
+            console.log(data.simulationId)
+          }
           <td><Inform simulationId = {data.simulationId}
                       surname = {data.trainee.surname}/> 
           </td>
           <td>
-            {(data.inform) !== null ?
+            
+            {data.listo?
+          <Link className="btn btn-outline-info " 
+                    to={{
+                        pathname: "/evaluar/"+data.simulationId,
+                        state: { simulationId: data.simulationId,
+                          traineeId:data.traineeId},
+                        
+                    }} > Evaluar </Link>: <p>Pendiente</p>}
+
+         
+           
+          </td>
+          <td>
+            {(this.state.listo) ?
                 this.props.location.state.trainerList ===true?
                     <Link className="btn btn-outline-info " 
                     to={{
@@ -999,9 +1044,9 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
                         state: { id: this.props.location.state.id,
                           trainerList:this.props.location.state.trainerList},
                         
-                    }} > Entrar
+                    }} > Volver a Entrar
                     </Link> :
-                    <p>Simulación Finalizada</p>
+                    <p>Entrar</p>
              
              :
              
@@ -1018,6 +1063,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
             }} >{t('list-simulation.enter')}
             </Link>}
           </td>
+
           
         </tr>
       )
@@ -1043,5 +1089,60 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
       alert("Error 325 " + error)
     })
   }
+
+  rellenar(simulationId,traineeId){
+     axios.get("http://localhost:8080/trainee/results/"+simulationId+"/"+traineeId)
+    .then(res =>{
+      this.setState({matches: res.data.data[0].matches, swap: res.data.data[0].swap, contr: res.data.data[0].contr, gasp: res.data.data[0].gasp, mismatches: res.data.data[0].mismatches,GA:res.data.data[0].GA, Diag: res.data.data[0].Diag, Subseq: res.data.data[0].Subseq, Precision:res.data.data[0].Preci,Recall: res.data.data[0].Recall,Specificity:res.data.data[0].Specificity,Accuracy:res.data.data[0].Accuracy,F1:res.data.data[0].F1,Nota:res.data.data[0].Nota
+      });      
+    })
+      .catch(error=>{
+        alert("Error server "+error)
+      })
+      this.redireccion(simulationId);
+    }
+  
+  
+    redireccion(simulationId){
+      
+
+      
+        /* return (<Navigate to={{
+        pathname: '/evaluation/'+simulationId,
+        state: {
+        matches: this.state.matches,
+        swap:this.state.swap,
+        contr: this.state.contr,
+        gasp: this.state.gasp,
+        mismatches:this.state.mismatches,
+        GA:this.state.GA,
+        Diag:this.state.Diag,
+        Subseq:this.state.Subseq,
+        Precision:this.state.Precision,
+        Recall:this.state.Recall,
+        Specificity:this.state.Specificity,
+        Accuracy:this.state.Accuracy,
+        F1:this.state.F1,
+        Nota:this.state.Nota}
+       }
+    } />);
+     navigate('/evaluation'+simulationId,{
+      matches: this.state.matches,
+        swap:this.state.swap,
+        contr: this.state.contr,
+        gasp: this.state.gasp,
+        mismatches:this.state.mismatches,
+        GA:this.state.GA,
+        Diag:this.state.Diag,
+        Subseq:this.state.Subseq,
+        Precision:this.state.Precision,
+        Recall:this.state.Recall,
+        Specificity:this.state.Specificity,
+        Accuracy:this.state.Accuracy,
+        F1:this.state.F1,
+        Nota:this.state.Nota
+    });*/
+
+    }
 }
 export default withTranslation()(SimulationList);

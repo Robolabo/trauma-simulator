@@ -102,7 +102,7 @@ class Graphic extends Component {
                     }
                     
                     <div className="reset">
-                        <Button onClick={() => this.props.finish()}>Finalizar</Button>
+                        <Button onClick={() =>{ this.props.finish()}}>Finalizar</Button>
                     </div>    
                 </div>
             </div>

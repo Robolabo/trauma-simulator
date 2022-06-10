@@ -76,6 +76,10 @@ var Simulation = sequelize.define('simulation', {
     temperature: Sequelize.DOUBLE, 
     inform: Sequelize.BLOB,
     rxPelvis:Sequelize.STRING,
+    listo:{
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
     testData: {
         type: Sequelize.JSON,
         defaultValue: null

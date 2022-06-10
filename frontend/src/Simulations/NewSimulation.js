@@ -54,7 +54,7 @@ class NewSimulation extends Component {
         axios.get("http://localhost:8080/trainer/salir/"+this.props.location.state.email)
         .then(res => {
          if(res.data.success){
-         alert("hemos salido")
+         
         }
         })
         .catch(error=>{
@@ -93,7 +93,7 @@ class NewSimulation extends Component {
              if(res.data.success){
               getToken();
               setUserSession();
-              alert("Te quedas")
+              
               
             }
             
@@ -143,7 +143,7 @@ class NewSimulation extends Component {
             })
 
         } else {
-
+            
             alert("No se ha podido cargar el fichero de configuración por defecto")
         }
 

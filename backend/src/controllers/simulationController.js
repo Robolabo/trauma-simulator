@@ -203,6 +203,7 @@ controller.listByTraineeId = async (req, res) => {
   res.json({success : true, data : data});
 
 }
+
 //Devolver las simulaciones con el entrenador train
 //Cambiar nombre 
 controller.listByTraineeAndTrainer = async (req, res) => {
@@ -228,6 +229,24 @@ controller.listByTraineeAndTrainer = async (req, res) => {
   }); 
 
   res.json({success : true, data : data});
+}
+
+controller.listo= async(req,res)=>{
+  const { id } = req.params;
+  const data = await Simulation.update({
+    listo: true,
+  },
+  {
+    where: { simulationId: id}
+  })
+  .then( function(data){
+    return data;
+  })
+  .catch(error => {
+    return error;
+  }) 
+  res.json({success:true, data:data});
+
 }
   
 

@@ -9,6 +9,7 @@ import Timer from '../Simulations/Components/Timer'
 import Graphic from '../Simulations/Components/Graphic'
 import Actions from '../Simulations/Components/Actions'
 import Messages from '../Simulations/Components/Messages'
+import Evaluation from '../evaluation/Evaluation'
 import { Modal, ModalHeader, Card, CardBody, Button } from 'reactstrap'
 import { getToken, removeUserSession, setUserSession } from '../Utils/Common';
 import './simulation.css'
@@ -166,7 +167,21 @@ export default class LoginForm extends Component {
         rxPelvis:"",
         traineeId:"",
         trainerId:"",
-        roleId:1
+        roleId:1,
+        matches: "",
+        swap:"",
+        contr: "",
+        gasp: "",
+        mismatches: "",
+        GA:"",
+        Diag:"",
+        Subseq:"",
+        Precision:"",
+        Recall:"",
+        Specificity:"",
+        Accuracy:"",
+        F1:"",
+        Nota:""
         
         
       }
@@ -203,7 +218,7 @@ export default class LoginForm extends Component {
            if(res.data.success){
             getToken();
             setUserSession();
-            alert("Te quedas")
+            
             
           }
           
@@ -223,7 +238,8 @@ export default class LoginForm extends Component {
       } else {
         // Send user back if they try to navigate back
         history.go(1);
-        console.log("hola")
+        
+  
         this.setState({
           finish: true
         })
@@ -275,6 +291,17 @@ export default class LoginForm extends Component {
     start () {
 
         if ( this.state.confirm) {
+
+          axios.get("http://localhost:8080/trainee/deletes/"+ this.state.traineeId)
+          .then(res => {
+            if(res.data.success){
+            
+           }
+           })
+           .catch(error=>{
+             alert("Error server "+error)
+           })
+
 
             this.setState(( { start }) => ( {
                 start: !start,
@@ -1320,66 +1347,198 @@ export default class LoginForm extends Component {
         alert: null
       });
     }
+   // rellenar(){
+      
+    //}
 
 
 
 
     finish(){
-        this.setState({
-            finish: true
-        })
-        const datapost = {
-          simulationId: this.props.match.params.id,
-          traineeId: this.state.traineeId,
-          phase: this.state.phase,
-          partBody:this.state.partBody
-         
+      if( this.state.partBody=='leftLeg' && this.state.phase=='hospitalaria') {
+        axios.get("http://localhost:8080/trainee/evaluacionLH/"+this.props.match.params.id+"/"+this.state.traineeId)
+          
+            .then(res => {
+                this.setState({matches: res.data.matches, swap: res.data.swap, contr: res.data.contr, gasp: res.data.gasp, mismatches: res.data.mismatches,GA:res.data.GA, Diag: res.data.Diag, Subseq: res.data.Subseq, Precision:res.data.Precision,Recall: res.data.Recall,Specificity:res.data.Specificity,Accuracy:res.data.Accuracy,F1:res.data.F1,Nota:res.data.Nota
+                 });
+                 const datapost = {
+                  traineeId:this.state.traineeId,
+                  simulationId:this.props.match.params.id,
+                  matches: this.state.matches,
+                  swap:this.state.swap,
+                  contr:this.state.contr,
+                  gasp:this.state.gasp,
+                  mismatches:this.state.mismatches,
+                  GA:this.state.GA,
+                  Diag:this.state.Diag,
+                  Subseq:this.state.Subseq,
+                  Precision:this.state.Precision,
+                  Recall:this.state.Recall,
+                  Specificity:this.state.Specificity,
+                  Accuracy:this.state.Accuracy,
+                  F1:this.state.F1,
+                  Nota:this.state.Nota
+              }         
+                axios.post("http://localhost:8080/results/create", datapost)
+                .then(res => {
+                  this.setState({
+                    finish: true
+                })
+                 
+                 })
+                 .catch(error=>{
+                   alert("Error server "+error)
+                 })
+               /*  this.setState({
+                  finish: true
+              })*/
+                
+               })
+               .catch(error=>{
+                 alert("Error server "+error)
+               })
+            }
+          
+      else if( this.state.partBody=='leftLeg' && this.state.phase=='prehospitalaria') {
+        axios.get("http://localhost:8080/trainee/evaluacionLP/"+this.props.match.params.id+"/"+this.state.traineeId)
+        .then(res => {
+            this.setState({matches: res.data.matches, swap: res.data.swap, contr: res.data.contr, gasp: res.data.gasp, mismatches: res.data.mismatches,GA:res.data.GA, Diag: res.data.Diag, Subseq: res.data.Subseq, Precision:res.data.Precision,Recall: res.data.Recall,Specificity:res.data.Specificity,Accuracy:res.data.Accuracy,F1:res.data.F1,Nota:res.data.Nota
+             });
+             const datapost = {
+              traineeId:this.state.traineeId,
+              simulationId:this.props.match.params.id,
+              matches: this.state.matches,
+              swap:this.state.swap,
+              contr:this.state.contr,
+              gasp:this.state.gasp,
+              mismatches:this.state.mismatches,
+              GA:this.state.GA,
+              Diag:this.state.Diag,
+              Subseq:this.state.Subseq,
+              Precision:this.state.Precision,
+              Recall:this.state.Recall,
+              Specificity:this.state.Specificity,
+              Accuracy:this.state.Accuracy,
+              F1:this.state.F1,
+              Nota:this.state.Nota
+          }
+      
+      
+      
+            axios.post("http://localhost:8080/results/create", datapost)
+            .then(res => {
+              this.setState({
+                finish: true
+            })
+             
+             })
+             .catch(error=>{
+               alert("Error server "+error)
+             })
+           /*  this.setState({
+              finish: true
+          })*/
+            
+           })
+           .catch(error=>{
+             alert("Error server "+error)
+           })
+      }
+      else if( this.state.partBody=='pelvis' && this.state.phase=='hospitalaria') {
+        axios.get("http://localhost:8080/trainee/evaluacionPH/"+this.props.match.params.id+"/"+this.state.traineeId)
+        .then(res => {
+            this.setState({matches: res.data.matches, swap: res.data.swap, contr: res.data.contr, gasp: res.data.gasp, mismatches: res.data.mismatches,GA:res.data.GA, Diag: res.data.Diag, Subseq: res.data.Subseq, Precision:res.data.Precision,Recall: res.data.Recall,Specificity:res.data.Specificity,Accuracy:res.data.Accuracy,F1:res.data.F1,Nota:res.data.Nota
+             });
+             const datapost = {
+              traineeId:this.state.traineeId,
+              simulationId:this.props.match.params.id,
+              matches: this.state.matches,
+              swap:this.state.swap,
+              contr:this.state.contr,
+              gasp:this.state.gasp,
+              mismatches:this.state.mismatches,
+              GA:this.state.GA,
+              Diag:this.state.Diag,
+              Subseq:this.state.Subseq,
+              Precision:this.state.Precision,
+              Recall:this.state.Recall,
+              Specificity:this.state.Specificity,
+              Accuracy:this.state.Accuracy,
+              F1:this.state.F1,
+              Nota:this.state.Nota
+          }
+      
+      
+      
+            axios.post("http://localhost:8080/results/create", datapost)
+            .then(res => {
+              this.setState({
+                finish: true
+            })
+             
+             })
+             .catch(error=>{
+               alert("Error server "+error)
+             })
+            /* this.setState({
+              finish: true
+          })*/
+            
+           })
+           .catch(error=>{
+             alert("Error server "+error)
+           })
+      }
+      else if( this.state.partBody=='pelvis' && this.state.phase=='prehospitalaria') {
+        axios.get("http://localhost:8080/trainee/evaluacionPP/"+this.props.match.params.id+"/"+this.state.traineeId)
+        .then(res => {
+            this.setState({matches: res.data.matches, swap: res.data.swap, contr: res.data.contr, gasp: res.data.gasp, mismatches: res.data.mismatches,GA:res.data.GA, Diag: res.data.Diag, Subseq: res.data.Subseq, Precision:res.data.Precision,Recall: res.data.Recall,Specificity:res.data.Specificity,Accuracy:res.data.Accuracy,F1:res.data.F1,Nota:res.data.Nota
+             });
+             const datapost = {
+              traineeId:this.state.traineeId,
+              simulationId:this.props.match.params.id,
+              matches: this.state.matches,
+              swap:this.state.swap,
+              contr:this.state.contr,
+              gasp:this.state.gasp,
+              mismatches:this.state.mismatches,
+              GA:this.state.GA,
+              Diag:this.state.Diag,
+              Subseq:this.state.Subseq,
+              Precision:this.state.Precision,
+              Recall:this.state.Recall,
+              Specificity:this.state.Specificity,
+              Accuracy:this.state.Accuracy,
+              F1:this.state.F1,
+              Nota:this.state.Nota
+          }
+      
+      
+      
+            axios.post("http://localhost:8080/results/create", datapost)
+            .then(res => {
+              this.setState({
+                finish: true
+            })
+             
+             })
+             .catch(error=>{
+               alert("Error server "+error)
+             })
+             
+             /*this.setState({
+              finish: true
+          })*/
+            
+           })
+           .catch(error=>{
+             alert("Error server "+error)
+           })
       }
 
-    if( this.state.partBody=='leftLeg' && this.state.phase=='hospitalaria') {
-      axios.get("http://localhost:8080/trainee/evaluacionLH/"+this.props.match.params.id+"/"+this.state.traineeId)
-        .then(res => {
-          
-          alert(res.data)
-         })
-         .catch(error=>{
-           alert("Error server "+error)
-         })
+       
          clearInterval(this.changeGraphs)
-    }
-    else if( this.state.partBody=='leftLeg' && this.state.phase=='prehospitalaria') {
-      axios.get("http://localhost:8080/trainee/evaluacionLP/"+this.props.match.params.id+"/"+this.state.traineeId)
-        .then(res => {
-          
-          alert(res.data)
-         })
-         .catch(error=>{
-           alert("Error server "+error)
-         })
-         clearInterval(this.changeGraphs)
-    }
-    else if( this.state.partBody=='pelvis' && this.state.phase=='hospitalaria') {
-      axios.get("http://localhost:8080/trainee/evaluacionPH/"+this.props.match.params.id+"/"+this.state.traineeId)
-        .then(res => {
-          
-          alert(res.data)
-         })
-         .catch(error=>{
-           alert("Error server "+error)
-         })
-         clearInterval(this.changeGraphs)
-    }
-    else if( this.state.partBody=='pelvis' && this.state.phase=='prehospitalaria') {
-      axios.get("http://localhost:8080/trainee/evaluacionPP/"+this.props.match.params.id+"/"+this.state.traineeId)
-        .then(res => {
-          
-          alert(res.data)
-         })
-         .catch(error=>{
-           alert("Error server "+error)
-         })
-         clearInterval(this.changeGraphs)
-    }
+   
   }
     
       /*  axios.get("http://localhost:8080/trainee/evaluacion", datapost)
@@ -1465,6 +1624,8 @@ export default class LoginForm extends Component {
 
                     } />
             </div>
+
+
             <div className="main">
                 <Actions change = {(first, second, third, fourth, fifth) => this.change(first, second, third, fourth, fifth)}
                         send = {(variant,msg) => this.sendInformation(variant, msg)}
@@ -1504,7 +1665,9 @@ export default class LoginForm extends Component {
                         actionsType4={actionsType4}
                         simultaneousActions = {(parameter, duration, tFin, value, finalValue, type) => this.simultaneousActions(parameter, duration, tFin, value, finalValue, type)}
                         information = {this.information}
+                        
                 />
+               
                 <Graphic 
                         diastolicPressure = {this.state.diastolicPressure}
                         heartRate = {this.state.heartRate}
@@ -1521,6 +1684,7 @@ export default class LoginForm extends Component {
                         toogleCrono = {(next) => this.toogleCrono(next)}
                         start={this.state.start}
                         finish = {() => this.finish()}
+                        rellenar = {() => this.rellenar()}
                         fordward = {this.state.fordward}
                         time = {this.state.time}
                         test = {() => this.test()}

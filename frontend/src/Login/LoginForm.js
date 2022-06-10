@@ -9,6 +9,7 @@ import sha256 from 'js-sha256'
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import { setUserSession } from '../Utils/Common';
+import Swal from 'sweetalert2'
 
 
 
@@ -100,7 +101,16 @@ axios.get(urlTrainerf)
   })
 
 }else if(res.data.success == false){
-  alert("Sesion Iniciada")
+  //alert("Sesion Iniciada")
+  Swal.fire({
+    title: 'Sesion Iniciada',
+    showClass: {
+      popup: 'animate__animated animate__fadeInDown'
+    },
+    hideClass: {
+      popup: 'animate__animated animate__fadeOutUp'
+    }
+  })
 }else if(res.data.success=="2"){
   axios.get(urlTraineef)
      .then(res=>{
@@ -149,7 +159,15 @@ axios.get(urlTrainerf)
 
 
 
-       }else{alert("sesion iniciada")}
+       }else{  Swal.fire({
+        title: 'Sesion Iniciada',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      })}
      })
   
 

@@ -20,7 +20,7 @@ class DashboardTrainer extends Component {
         axios.get("http://localhost:8080/trainer/salir/"+this.props.location.state.email)
         .then(res => {
          if(res.data.success){
-         alert("hemos salido")
+        
         }
         })
         .catch(error=>{
@@ -92,7 +92,12 @@ class DashboardTrainer extends Component {
                         <Link to={{
                                     pathname: '/listSimulation',
                                     state: { id: this.state.id,
-                                             isTrainer: true
+                                             isTrainer: true,
+                                             simulationId:0,
+                                             trainerId:0,
+                                             partBody:"",
+                                             phase:""
+
                                               }
                                 }}>
                             <Button>{t('dashboard.access-simulation')}</Button>

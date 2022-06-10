@@ -25,6 +25,7 @@
     "react-dom": "^16.12.0",
     "react-i18next": "^11.3.5",
     "react-input-slider": "^5.1.4",
+    "react-js-progressbar": "^1.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "react-select": "^3.0.8",
@@ -32,6 +33,7 @@
     "react-translate": "^7.0.1",
     "react-vis": "^1.11.7",
     "reactstrap": "^8.4.1",
+    "sweetalert2": "^11.4.17",
     "yarn": "^1.22.0"
   },
   "scripts": {

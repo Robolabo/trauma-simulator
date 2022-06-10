@@ -205,7 +205,7 @@ def GlobalAlignment(matchReward,swapPenalty,contrPenalty,mismatchPenalty,gapPena
     for i,j in zip(optimal_seq1,optimal_seq2):
         if i==j:
             matches.append(i)
-    print('Matches:'+ str(len(matches)))
+    print(str(len(matches)))
 
     swap=[]
     for i,j in zip(optimal_seq1,optimal_seq2):
@@ -216,7 +216,7 @@ def GlobalAlignment(matchReward,swapPenalty,contrPenalty,mismatchPenalty,gapPena
             or (i == g5[0] and j == g5[1]) 
             or (i == g6[0] and j == g6[1])):
             swap.append(i)
-    print('Swap:'+ str(len(swap)))
+    print(str(len(swap)))
 
     contr=[]
     for i,j in zip(optimal_seq1,optimal_seq2):
@@ -225,18 +225,18 @@ def GlobalAlignment(matchReward,swapPenalty,contrPenalty,mismatchPenalty,gapPena
             or (i == g7[1] and (j==g8[0] or j==g8[1] or j==g8[2] or j==g8[3] or j==g8[4] or j==g8[5]
                            or j==g8[6] or j==g8[7] or j==g8[8] or j==g8[9]))):
             contr.append(i)
-    print('Contr:'+ str(len(contr))) 
+    print(str(len(contr))) 
 
     gaps1=optimal_seq1.count('_')
     gaps2=optimal_seq2.count('_')
     gaps=gaps1+gaps2
-    print('Gaps:'+ str(gaps))
+    print(str(gaps))
 
     mismatches=[]
     for i,j in zip(optimal_seq1,optimal_seq2):
         if ( i!= j and (i !='_' and j != '_')):
             mismatches.append(i)
-    print('Mismatches:'+ str(len(mismatches)))
+    print(str(len(mismatches)))
 
     puntuación=len(matches)*matchReward+gaps*gapPenalty+len(mismatches)*mismatchPenalty+len(swap)*swapPenalty+len(contr)*contrPenalty
     #print('GA:'+str(puntuación))
@@ -287,7 +287,7 @@ escenario_select=lista_esc_Pelvis_P[np.argmax(lista_aciertos)]
 GA=GlobalAlignment(10,8,-4,-2,-1,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)
 #GA=GlobalAlignment(10,5,-10,-5,-2,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)   
 #GA=GlobalAlignment(20,10,-10,-5,0,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)
-print('GA:'+str(GA))
+print(str(GA))
 Trainee_Pelvis_Sim_Actions_Common=set(Trainee_Pelvis_Sim_Actions)&set(escenario_select)
 #print(Trainee_Pelvis_Sim_Actions_Common)
 #print('TP:'+ str(len(Trainee_Pelvis_Sim_Actions_Common)))
@@ -356,16 +356,17 @@ for n,val_n in enumerate((val1)):
     #print(val_n)
     Subseq+=(len(val1[n])/len(Trainee_Pelvis_Sim_Actions))*(1/len(val1))
     #print(Subseq)
-nota= 0.2189*F1 +0.2132* Subseq +0.2017*GA+0.1903*SimilarDiagonalScore+0.176*Precision
-print('Diag:'+str(SimilarDiagonalScore))
-print('Subseq:'+str(Subseq))
-print('Precision:'+ str(Precision))
-print('Recall:'+ str(Recall))
-print('Specificity:'+ str(Specificity))
-print('Accuracy:'+ str(Accuracy))
-print('F1:'+ str(F1))      
+nota= (0.2189*F1 +0.2132* Subseq +0.2017*GA+0.1903*SimilarDiagonalScore+0.176*Precision)*10
+
+print(str(SimilarDiagonalScore))
+print(str(Subseq))
+print(str(Precision))
+print(str(Recall))
+print(str(Specificity))
+print(str(Accuracy))
+print(str(F1))      
 def test():
-    print('Nota:'+ str(nota)) 
+    print(str(nota)) 
 if __name__=='__main__':
     test()      
 #df5.loc[(df5.simulationId == simulation) & (df5.traineeId == trainee), 'Precision3'] = Precision

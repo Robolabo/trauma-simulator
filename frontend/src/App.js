@@ -13,6 +13,7 @@ const DashboardTrainer = lazy(() => import('./Menu/DashboardTrainer'))
 const DashboardTrainee = lazy(() => import('./Menu/DashboardTrainee'))
 const List = lazy(() => import('./Users/ListUsers'))
 const ListSimulation = lazy(() => import('./Menu/SimulationList'))
+const Evaluation = lazy(() => import('./evaluation/Evaluation'))
 const Edit = lazy(() => import('./Users/Edit'))
 const NewSimulation = lazy(() => import('./Simulations/NewSimulation'))
 const Simulation = lazy(() => import('./Simulations/Simulation'))
@@ -74,6 +75,9 @@ function App() {
       </Suspense> 
       <Suspense fallback={(<div></div>)}>
         <PrivateRoute path="/edit/:trainerId" component={Edit} />
+      </Suspense>
+      <Suspense fallback={(<div></div>)}>
+        <PrivateRoute path="/evaluar/:id" component={Evaluation} />
       </Suspense>
       <Suspense fallback={(<div></div>)}>
         <PrivateRoute path="/newSimulation" component={NewSimulation} />

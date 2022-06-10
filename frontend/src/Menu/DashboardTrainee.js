@@ -14,7 +14,7 @@ class DashboardTrainee extends Component {
         axios.get("http://localhost:8080/trainee/salir/"+this.props.location.state.email)
         .then(res => {
          if(res.data.success){
-         alert("hemos salido")
+         
         }
         })
         .catch(error=>{
@@ -102,7 +102,12 @@ class DashboardTrainee extends Component {
                                              isTrainer: false,
                                              email: this.props.location.state.email,
                                              sesion: this.props.location.state.sesion,
-                                             roleId: this.props.location.state.roleId  }
+                                             roleId: this.props.location.state.roleId,
+                                             simulationId:0,
+                                             trainerId:0,
+                                             partBody:"",
+                                             phase:""
+                                             }
                                 }}>
                             <Button>{t('dashboard.exam-simulation')}</Button>
                         
@@ -116,7 +121,11 @@ class DashboardTrainee extends Component {
                                 isTrainer: false,
                                 email: this.props.location.state.email,
                                 sesion: this.props.location.state.sesion,
-                                roleId: this.props.location.state.roleId 
+                                roleId: this.props.location.state.roleId,
+                                simulationId:0,
+                                trainerId:0,
+                                partBody:"",
+                                phase:""
                             }
                         }}>
                           

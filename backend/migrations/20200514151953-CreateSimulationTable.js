@@ -81,6 +81,10 @@ module.exports = {
       rxPelvis: {
         type: Sequelize.STRING
     },
+    listo: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+  },
 
     
       },

@@ -18,9 +18,12 @@ router.get('/salir/:email', traineeController.salir);
 router.get('/logout/:id', traineeController.logout);
 router.get('/log/:id', traineeController.log);
 
+router.get('/deletes/:traineeId/',  traineeController.borrar);
+
 router.get('/cuatromin/:simulationId/:traineeId/',  traineeController.cuatromin);
 router.get('/min/:simulationId/:traineeId/',  traineeController.min);
-router.get('/delete/:simulationId/:traineeId/',  traineeController.delete);
+router.get('/results/:simulationId/:traineeId/',  traineeController.results);
+
 router.get('/minPH/:simulationId/:traineeId/',  traineeController.minPH);
 router.get('/minLH/:simulationId/:traineeId/',  traineeController.minLH);
 router.get('/evaluacionLH/:simulationId/:traineeId/',  traineeController.evaluacionLH);

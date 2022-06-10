@@ -6,6 +6,7 @@ import sha256 from 'js-sha256'
 import { withTranslation } from 'react-i18next';
 import formulario from '../assets/formulario.png'
 import {Redirect} from "react-router-dom"
+import Swal from 'sweetalert2'
 
 class RegisterForm extends React.Component {
 
@@ -71,64 +72,173 @@ class RegisterForm extends React.Component {
         }
         else{
             correct = false
-            alert("El nombre solo puede contener letras y espacios")
+            Swal.fire({
+                title: 'El nombre solo puede contener letras y espacios',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              })
+            //alert("El nombre solo puede contener letras y espacios")
         }
         if(nombre.test(this.state.campSurname)){
             console.log('input correcto')
         }
         else{
             correct = false
-            alert("El apellido solo puede contener letras y espacios")
+            Swal.fire({
+                title: 'El apellido solo puede contener letras y espacios',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+            
+            //alert("El apellido solo puede contener letras y espacios")
         }
         if(password.test(this.state.campPassword)){
             console.log('input correcto')
         }
         else{
             correct = false
-            alert("La contraseña tiene que contener mínimo 6 caracteres, al menos una minúscula, una mayúscula y un número.")
+            Swal.fire({
+                title: 'La contraseña tiene que contener mínimo 6 caracteres, al menos una minúscula, una mayúscula y un número.',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+            //alert("La contraseña tiene que contener mínimo 6 caracteres, al menos una minúscula, una mayúscula y un número.")
         }
         if(email.test(this.state.campEmail)){
             console.log('input correcto')
         }
         else{
             correct = false
-            alert("El correo electrónico debe ser válido")
+            Swal.fire({
+                title: 'El correo electrónico debe ser válido',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+           // alert("El correo electrónico debe ser válido")
         }
         if(nombre.test(this.state.campWorkplace)){
             console.log('input correcto')
         }
         else{
             correct = false
-            alert("El lugar de trabajo solo puede contener letras y espacios")
+            Swal.fire({
+                title: 'El lugar de trabajo solo puede contener letras y espacios',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+           // alert("El lugar de trabajo solo puede contener letras y espacios")
         }
 
         if (this.state.campName==="") {
             correct = false
-            alert("Introduce your name")
+            Swal.fire({
+                title: 'Introduce your name',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+            //alert("Introduce your name")
         }
         else if (this.state.campSurname==="") {
             correct = false
-            alert("Introduce your surname")
+            Swal.fire({
+                title: 'Introduce your surname',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+            //alert("Introduce your surname")
         }
         else if (this.state.campPassword==="") {
             correct = false
-            alert("Introduce a password")
+            Swal.fire({
+                title: 'Introduce a password',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+           // alert("Introduce a password")
         }
         else if (this.state.campEmail==="") {
             correct = false
-            alert("Introduce your email")
+            Swal.fire({
+                title: 'Introduce your email',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+           // alert("Introduce your email")
         }
         else if (this.state.campWorkplace==="") {
             correct = false
-            alert("Introduce your workplace")
+            Swal.fire({
+                title: 'Introduce your workplace',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+           // alert("Introduce your workplace")
         }
         else if (this.state.selectRole === 0){
             correct = false
-            alert("Select your role")
+            Swal.fire({
+                title: 'Select your role',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+            //alert("Select your role")
         }
         else if(this.state.campPassword !== this.state.campConfirm){
             correct = false
-            alert("The passwords must be the same")
+            Swal.fire({
+                title: 'The passwords must be the same',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+            //alert("The passwords must be the same")
         }
 
         if (correct) {
@@ -153,12 +263,30 @@ class RegisterForm extends React.Component {
           axios.post(baseUrl,datapost)
           .then(response=>{
               if (response.data.success===true) {
-                  alert(response.data.message)
+                Swal.fire({
+                    title: response.data.message,
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+                  //alert(response.data.message)
                   this.setRedirect()
                   
               }
               else {
-                  alert(response.data.message)
+                Swal.fire({
+                    title: response.data.message,
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+                 // alert(response.data.message)
                   window.location.reload(true);
 
               }

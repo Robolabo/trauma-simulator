@@ -41,6 +41,7 @@ import jsPDF from 'jspdf'
 import analisis from '../../assets/analisis.jpg'
 import capnografo from '../../assets/Capnografo.png'
 import BolsaAutoinflable from '../../assets/Ventilacion_bolsa.png'
+import Swal from 'sweetalert2'
 
 const mp3Audio= require("../../assets/Sibilancia.mp3");//Me aseguro de que esta el fichero mp3
 
@@ -166,7 +167,25 @@ class Actions extends Component {
                 axios.post(baseUrl,datapost)
                 .then(response=>{
                     if (response.data.success===true) {
-                        alert(response.data.message)
+                       // alert(response.data.message)
+                       axios.get("http://localhost:8080/simulation/listo/"+this.props.simulationId)
+                       .then(res => {
+                        if(res.data.success){
+                            Swal.fire({
+                                title: response.data.message,
+                                showClass: {
+                                  popup: 'animate__animated animate__fadeInDown'
+                                },
+                                hideClass: {
+                                  popup: 'animate__animated animate__fadeOutUp'
+                                }
+                              })
+                       }
+                       })
+                       .catch(error=>{
+                         alert("Error server "+error)
+                       })
+                      
                         
                     }
                     else {
@@ -182,7 +201,9 @@ class Actions extends Component {
                             isTrainer: false,
                             trainerList:this.props.trainerList,
                             data: this.props.data,
-                            refresh: "refresh"}
+                            refresh: "refresh",
+                            finish:this.props.finish
+                        }
                 }} />
 
         }
@@ -547,7 +568,7 @@ class Actions extends Component {
             this.props.change("diastolicPressure", -0.8,300,3,15)
             this.props.change("sistolicPressure", -0.8,300,3,15)
         }
-        this.getMsg("info","Torniquete")
+        this.getMsg("info",28)
         this.fillInformation("Torniquete")
         this.fillEvaluation("Torniquete")
 
