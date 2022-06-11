@@ -385,15 +385,15 @@ for n,val_n in enumerate((val1)):
     #print(Subseq)
 
 nota= (0.2189*F1 +0.2132* Subseq +0.2017*GA+0.1903*SimilarDiagonalScore+0.176*Precision)*10
-print(str(SimilarDiagonalScore))
-print(str(Subseq))
-print(str(Precision))
-print(str(Recall))
-print(str(Specificity))
-print(str(Accuracy))
-print( str(F1))      
+print(str( round(SimilarDiagonalScore,3)))
+print(str(round(Subseq,3)))
+print(str(round(Precision,3)))
+print(str(round(Recall,3)))
+print(str(round(Specificity,3)))
+print(str(round(Accuracy,3)))
+print(str(round(F1,3)))   
 def test():
-    print(str(nota)) 
+    print(str(round(nota,2))) 
 if __name__=='__main__':
     test()
 

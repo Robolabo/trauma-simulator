@@ -229,6 +229,18 @@ controller.listByTraineeAndTrainer = async (req, res) => {
   }); 
 
   res.json({success : true, data : data});
+  /*const { trainerId, traineeId} = req.params;
+  const data = await sequelize.query(`select * from simulations where traineeId="${traineeId}" && trainerId="${trainerId}"`,{ type: QueryTypes.SELECT})
+  .then(function(data){
+
+    return data;
+
+  }).catch(error =>{ 
+    console.log("ERRORRR",error)
+    return error;
+
+  })*/
+
 }
 
 controller.listo= async(req,res)=>{

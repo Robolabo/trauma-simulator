@@ -327,7 +327,7 @@ GA=GlobalAlignment(10,8,-4,-2,-1,Trainee_leftLeg_Sim_Actions0,escenario_select)/
 #GA=GlobalAlignment(10,5,-10,-5,-2,Trainee_leftLeg_Sim_Actions0,escenario_select)/(min(len(escenario_select),len(Trainee_leftLeg_Sim_Actions0))*10)
 #GA=GlobalAlignment(20,10,-10,-5,0,Trainee_leftLeg_Sim_Actions0,escenario_select)/(min(len(escenario_select),len(Trainee_leftLeg_Sim_Actions0))*10)
 
-print(str(GA))
+print(str(round(GA,2)))
 #print(Trainee_Pelvis_Sim_Actions)
 Trainee_leftLeg_Sim_Actions_Common0=set(Trainee_leftLeg_Sim_Actions0)&set(escenario_select)
 #print(Trainee_leftLeg_Sim_Actions_Common0)
@@ -400,24 +400,17 @@ for n,val_n in enumerate((val1)):
 
 nota= (0.2189*F1 +0.2132* Subseq +0.2017*GA+0.1903*SimilarDiagonalScore+0.176*Precision)*10
 
-print(str(SimilarDiagonalScore))
-
-print(str(Subseq))
-
-print(str(Precision))
-
-print(str(Recall))
-
-print(str(Specificity))
-
-print(str(Accuracy))
-
-print(str(F1)) 
-
+print(str( round(SimilarDiagonalScore,3)))
+print(str(round(Subseq,3)))
+print(str(round(Precision,3)))
+print(str(round(Recall,3)))
+print(str(round(Specificity,3)))
+print(str(round(Accuracy,3)))
+print(str(round(F1,3)))  
 
  
 def test():
-    print(str(nota)) 
+    print(str(round(nota,2))) 
 if __name__=='__main__':
     test()
    

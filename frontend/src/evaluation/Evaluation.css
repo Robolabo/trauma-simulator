@@ -1,0 +1,53 @@
+
+.container {
+    
+}
+
+
+.porcentaje{
+  
+    width: 40%;
+
+    
+   
+   
+  }
+
+  .titulo{
+    padding-left: 2%;
+  }
+
+.Valores0a{
+    display: flex;
+    
+    align-items:flex-start;
+    justify-content:flex-start;
+    padding: 2%;
+
+
+
+}
+
+.Valores1{
+
+    
+    
+    padding-left: 8%;
+
+
+
+}
+.Valores0{
+    padding: 10%;
+}
+.Valores2{
+    padding-left: 8%;
+}
+
+.Prueba{
+   display: flex;
+   align-items:flex-start;
+   justify-content:center;
+  
+
+}

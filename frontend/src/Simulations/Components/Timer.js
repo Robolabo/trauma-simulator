@@ -98,7 +98,7 @@ class Timer extends Component {
 
                         Swal.fire({
                             title: 'Han pasado 4 minutos',
-                            text: 'Le faltan ' +res.data.aera + ' acciones de vía aerea y '  + res.data.circulacion +  ' acciones de circulacion',
+                            text: 'Le faltan ' +res.data.aera + ' acciones de vía aérea y '  + res.data.circulacion +  ' acciones de circulación',
                             icon:'info',
                             showClass: {
                               popup: 'animate__animated animate__fadeInDown'
@@ -113,7 +113,7 @@ class Timer extends Component {
                     }else if(res.data.aera>0){
                         Swal.fire({
                             title: 'Han pasado 4 minutos',
-                            text: "Le faltan "+ res.data.aera +" acciones de vía aerea",
+                            text: "Le faltan "+ res.data.aera +" acciones de vía aérea",
                             icon:'info',
                             showClass: {
                               popup: 'animate__animated animate__fadeInDown'
@@ -127,7 +127,7 @@ class Timer extends Component {
 
                         Swal.fire({
                             title: 'Han pasado 4 minutos',
-                            text: "Le faltan "+ res.data.circulacion +" acciones de circulacion",
+                            text: "Le faltan "+ res.data.circulacion +" acciones de circulación",
                             icon:'info',
                             showClass: {
                               popup: 'animate__animated animate__fadeInDown'
@@ -160,7 +160,7 @@ class Timer extends Component {
                             html:
                               '<h2>Número de acciones que le quedan por realizar:</h2>'+
                               
-                              '<h3 >'+ res.data.aera + ' de vía aerea</h3>' +
+                              '<h3 >'+ res.data.aera + ' de vía aérea</h3>' +
                               '<h3>'+res.data.circulacion + ' de circulación </h3>'+
                               '<h3>'+res.data.exposicion + ' de exposición</h3>'+
                               '<h3>'+ res.data.inmovilizacion+ ' de inmovilización</h3>'+
@@ -193,7 +193,7 @@ class Timer extends Component {
                                 html:
                                   '<h2>Número de acciones que le quedan por realizar:</h2>'+
                                   
-                                  '<h3 >'+ res.data.aera + ' de vía aerea</h3>' +
+                                  '<h3 >'+ res.data.aera + ' de vía aérea</h3>' +
                                   '<h3>'+res.data.circulacion + ' de circulación </h3>'+
                                   '<h3>'+res.data.exposicion + ' de exposición</h3>'+
                                   '<h3>'+ res.data.inmovilizacion+ ' de inmovilización</h3>'+
@@ -227,7 +227,7 @@ class Timer extends Component {
                             html:
                               '<h2>Número de acciones que le quedan por realizar:</h2>'+
                               
-                              '<h3 >'+ res.data.aera + ' de vía aerea</h3>' +
+                              '<h3 >'+ res.data.aera + ' de vía aérea</h3>' +
                               '<h3>'+res.data.circulacion + ' de circulación </h3>'+
                               '<h3>'+res.data.exposicion + ' de exposición</h3>'+
                               '<h3>'+ res.data.inmovilizacion+ ' de inmovilización</h3>'+

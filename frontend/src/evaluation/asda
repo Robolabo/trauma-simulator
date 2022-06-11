@@ -1,0 +1,21 @@
+<div class="porcentage">
+    <hr>
+    
+    <div class="container2">
+      <div class="card">
+        <div class="box">
+          <div class="percent">
+            <svg>
+              <circle cx="70" cy="70" r="70" />
+              <circle cx="70" cy="70" r="70" />
+            </svg>
+            <div class="number">
+              <h2>90<span>%</span></h2>
+            </div>
+            <h3>HTML</h3>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>

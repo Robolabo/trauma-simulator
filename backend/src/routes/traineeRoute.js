@@ -23,6 +23,7 @@ router.get('/deletes/:traineeId/',  traineeController.borrar);
 router.get('/cuatromin/:simulationId/:traineeId/',  traineeController.cuatromin);
 router.get('/min/:simulationId/:traineeId/',  traineeController.min);
 router.get('/results/:simulationId/:traineeId/',  traineeController.results);
+router.get('/results/:simulationId/:traineeId/',  traineeController.results1);
 
 router.get('/minPH/:simulationId/:traineeId/',  traineeController.minPH);
 router.get('/minLH/:simulationId/:traineeId/',  traineeController.minLH);

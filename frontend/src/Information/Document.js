@@ -9,7 +9,8 @@ export default class Document extends Component {
     constructor(props){
         super(props);
         this.state = {
-          file: null
+          file: null,
+          listo:this.props.listo
         }
     }
     

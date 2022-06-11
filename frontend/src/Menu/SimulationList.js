@@ -41,7 +41,7 @@ class SimulationList extends React.Component  {
       Accuracy:"",
       F1:"",
       Nota:"",
-      listo:false
+      
 
       
       
@@ -1019,7 +1019,8 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
             console.log(data.simulationId)
           }
           <td><Inform simulationId = {data.simulationId}
-                      surname = {data.trainee.surname}/> 
+                      surname = {data.trainee.surname}
+                      listo ={data.simulationId}/> 
           </td>
           <td>
             
@@ -1028,7 +1029,9 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
                     to={{
                         pathname: "/evaluar/"+data.simulationId,
                         state: { simulationId: data.simulationId,
-                          traineeId:data.traineeId},
+                          traineeId:data.traineeId,
+                          name:data.trainee.name,
+                          surname:data.trainee.surname},
                         
                     }} > Evaluar </Link>: <p>Pendiente</p>}
 
@@ -1036,7 +1039,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
            
           </td>
           <td>
-            {(this.state.listo) ?
+            {(data.listo)  ?
                 this.props.location.state.trainerList ===true?
                     <Link className="btn btn-outline-info " 
                     to={{

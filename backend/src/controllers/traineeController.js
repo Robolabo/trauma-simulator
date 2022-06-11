@@ -651,6 +651,41 @@ controller.cuatromin = async (req, res) => {
     }
 
 
+    controller.results1 = async (req, res) => {
+        //const { simulationId, traineeId, phase, partbody} = req.body;
+        const { simulationId, traineeId} = req.params;
+        const data = await sequelize.query(`select matches,swap,contr,gasp,mismatches,GA,Diag,Subseq,Preci,Recall,Specificity,Accuracy,F1, Nota from results where traineeId="${traineeId}" && simulationId="${simulationId}" order by id ASC`,{ type: QueryTypes.SELECT})
+        
+       
+        
+        .then(function(data){
+      
+            return res.json({success:true, data: data})
+      
+        }).catch(error =>{
+          console.log("ERRORRR",error)
+          return error;
+      
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 controller.session = async (req, res) => {
     try {
       const as = req.params;
