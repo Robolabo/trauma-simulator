@@ -21,46 +21,60 @@ module.exports = {
 
         },
         matches:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         swap:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
        contr:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         gasp:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         mismatches:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         GA:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
        Diag:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         Subseq:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         Preci:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         Recall:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         Specificity:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         Accuracy:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         F1:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         },
         Nota:{
-          type:Sequelize.STRING
+          type:Sequelize.STRING,
+          defaultValue: "0"
         }
 
       

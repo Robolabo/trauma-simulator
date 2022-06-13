@@ -384,18 +384,21 @@ for n,val_n in enumerate((val1)):
     Subseq+=(len(val1[n])/len(Trainee_leftLeg_Sim_Actions0))*(1/len(val1))
     #print(Subseq)
 
-nota= (0.2189*F1 +0.2132* Subseq +0.2017*GA+0.1903*SimilarDiagonalScore+0.176*Precision)*10
-print(str( round(SimilarDiagonalScore,3)))
-print(str(round(Subseq,3)))
+nota= (0.2189*F1 +0.2132* Subseq +0.2017*GA+0.1903*SimilarDiagonalScore+0.176*Precision)*100
+
+print(str(round(SimilarDiagonalScore,2)*100))
+print(str(round(Subseq,3)*100))
 print(str(round(Precision,3)))
-print(str(round(Recall,3)))
+print(str(round(Recall,3)*100))
 print(str(round(Specificity,3)))
-print(str(round(Accuracy,3)))
-print(str(round(F1,3)))   
+print(str(round(Accuracy,2)*100))
+print(str(round(F1,2)*100))  
+
+ 
 def test():
     print(str(round(nota,2))) 
 if __name__=='__main__':
-    test()
+    test() 
 
 #df5.loc[(df5.simulationId == simulation) & (df5.traineeId == trainee), 'Precision3'] = Precision
 #df5.loc[(df5.simulationId == simulation) & (df5.traineeId == trainee), 'Recall3'] = Recall

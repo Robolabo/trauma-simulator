@@ -26,20 +26,62 @@ var Result = sequelize.define('Result', {
         
     },
 
-    matches: Sequelize.STRING,
-    swap: Sequelize.STRING,
-    contr: Sequelize.STRING,
-    gasp: Sequelize.STRING,
-    mismatches: Sequelize.STRING,
-    GA: Sequelize.STRING,
-    Diag: Sequelize.STRING,
-    Subseq: Sequelize.STRING,
-    Preci: Sequelize.STRING,
-    Recall: Sequelize.STRING,
-    Specificity: Sequelize.STRING,
-    Accuracy: Sequelize.STRING,
-    F1: Sequelize.STRING,
-    Nota: Sequelize.STRING
+    matches: {
+          type:Sequelize.STRING,
+          defaultValue: "0"
+    },
+    swap:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    contr:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    gasp:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    mismatches: {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    GA:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    Diag:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    Subseq:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    Preci:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    Recall:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    Specificity:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    Accuracy:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    F1:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  },
+    Nota:  {
+        type:Sequelize.STRING,
+        defaultValue: "0"
+  }
 },
 {
 	 timestamps: false,

@@ -941,7 +941,7 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
               <th scope="col">Tipo de Traumatismo</th>
               <th scope="col">{t('list-simulation.trauma')}</th>
               <th scope="col">{t('list-simulation.time')}</th>
-              <th scope="col">Informe</th>
+              
               <th scope="col">Evaluación</th>
               <th scope="col">{t('list-simulation.action')}</th>
               
@@ -968,7 +968,6 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
                 <th scope="col">Tipo de Traumatismo</th>
                 <th scope="col">{t('list-simulation.trauma')}</th>
                 <th scope="col">{t('list-simulation.time')}</th>
-                <th scope="col">Informe</th>
                 <th scope="col">{t('list-simulation.action')}</th>
               </tr>
             </thead>
@@ -1018,10 +1017,6 @@ getPartBody(partBody){ //ESTO ES PARA SOLUCIONAR EL ERROR DEL MENSAJE
           {
             console.log(data.simulationId)
           }
-          <td><Inform simulationId = {data.simulationId}
-                      surname = {data.trainee.surname}
-                      listo ={data.simulationId}/> 
-          </td>
           <td>
             
             {data.listo?

@@ -1,175 +1,119 @@
-/*import React from 'react';
+import React, { Component } from 'react';
+import { Redirect } from "react-router-dom"
+import { Button  } from 'react-bootstrap';
 import axios from 'axios';
-import './Evaluation.css';
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import Modal from 'react-awesome-modal';
+import './Evaluation.css';;
 
-import {
-  CircularProgressbar,
-} from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+
 
 // Animation
 
 
-import ChangingProgressProvider from "./ChangingProgressProvider";
-
-
-class Evaluation extends React.Component {
+export default class Listevaluation extends Component  {
   constructor(props){
     super(props);
     this.state = {
-      listSimulation: []
+      simulationId: this.props.simulationId,
+      traineeId:this.props.traineeId,
+      matches: "",
+      swap:"",
+      contr: "",
+      gasp: "",
+      mismatches: "",
+      GA:"",
+      Diag:"",
+      Subseq:"",
+      Precision:"",
+      Recall:"",
+      Specificity:"",
+      Accuracy:"",
+      F1:"",
+      Nota:"",
+      redirect:false
+      
+
       }
     }
 
-    componentDidMount(){
-      axios.get("http://localhost:8080/trainee/results1/"+this.state.simulationId+"/"+this.state.traineeId)
+    cargadeDatos(){
+      axios.get("http://localhost:8080/trainee/results/"+this.state.simulationId+"/"+this.state.traineeId)
+      
       .then(res =>{
-        this.setState({listSimulation: res.data
-        });      
+        this.setState({matches: res.data.data[0].matches, swap: res.data.data[0].swap, contr: res.data.data[0].contr,
+           gasp: res.data.data[0].gasp, mismatches: res.data.data[0].mismatches,GA:((parseFloat(res.data.data[0].GA, 10).toPrecision(2))), 
+           Diag: ((parseFloat(res.data.data[0].Diag, 10)).toPrecision(1)), Subseq: ((parseFloat(res.data.data[0].Subseq, 10))),
+           Precision:((parseFloat(res.data.data[0].Preci, 10))),Recall: ((parseFloat(res.data.data[0].Recall, 10))),
+           Specificity:((parseFloat(res.data.data[0].Specificity, 10))),
+           Accuracy:((parseFloat(res.data.data[0].Accuracy, 10))),
+           F1:((parseFloat(res.data.data[0].F1, 10))),Nota: ((parseFloat(res.data.data[0].Nota, 10)))
+        }); 
+           
       })
         .catch(error=>{
           alert("Error server "+error)
         })
-        
-    }
-
-
-
-    render() {
-
-      return(     
-        
-        
-        render(){
-            
-          
-            
-              
-              <div>
-                <Link type="button"  to="/" onClick={() => this.handleLogout()}>Logout</Link><br/>
-                
-                <div> 
-                  <table className="table table-hover table-striped">
-                    <thead className="thead-dark">
-                      <tr>
-                        <th scope="col"></th>
-                         <th scope="col">{t('list-simulation.trainee')}</th>
-                         <th scope="col">Fase</th>}
-                        
-                        <th scope="col">{t('list-simulation.sex')}</th>
-        
-                        <th scope="col">{t('list-simulation.age')}</th>
-                        <th scope="col">Tipo de Traumatismo</th>
-                        <th scope="col">{t('list-simulation.trauma')}</th>
-                        <th scope="col">{t('list-simulation.time')}</th>
-                        <th scope="col">Informe</th>
-                        <th scope="col">{t('list-simulation.action')}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                  <div className="messageTraining">
-                  Debes terminar los entrenamientos antes de continuar con los exámenes.
-                  </div> 
-                </div>}
-                {((this.state.redirect && !this.state.alert) ||finish) ? <Redirect to={{
-                                                                pathname: '/listSimulation',
-                                                                state: { id: this.state.id,
-                                                                          isTrainer: this.state.isTrainer,
-                                                                          simulationId:0,
-                                                                          trainerId:0,
-                                                                          partBody:"",
-                                                                          phase:"" }
-                                                            }}/>
-                                            : null}
-              </div>
-          );
-        
-          }
-        
-        
-          loadFillData() {
-            const { t } = this.props
-            
-            if (this.state.listSimulation) {
-              
-            return this.state.listSimulation.map((data)=>{
-              return(
-                <tr key="ha">
-                  <th></th>
-                  <td>{data.id}</td>
-                  
-        
-                  <td>Pre Hospitalaria </td>: <td>Hospitalaria</td>}
-                  
-                  <th>{(data.matches)}</th>
-                  <td>{data.age}</td>
-                  <td>{data.swap}</td>
-                  <td>{t(this.getPartBody(data.partBody))}</td>
-                  <td>{data.time}</td>
-                  {
-                    console.log(data.simulationId)
-                  }
-                  <td><Inform simulationId = {data.simulationId}
-                              surname = {data.trainee.surname}
-                              listo ={data.simulationId}/> 
-                  </td>
-                  <td>
-                    
-                    {data.listo?
-                  <Link className="btn btn-outline-info " 
-                            to={{
-                                pathname: "/evaluar/"+data.simulationId,
-                                state: { simulationId: data.simulationId,
-                                  traineeId:data.traineeId,
-                                  name:data.trainee.name,
-                                  surname:data.trainee.surname},
-                                
-                            }} > Evaluar </Link>: <p>Pendiente</p>}
-        
-                 
-                   
-                  </td>
-                  <td>
-                    {(data.listo)  ?
-                        this.props.location.state.trainerList ===true?
-                            <Link className="btn btn-outline-info " 
-                            to={{
-                                pathname: "/simulation/"+data.simulationId,
-                                state: { id: this.props.location.state.id,
-                                  trainerList:this.props.location.state.trainerList},
-                                
-                            }} > Volver a Entrar
-                            </Link> :
-                            <p>Entrar</p>
-                     
-                     :
-                     
-                  this.state.isTrainer 
-                    ? 
-                        <Link className="btn btn-outline-danger" to={"/listSimulation/"} onClick={()=>this.sendDelete(data.simulationId)}> {t('list-simulation.delete')} </Link>
-                     
-                    : <Link className="btn btn-outline-info " 
-                    to={{
-                        pathname: "/simulation/"+data.simulationId,
-                        state: { id: this.props.location.state.id,
-                          trainerList:this.props.location.state.trainerList},
-                        
-                    }} >{t('list-simulation.enter')}
-                    </Link>}
-                  </td>
-        
-                  
-                </tr>
-              )
-            });
-          }
-         
+        if(this.state.matches!==""){
+          this.setRedirect()
         }
+
+
+
+    }
+  
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
   }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to={{
+                            pathname:"/evaluar/"+this.props.simulationId,
+                            state: {
+                              simulationId:this.state.simulationId,
+                              matches: this.state.matches,
+                              swap:this.state.swap,
+                              contr: this.state.contr,
+                              gasp: this.state.gasp,
+                              mismatches: this.state.mismatches,
+                              GA:this.state.GA,
+                              Diag:this.state.Diag,
+                              Subseq:this.state.Subseq,
+                              Precision:this.state.Precision,
+                              Recall:this.state.Recall,
+                              Specificity:this.state.Specificity,
+                              Accuracy:this.state.Accuracy,
+                              F1:this.state.F1,
+                              Nota:this.state.Nota,
+                              surname:this.props.surname
+                           }
+                        }} />
+
+  }
+}
+
+
+      render() {
+
+        return(
+
+          <div className="wrapper fadeInDown">
+           
+
+         
+            <Button className='returnButton' onClick= {() => this.cargadeDatos()
+                 }> Evaluar </Button> 
+               
+
+            {this.renderRedirect()}
+            
+          </div>
+        )
+
+    }
+}
 
   
           
@@ -178,4 +122,3 @@ class Evaluation extends React.Component {
 
 
 
-export default Evaluation;*/

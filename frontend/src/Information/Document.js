@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Button,  } from 'react-bootstrap';
+import { Button  } from 'react-bootstrap';
+import './Document.css';
 import axios from 'axios';
+//import { Button } from 'reactstrap';
 
 const baseUrl = "http://localhost:8080"
 
@@ -87,11 +89,10 @@ export default class Document extends Component {
   
     render(){
       return(
-          <div>
-            {this.state.file !== null ?
-                <Button onClick= {() => this.downloadPDF(this.state.file)} variant="info"> Descargar </Button> 
-            : <div>Pendiente</div>
-            } 
+          <div  style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+
+                <Button className='downloadButton' onClick= {() => this.downloadPDF(this.state.file)} variant="info"> Descargar </Button> 
+            
           </div>
           
         )
