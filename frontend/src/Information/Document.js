@@ -91,7 +91,7 @@ export default class Document extends Component {
       return(
           <div  style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
 
-                <Button className='downloadButton' onClick= {() => this.downloadPDF(this.state.file)} variant="info"> Descargar </Button> 
+                <Button className='downloadButton' onClick= {() => this.downloadPDF(this.state.file)} variant="info">Desacargar Informe y Evaluación </Button> 
             
           </div>
           

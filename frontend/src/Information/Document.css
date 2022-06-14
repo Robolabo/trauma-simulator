@@ -3,4 +3,9 @@
   font-size: 20px;
   margin-right: 75x;
   margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: flex-start;
+
 }
