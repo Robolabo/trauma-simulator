@@ -312,10 +312,10 @@ for esc in lista_esc_leftLeg_P:
     lista_aciertos.append(suma_aciertos)
 escenario_select=lista_esc_leftLeg_P[np.argmax(lista_aciertos)]
 GA=GlobalAlignment(10,8,-4,-2,-1,Trainee_leftLeg_Sim_Actions0,escenario_select)/(min(len(escenario_select),len(Trainee_leftLeg_Sim_Actions0))*10)
-#GA=GlobalAlignment(10,5,-10,-5,-2,Trainee_leftLeg_Sim_Actions0,escenario_select)/(min(len(escenario_select),len(Trainee_leftLeg_Sim_Actions0))*10)
-#GA=GlobalAlignment(20,10,-10,-5,0,Trainee_leftLeg_Sim_Actions0,escenario_select)/(min(len(escenario_select),len(Trainee_leftLeg_Sim_Actions0))*10)
-#print(Trainee_Pelvis_Sim_Actions)
-print(str(GA))
+G=((GA+1)*100)/2
+#GA=GlobalAlignment(10,5,-10,-5,-2,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)   
+#GA=GlobalAlignment(20,10,-10,-5,0,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)
+print(str(round(G,2)))
 Trainee_leftLeg_Sim_Actions_Common0=set(Trainee_leftLeg_Sim_Actions0)&set(escenario_select)
 #print(Trainee_leftLeg_Sim_Actions_Common0)
 #print('TP:'+ str(len(Trainee_leftLeg_Sim_Actions_Common0)))

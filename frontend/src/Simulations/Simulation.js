@@ -1468,71 +1468,70 @@ export default class LoginForm extends Component {
        console.log(i);
        j=26
        doc.addPage()
-       doc.setFontSize(14)
+       doc.setFontSize(16)
        doc.setFont('helvetica')
-       doc.setFont(undefined, 'normal')
+       doc.setFont(undefined, 'bold')
        doc.text(20, j, 'Evaluación:')
        doc.text(20, j, '_________')
        j=j+10
-       doc.setFontSize(13)
-       doc.text(20,j,`Nota: ${this.state.Nota}%`)
+       doc.setFontSize(14)
+       doc.setFont('helvetica')
+       doc.setFont(undefined, 'bold')
+       doc.text(20,j,`Nota:${this.state.Nota}%` )
+
        j=j+10
        doc.setFontSize(14)
        doc.setFont('helvetica')
-       doc.setFont(undefined, 'normal')
+       doc.setFont(undefined, 'bold')
        doc.text(20,j,'Sección 1')
        doc.text(20, j, '________')
        j=j+10
-       doc.setFontSize(12)
-       doc.text(20, j, `Acciones correctas: ${this.state.matches}`)
-       doc.text(80, j, `Acciones  no realizadas: ${this.state.gasp}`)
-       j=j+5
-       doc.text(20,j,`Acciones  intercambiadas: ${this.state.swap}`)
-       doc.text(80,j,`Acciones  erróneas: ${this.state.mismatches}`)
-       j=j+5
-       doc.text(20,j,`Acciones  contrarias: ${this.state.contr}`)
-       doc.text(80,j,`Alinamiento Global: ${this.state.GA}`)
+       doc.setFontSize(11)
+       doc.setFont(undefined, 'normal')
+       doc.text(20, j, `Número de acciones correctas realizadas: ${this.state.matches}`)
+       j=j+7
+       doc.text(20, j, `Número de veces que no has actuado: ${this.state.gasp}`)
+       j=j+7
+       doc.text(20,j,`Número de acciones intercambiadas realizadas: ${this.state.swap}`)
+       j=j+7
+       doc.text(20,j,`Número de acciones incorrectas realizadas: ${this.state.mismatches}`)
+       j=j+7
+       doc.text(20,j,`Número de acciones contrarias realizadas: ${this.state.contr}`)
+       j=j+7
+       doc.text(20,j,`Balance entre acciones correctas e incorrectas:  ${this.state.GA}%`)
        j=j+10
        doc.setFontSize(14)
        doc.setFont('helvetica')
-       doc.setFont(undefined, 'normal')
+       doc.setFont(undefined, 'bold')
        doc.text(20,j,'Sección 2')
        doc.text(20, j, '________')
        j=j+10
-       doc.setFontSize(12)
+       doc.setFontSize(11)
+       doc.setFont(undefined, 'normal')
        doc.text(20,j,`Acciones realizadas en el momento oportuno: ${Math.round(this.state.Diag,-1)}%`)
        j=j+5
-       doc.text(20,j,` Acciones realizadas de forma secuencial: ${this.state.GA}%`)
+       doc.text(19,j,` Acciones realizadas de forma secuencial: ${this.state.GA}%`)
        j=j+10
        doc.setFontSize(14)
        doc.setFont('helvetica')
-       doc.setFont(undefined, 'normal')
+       doc.setFont(undefined, 'bold')
        doc.text(20,j,'Sección 3')
        doc.text(20, j, '________')
        j=j+10
-       doc.setFontSize(12)
-       doc.text(20,j,`Acciones que debían realizarse y se realizaron: ${this.state.Recall}%`)
-       j=j+7
-       doc.text(20,j,`Porcentaje de predicciones positivas correctas: ${this.state.Accuracy}%`)
-       j=j+7
-       doc.text(20,j,`F1: ${this.state.F1}%`)
-       j=j+7
-       doc.text(20,j,`Porcentaje de casos positivos detectados: ${this.state.Precision}%`)
-       j=j+7
-       doc.text(20,j,`Acciones que no deberían realizarse y no se realizaron: ${this.state.Specificity}%`)
-      
+       doc.setFontSize(10)
+       doc.setFont(undefined, 'normal')
+       doc.text(20,j,`Porcentaje de acciones que debían realizarse y se realizaron: ${this.state.Recall}%`)
+       j=j+5
+       doc.text(20,j,`Porcentaje de acciones que deberían realizarse y se realizaron y que no debían realizarse y no se realizaron:${this.state.Accuracy}%`)
+       j=j+5
+       doc.text(20,j,`Porcentaje de acciones que deberían realizarse con respecto a todas las acciones que se han llevado a cabo: ${this.state.Precision}%`)
+       j=j+5
+       doc.text(20,j,`Porcentaje de acciones que no deberían realizarse y no se realizaron:  ${this.state.Specificity}%`)
        
       
        
-      /* doc.text(20, j, `Acciones intercambiadas: ${this.state.swap}`)
-       j=+5
-       doc.text(20, j, `Acciones contrarias: ${this.state.contr}`)
-       j=+5
-       doc.text(30, j, `Acciones no realizadas: ${this.state.gasp}`)
-       j=+5
-       doc.text(30, j, `Acciones erróneas: ${this.state.mismatches}`)
-       j=+5
-       doc.text(30, j, `Acciones erróneas: ${this.state.GA}`)*/
+      
+
        
        // Save the Data
        var file = btoa(doc.output())                
@@ -1670,71 +1669,67 @@ export default class LoginForm extends Component {
              console.log(i);
              j=26
              doc.addPage()
-             doc.setFontSize(14)
+             doc.setFontSize(16)
              doc.setFont('helvetica')
-             doc.setFont(undefined, 'normal')
+             doc.setFont(undefined, 'bold')
              doc.text(20, j, 'Evaluación:')
              doc.text(20, j, '_________')
              j=j+10
-             doc.setFontSize(13)
-             doc.text(20,j,`Nota: ${this.state.Nota}%`)
+             doc.setFontSize(14)
+             doc.setFont('helvetica')
+             doc.setFont(undefined, 'bold')
+             doc.text(20,j,`Nota:${this.state.Nota}%` )
+      
              j=j+10
              doc.setFontSize(14)
              doc.setFont('helvetica')
-             doc.setFont(undefined, 'normal')
+             doc.setFont(undefined, 'bold')
              doc.text(20,j,'Sección 1')
              doc.text(20, j, '________')
              j=j+10
-             doc.setFontSize(12)
-             doc.text(20, j, `Acciones correctas: ${this.state.matches}`)
-             doc.text(80, j, `Acciones  no realizadas: ${this.state.gasp}`)
-             j=j+5
-             doc.text(20,j,`Acciones  intercambiadas: ${this.state.swap}`)
-             doc.text(80,j,`Acciones  erróneas: ${this.state.mismatches}`)
-             j=j+5
-             doc.text(20,j,`Acciones  contrarias: ${this.state.contr}`)
-             doc.text(80,j,`Alinamiento Global: ${this.state.GA}`)
+             doc.setFontSize(11)
+             doc.setFont(undefined, 'normal')
+             doc.text(20, j, `Número de acciones correctas realizadas: ${this.state.matches}`)
+             j=j+7
+             doc.text(20, j, `Número de veces que no has actuado: ${this.state.gasp}`)
+             j=j+7
+             doc.text(20,j,`Número de acciones intercambiadas realizadas: ${this.state.swap}`)
+             j=j+7
+             doc.text(20,j,`Número de acciones incorrectas realizadas: ${this.state.mismatches}`)
+             j=j+7
+             doc.text(20,j,`Número de acciones contrarias realizadas: ${this.state.contr}`)
+             j=j+7
+             doc.text(20,j,`Balance entre acciones correctas e incorrectas:  ${this.state.GA}%`)
              j=j+10
              doc.setFontSize(14)
              doc.setFont('helvetica')
-             doc.setFont(undefined, 'normal')
+             doc.setFont(undefined, 'bold')
              doc.text(20,j,'Sección 2')
              doc.text(20, j, '________')
              j=j+10
-             doc.setFontSize(12)
+             doc.setFontSize(11)
+             doc.setFont(undefined, 'normal')
              doc.text(20,j,`Acciones realizadas en el momento oportuno: ${Math.round(this.state.Diag,-1)}%`)
              j=j+5
-             doc.text(20,j,` Acciones realizadas de forma secuencial: ${this.state.GA}%`)
+             doc.text(19,j,` Acciones realizadas de forma secuencial: ${this.state.GA}%`)
              j=j+10
              doc.setFontSize(14)
              doc.setFont('helvetica')
-             doc.setFont(undefined, 'normal')
+             doc.setFont(undefined, 'bold')
              doc.text(20,j,'Sección 3')
              doc.text(20, j, '________')
              j=j+10
-             doc.setFontSize(12)
-             doc.text(20,j,`Acciones que debían realizarse y se realizaron: ${this.state.Recall}%`)
-             j=j+7
-             doc.text(20,j,`Porcentaje de predicciones positivas correctas: ${this.state.Accuracy}%`)
-             j=j+7
-             doc.text(20,j,`F1: ${this.state.F1}%`)
-             j=j+7
-             doc.text(20,j,`Porcentaje de casos positivos detectados: ${this.state.Precision}%`)
-             j=j+7
-             doc.text(20,j,`Acciones que no deberían realizarse y no se realizaron: ${this.state.Specificity}%`)
-            
+             doc.setFontSize(10)
+             doc.setFont(undefined, 'normal')
+             doc.text(20,j,`Porcentaje de acciones que debían realizarse y se realizaron: ${this.state.Recall}%`)
+             j=j+5
+             doc.text(20,j,`Porcentaje de acciones que deberían realizarse y se realizaron y que no debían realizarse y no se realizaron:${this.state.Accuracy}%`)
+             j=j+5
+             doc.text(20,j,`Porcentaje de acciones que deberían realizarse con respecto a todas las acciones que se han llevado a cabo: ${this.state.Precision}%`)
+             j=j+5
+             doc.text(20,j,`Porcentaje de acciones que no deberían realizarse y no se realizaron:  ${this.state.Specificity}%`)
              
-            
-             
-            /* doc.text(20, j, `Acciones intercambiadas: ${this.state.swap}`)
-             j=+5
-             doc.text(20, j, `Acciones contrarias: ${this.state.contr}`)
-             j=+5
-             doc.text(30, j, `Acciones no realizadas: ${this.state.gasp}`)
-             j=+5
-             doc.text(30, j, `Acciones erróneas: ${this.state.mismatches}`)
-             j=+5
-             doc.text(30, j, `Acciones erróneas: ${this.state.GA}`)*/
+
              
              // Save the Data
              var file = btoa(doc.output())                
@@ -1871,58 +1866,69 @@ export default class LoginForm extends Component {
              console.log(i);
              j=26
              doc.addPage()
-             doc.setFontSize(14)
+             doc.setFontSize(16)
              doc.setFont('helvetica')
-             doc.setFont(undefined, 'normal')
+             doc.setFont(undefined, 'bold')
              doc.text(20, j, 'Evaluación:')
              doc.text(20, j, '_________')
              j=j+10
-             doc.setFontSize(13)
-             doc.text(20,j,`Nota: ${this.state.Nota}%`)
+             doc.setFontSize(14)
+             doc.setFont('helvetica')
+             doc.setFont(undefined, 'bold')
+             doc.text(20,j,`Nota:${this.state.Nota}%` )
+      
              j=j+10
              doc.setFontSize(14)
              doc.setFont('helvetica')
-             doc.setFont(undefined, 'normal')
+             doc.setFont(undefined, 'bold')
              doc.text(20,j,'Sección 1')
              doc.text(20, j, '________')
              j=j+10
-             doc.setFontSize(12)
-             doc.text(20, j, `Acciones correctas: ${this.state.matches}`)
-             doc.text(80, j, `Acciones  no realizadas: ${this.state.gasp}`)
-             j=j+5
-             doc.text(20,j,`Acciones  intercambiadas: ${this.state.swap}`)
-             doc.text(80,j,`Acciones  erróneas: ${this.state.mismatches}`)
-             j=j+5
-             doc.text(20,j,`Acciones  contrarias: ${this.state.contr}`)
-             doc.text(80,j,`Alinamiento Global: ${this.state.GA}`)
+             doc.setFontSize(11)
+             doc.setFont(undefined, 'normal')
+             doc.text(20, j, `Número de acciones correctas realizadas: ${this.state.matches}`)
+             j=j+7
+             doc.text(20, j, `Número de veces que no has actuado: ${this.state.gasp}`)
+             j=j+7
+             doc.text(20,j,`Número de acciones intercambiadas realizadas: ${this.state.swap}`)
+             j=j+7
+             doc.text(20,j,`Número de acciones incorrectas realizadas: ${this.state.mismatches}`)
+             j=j+7
+             doc.text(20,j,`Número de acciones contrarias realizadas: ${this.state.contr}`)
+             j=j+7
+             doc.text(20,j,`Balance entre acciones correctas e incorrectas:  ${this.state.GA}%`)
              j=j+10
              doc.setFontSize(14)
              doc.setFont('helvetica')
-             doc.setFont(undefined, 'normal')
+             doc.setFont(undefined, 'bold')
              doc.text(20,j,'Sección 2')
              doc.text(20, j, '________')
              j=j+10
-             doc.setFontSize(12)
+             doc.setFontSize(11)
+             doc.setFont(undefined, 'normal')
              doc.text(20,j,`Acciones realizadas en el momento oportuno: ${Math.round(this.state.Diag,-1)}%`)
              j=j+5
-             doc.text(20,j,` Acciones realizadas de forma secuencial: ${this.state.GA}%`)
+             doc.text(19,j,` Acciones realizadas de forma secuencial: ${this.state.GA}%`)
              j=j+10
              doc.setFontSize(14)
              doc.setFont('helvetica')
-             doc.setFont(undefined, 'normal')
+             doc.setFont(undefined, 'bold')
              doc.text(20,j,'Sección 3')
              doc.text(20, j, '________')
              j=j+10
-             doc.setFontSize(12)
-             doc.text(20,j,`Acciones que debían realizarse y se realizaron: ${this.state.Recall}%`)
-             j=j+7
-             doc.text(20,j,`Porcentaje de predicciones positivas correctas: ${this.state.Accuracy}%`)
-             j=j+7
-             doc.text(20,j,`F1: ${this.state.F1}%`)
-             j=j+7
-             doc.text(20,j,`Porcentaje de casos positivos detectados: ${this.state.Precision}%`)
-             j=j+7
-             doc.text(20,j,`Acciones que no deberían realizarse y no se realizaron: ${this.state.Specificity}%`)
+             doc.setFontSize(10)
+             doc.setFont(undefined, 'normal')
+             doc.text(20,j,`Porcentaje de acciones que debían realizarse y se realizaron: ${this.state.Recall}%`)
+             j=j+5
+             doc.text(20,j,`Porcentaje de acciones que deberían realizarse y se realizaron y que no debían realizarse y no se realizaron:${this.state.Accuracy}%`)
+             j=j+5
+             doc.text(20,j,`Porcentaje de acciones que deberían realizarse con respecto a todas las acciones que se han llevado a cabo: ${this.state.Precision}%`)
+             j=j+5
+             doc.text(20,j,`Porcentaje de acciones que no deberían realizarse y no se realizaron:  ${this.state.Specificity}%`)
+            
+             
+            
+             
             
              
             /* doc.text(20, j, `Acciones intercambiadas: ${this.state.swap}`)
@@ -2069,59 +2075,69 @@ export default class LoginForm extends Component {
        console.log(i);
        j=26
        doc.addPage()
-       doc.setFontSize(14)
+       doc.setFontSize(16)
        doc.setFont('helvetica')
-       doc.setFont(undefined, 'normal')
+       doc.setFont(undefined, 'bold')
        doc.text(20, j, 'Evaluación:')
        doc.text(20, j, '_________')
        j=j+10
-       doc.setFontSize(13)
-       doc.text(20,j,`Nota: ${this.state.Nota}%`)
+       doc.setFontSize(14)
+       doc.setFont('helvetica')
+       doc.setFont(undefined, 'bold')
+       doc.text(20,j,`Nota:${this.state.Nota}%` )
+
        j=j+10
        doc.setFontSize(14)
        doc.setFont('helvetica')
-       doc.setFont(undefined, 'normal')
+       doc.setFont(undefined, 'bold')
        doc.text(20,j,'Sección 1')
        doc.text(20, j, '________')
        j=j+10
-       doc.setFontSize(12)
-       doc.text(20, j, `Acciones correctas: ${this.state.matches}`)
-       doc.text(80, j, `Acciones  no realizadas: ${this.state.gasp}`)
-       j=j+5
-       doc.text(20,j,`Acciones  intercambiadas: ${this.state.swap}`)
-       doc.text(80,j,`Acciones  erróneas: ${this.state.mismatches}`)
-       j=j+5
-       doc.text(20,j,`Acciones  contrarias: ${this.state.contr}`)
-       doc.text(80,j,`Alinamiento Global: ${this.state.GA}`)
+       doc.setFontSize(11)
+       doc.setFont(undefined, 'normal')
+       doc.text(20, j, `Número de acciones correctas realizadas: ${this.state.matches}`)
+       j=j+7
+       doc.text(20, j, `Número de veces que no has actuado: ${this.state.gasp}`)
+       j=j+7
+       doc.text(20,j,`Número de acciones intercambiadas realizadas: ${this.state.swap}`)
+       j=j+7
+       doc.text(20,j,`Número de acciones incorrectas realizadas: ${this.state.mismatches}`)
+       j=j+7
+       doc.text(20,j,`Número de acciones contrarias realizadas: ${this.state.contr}`)
+       j=j+7
+       doc.text(20,j,`Balance entre acciones correctas e incorrectas:  ${this.state.GA}%`)
        j=j+10
        doc.setFontSize(14)
        doc.setFont('helvetica')
-       doc.setFont(undefined, 'normal')
+       doc.setFont(undefined, 'bold')
        doc.text(20,j,'Sección 2')
        doc.text(20, j, '________')
        j=j+10
-       doc.setFontSize(12)
+       doc.setFontSize(11)
+       doc.setFont(undefined, 'normal')
        doc.text(20,j,`Acciones realizadas en el momento oportuno: ${Math.round(this.state.Diag,-1)}%`)
        j=j+5
-       doc.text(20,j,` Acciones realizadas de forma secuencial: ${this.state.GA}%`)
+       doc.text(19,j,` Acciones realizadas de forma secuencial: ${this.state.GA}%`)
        j=j+10
        doc.setFontSize(14)
        doc.setFont('helvetica')
-       doc.setFont(undefined, 'normal')
+       doc.setFont(undefined, 'bold')
        doc.text(20,j,'Sección 3')
        doc.text(20, j, '________')
        j=j+10
-       doc.setFontSize(12)
-       doc.text(20,j,`Acciones que debían realizarse y se realizaron: ${this.state.Recall}%`)
-       j=j+7
-       doc.text(20,j,`Porcentaje de predicciones positivas correctas: ${this.state.Accuracy}%`)
-       j=j+7
-       doc.text(20,j,`F1: ${this.state.F1}%`)
-       j=j+7
-       doc.text(20,j,`Porcentaje de casos positivos detectados: ${this.state.Precision}%`)
-       j=j+7
-       doc.text(20,j,`Acciones que no deberían realizarse y no se realizaron: ${this.state.Specificity}%`)
-        
+       doc.setFontSize(10)
+       doc.setFont(undefined, 'normal')
+       doc.text(20,j,`Porcentaje de acciones que debían realizarse y se realizaron: ${this.state.Recall}%`)
+       j=j+5
+       doc.text(20,j,`Porcentaje de acciones que deberían realizarse y se realizaron y que no debían realizarse y no se realizaron:${this.state.Accuracy}%`)
+       j=j+5
+       doc.text(20,j,`Porcentaje de acciones que deberían realizarse con respecto a todas las acciones que se han llevado a cabo: ${this.state.Precision}%`)
+       j=j+5
+       doc.text(20,j,`Porcentaje de acciones que no deberían realizarse y no se realizaron:  ${this.state.Specificity}%`)
+       
+      
+       
+      
      
       
      /* doc.text(20, j, `Acciones intercambiadas: ${this.state.swap}`)

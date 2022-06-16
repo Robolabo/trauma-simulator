@@ -6,12 +6,12 @@
   import Popup from 'reactjs-popup';
   import { Redirect } from "react-router-dom"
   import Modal from 'react-awesome-modal';
-
+  import 'bootstrap/dist/css/bootstrap.min.css';
   import {
     CircularProgressbar,
   } from "react-circular-progressbar";
   import "react-circular-progressbar/dist/styles.css";
-  
+  import 'reactjs-popup/dist/index.css';
   // Animation
   import ChangingProgressProvider from "./ChangingProgressProvider";
 import { Button } from 'react-bootstrap';
@@ -146,28 +146,21 @@ import { Button } from 'react-bootstrap';
 
                   <button class="infoButton"  position="right center" onClick={() => this.openModals()} ><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>
                  
-                  <Modal visible={this.state.visibles} width="656.5" height="508" effect="fadeInUp" onClickAway={() => this.closeModals()}>
+                  <Modal visible={this.state.visibles} width="640" height="508" effect="fadeInUp" onClickAway={() => this.closeModals()}>
                     <div>
-                        <h1 style={{color: 'black', display: 'flex', justifyContent:'center',marginTop:'1em'}}>Algoritmo Meedleman-Wunsch modificado</h1>
+                        <h1 style={{color: 'black', display: 'flex', textAlign:'center',marginTop:'1em', marginLeft:'1em'}}>Balance de acciones con el impacto esperado en constantes vitales y acciones que tienen otro impacto diferente</h1>
 
                         <p style={{color: 'black', textAlign:'center',marginLeft:'1em', marginRight:'1em',marginTop:'1em'}}>
                           
-                            Este algoritmo va a calcular la puntuación en función de la repercusión de las acciones. Ya que algunas acciones presentan el mismo impacto en los signos vitales del paciente y por tanto, se pueden intercambiar,
-                          algunas otras son completamente opuestas. También encontramos el caso de acciones que se realizan en el momento adecuado y el caso de las acciones que no se realizan nunca.
-                          Hay que tener en cuenta que, para el manejo del trauma, es peor hacer algo que no se debe hacer que no hacer nada.
+                            Este balance proporciona información acerca del balance de acciones que se hacen y que tienen un impacto en las constante vitales positivo y las que se hacen, que no tienen ese impacto positivo.
+                            Para ello, se tiene en cuenta las acciones que se realizan, cuándo y en qué orden para ver si el impacto es el esperado para estabilizar al paciente.
                           </p>
-                          <p style={{color: 'black', textAlign:'center',marginLeft:'1em', marginRight:'1em'}}>
+                      
 
-                             La puntuación se obtiene siguiendo el orden de:</p>
-                             <p style={{color: 'black',fontStyle:'utalic', textAlign:'center',marginLeft:'1em', marginRight:'1em'}}>
-                             <strong>Acciones correctas{'>'} Acciones intercambiadas{'>'} Acciones no realizas{'>'} Acciones errónea{'>'} Acciones contrarias</strong> 
-                              </p>
-                             
+                          <p style={{color: 'black', textAlign:'center',marginLeft:'1em', marginRight:'1em'}}>
                           
-                          <p style={{color: 'black', textAlign:'center',marginLeft:'1em', marginRight:'1em'}}>
-                          En función del número de acciones que el alumno ha realizado de cada tipo obtenemos una puntuación Global Alligment cuyos valores oscilan del -1 al 1. 
-                          Los valores negativos muestran que la secuencia del alumno y la ideal son muy distintas. Por el contrario, los valores positivos muestran el nivel de semejanza existente entre ambas secuencias.
-
+                          Esta puntuación varía entre 0 y 100% . Los valores cercanos a 0 muestran que la secuencia del alumno y la ideal son muy distintas, por lo que se hacen más acciones que tienen un impacto diferente al esperado en las constantes vitales. Por el contrario, los valores positivos muestran el nivel de semejanza existente entre ambas secuencias, 
+                          por lo tanto, se hacen más acciones que tienen el impacto esperado para la estabilización del paciente.
 
                         </p>
                         <Button style={{backgroundColor: 'var(--custom-blue)',fontSize: '20px', display: 'flex', justifyContent:'flex-start', alignContent:'flex-end'}} onClick={() => this.closeModals()}>Cerrar</Button>
@@ -177,15 +170,64 @@ import { Button } from 'react-bootstrap';
       
               <div className="containerValuesSecOne">   
                 <div className="containerValuesSecOneLeft">
-                  <p style={{fontSize: '1.5rem'}}><strong>Acciones correctas: </strong>{this.state.matches}</p>
-                  <p style={{fontSize: '1.5rem'}}><strong>Acciones intercambiadas: </strong>{this.state.swap}</p>
-                  <p style={{fontSize: '1.5rem'}}><strong>Acciones contrarias: </strong>{this.state.contr}</p>
+                <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Número de acciones correctas realizadas: </strong>{this.state.matches}</p>
+                  <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
+                    position="right center">
+                    <div style={{background:"white"}}>Número de acciones iguales a la secuencia ideal</div>
+                  </Popup>
+                </div>
+
+                 
+                
+                <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Número de acciones intercambiadas realizadas: </strong>{this.state.swap}</p>
+                  <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
+                    position="right center">
+                    <div>Número de acciones diferentes pero con impacto en las constante vitales similar</div>
+                  </Popup>
+                </div>
+
+                
+                 
+                
+                <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Número de acciones contrarias realizadas: </strong>{this.state.contr}</p>
+                  <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
+                    position="right center">
+                    <div>Número de acciones diferentes con impacto en las constantes vitales contrario al esperado</div>
+                  </Popup>
+                </div>
+
                 </div>
                 <div className="containerValuesSecOneRight">
-                  <p style={{fontSize: '1.5rem'}}><strong>Acciones no realizadas: </strong>{this.state.gasp}</p>
-                  <p style={{fontSize: '1.5rem'}}><strong>Acciones erróneas: </strong>{this.state.mismatches}</p>
-                  <p style={{fontSize: '1.5rem'}}><strong>Alinamiento Global: </strong>{this.state.GA}</p>
+                <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Número de veces que no has actuado: </strong>{this.state.gasp}</p>
+                  <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
+                    position="right center">
+                    <div>Deberías haber acometido una acción y, en su lugar, no has acometido ninguna</div>
+                  </Popup>
                 </div>
+
+                <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Número de acciones incorrectas realizadas: </strong>{this.state.mismatches}</p>
+                  <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
+                    position="right center">
+                    <div>Número de acciones diferentes a la secuencia ideal</div>
+                  </Popup>
+                </div>
+                  
+                <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Balance entre acciones correctas e incorrectas: </strong>{this.state.GA}%</p>
+               
+                  <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
+                    position="right center">
+                    <div>Este porcentaje oscila entre 0 y 100%</div>
+                  </Popup>
+                </div>
+                  
+              
+               </div>  
               </div>
       
               <div className="titleSec">
@@ -193,38 +235,42 @@ import { Button } from 'react-bootstrap';
              
               <button class="infoButton"  position="right center" onClick={() => this.openModal()} ><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>
                  
-                  <Modal visible={this.state.visible} width="680" height="392" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                  <Modal visible={this.state.visible} width="850" height="392" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                     <div>
                         
 
                         <h1 style={{color: 'black', display: 'flex', justifyContent:'center',marginTop:'1em'}}>
-                          Acciones realizadas en el momento oportuno:
+                         Acciones realizadas en el momento oportuno:
                           </h1>
                           <p style={{color: 'black', textAlign:'center',marginLeft:'1em', marginRight:'1em'}}>
-                          Esta puntuación se ha construido con el fin de proporcionar información sobre las 
-                          acciones correctas. Este algoritmo da una mayor putuación aquellas acciones correctas que se han realizado en el momento exacto. El valor máximo es 100% y se da cuando las dos secuencias la del alumno y la ideal son idénticas.
+                          Esta puntuación se ha construido con el fin de proporcionar información sobre las acciones que se realizan justo en el momento en que tienen que realizarse.
+                          El valor máximo es 100% y se da cuando las acciones se han hecho en el momento exacto en el que tocaba hacerlas. 
+                          El valor mínimo de 0% se da cuando ninguna de las acciones se ha hecho cuando tocaba.
+                    
                           </p>
                           <h1 style={{color: 'black', display: 'flex', justifyContent:'center'}}>
                         Acciones realizadas de forma secuencial:
                        </h1>
                         <p style={{color: 'black', textAlign:'center',marginLeft:'1em', marginRight:'1em'}}>
-                        Esta puntuación tiene el objetivo de identificar las subsecuencias correctas realizadas por el alumno así como la longitud de la subsecuencia. Esta puntuación de subsecuencia
-                        identificar el número de acciones que se realizan en orden y las va uniendo hasta que encuentra una acción que se ha realizado en el momento equivocado.
+                        Esta puntuación tiene el objetivo de identificar las subsecuencias correctas de acciones realizadas por el alumno. Esta puntuación identifica el número de acciones que se realizan en orden.
+                        Identificando secuencias de acciones correctas, el valor máximo 100% se consigue cuando ambas secuencias son iguales la ideal y la realizada por el alumno. El valor mínimo es 0% y se 
+                        obtiene cuando la secuencia del usuario es totalmente distinta a la ideal.
+                        
                          </p>
                         <Button style={{backgroundColor: 'var(--custom-blue)',fontSize: '20px', display: 'flex', justifyContent:'flex-start', alignContent:'flex-end'}} onClick={() => this.closeModal()}>Cerrar</Button>
                     </div>
                 </Modal>
                 </div>
               <div className="containerValuesSecTwo">
-                <p style={{fontSize: '1.5rem'}}><strong> Acciones realizadas en el momento oportuno: </strong>{this.state.Diag}%</p>
+                <p style={{fontSize: '1.5rem'}}><strong> Acciones realizadas en el momento oportuno: </strong>{Math.round(this.state.Diag,-1)}%</p>
                 <ProgressBar 
-                  variant={this.state.Diag < 50 ? 'danger' : (this.state.Diag < 80 ? 'warning' : 'success')} 
+                  variant={this.state.Diag < 55 ? 'secondary' : (this.state.Diag < 85 ? 'info' : 'primary')} 
                   now={this.state.Diag}
-                  label={`${this.state.Diag}%`}
+                  label={`${Math.round(this.state.Diag,-1)}%`}
                 />
-                <p style={{fontSize: '1.5rem'}}><strong>Acciones realizadas de forma secuencial: </strong>{this.state.Subseq}%</p>
+                <p style={{fontSize: '1.5rem'}}><strong>Acciones realizadas de forma secuencial: </strong>{Math.round(this.state.Subseq,-1)}%</p>
                 <ProgressBar 
-                  variant={this.state.Subseq < 50 ? 'danger' : (this.state.Subseq < 80 ? 'warning' : 'success')} 
+                  variant={this.state.Subseq < 55 ? 'secondary' : (this.state.Subseq < 85 ? 'info' : 'primary')} 
                   now={this.state.Subseq}
                   label={`${this.state.Subseq}%`}
                 />
@@ -236,49 +282,35 @@ import { Button } from 'react-bootstrap';
       
               <div className="containerValuesSecThree">
                 <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
-                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Acciones que debían realizarse y se realizaron: </strong>{this.state.Recall}%</p>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Porcentaje de acciones que debían realizarse y se realizaron: </strong>{Math.round(this.state.Recall,-1)}%</p>
                   <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
                     position="right center">
-                    <div>Cuyos valores van del 0 al 100%</div>
+                    <div>Este porcentaje oscila entre 0 y 100%</div>
                   </Popup>
                 </div>
                 <ProgressBar 
-                  variant={this.state.Recall < 50 ? 'danger' : (this.state.Recall < 80 ? 'warning' : 'success')} 
+                  variant={this.state.Recall < 55 ? 'secondary' : (this.state.Recall < 85 ? 'info' : 'primary')} 
                   now={this.state.Recall}
-                  label={`${this.state.Recall}%`}
+                  label={`${Math.round(this.state.Recall,-1)}%`}
                 />
                 <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
-                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Porcentaje de predicciones positivas correctas: </strong>{this.state.Accuracy}%</p>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Porcentaje de acciones que deberían realizarse y se realizaron y que no debían realizarse y no se realizaron: </strong>{Math.round(this.state.Accuracy,-1)}%</p>
                   <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
                     position="right center">
-                    <div>Cuyos valores van del 0 al 100%</div>
+                    <div>Este porcentaje oscila entre 0 y 100%</div>
                   </Popup>
                 </div>
 
                 <ProgressBar 
-                  variant={this.state.Accuracy < 50 ? 'danger' : (this.state.Accuracy < 80 ? 'warning' : 'success')} 
+                  variant={this.state.Accuracy < 55 ? 'secondary' : (this.state.Accuracy < 55 ? 'info' : 'primary')} 
                   now={this.state.Accuracy}
-                  label={`${this.state.Accuracy}%`}
+                  label={`${Math.round(this.state.Accuracy,-1)}%`}
                 />
-
-                <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
-                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>F1: </strong>{this.state.F1}%</p>
-                  <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
-                    position="right center">
-                    <div>Este porcentaje muestra la media armónica entre las acciones que debían realizarse y se realizaron y el porcentaje de casos positivos detectados</div>
-                  </Popup>
-                </div>
       
-
-                <ProgressBar 
-                  variant={this.state.F1 < 50 ? 'danger' : (this.state.F1 < 80 ? 'warning' : 'success')} 
-                  now={this.state.F1}
-                  label={`${this.state.F1}%`}
-                />
 
                 
                 <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
-                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Porcentaje de casos positivos detectados: </strong>{this.state.Precision}%</p>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Porcentaje de acciones que deberían realizarse con respecto a todas las acciones que se han llevado a cabo: </strong>{Math.round(this.state.Precision,-1)}%</p>
                   <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
                     position="right center">
                     <div>Este porcentaje oscila entre 0 y 100%</div>
@@ -287,24 +319,24 @@ import { Button } from 'react-bootstrap';
       
                 
                 <ProgressBar 
-                  variant={this.state.Precision < 50 ? 'danger' : (this.state.Precision < 80 ? 'warning' : 'success')} 
+                  variant={this.state.Precision < 55 ? 'secondary' : (this.state.Precision < 85 ? 'info' : 'next')} 
                   now={this.state.Precision}
-                  label={`${this.state.Precision}%`}
+                  label={`${Math.round(this.state.Precision,-1)}%`}
                 />
 
                 <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
-                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Acciones que no deberían realizarse y no se realizaron: </strong>{this.state.Specificity}%</p>
+                  <p style={{fontSize: '1.5rem', margin: 0}}><strong>Porcentaje de acciones que no deberían realizarse y no se realizaron: </strong>{Math.round(this.state.Specificity,-1)}%</p>
                   <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
                     position="right center">
-                    <div>Porcentaje de casos positivos detectados</div>
+                    <div>Este porcentaje oscila entre 0 y 100%</div>
                   </Popup>
                 </div>
       
                 
                 <ProgressBar 
-                  variant={this.state.Specificity < 50 ? 'danger' : (this.state.Specificity < 80 ? 'warning' : 'success')} 
+                  variant={this.state.Specificity < 55 ? 'secondary' : (this.state.Specificity < 85 ? 'info' : 'next')} 
                   now={this.state.Specificity}
-                  label={`${this.state.Specificity}%`}
+                  label={`${Math.round(this.state.Specificity,-1)}%`}
                 />
               </div> 
   

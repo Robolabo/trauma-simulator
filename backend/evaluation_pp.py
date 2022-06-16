@@ -285,9 +285,10 @@ escenario_select=lista_esc_Pelvis_P[np.argmax(lista_aciertos)]
 #print(np.argmax(lista_aciertos))
 #print(escenario_select)
 GA=GlobalAlignment(10,8,-4,-2,-1,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)
+G=((GA+1)*100)/2
 #GA=GlobalAlignment(10,5,-10,-5,-2,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)   
 #GA=GlobalAlignment(20,10,-10,-5,0,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)
-print(str(GA))
+print(str(round(G,2)))
 Trainee_Pelvis_Sim_Actions_Common=set(Trainee_Pelvis_Sim_Actions)&set(escenario_select)
 #print(Trainee_Pelvis_Sim_Actions_Common)
 #print('TP:'+ str(len(Trainee_Pelvis_Sim_Actions_Common)))

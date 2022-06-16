@@ -1,6 +1,6 @@
 .containerEvaluation {
     padding: 2%;
-    --custom-blue: #3e98c7;
+    --custom-blue: #30a2df;
 }
 .containerGradeEvaluation {
     width: 20%;
@@ -28,7 +28,7 @@
     width: 20px;
     height: 20px;
     color: black;
-    background-color: white;
+    background-color: rgb(242, 234, 192);
     font-weight: 700;
     transition: border-radius 200ms ease-in-out;
     display: flex;
@@ -44,7 +44,7 @@
 }
 
 .titleSecMain {
-    background-color: var(--custom-blue);
+    background-color: #30a2df;
     padding-left: 2em;
     padding-top: 0.01em;
     padding-bottom: 0.01em;
@@ -55,7 +55,7 @@
 
 .titleSec {
     margin-top: 2em;
-    background-color: var(--custom-blue);
+    background-color:#30a2df;
     padding-left: 2em;
     padding-top: 0.01em;
     padding-bottom: 0.01em;
@@ -86,15 +86,15 @@
     padding-right: 1em;
 }
 .returnButton{
-    background-color: var(--custom-blue);
+    background-color:  #30a2df;
     font-size: 20px;
     margin-right: 100x;
     margin-top: 10px;
-    border-color: var(--custom-blue);
+    border-color: #30a2df;
   }
 
   .closeButton{
-    background-color: var(--custom-blue);;
+    background-color: #30a2df;
     font-size: 20px;
     margin-right: 75x;
     margin-top: 10px;
