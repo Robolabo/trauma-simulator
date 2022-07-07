@@ -2145,36 +2145,7 @@ module.exports = {
 
       },
 
-      {
-        actionId: 71,
-        subactionId:0,
-        actionName: 'Voluven 250ml IV',
-        message: 'Voluven 250ml IV',
-        photo: false,
-        bloodLossMin: -1,
-        bloodLossMax: -1,
-        sistolicPressureMin: -1,
-        sistolicPressureMax: -1,
-        diastolicPressureMin: -1,
-        diastolicPressureMax: -1,
-        heartRateMin: -1,
-        heartRateMax: -1,
-        breathingRateMin: -1,
-        breathingRateMax: -1,
-        urineOutputMin: -1,
-        urineOutputMax: -1,
-        saturationMin: -1,
-        saturationMax: -1,
-        temperatureMin: -1,
-        temperatureMax: -1,
-        partBody: '-1',
-        mentalStatus: '-1',
-        phase: '-1',
-        traumatype: '-1',
-        age: -1,
-        time: 20
-
-      },
+      
 
       {
         actionId: 72,

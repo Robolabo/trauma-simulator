@@ -697,9 +697,9 @@ controller.session = async (req, res) => {
       else{
       console.log(a);
         if (a.session == false) { 
-            return res.status(200).json({success: true});
+            return res.status(200).json({success: true, session: false});
         } else { 
-            return res.status(200).json({success: false}); 
+            return res.status(200).json({success: false, session: true}); 
         }
     }
     } catch (error) {
@@ -761,7 +761,7 @@ controller.logout = async(req, res) => {
                 traineeId: id
             }
         })
-    return res.status(200).json({success: true}) 
+    return res.status(200).json({success: true, session:false}) 
 
 }
 controller.log = async(req, res) => {

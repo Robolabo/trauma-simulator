@@ -152,7 +152,7 @@ import { Button } from 'react-bootstrap';
 
                         <p style={{color: 'black', textAlign:'center',marginLeft:'1em', marginRight:'1em',marginTop:'1em'}}>
                           
-                            Este balance proporciona información acerca del balance de acciones que se hacen y que tienen un impacto en las constante vitales positivo y las que se hacen, que no tienen ese impacto positivo.
+                            Este balance proporciona información acerca del balance de acciones que se hacen y que tienen un impacto en las constantes vitales positivo y las que se hacen, que no tienen ese impacto positivo.
                             Para ello, se tiene en cuenta las acciones que se realizan, cuándo y en qué orden para ver si el impacto es el esperado para estabilizar al paciente.
                           </p>
                       
@@ -184,7 +184,7 @@ import { Button } from 'react-bootstrap';
                   <p style={{fontSize: '1.5rem', margin: 0}}><strong>Número de acciones intercambiadas realizadas: </strong>{this.state.swap}</p>
                   <Popup trigger={ <button class="infoButton"><div class="infoButton-btn"><span class="infoButton-btn-text">i</span></div></button>} 
                     position="right center">
-                    <div>Número de acciones diferentes pero con impacto en las constante vitales similar</div>
+                    <div>Número de acciones diferentes pero con impacto en las constantes vitales similar</div>
                   </Popup>
                 </div>
 
