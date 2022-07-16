@@ -418,14 +418,15 @@ controller.cuatromin = async (req, res) => {
     new Promise(function (success, nosuccess) {
 
         const {spawn} = require('child_process');
-        const pyprog = spawn('py', ['./evaluation_lh.py',secuencia], {shell: true}); // add shell:true so node will spawn it with your system shell.
+        const pyprog = spawn('python', ['./evaluation_lh.py',secuencia], {shell: true}); // add shell:true so node will spawn it with your system shell.
         console.log("Data1")
          // store the printed rows from the script
          // store errors occurred
         pyprog.stdout.on('data', function (data) {
             storeLines.push(data);
-            array = data.toString().split('\r\n');
-            console.log(array)
+            console.log("Soy el data:"+data)
+            array = data.toString().split(' ');
+            console.log("Soy el array:"+array)
             return res.json({success:true, matches: array[0], swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
            // return res.send(array)
         });
@@ -479,14 +480,14 @@ controller.cuatromin = async (req, res) => {
     new Promise(function (success, nosuccess) {
 
         const {spawn} = require('child_process');
-        const pyprog = spawn('py', ['./evaluation_lp.py',secuencia], {shell: true}); // add shell:true so node will spawn it with your system shell.
+        const pyprog = spawn('python', ['./evaluation_lp.py',secuencia], {shell: true}); // add shell:true so node will spawn it with your system shell.
         console.log("Data1")
          // store the printed rows from the script
          // store errors occurred
         pyprog.stdout.on('data', function (data) {
             storeLines.push(data);
             console.log("Data2 "+storeLines)
-           array = data.toString().split('\r\n');
+            array = data.toString().split(' ');
            return res.json({success:true, matches: array[0], swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
         });
 
@@ -539,7 +540,7 @@ controller.cuatromin = async (req, res) => {
     new Promise(function (success, nosuccess) {
 
         const {spawn} = require('child_process');
-        const pyprog = spawn('py', ['./evaluation_ph.py',secuencia], {shell: true}); // add shell:true so node will spawn it with your system shell.
+        const pyprog = spawn('python', ['./evaluation_ph.py',secuencia], {shell: true}); // add shell:true so node will spawn it with your system shell.
         console.log("Data1")
          // store the printed rows from the script
          // store errors occurred
@@ -550,9 +551,10 @@ controller.cuatromin = async (req, res) => {
            
             //return res.json({ success: true})
            // return res.send(data)
-           array = data.toString().split('\r\n');
-           console.log(array.length)
-           return res.json({success:true, matches: Number(array[0]), swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
+           array = data.toString().split(' ');
+           console.log("Numero" + array.length)
+           console.log("Array" + array)
+                      return res.json({success:true, matches: Number(array[0]), swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
         });
 
         pyprog.stderr.on('data', (data) => {
@@ -600,7 +602,7 @@ controller.cuatromin = async (req, res) => {
     new Promise(function (success, nosuccess) {
 
         const {spawn} = require('child_process');
-        const pyprog = spawn('py', ['./evaluation_pp.py',secuencia], {shell: true}); // add shell:true so node will spawn it with your system shell.
+        const pyprog = spawn('python', ['./evaluation_pp.py',secuencia], {shell: true}); // add shell:true so node will spawn it with your system shell.
         console.log("Data1")
          // store the printed rows from the script
          // store errors occurred
@@ -611,7 +613,7 @@ controller.cuatromin = async (req, res) => {
            
             //return res.json({ success: true})
            // return res.send(data)
-           array = data.toString().split('\r\n');
+           array = data.toString().split(' ');
            console.log(array)
            return res.json({success:true, matches: array[0], swap:array[1],contr:array[2],gasp:array[3],mismatches:array[4],GA:array[5],Diag:array[6],Subseq:array[7] ,Precision:array[8],Recall:array[9],Specificity:array[10],Accuracy:array[11],F1:array[12],Nota:array[13] })
         });
@@ -697,9 +699,9 @@ controller.session = async (req, res) => {
       else{
       console.log(a);
         if (a.session == false) { 
-            return res.status(200).json({success: true, session: false});
+            return res.status(200).json({success: true});
         } else { 
-            return res.status(200).json({success: false, session: true}); 
+            return res.status(200).json({success: false}); 
         }
     }
     } catch (error) {
@@ -761,7 +763,7 @@ controller.logout = async(req, res) => {
                 traineeId: id
             }
         })
-    return res.status(200).json({success: true, session:false}) 
+    return res.status(200).json({success: true}) 
 
 }
 controller.log = async(req, res) => {

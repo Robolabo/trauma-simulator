@@ -1477,8 +1477,8 @@ export default class LoginForm extends Component {
        doc.setFontSize(14)
        doc.setFont('helvetica')
        doc.setFont(undefined, 'bold')
-       doc.text(20,j,`Nota:${this.state.Nota}%` )
-
+       doc.text(20,j,`Nota: ${this.state.Nota}` )
+       doc.text(48,j,`%` )
        j=j+10
        doc.setFontSize(14)
        doc.setFont('helvetica')
@@ -1678,7 +1678,8 @@ export default class LoginForm extends Component {
              doc.setFontSize(14)
              doc.setFont('helvetica')
              doc.setFont(undefined, 'bold')
-             doc.text(20,j,`Nota:${this.state.Nota}%` )
+             doc.text(20,j,`Nota:${this.state.Nota}` )
+             doc.text(48,j,`%` )
       
              j=j+10
              doc.setFontSize(14)
@@ -1875,7 +1876,8 @@ export default class LoginForm extends Component {
              doc.setFontSize(14)
              doc.setFont('helvetica')
              doc.setFont(undefined, 'bold')
-             doc.text(20,j,`Nota:${this.state.Nota}%` )
+             doc.text(20,j,`Nota:${this.state.Nota}` )
+             doc.text(48,j,`%` )
       
              j=j+10
              doc.setFontSize(14)
@@ -2084,7 +2086,8 @@ export default class LoginForm extends Component {
        doc.setFontSize(14)
        doc.setFont('helvetica')
        doc.setFont(undefined, 'bold')
-       doc.text(20,j,`Nota:${this.state.Nota}%` )
+       doc.text(20,j,`Nota:${this.state.Nota}` )
+       doc.text(48,j,`%` )
 
        j=j+10
        doc.setFontSize(14)

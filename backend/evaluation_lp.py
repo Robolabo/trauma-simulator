@@ -9,6 +9,12 @@ Original file is located at
 
 import numpy as np
 import sys 
+matches=[]
+swap=[]
+contr=[]
+gaps=0
+mismatches=[]
+G=0
 
 hola=sys.argv[1]
 hola=hola.split(',')
@@ -201,13 +207,13 @@ def GlobalAlignment(matchReward,swapPenalty,contrPenalty,mismatchPenalty,gapPena
 
     optimal_seq1, optimal_seq2 = extractOptimalAllignment(seq1_list, seq2_list, optimalSolutionPath)
 
-    matches=[]
+    #matches=[]
     for i,j in zip(optimal_seq1,optimal_seq2):
         if i==j:
             matches.append(i)
-    print(str(len(matches)))
+    #print(str(len(matches)))
 
-    swap=[]
+   # swap=[]
     for i,j in zip(optimal_seq1,optimal_seq2):
         if ((i == g1[0] and (j == g1[1] or j == g1[2])) 
             or (i == g2[0] and (j == g2[1] or j == g2[2])) 
@@ -216,27 +222,28 @@ def GlobalAlignment(matchReward,swapPenalty,contrPenalty,mismatchPenalty,gapPena
             or (i == g5[0] and j == g5[1]) 
             or (i == g6[0] and j == g6[1])):
             swap.append(i)
-    print(str(len(swap)))
+    #print(str(len(swap)))
 
-    contr=[]
+   # contr=[]
     for i,j in zip(optimal_seq1,optimal_seq2):
         if ((i == g7[0] and (j==g8[0] or j==g8[1] or j==g8[2] or j==g8[3] or j==g8[4] or j==g8[5]
                            or j==g8[6] or j==g8[7] or j==g8[8] or j==g8[9])) 
             or (i == g7[1] and (j==g8[0] or j==g8[1] or j==g8[2] or j==g8[3] or j==g8[4] or j==g8[5]
                            or j==g8[6] or j==g8[7] or j==g8[8] or j==g8[9]))):
             contr.append(i)
-    print(str(len(contr))) 
+    #print(str(len(contr))) 
 
     gaps1=optimal_seq1.count('_')
     gaps2=optimal_seq2.count('_')
-    gaps=gaps1+gaps2
-    print(str(gaps))
+    gapjs=gaps1+gaps2
+    gaps=gapjs
+    #print(str(gaps))
 
-    mismatches=[]
+    #mismatches=[]
     for i,j in zip(optimal_seq1,optimal_seq2):
         if ( i!= j and (i !='_' and j != '_')):
             mismatches.append(i)
-    print(str(len(mismatches)))
+    #print(str(len(mismatches)))
 
     puntuación=len(matches)*matchReward+gaps*gapPenalty+len(mismatches)*mismatchPenalty+len(swap)*swapPenalty+len(contr)*contrPenalty
     #print('GA:'+str(puntuación))
@@ -315,7 +322,7 @@ GA=GlobalAlignment(10,8,-4,-2,-1,Trainee_leftLeg_Sim_Actions0,escenario_select)/
 G=((GA+1)*100)/2
 #GA=GlobalAlignment(10,5,-10,-5,-2,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)   
 #GA=GlobalAlignment(20,10,-10,-5,0,Trainee_Pelvis_Sim_Actions,escenario_select)/(min(len(escenario_select),len(Trainee_Pelvis_Sim_Actions))*10)
-print(str(round(G,2)))
+#print(str(round(G,2)))
 Trainee_leftLeg_Sim_Actions_Common0=set(Trainee_leftLeg_Sim_Actions0)&set(escenario_select)
 #print(Trainee_leftLeg_Sim_Actions_Common0)
 #print('TP:'+ str(len(Trainee_leftLeg_Sim_Actions_Common0)))
@@ -386,17 +393,18 @@ for n,val_n in enumerate((val1)):
 
 nota= (0.2189*F1 +0.2132* Subseq +0.2017*GA+0.1903*SimilarDiagonalScore+0.176*Precision)*100
 
-print(str(round(SimilarDiagonalScore,2)*100))
-print(str(round(Subseq,3)*100))
-print(str(round(Precision,3)))
-print(str(round(Recall,3)*100))
-print(str(round(Specificity,3)))
-print(str(round(Accuracy,2)*100))
-print(str(round(F1,2)*100))  
+#print(str(round(SimilarDiagonalScore,2)*100))
+#print(str(round(Subseq,3)*100))
+#print(str(round(Precision,3)))
+#print(str(round(Recall,3)*100))
+#print(str(round(Specificity,3)))
+#print(str(round(Accuracy,2)*100))
+#print(str(round(F1,2)*100))  
 
  
 def test():
-    print(str(round(nota,2))) 
+     print(str(len(matches)),str(len(swap)),str(len(contr)),str(gaps),str(len(mismatches)),str(round(G,2)),str(round(SimilarDiagonalScore,2)*100),str(round(Subseq,2)*100),str(round(Precision,2)),str(round(Recall,2)*100),str(round(Specificity,2)), str(round(Accuracy,2)*100),str(round(F1,2)*100), str(round(nota,2)))
+    #print(str(round(nota,2))) 
 if __name__=='__main__':
     test() 
 

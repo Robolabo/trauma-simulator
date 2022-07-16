@@ -5,11 +5,11 @@ const sequelize = new Sequelize(
   'root',
   '1234',
   {
-    host: 'localhost',
+    host: 'mysql',
     dialect: 'mysql',
     port: '3306'
   }
 );
 
 module.exports = sequelize;
-//Arreglar cambios en la vista de nueva simulacion, hay campos nuevos.
+//Arreglar cambios en la vista de nueva simulacion, hay campos nuevos.ç

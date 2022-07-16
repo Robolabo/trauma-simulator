@@ -955,7 +955,17 @@ class Actions extends Component {
         this.fillEvaluation(70)
     }
 
-
+   /* voluven(){
+        this.setState({
+            voluvenClicked:true
+        });
+        
+        this.props.change("diastolicPressure", 0.7693,780,1,20)
+        this.props.change("sistolicPressure", 1.1539,780,1,20)
+        this.getMsg("info",71)
+        this.fillInformation("Voluven 250ml IV")
+        this.fillEvaluation(71)
+    }*/
 
     sg(){
         this.setState({
@@ -2141,7 +2151,7 @@ voluven() {
                             <Button className={this.state.fentaniloClicked?"clicked":null} onClick={() => this.fentanilo()}>{t('simulation.fentanilo')}</Button>
                             <Button className={this.state.SSFClicked?"clicked":null} onClick={() => this.SSF()}>{t('simulation.SSF')}</Button>
                             <Button className={this.state.SSF500Clicked?"clicked":null} onClick={() => this.SSF500()}>{t('simulation.SSF500')}</Button>
-                           
+                            
                             {/*<Button onClick={() => this.cristaloides()}>Cristaloides</Button>*/}
                             
                          </div>
@@ -2378,7 +2388,6 @@ voluven() {
                             <Button className={this.state.SSFClicked?"clicked":null} onClick={() => this.SSF()}>{t('simulation.SSF')}</Button>
                             <Button className={this.state.SSF500Clicked?"clicked":null} onClick={() => this.SSF500()}>{t('simulation.SSF500')}</Button>
                             <Button className={this.state.massivetransfusionClicked?"clicked":null} onClick={() => this.massivetransfusion()}>{t('simulation.massivetransfusion')}</Button>
-                            
                             
                             
                          </div>

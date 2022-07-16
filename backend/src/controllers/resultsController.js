@@ -1,6 +1,6 @@
 const controller = {}
 
-const Result = require('../model/Results');
+const Result = require('../model/Result');
 const {QueryTypes, where} = require('sequelize');
 const sequelize = require("sequelize");
 
@@ -9,6 +9,8 @@ controller.create = async (req,res) => {
   // data
   const {traineeId,simulationId, matches,swap,contr,gasp,mismatches,GA,Diag,Subseq,Precision,Recall,Specificity,Accuracy,F1,Nota
   } = req.body;
+
+  console.log("Ha pasado por aqui")
 
     
   // create
@@ -32,9 +34,11 @@ controller.create = async (req,res) => {
     
   })
   .then(function(data){
+    console.log("Ha pasado por aqui")
     return data;
   })
   .catch(error =>{
+    console.log("Ha pasado por aqui2")
     console.log("Errorazo "+error)
     return error;
   })

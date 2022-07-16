@@ -7,7 +7,7 @@ const Trainee = require('./Trainee');
 
 
 
-var Result = sequelize.define('Result', {
+var Result = sequelize.define('result', {
     Id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
